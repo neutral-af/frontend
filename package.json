@@ -1,0 +1,13 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=10.16.0",
+    "npm": ">=6.9.0"
+  },
+  "scripts": {
+    "dev": "gridsome develop",
+    "build": "gridsome build"
+  }
+}
