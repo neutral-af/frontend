@@ -1,1 +1,5 @@
-@import "../node_modules/bulma/bulma.sass";
+@import "utilities";
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";

@@ -1,23 +1,36 @@
 <template>
   <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metaData.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
+    <header class="header navbar">
+      <div class="navbar-brand">
         <g-link
-          class="nav__link"
-          to="/about"
+          to="/"
+          class="navbar-item"
         >
-          About
+          Carbon Offset
         </g-link>
+      </div>
+      <nav class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <g-link
+              class="nav__link"
+              to="/about"
+            >
+              About
+            </g-link>
+          </div>
+        </div>
       </nav>
     </header>
-    <slot />
+    <div class="container">
+      <main class="main">
+        <slot />
+      </main>
+    </div>
   </div>
 </template>
 
-<style>
+<style lang="scss">
 body {
   font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   margin:0;
@@ -25,22 +38,9 @@ body {
   line-height: 1.5;
 }
 
-.layout {
-  max-width: 760px;
-  margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
-}
-
-.nav__link {
-  margin-left: 20px;
+.header,
+.main {
+  max-width: $desktop;
+  margin: $size-6 auto;
 }
 </style>
