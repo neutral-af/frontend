@@ -1,12 +1,9 @@
 @import "~bulma/sass/utilities/_all";
 
-// Set your colors
 $primary: #8c67ef;
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
-
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
   "white": ($white, $black),
   "black": ($black, $white),
@@ -19,10 +16,11 @@ $colors: (
   "danger": ($danger, $danger-invert),
   "twitter": ($twitter, $twitter-invert)
 );
-
-// Links
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
-
 $navbar-breakpoint: 0;
+
+// custom
+$estimate-form-flight-min-height: 250px;
+$card-content-border-top: 1px solid $border;

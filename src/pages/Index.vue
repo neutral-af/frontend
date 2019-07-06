@@ -1,5 +1,8 @@
 <template>
   <Layout>
+    <h1 class="title">
+      Estimate
+    </h1>
     <EstimateForm />
   </Layout>
 </template>

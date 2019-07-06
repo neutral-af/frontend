@@ -6,7 +6,7 @@
           to="/"
           class="navbar-item"
         >
-          Carbon Offset
+          <strong>Carbon Offset</strong>
         </g-link>
       </div>
       <nav class="navbar-menu">
@@ -22,11 +22,19 @@
         </div>
       </nav>
     </header>
-    <div class="container">
-      <main class="main">
+    <main class="main">
+      <div class="container">
         <slot />
-      </main>
-    </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Carbon offset</strong>,
+          Some footer notes
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -41,6 +49,12 @@ body {
 .header,
 .main {
   max-width: $desktop;
-  margin: $size-6 auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main {
+  margin-top: $size-6;
+  margin-bottom: $size-2;
 }
 </style>

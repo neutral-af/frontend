@@ -9,17 +9,15 @@
         class="card-header-icon"
         @click="remove"
       >
-        <span class="icon">
-          <i
-            class="fas fa-trash"
-            aria-hidden="true"
-          />
-        </span>
+        <BIcon icon="trash" />
       </a>
     </header>
     <div class="card-content">
-      <template v-if="type === 'number'">
-        <EstimateFormNumber :id="id" />
+      <template v-if="flight.type === 'number'">
+        <EstimateFormNumber
+          :number="flight.number"
+          @update="updateNumber"
+        />
         <p class="field">
           Missing flight number? Insert
           <a @click="toggleType">
@@ -29,7 +27,12 @@
         </p>
       </template>
       <template v-else>
-        <EstimateFormLocations :id="id" />
+        <EstimateFormLocations
+          :from="flight.from"
+          :to="flight.to"
+          @updateFrom="updateFrom"
+          @updateTo="updateTo"
+        />
         <p class="field">
           Have a
           <a @click="toggleType">
@@ -39,25 +42,31 @@
         </p>
       </template>
     </div>
+    <div class="card-content">
+      <EstimateFormDatePassengers
+        :date="flight.date"
+        :passengers="flight.passengers"
+        @updateDate="updateDate"
+        @updatePassengers="updatePassengers"
+      />
+    </div>
   </article>
 </template>
 
 <script>
 import EstimateFormNumber from '~/components/molecules/EstimateFormNumber'
 import EstimateFormLocations from '~/components/molecules/EstimateFormLocations'
+import EstimateFormDatePassengers from '~/components/molecules/EstimateFormDatePassengers'
 
 export default {
   components: {
     EstimateFormNumber,
-    EstimateFormLocations
+    EstimateFormLocations,
+    EstimateFormDatePassengers
   },
   props: {
     id: {
       type: Number,
-      required: true
-    },
-    type: {
-      type: String,
       required: true
     },
     removeable: {
@@ -65,13 +74,33 @@ export default {
       default: false
     }
   },
+  computed: {
+    flight () {
+      return this.$store.getters['estimateForm/getFlight'](this.id)
+    }
+  },
   methods: {
+    update (data) {
+      this.$store.commit('estimateForm/updateFlight', { id: this.id, data })
+    },
     toggleType () {
-      const type = this.type === 'number' ? 'locations' : 'number'
-      this.$store.commit('estimateForm/updateFlight', {
-        id: this.id,
-        data: { type }
-      })
+      const type = this.flight.type === 'number' ? 'locations' : 'number'
+      this.update({ type })
+    },
+    updateNumber (value) {
+      this.update({ number: value })
+    },
+    updateFrom (value) {
+      this.update({ from: value })
+    },
+    updateTo (value) {
+      this.update({ to: value })
+    },
+    updateDate (value) {
+      this.update({ date: value })
+    },
+    updatePassengers (value) {
+      this.update({ passengers: value })
     },
     remove () {
       this.$store.commit('estimateForm/removeFlight', this.id)
@@ -80,8 +109,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .estimate-form-flight {
-  min-height: 250px;
+  min-height: $estimate-form-flight-min-height;
+}
+
+.card-content:not(:first-child) {
+  border-top: $card-content-border-top;
 }
 </style>

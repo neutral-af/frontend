@@ -19,17 +19,18 @@
           class="card add-flight"
           @click="addFlight"
         >
-          <b-icon icon="plus" /> Add flight
+          <BIcon icon="plus" /> Add flight
         </a>
       </div>
     </div>
     <div class="field actions">
-      <button
-        type="submit"
-        class="button is-primary is-large"
+      <BButton
+        native-type="submit"
+        type="is-primary"
+        size="is-large"
       >
         Estimate
-      </button>
+      </BButton>
     </div>
   </form>
 </template>
@@ -65,7 +66,7 @@ export default {
 <style lang="scss">
 .add-flight {
   display: block;
-  min-height: 250px;
+  min-height: $estimate-form-flight-min-height;
   display: flex;
   justify-content: center;
   align-items: center;

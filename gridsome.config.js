@@ -4,7 +4,10 @@ function addStyleResource (rule) {
   rule.use('style-resource')
     .loader('style-resources-loader')
     .options({
-      patterns: [path.resolve(__dirname, './src/assets/sass/_utilities.scss')]
+      patterns: [
+        path.resolve(__dirname, './src/assets/sass/_utilities.scss'),
+        path.resolve(__dirname, './src/assets/sass/_variables.scss')
+      ]
     })
 }
 

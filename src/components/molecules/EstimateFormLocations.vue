@@ -9,7 +9,7 @@
         name="from"
         size="is-medium"
         placeholder="e.g. Milan, Malpensa or MXP"
-        :value="flight.from"
+        :value="from"
         @input="updateFrom"
       />
     </Field>
@@ -22,7 +22,7 @@
         name="to"
         size="is-medium"
         placeholder="e.g. Toronto, Pearson or YYZ"
-        :value="flight.to"
+        :value="to"
         @input="updateTo"
       />
     </Field>
@@ -32,28 +32,21 @@
 <script>
 export default {
   props: {
-    id: {
-      type: Number,
+    from: {
+      type: String,
+      required: true
+    },
+    to: {
+      type: String,
       required: true
     }
   },
-  computed: {
-    flight () {
-      return this.$store.getters['estimateForm/getFlight'](this.id)
-    }
-  },
   methods: {
-    updateFlight (data) {
-      this.$store.commit('estimateForm/updateFlight', {
-        id: this.id,
-        data
-      })
-    },
     updateFrom ({ target: { value } }) {
-      this.updateFlight({ from: value })
+      this.$emit('updateFrom', value)
     },
     updateTo ({ target: { value } }) {
-      this.updateFlight({ to: value })
+      this.$emit('updateTo', value)
     }
   }
 }
