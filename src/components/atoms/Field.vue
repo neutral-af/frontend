@@ -1,11 +1,11 @@
 <template>
-  <b-field
+  <BField
     v-bind="$attrs"
     :class="[size]"
     v-on="$listeners"
   >
     <slot />
-  </b-field>
+  </BField>
 </template>
 
 <script>

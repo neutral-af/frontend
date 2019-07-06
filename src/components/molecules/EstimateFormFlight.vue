@@ -1,46 +1,44 @@
 <template>
-  <div class="field">
-    <article class="card">
-      <header class="card-header">
-        <div class="card-header-title">
-          Flight {{ id }}
-        </div>
-        <a
-          v-if="removeable"
-          class="card-header-icon"
-          @click="remove"
-        >
-          <span class="icon">
-            <i
-              class="fas fa-trash"
-              aria-hidden="true"
-            />
-          </span>
-        </a>
-      </header>
-      <div class="card-content">
-        <template v-if="type === 'number'">
-          <EstimateFormNumber :id="id" />
-          <p class="field">
-            Don't have flight number? Insert
-            <a @click="toggleType">
-              departure and arrival airport
-            </a>
-          </p>
-        </template>
-        <template v-else>
-          <EstimateFormLocations :id="id" />
-          <p class="field">
-            Have a
-            <a @click="toggleType">
-              flight number
-            </a>
-            instead?
-          </p>
-        </template>
+  <article class="card estimate-form-flight">
+    <header class="card-header">
+      <div class="card-header-title">
+        Flight {{ id }}
       </div>
-    </article>
-  </div>
+      <a
+        v-if="removeable"
+        class="card-header-icon"
+        @click="remove"
+      >
+        <span class="icon">
+          <i
+            class="fas fa-trash"
+            aria-hidden="true"
+          />
+        </span>
+      </a>
+    </header>
+    <div class="card-content">
+      <template v-if="type === 'number'">
+        <EstimateFormNumber :id="id" />
+        <p class="field">
+          Missing flight number? Insert
+          <a @click="toggleType">
+            airports
+          </a>
+          instead
+        </p>
+      </template>
+      <template v-else>
+        <EstimateFormLocations :id="id" />
+        <p class="field">
+          Have a
+          <a @click="toggleType">
+            flight number
+          </a>
+          instead?
+        </p>
+      </template>
+    </div>
   </article>
 </template>
 
@@ -81,3 +79,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.estimate-form-flight {
+  min-height: 250px;
+}
+</style>
