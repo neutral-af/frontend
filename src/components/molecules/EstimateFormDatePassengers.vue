@@ -1,9 +1,10 @@
 <template>
-  <fieldset class="field">
+  <Field grouped>
     <Field
       label="Date"
       size="is-medium"
       label-for="date"
+      class="date"
     >
       <BInput
         name="date"
@@ -16,8 +17,8 @@
     <Field
       label="Passengers"
       size="is-medium"
-      :label-position="null"
       label-for="passengers"
+      class="passengers"
     >
       <BNumberinput
         name="passengers"
@@ -25,11 +26,12 @@
         placeholder=""
         min="1"
         max="10"
+        controls-position="compact"
         :value="passengers"
         @input="updatePassengers"
       />
     </Field>
-  </fieldset>
+  </Field>
 </template>
 
 <script>
@@ -61,3 +63,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.date .input {
+  width: 8em;
+}
+
+.passengers.is-floating-label.is-medium {
+  .label {
+    left: 50%;
+    transform: translateX(-50%)
+  }
+
+  input[type="number"] {
+    width: 5em;
+  }
+}
+</style>
