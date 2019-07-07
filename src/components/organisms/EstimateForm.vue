@@ -1,12 +1,10 @@
 <template>
   <form @submit.prevent="send">
-    <div class="columns is-centered is-multiline">
-      <div
-        v-for="flight in flights"
-        :key="flight.id"
-        class="column is-half"
-      >
+    <div class="columns is-centered">
+      <div class="column is-half">
         <EstimateFormFlight
+          v-for="flight in flights"
+          :key="flight.id"
           :removeable="flight.id > 1"
           v-bind="flight"
         />

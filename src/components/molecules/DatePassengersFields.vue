@@ -1,5 +1,8 @@
 <template>
-  <Field grouped>
+  <Field
+    grouped
+    class="date-passengers-fields"
+  >
     <Field
       label="Date"
       size="is-medium"
@@ -64,6 +67,10 @@ export default {
 </script>
 
 <style lang="scss">
+.date-passengers-fields {
+  margin-top: $size-4;
+}
+
 .date .input {
   width: 8em;
 }

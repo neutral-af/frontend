@@ -11,6 +11,7 @@ export default (Vue, { appOptions, router, head, isClient }) => {
     rel: 'stylesheet',
     href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css'
   })
+  head.bodyAttrs = { class: 'has-navbar-fixed-top' }
 
   addStore(Vue, { appOptions })
 

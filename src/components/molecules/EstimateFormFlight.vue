@@ -1,47 +1,38 @@
 <template>
-  <article class="card estimate-form-flight">
-    <header class="card-header">
-      <div class="card-header-title">
-        Flight {{ id }}
-      </div>
-      <a
-        v-if="removeable"
-        class="card-header-icon"
-        @click="remove"
-      >
-        <BIcon icon="trash" />
-      </a>
-    </header>
-    <div class="card-content">
-      <template v-if="flight.type === 'number'">
-        <NumberField
-          :number="flight.number"
-          @update="updateNumber"
-        />
-        <p class="field">
-          Missing flight number? Insert <a @click="toggleType">airports</a> instead
-        </p>
-      </template>
-      <template v-else>
-        <LocationsFields
-          :from="flight.from"
-          :to="flight.to"
-          @updateFrom="updateFrom"
-          @updateTo="updateTo"
-        />
-        <p class="field">
-          Have a <a @click="toggleType">flight number</a> instead?
-        </p>
-      </template>
-    </div>
-    <div class="card-content">
-      <DatePassengersFields
-        :date="flight.date"
-        :passengers="flight.passengers"
-        @updateDate="updateDate"
-        @updatePassengers="updatePassengers"
+  <article class="estimate-form-flight">
+    <a
+      v-if="removeable"
+      class="card-header-icon"
+      @click="remove"
+    >
+      <BIcon icon="trash" />
+    </a>
+    <template v-if="flight.type === 'number'">
+      <NumberField
+        :number="flight.number"
+        @update="updateNumber"
       />
-    </div>
+      <p class="field">
+        Missing flight number? Insert <a @click="toggleType">airports</a> instead
+      </p>
+    </template>
+    <template v-else>
+      <LocationsFields
+        :from="flight.from"
+        :to="flight.to"
+        @updateFrom="updateFrom"
+        @updateTo="updateTo"
+      />
+      <p class="field">
+        Have a <a @click="toggleType">flight number</a> instead?
+      </p>
+    </template>
+    <DatePassengersFields
+      :date="flight.date"
+      :passengers="flight.passengers"
+      @updateDate="updateDate"
+      @updatePassengers="updatePassengers"
+    />
   </article>
 </template>
 

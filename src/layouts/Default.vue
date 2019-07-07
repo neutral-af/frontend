@@ -1,26 +1,28 @@
 <template>
   <div class="layout">
-    <header class="header navbar">
-      <div class="navbar-brand">
-        <g-link
-          to="/"
-          class="navbar-item"
-        >
-          <strong>Carbon Offset</strong>
-        </g-link>
-      </div>
-      <nav class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <g-link
-              class="nav__link"
-              to="/about"
-            >
-              About
-            </g-link>
-          </div>
+    <header class="header navbar is-fixed-top">
+      <div class="container">
+        <div class="navbar-brand">
+          <g-link
+            to="/"
+            class="navbar-item"
+          >
+            <strong>Carbon Offset</strong>
+          </g-link>
         </div>
-      </nav>
+        <nav class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <g-link
+                class="nav__link"
+                to="/about"
+              >
+                About
+              </g-link>
+            </div>
+          </div>
+        </nav>
+      </div>
     </header>
     <main class="main">
       <div class="container">
@@ -46,15 +48,19 @@ body {
   line-height: 1.5;
 }
 
+.layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 .header,
 .main {
-  max-width: $desktop;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0 $size-7;
 }
 
 .main {
-  margin-top: $size-6;
-  margin-bottom: $size-2;
+  flex: 1;
+  padding-bottom: $size-2;
 }
 </style>
