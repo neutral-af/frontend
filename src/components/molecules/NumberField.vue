@@ -4,8 +4,11 @@
       label="Flight number"
       size="is-medium"
       label-for="number"
+      type="{ is-danger: errors.has('number') }"
+      :message="errors.first('number')"
     >
       <BInput
+        v-validate="'required'"
         name="number"
         size="is-medium"
         placeholder="e.g. AC895"

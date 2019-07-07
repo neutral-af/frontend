@@ -1,12 +1,10 @@
-import { DateTime } from 'luxon'
-
 const createFlight = (id) => ({
   id,
   type: 'number',
   number: '',
   from: '',
   to: '',
-  date: DateTime.local(),
+  date: new Date(),
   passengers: 1
 })
 

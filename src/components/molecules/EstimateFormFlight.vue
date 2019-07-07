@@ -14,36 +14,28 @@
     </header>
     <div class="card-content">
       <template v-if="flight.type === 'number'">
-        <EstimateFormNumber
+        <NumberField
           :number="flight.number"
           @update="updateNumber"
         />
         <p class="field">
-          Missing flight number? Insert
-          <a @click="toggleType">
-            airports
-          </a>
-          instead
+          Missing flight number? Insert <a @click="toggleType">airports</a> instead
         </p>
       </template>
       <template v-else>
-        <EstimateFormLocations
+        <LocationsFields
           :from="flight.from"
           :to="flight.to"
           @updateFrom="updateFrom"
           @updateTo="updateTo"
         />
         <p class="field">
-          Have a
-          <a @click="toggleType">
-            flight number
-          </a>
-          instead?
+          Have a <a @click="toggleType">flight number</a> instead?
         </p>
       </template>
     </div>
     <div class="card-content">
-      <EstimateFormDatePassengers
+      <DatePassengersFields
         :date="flight.date"
         :passengers="flight.passengers"
         @updateDate="updateDate"
@@ -54,15 +46,15 @@
 </template>
 
 <script>
-import EstimateFormNumber from '~/components/molecules/EstimateFormNumber'
-import EstimateFormLocations from '~/components/molecules/EstimateFormLocations'
-import EstimateFormDatePassengers from '~/components/molecules/EstimateFormDatePassengers'
+import NumberField from '~/components/molecules/NumberField'
+import LocationsFields from '~/components/molecules/LocationsFields'
+import DatePassengersFields from '~/components/molecules/DatePassengersFields'
 
 export default {
   components: {
-    EstimateFormNumber,
-    EstimateFormLocations,
-    EstimateFormDatePassengers
+    NumberField,
+    LocationsFields,
+    DatePassengersFields
   },
   props: {
     id: {
@@ -110,10 +102,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.estimate-form-flight {
-  min-height: $estimate-form-flight-min-height;
-}
-
 .card-content:not(:first-child) {
   border-top: $card-content-border-top;
 }

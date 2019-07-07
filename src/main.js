@@ -1,4 +1,5 @@
 import Buefy from 'buefy'
+import VeeValidate from 'vee-validate'
 
 import addStore from '~/store'
 import Layout from '~/layouts/Default'
@@ -18,6 +19,7 @@ export default (Vue, { appOptions, router, head, isClient }) => {
     defaultContainerElement: '#content',
     defaultFieldLabelPosition: 'on-border'
   })
+  Vue.use(VeeValidate)
   Vue.component('Layout', Layout)
   Vue.component('Field', Field)
 }

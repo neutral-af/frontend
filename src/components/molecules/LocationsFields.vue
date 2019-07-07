@@ -4,8 +4,11 @@
       label="Departure airport"
       size="is-medium"
       label-for="from"
+      type="{ is-danger: errors.has('from') }"
+      :message="errors.first('from')"
     >
       <BInput
+        v-validate="'required'"
         name="from"
         size="is-medium"
         placeholder="e.g. Milan, Malpensa or MXP"
@@ -17,8 +20,11 @@
       label="Arrival airport"
       size="is-medium"
       label-for="to"
+      type="{ is-danger: errors.has('to') }"
+      :message="errors.first('to')"
     >
       <BInput
+        v-validate="'required'"
         name="to"
         size="is-medium"
         placeholder="e.g. Toronto, Pearson or YYZ"

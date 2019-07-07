@@ -21,18 +21,19 @@ export default {
 
 <style lang="scss">
 .field {
-  &.is-floating-label {
+  &:not(.is-grouped) {
+    > .field.is-floating-label.is-medium:not(:last-child) {
+      margin-bottom: $size-4;
+    }
+  }
+
+  > .field.is-floating-label {
     .label {
       padding-left: 0.25em;
       padding-right: 0.25em;
     }
 
     &.is-medium {
-
-      &:not(:last-child) {
-        margin-bottom: $size-4;
-      }
-
       .label {
         font-size: calc(#{$size-normal} * 7 / 8);
       }

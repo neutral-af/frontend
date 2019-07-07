@@ -1,8 +1,5 @@
 <template>
-  <form
-    action=""
-    @submit.prevent="send"
-  >
+  <form @submit.prevent="send">
     <div class="columns is-centered is-multiline">
       <div
         v-for="flight in flights"
@@ -14,14 +11,15 @@
           v-bind="flight"
         />
       </div>
-      <div class="column is-half">
-        <a
-          class="card add-flight"
-          @click="addFlight"
-        >
-          <BIcon icon="plus" /> Add flight
-        </a>
-      </div>
+    </div>
+    <div class="field actions">
+      <BButton
+        type="button"
+        icon-left="plus"
+        @click="addFlight"
+      >
+        Add flight
+      </BButton>
     </div>
     <div class="field actions">
       <BButton
@@ -57,21 +55,16 @@ export default {
       this.$store.commit('estimateForm/addFlight')
     },
     async send () {
-      this.$fetch('/other-page')
+      const valid = await this.$validator.validateAll()
+      if (valid) {
+        this.$fetch('/other-page')
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-.add-flight {
-  display: block;
-  min-height: $estimate-form-flight-min-height;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .actions {
   text-align: center;
 }

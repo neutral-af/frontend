@@ -30,7 +30,7 @@
     <footer class="footer">
       <div class="content has-text-centered">
         <p>
-          <strong>Carbon offset</strong>,
+          <strong>Carbon Offset</strong>,
           Some footer notes
         </p>
       </div>

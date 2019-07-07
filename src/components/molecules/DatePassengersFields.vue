@@ -5,12 +5,15 @@
       size="is-medium"
       label-for="date"
       class="date"
+      type="{ is-danger: errors.has('date') }"
+      :message="errors.first('date')"
     >
-      <BInput
+      <BDatepicker
+        v-validate="'required'"
         name="date"
         size="is-medium"
         placeholder="Date"
-        :value="displayDate"
+        :value="date"
         @input="updateDate"
       />
     </Field>
@@ -19,8 +22,11 @@
       size="is-medium"
       label-for="passengers"
       class="passengers"
+      type="{ is-danger: errors.has('passengers') }"
+      :message="errors.first('passengers')"
     >
       <BNumberinput
+        v-validate="'required'"
         name="passengers"
         size="is-medium"
         placeholder=""
@@ -35,8 +41,6 @@
 </template>
 
 <script>
-import { DateTime } from 'luxon'
-
 export default {
   props: {
     passengers: {
@@ -44,18 +48,13 @@ export default {
       required: true
     },
     date: {
-      type: DateTime,
+      type: Date,
       required: true
-    }
-  },
-  data () {
-    return {
-      displayDate: this.date.toISODate()
     }
   },
   methods: {
     updateDate (value) {
-      this.$emit('updateDate', DateTime.fromISO(value))
+      this.$emit('updateDate', value)
     },
     updatePassengers (value) {
       this.$emit('updatePassengers', value)
