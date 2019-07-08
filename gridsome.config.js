@@ -21,5 +21,13 @@ module.exports = {
   },
   siteName: 'Carbon Offset',
   siteDescription: 'Removes the carbon emissions from your online purchases',
-  plugins: []
+  plugins: [
+    {
+      use: '@gridsome/source-graphql',
+      options: {
+        url: 'https://backend.jasongwartz.now.sh/graphql',
+        fieldName: 'fromBackend'
+      }
+    }
+  ]
 }

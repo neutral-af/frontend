@@ -12,6 +12,7 @@
     "build": "gridsome build"
   },
   "dependencies": {
+    "@gridsome/source-graphql": "^0.1.0",
     "buefy": "^0.7.8",
     "gridsome": "^0.6.0",
     "vee-validate": "^2.2.11",
