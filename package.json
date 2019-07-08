@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=10.16.0",
+    "node": ">=10.15.3",
     "npm": ">=6.9.0"
   },
   "scripts": {
     "dev": "gridsome develop",
     "explore": "gridsome explore",
-    "build": "gridsome build"
+    "build": "gridsome build",
+    "now-build": "yarn build"
   },
   "dependencies": {
     "@gridsome/source-graphql": "^0.1.0",

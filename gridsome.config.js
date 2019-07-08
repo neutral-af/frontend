@@ -21,6 +21,7 @@ module.exports = {
   },
   siteName: 'Carbon Offset',
   siteDescription: 'Removes the carbon emissions from your online purchases',
+  pathPrefix: '/web',
   plugins: [
     {
       use: '@gridsome/source-graphql',
