@@ -52,12 +52,12 @@
         >
           Cancel
         </button>
-        <button
-          href="/payments"
+        <router-link
+          to="/checkout"
           class="button is-primary"
         >
           Pay now
-        </button>
+        </router-link>
       </footer>
     </div>
   </form>
