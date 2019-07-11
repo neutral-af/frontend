@@ -15,6 +15,7 @@
   "dependencies": {
     "@gridsome/source-graphql": "^0.1.0",
     "buefy": "^0.7.8",
+    "graphql-request": "^1.8.2",
     "gridsome": "^0.6.0",
     "vee-validate": "^2.2.11",
     "vuex": "^3.1.1"

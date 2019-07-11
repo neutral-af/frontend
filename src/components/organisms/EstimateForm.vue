@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="send">
+  <form @submit.prevent="openEstimateModal">
     <div class="columns is-centered">
       <div class="column is-half">
         <EstimateFormFlight
@@ -24,23 +24,37 @@
         native-type="submit"
         type="is-primary"
         size="is-large"
+        :class="{ 'is-loading': fetching }"
       >
         Estimate
       </BButton>
+
+      <b-modal
+        :active.sync="estimatePromptModalActive"
+        has-modal-card
+      >
+        <EstimatePrompt :estimate="estimate" />
+      </b-modal>
     </div>
   </form>
 </template>
 
 <script>
 import EstimateFormFlight from '~/components/molecules/EstimateFormFlight'
+import EstimatePrompt from '~/components/organisms/EstimatePrompt'
+import { request as graphQLRequest } from 'graphql-request'
 
 export default {
   components: {
-    EstimateFormFlight
+    EstimateFormFlight,
+    EstimatePrompt
   },
   data () {
     return {
-      withFlightNumber: true
+      estimatePromptModalActive: false,
+      withFlightNumber: true,
+      fetching: false,
+      estimate: {}
     }
   },
   computed: {
@@ -52,10 +66,34 @@ export default {
     addFlight () {
       this.$store.commit('estimateForm/addFlight')
     },
-    async send () {
-      const valid = await this.$validator.validateAll()
-      if (valid) {
-        this.$fetch('/other-page')
+    async openEstimateModal () {
+      this.fetching = true
+      await this.getEstimate()
+      this.fetching = false
+      this.estimatePromptModalActive = true
+    },
+    async getEstimate () {
+      console.log(this.flights)
+      const flights = [
+        { departure: 'YYZ', arrival: 'LHR' }
+      ]
+      const query = `
+      query newEstimate($flights: [Flight!]!, $currency: Currency) {
+        estimate {
+          fromFlights(flights:$flights) {
+            carbon price(currency:$currency) { currency, cents }
+          }
+        }
+      }
+    `
+
+      try {
+        const url = 'http://localhost:8000/graphql'
+        const estimateData = await graphQLRequest(url, query, { flights, currency: 'CAD' })
+        console.log('query response!', estimateData)
+        this.estimate = estimateData.estimate.fromFlights
+      } catch (e) {
+        console.error(e)
       }
     }
   }
