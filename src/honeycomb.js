@@ -1,7 +1,7 @@
 export function trackEvent (name, data) {
   const event = {
     name,
-    service_name: 'payments-frontend',
+    service_name: 'web-frontend',
     ...window && { user_agent: window.navigator.userAgent },
     ...data
   }

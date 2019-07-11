@@ -2,7 +2,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const { request: graphQLRequest } = require('graphql-request')
 const { trackEvent } = require('../src/honeycomb')
 
-
 const RESPONSE_HEADERS = {
   'Access-Control-Allow-Methods': 'POST',
   'Access-Control-Allow-Origin': '*',
@@ -73,23 +72,22 @@ const generateResponse = async (intent, { saveCard, estimateID }) => {
     const query = `
       mutation {
         purchase {
-            fromEstimate(estimateID:"${ estimateID }", provider:Cloverly) {
+            fromEstimate(estimateID:"${estimateID}", provider:Cloverly) {
                 id carbon
             }
         }
       }
     `
+    const response = {
+      success: true
+    }
 
     try {
       const purchaseConfirm = await graphQLRequest(process.env.GRAPHQL_BACKEND_URL, query)
+      response.purchaseID = purchaseConfirm.id
+      response.purchaseCarbon = purchaseConfirm.carbon
     } catch (e) {
       return { error: 'Unable to fulfil order: ' + e }
-    }
-
-    const response = {
-      success: true,
-      purchaseID: purchaseConfirm.id,
-      purchaseCarbon: purchaseConfirm.carbon
     }
 
     if (saveCard) {
