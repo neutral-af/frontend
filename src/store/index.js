@@ -1,15 +1,22 @@
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
+import estimate from './modules/estimate'
 import estimateForm from './modules/estimate-form'
 
 Vue.use(Vuex)
 
-const debug = process.env.NODE_ENV !== 'production'
+const strict = process.env.NODE_ENV !== 'production'
+const persistedState = createPersistedState({
+  reducer: ({ estimate }) => estimate
+})
 
 export default new Store({
   modules: {
-    estimateForm
+    estimateForm,
+    estimate
   },
-  strict: debug
+  plugins: [persistedState],
+  strict: strict
 })

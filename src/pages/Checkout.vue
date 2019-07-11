@@ -148,8 +148,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { Card, instance } from 'vue-stripe-elements-plus'
 import { trackEvent } from '../honeycomb'
+
+const stateKeys = ['carbon', 'currency', 'estimateId', 'priceCents']
 
 export default {
   name: 'Checkout',
@@ -184,18 +187,7 @@ export default {
     }
   },
   computed: {
-    carbon () {
-      return 123
-    },
-    currency () {
-      return 'eur'
-    },
-    estimateID () {
-      return 'abc'
-    },
-    priceCents () {
-      return 20
-    },
+    ...mapState('estimate', stateKeys),
     priceLocal () {
       return (this.priceCents / 100).toLocaleString(navigator.languages[0], {
         style: 'currency',
@@ -217,7 +209,7 @@ export default {
     }
   },
   created () {
-    if (['carbon', 'currency', 'estimateID', 'priceCents'].some(value => !value)) {
+    if (stateKeys.some(value => !this[value])) {
       return this.$router.replace('/')
     }
   },
