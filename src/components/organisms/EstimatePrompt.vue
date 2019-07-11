@@ -41,6 +41,21 @@
                 >
               </p>
             </div>
+
+            <div class="field select">
+              <select
+                :value="price.currency"
+                @input="updateCurrency"
+              >
+                <option
+                  v-for="c in currencies"
+                  :key="c"
+                  :value="c"
+                >
+                  {{ c }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
       </section>
@@ -55,6 +70,7 @@
         <router-link
           to="/checkout"
           class="button is-primary"
+          :class="{ 'is-loading':fetching }"
         >
           Pay now
         </router-link>
@@ -64,24 +80,42 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
-  props: {
-    estimate: {
-      type: Object,
-      default: () => {}
+  // props: {
+  //   estimate: {
+  //     type: Object,
+  //     default: () => {}
+  //   }
+  // },
+  data () {
+    return {
+      currencies: ['EUR', 'CAD', 'GBP', 'USD']
     }
   },
   computed: {
+    ...mapState('estimate', ['price', 'carbon', 'fetching']),
     priceLocal () {
-      return (this.estimate.price.cents / 100).toLocaleString(navigator.languages[0], {
+      console.log(this.price.currency, this.price.cents)
+      return (this.price.cents / 100).toLocaleString(window.navigator.language, {
         style: 'currency',
-        currency: this.estimate.price.currency,
+        currency: this.price.currency,
         currencyDisplay: 'symbol'
       })
     },
     carbonString () {
-      return `${this.estimate.carbon} kilograms C02`
+      return `${this.carbon} kilograms C02`
+    }
+  },
+  methods: {
+    updateCurrency ({ target }) {
+      this.$store.commit('setUserCurrency', target.value)
+      // this.$store.dispatch('estimate/update') // TODO
+      const flights = [
+        { departure: 'YYZ', arrival: 'LHR' }
+      ]
+      this.$store.dispatch('estimate/create', { flights, currency: this.$store.userCurrency })
     }
   }
 }

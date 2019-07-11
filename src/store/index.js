@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 import estimate from './modules/estimate'
 import estimateForm from './modules/estimate-form'
+import localeToCurrency from '../../../lib/localeToCurrency'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,14 @@ const persistedState = createPersistedState({
 })
 
 export default new Store({
+  state: () => ({
+    userCurrency: localeToCurrency(window.navigator.language)
+  }),
+  mutations: {
+    setUserCurrency (st, val) {
+      st.userCurrency = val
+    }
+  },
   modules: {
     estimateForm,
     estimate

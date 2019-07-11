@@ -239,7 +239,7 @@ export default {
         )
         if (err) throw err
 
-        const checkout = await fetch(`${process.env.VUE_APP_CHECKOUT_API_URL}/api/checkout`, {
+        const checkout = await fetch(process.env.VUE_APP_CHECKOUT_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -274,7 +274,7 @@ export default {
 
           if (err) throw err
 
-          const confirm = await fetch(`${process.env.VUE_APP_CHECKOUT_API_URL}/api/checkout`, {
+          const confirm = await fetch(process.env.VUE_APP_CHECKOUT_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

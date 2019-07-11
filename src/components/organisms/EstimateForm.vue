@@ -33,7 +33,7 @@
         :active.sync="estimatePromptModalActive"
         has-modal-card
       >
-        <EstimatePrompt :estimate="estimate" />
+        <EstimatePrompt />
       </b-modal>
     </div>
   </form>
@@ -42,7 +42,6 @@
 <script>
 import EstimateFormFlight from '@/components/molecules/EstimateFormFlight'
 import EstimatePrompt from '@/components/organisms/EstimatePrompt'
-import { request as graphQLRequest } from 'graphql-request'
 
 export default {
   components: {
@@ -77,24 +76,7 @@ export default {
       const flights = [
         { departure: 'YYZ', arrival: 'LHR' }
       ]
-      const query = `
-      query newEstimate($flights: [Flight!]!, $currency: Currency) {
-        estimate {
-          fromFlights(flights:$flights) {
-            carbon price(currency:$currency) { currency, cents }
-          }
-        }
-      }
-    `
-
-      try {
-        const url = 'http://localhost:8000/graphql'
-        const estimateData = await graphQLRequest(url, query, { flights, currency: 'CAD' })
-        console.log('query response!', estimateData)
-        this.estimate = estimateData.estimate.fromFlights
-      } catch (e) {
-        console.error(e)
-      }
+      await this.$store.dispatch('estimate/create', { flights, currency: 'EUR' })
     }
   }
 }
