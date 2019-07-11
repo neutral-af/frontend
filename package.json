@@ -7,20 +7,32 @@
     "npm": ">=6.9.0"
   },
   "scripts": {
-    "dev": "gridsome develop",
-    "explore": "gridsome explore",
-    "build": "gridsome build",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "now-build": "yarn build"
   },
   "dependencies": {
-    "@gridsome/source-graphql": "^0.1.0",
     "buefy": "^0.7.8",
+    "core-js": "^2.6.5",
     "graphql-request": "^1.8.2",
-    "gridsome": "^0.6.0",
+    "stripe": "^7.4.0",
     "vee-validate": "^2.2.11",
+    "vue": "^2.6.10",
+    "vue-cookies": "^1.5.13",
+    "vue-router": "^3.0.7",
+    "vue-server-renderer": "^2.6.10",
+    "vue-stripe-elements-plus": "^0.2.10",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "style-resources-loader": "^1.2.1"
+    "@vue/cli-plugin-babel": "^3.9.0",
+    "@vue/cli-plugin-eslint": "^3.9.0",
+    "@vue/cli-service": "^3.9.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "style-resources-loader": "^1.2.1",
+    "vue-template-compiler": "^2.6.10"
   }
 }

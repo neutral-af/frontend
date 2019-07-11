@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import EstimateFormFlight from '~/components/molecules/EstimateFormFlight'
-import EstimatePrompt from '~/components/organisms/EstimatePrompt'
+import EstimateFormFlight from '@/components/molecules/EstimateFormFlight'
+import EstimatePrompt from '@/components/organisms/EstimatePrompt'
 import { request as graphQLRequest } from 'graphql-request'
 
 export default {
