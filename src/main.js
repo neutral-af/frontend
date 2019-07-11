@@ -1,26 +1,26 @@
-import Buefy from 'buefy'
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
 import VeeValidate from 'vee-validate'
+import Buefy from 'buefy'
 
-import addStore from '~/store'
-import Layout from '~/layouts/Default'
-import Field from '~/components/atoms/Field'
-import '~/assets/sass/main.scss'
+import router from './router'
+import store from './store'
+import Field from './components/atoms/Field'
+import App from './App'
+import './assets/sass/main.scss'
 
-export default (Vue, { appOptions, router, head, isClient }) => {
-  head.link.push({
-    rel: 'stylesheet',
-    href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css'
-  })
-  head.bodyAttrs = { class: 'has-navbar-fixed-top' }
+Vue.config.productionTip = process.env.NODE_ENV !== 'production'
+Vue.use(VueCookies)
+Vue.use(VeeValidate)
+Vue.use(Buefy, {
+  defaultIconPack: 'fas',
+  defaultContainerElement: '#content',
+  defaultFieldLabelPosition: 'on-border'
+})
+Vue.component('Field', Field)
 
-  addStore(Vue, { appOptions })
-
-  Vue.use(Buefy, {
-    defaultIconPack: 'fas',
-    defaultContainerElement: '#content',
-    defaultFieldLabelPosition: 'on-border'
-  })
-  Vue.use(VeeValidate)
-  Vue.component('Layout', Layout)
-  Vue.component('Field', Field)
-}
+new Vue({
+  render: h => h(App),
+  router,
+  store
+}).$mount('#app')

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import EstimateFormFlight from '~/components/molecules/EstimateFormFlight'
+import EstimateFormFlight from '@/components/molecules/EstimateFormFlight'
 
 export default {
   components: {

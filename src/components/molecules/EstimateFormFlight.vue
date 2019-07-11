@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import NumberField from '~/components/molecules/NumberField'
-import LocationsFields from '~/components/molecules/LocationsFields'
-import DatePassengersFields from '~/components/molecules/DatePassengersFields'
+import NumberField from '@/components/molecules/NumberField'
+import LocationsFields from '@/components/molecules/LocationsFields'
+import DatePassengersFields from '@/components/molecules/DatePassengersFields'
 
 export default {
   components: {

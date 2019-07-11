@@ -3,22 +3,22 @@
     <header class="header navbar is-fixed-top">
       <div class="container">
         <div class="navbar-brand">
-          <g-link
+          <router-link
             to="/"
             class="navbar-item"
           >
             <strong>Carbon Offset</strong>
-          </g-link>
+          </router-link>
         </div>
         <nav class="navbar-menu">
           <div class="navbar-end">
             <div class="navbar-item">
-              <g-link
+              <router-link
                 class="nav__link"
                 to="/about"
               >
                 About
-              </g-link>
+              </router-link>
             </div>
           </div>
         </nav>
@@ -26,7 +26,7 @@
     </header>
     <main class="main">
       <div class="container">
-        <slot />
+        <RouterView />
       </div>
     </main>
     <footer class="footer">
@@ -38,16 +38,45 @@
       </div>
     </footer>
   </div>
+  <!-- <div>
+    <Checkout
+      :carbon="carbon"
+      :price-cents="priceCents"
+      :currency="currency"
+      :estimate-id="estimateID"
+    />
+  </div> -->
 </template>
 
-<style lang="scss">
-body {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  margin:0;
-  padding:0;
-  line-height: 1.5;
-}
+<script>
+import { trackEvent } from './honeycomb'
 
+export default {
+  name: 'App',
+  data () {
+    return {
+      carbon: 0,
+      priceCents: 0,
+      currency: '',
+      estimateID: ''
+    }
+  },
+  created () {
+    const urlParams = new URLSearchParams(window.location.search)
+    this.carbon = parseFloat(urlParams.get('carbon'))
+    this.priceCents = parseInt(urlParams.get('priceCents'))
+    this.currency = urlParams.get('currency')
+    this.estimateID = urlParams.get('estimateID')
+  },
+  async mounted () {
+    trackEvent('pageload', {
+      'app.estimateID': this.estimateID
+    })
+  }
+}
+</script>
+
+<style lang="scss">
 .layout {
   display: flex;
   min-height: 100vh;

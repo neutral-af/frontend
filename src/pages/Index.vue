@@ -1,14 +1,14 @@
 <template>
-  <Layout>
+  <div>
     <h1 class="title">
       Estimate
     </h1>
     <EstimateForm />
-  </Layout>
+  </div>
 </template>
 
 <script>
-import EstimateForm from '~/components/organisms/EstimateForm'
+import EstimateForm from '@/components/organisms/EstimateForm'
 
 export default {
   components: {
