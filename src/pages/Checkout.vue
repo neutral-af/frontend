@@ -154,24 +154,6 @@ import { trackEvent } from '../honeycomb'
 export default {
   name: 'Checkout',
   components: { Card },
-  props: {
-    priceCents: {
-      required: true,
-      validator: (value) => value > 0
-    },
-    carbon: {
-      required: true,
-      type: Number
-    },
-    currency: {
-      required: true,
-      type: String
-    },
-    estimateID: {
-      default: '',
-      type: String
-    }
-  },
   data () {
     return {
       cardholderName: '',
@@ -202,6 +184,18 @@ export default {
     }
   },
   computed: {
+    carbon () {
+      return 123
+    },
+    currency () {
+      return 'eur'
+    },
+    estimateID () {
+      return 'abc'
+    },
+    priceCents () {
+      return 20
+    },
     priceLocal () {
       return (this.priceCents / 100).toLocaleString(navigator.languages[0], {
         style: 'currency',
@@ -220,6 +214,11 @@ export default {
     },
     formValid () {
       return this.complete && this.cardholderNameValid && this.cardholderEmailValid
+    }
+  },
+  created () {
+    if (['carbon', 'currency', 'estimateID', 'priceCents'].some(value => !value)) {
+      return this.$router.replace('/')
     }
   },
   methods: {
