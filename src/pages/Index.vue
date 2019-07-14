@@ -1,9 +1,13 @@
 <template>
   <div>
-    <h1 class="title">
-      Estimate
-    </h1>
-    <EstimateForm />
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <h1 class="title">
+          Estimate
+        </h1>
+        <EstimateForm />
+      </div>
+    </div>
   </div>
 </template>
 

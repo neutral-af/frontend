@@ -1,15 +1,11 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <EstimateFormFlight
-          v-for="flight in flights"
-          :key="flight.id"
-          :removeable="flight.id > 1"
-          v-bind="flight"
-        />
-      </div>
-    </div>
+    <EstimateFormFlight
+      v-for="flight in flights"
+      :key="flight.id"
+      :removeable="flight.id > 1"
+      v-bind="flight"
+    />
     <div class="field actions">
       <BButton
         type="button"
