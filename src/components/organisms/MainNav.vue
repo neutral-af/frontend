@@ -4,12 +4,13 @@
     role="navigation"
   >
     <div class="navbar-brand">
-      <router-link
+      <RouterLink
         to="/"
         class="navbar-item"
+        exact-active-class=""
       >
         <strong>Carbon Offset</strong>
-      </router-link>
+      </RouterLink>
       <span
         class="navbar-burger"
         :class="{ 'is-active': menuShown }"
@@ -25,12 +26,12 @@
       :class="{ 'is-active': menuShown }"
     >
       <div class="navbar-end">
-        <router-link
+        <RouterLink
           class="navbar-item"
           to="/about"
         >
           About
-        </router-link>
+        </RouterLink>
       </div>
     </div>
   </nav>

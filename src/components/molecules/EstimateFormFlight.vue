@@ -1,12 +1,25 @@
 <template>
-  <article class="estimate-form-flight">
-    <a
+  <section class="estimate-form-flight">
+    <BField
+      grouped
+      position="is-centered"
+    >
+      <DateField
+        :date="flight.date"
+        @update="updateDate"
+      />
+      <PassengersField
+        :passengers="flight.passengers"
+        @update="updatePassengers"
+      />
+    </BField>
+    <!-- <a
       v-if="removeable"
       class="card-header-icon"
       @click="remove"
     >
       <BIcon icon="trash" />
-    </a>
+    </a> -->
     <template v-if="flight.type === 'number'">
       <NumberField
         :number="flight.number"
@@ -17,35 +30,35 @@
       </p>
     </template>
     <template v-else>
-      <LocationsFields
+      <FromField
         :from="flight.from"
+        @update="updateFrom"
+      />
+      <ToField
         :to="flight.to"
-        @updateFrom="updateFrom"
         @updateTo="updateTo"
       />
       <p class="field">
         Have a <a @click="toggleType">flight number</a> instead?
       </p>
     </template>
-    <DatePassengersFields
-      :date="flight.date"
-      :passengers="flight.passengers"
-      @updateDate="updateDate"
-      @updatePassengers="updatePassengers"
-    />
-  </article>
+  </section>
 </template>
 
 <script>
+import DateField from '@/components/molecules/DateField'
+import FromField from '@/components/molecules/FromField'
 import NumberField from '@/components/molecules/NumberField'
-import LocationsFields from '@/components/molecules/LocationsFields'
-import DatePassengersFields from '@/components/molecules/DatePassengersFields'
+import PassengersField from '@/components/molecules/PassengersField'
+import ToField from '@/components/molecules/ToField'
 
 export default {
   components: {
+    DateField,
+    FromField,
     NumberField,
-    LocationsFields,
-    DatePassengersFields
+    PassengersField,
+    ToField
   },
   props: {
     id: {
@@ -91,9 +104,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.card-content:not(:first-child) {
-  border-top: $card-content-border-top;
-}
-</style>

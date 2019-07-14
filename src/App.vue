@@ -1,29 +1,20 @@
 <template>
-  <div>
-    <div class="hero is-primary is-bold is-fullheight">
-      <header class="hero-head">
-        <MainNav />
-      </header>
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered is-vcentered">
-            <div class="column is-two-thirds-tablet is-half-desktop is-one-third-fullhd">
-              <div class="page">
-                <h1 class="title">
-                  Estimate
-                </h1>
-                <div class="box">
-                  <RouterView />
-                </div>
-              </div>
-            </div>
+  <div class="hero is-primary is-bold is-fullheight">
+    <header class="hero-head">
+      <MainNav />
+    </header>
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column has-text-centered view">
+            <RouterView />
           </div>
         </div>
       </div>
-      <footer class="hero-foot">
-        <MainFoot />
-      </footer>
     </div>
+    <footer class="hero-foot">
+      <MainFoot />
+    </footer>
   </div>
 </template>
 
@@ -69,7 +60,7 @@ export default {
   background: transparent !important;
 }
 
-.page {
-  text-align: center;
+.view {
+  max-width: 550px;
 }
 </style>

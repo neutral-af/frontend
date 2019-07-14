@@ -67,13 +67,13 @@
         >
           Cancel
         </button>
-        <router-link
+        <RouterLink
           to="/checkout"
           class="button is-primary"
-          :class="{ 'is-loading':fetching }"
+          :class="{ 'is-loading': fetching }"
         >
           Pay now
-        </router-link>
+        </RouterLink>
       </footer>
     </div>
   </form>

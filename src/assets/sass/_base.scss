@@ -17,7 +17,4 @@ $colors: (
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
-$navbar-breakpoint: 0;
-
-// custom
-$card-content-border-top: 1px solid $border;
+$navbar-breakpoint: $tablet;

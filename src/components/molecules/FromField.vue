@@ -1,14 +1,14 @@
 <template>
   <BField
-    label="Flight number"
+    label="Departure airport"
     size="is-medium"
-    label-for="number"
+    label-for="from"
   >
     <BInput
-      name="number"
+      name="from"
       size="is-medium"
-      placeholder="e.g. AC895"
-      :value="number"
+      placeholder="e.g. Milan, Malpensa or MXP"
+      :value="from"
       @input="$emit('update', $event)"
     />
   </BField>
@@ -17,7 +17,7 @@
 <script>
 export default {
   props: {
-    number: {
+    from: {
       type: String,
       required: true
     }

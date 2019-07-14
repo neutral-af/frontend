@@ -1,3 +1,8 @@
 <template>
-  <h1>Ops, the page was not found!</h1>
+  <div>
+    <h1 class="title">
+      Ouch!
+    </h1>
+    <p>The page was not found.</p>
+  </div>
 </template>
