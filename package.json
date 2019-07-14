@@ -10,7 +10,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "now-build": "yarn build"
+    "now-build": "yarn build",
+    "start": "yarn serve"
   },
   "dependencies": {
     "buefy": "^0.7.8",

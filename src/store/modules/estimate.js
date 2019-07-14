@@ -1,4 +1,4 @@
-import { request as graphQLRequest } from 'graphql-request'
+import { createEstimate } from '@/api'
 
 export default {
   namespaced: true,
@@ -22,33 +22,17 @@ export default {
   },
   actions: {
     async create ({ commit, rootState }, { flights }) {
-      commit('setFetching', true)
-      const query = `
-        query newEstimate($flights: [Flight!]!, $currency: Currency) {
-          estimate {
-            fromFlights(flights:$flights) {
-              id
-              carbon
-              price(currency:$currency) {
-                currency
-                cents
-                breakdown { name cents currency }
-              }
-            }
-          }
-        }
-      `
-
       const currency = rootState.userCurrency
-
-      const estimateData = await graphQLRequest(
-        process.env.VUE_APP_BACKEND_URL,
-        query,
-        { flights, currency }
-      )
-      console.log('query response!', estimateData) // eslint-disable-line
-      commit('setData', estimateData.estimate.fromFlights)
-      commit('setFetching', false)
+      commit('setFetching', true)
+      try {
+        const data = await createEstimate({ flights, currency })
+        console.log('query response!', data) // eslint-disable-line
+        commit('setData', data.estimate.fromFlights)
+        commit('setFetching', false)
+      } catch (err) {
+        commit('setFetching', false)
+        throw err
+      }
     },
     async update ({ commit, dispatch, state }) {
       // TODO

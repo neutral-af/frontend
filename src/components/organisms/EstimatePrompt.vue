@@ -97,7 +97,7 @@ export default {
   computed: {
     ...mapState('estimate', ['price', 'carbon', 'fetching']),
     priceLocal () {
-      console.log(this.price.currency, this.price.cents)
+      console.log(this.price.currency, this.price.cents) // eslint-disable-line
       return (this.price.cents / 100).toLocaleString(window.navigator.language, {
         style: 'currency',
         currency: this.price.currency,

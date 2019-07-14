@@ -1,147 +1,141 @@
 <template>
   <section class="hero is-primary is-bold is-fullheight checkout">
-    <div class="hero-body columns is-centered is-vcentered">
-      <div
-        v-if="!succeeded"
-        class="column is-two-thirds-tablet is-half-desktop is-one-third-fullhd"
-      >
-        <h1 class="title">
-          Purchase your offsets
-        </h1>
-        <div class="box">
-          <h2
-            v-if="errorText"
-            class="subtitle has-text-danger"
-          >
-            {{ errorText }}
-          </h2>
+    <div class="hero-body">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-two-thirds-tablet is-half-desktop is-one-third-fullhd">
+          <h1 class="title">
+            Purchase your offsets
+          </h1>
 
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Name</label>
-              <div class="control has-icons-left has-icons-right" />
-            </div>
-            <div class="field-body">
-              <input
-                v-model.trim="cardholderName"
-                placeholder="your full name"
-                type="text"
-                class="input"
-                :class="{ 'is-danger': !cardholderNameValid, 'is-success': cardholderNameValid }"
-              >
-              <span class="icon is-small is-left">
-                <i class="fas fa-user" />
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check" />
-              </span>
-            </div>
-          </div>
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Email</label>
-              <div class="control has-icons-left has-icons-right" />
-            </div>
-            <div class="field-body">
-              <input
-                v-model.trim="cardholderEmail"
-                placeholder="your email address"
-                type="email"
-                class="input"
-                :class="{ 'is-danger': !cardholderEmailValid, 'is-success':cardholderEmailValid }"
-              >
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope" />
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle" />
-              </span>
-            </div>
-          </div>
+          <div class="box">
+            <h2
+              v-if="error"
+              class="subtitle has-text-danger"
+            >
+              {{ error }}
+            </h2>
 
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Carbon</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input
-                    class="input is-static"
-                    :value="carbonString"
-                    readonly
-                  >
-                </p>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Name</label>
+                <div class="control has-icons-left has-icons-right" />
               </div>
-            </div>
-          </div>
-
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Price</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input
-                    class="input is-static"
-                    :value="priceLocal"
-                    readonly
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="field box">
-            <card
-              ref="card-element"
-              :stripe="stripeKey"
-              :class="{ complete }"
-              :options="stripeOptions"
-              @change="complete = $event.complete"
-            />
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <label class="checkbox is-size-7">
+              <div class="field-body">
                 <input
-                  v-model="saveCard"
-                  type="checkbox"
-                  disabled
+                  v-model.trim="cardholderName"
+                  placeholder="your full name"
+                  type="text"
+                  class="input"
+                  :class="{ 'is-danger': !cardholderNameValid, 'is-success': cardholderNameValid }"
                 >
-                <!-- TODO: enable this -->
-                Please save my card to skip this process in the future
-              </label>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user" />
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check" />
+                </span>
+              </div>
             </div>
-          </div>
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Email</label>
+                <div class="control has-icons-left has-icons-right" />
+              </div>
+              <div class="field-body">
+                <input
+                  v-model.trim="cardholderEmail"
+                  placeholder="your email address"
+                  type="email"
+                  class="input"
+                  :class="{ 'is-danger': !cardholderEmailValid, 'is-success':cardholderEmailValid }"
+                >
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope" />
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" />
+                </span>
+              </div>
+            </div>
 
-          <div class="field">
-            <div class="control has-text-centered">
-              <button
-                class="button is-info is-medium"
-                :disabled="!formValid"
-                :class="{ 'is-loading': processing }"
-                @click="pay"
-              >
-                Pay now
-              </button>
-              <div
-                class="content is-size-7"
-                style="margin-top: 1em"
-              >
-                Payment will be processed securely by Stripe.
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Carbon</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <input
+                      class="input is-static"
+                      :value="carbonString"
+                      readonly
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Price</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control">
+                    <input
+                      class="input is-static"
+                      :value="priceLocal"
+                      readonly
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field box">
+              <card
+                ref="card-element"
+                :stripe="stripeKey"
+                :class="{ complete }"
+                :options="stripeOptions"
+                @change="complete = $event.complete"
+              />
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <label class="checkbox is-size-7">
+                  <input
+                    v-model="saveCard"
+                    type="checkbox"
+                    disabled
+                  >
+                  <!-- TODO: enable this -->
+                  Please save my card to skip this process in the future
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control has-text-centered">
+                <button
+                  class="button is-info is-medium"
+                  :disabled="!formValid"
+                  :class="{ 'is-loading': processing }"
+                  @click="pay"
+                >
+                  Pay now
+                </button>
+                <div
+                  class="content is-size-7"
+                  style="margin-top: 1em"
+                >
+                  Payment will be processed securely by Stripe.
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div v-else>
-        <h1 class="title">
-          Thank you!
-        </h1>
       </div>
     </div>
   </section>
@@ -162,10 +156,9 @@ export default {
       cardholderName: '',
       cardholderEmail: '',
       saveCard: false,
-      errorText: '',
+      error: '',
       complete: false, // form is completely filled out
       processing: false,
-      succeeded: false,
       stripeKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY,
       stripeOptions: {
         style: {
@@ -215,15 +208,89 @@ export default {
   },
   methods: {
     displayError (err) {
-      /* eslint-disable-next-line no-console */
-      console.error(err)
-      trackEvent('paymentsFrontendError', {
+      console.error(err) // eslint-disable-line no-console
+      const data = {
         'app.estimateID': this.estimateID,
         errorMessage: err
-      })
+      }
+      trackEvent('paymentsFrontendError', data)
       err = err.message || err
-      this.errorText = err
+      this.error = err
       this.processing = false
+    },
+
+    async createPaymentMethod () {
+      const { paymentMethod, error } = await instance.createPaymentMethod(
+        'card', this.$refs['card-element'].$refs.element._element,
+        { billing_details: { name: this.cardholderName, email: this.cardholderEmail } }
+      )
+      if (error) {
+        throw error
+      }
+      return paymentMethod
+    },
+
+    // Use Stripe.js to handle required card action
+    async handleCardAction (paymentIntentClientSecret) {
+      const { paymentIntent, error } = await instance.handleCardAction(paymentIntentClientSecret)
+      if (error) {
+        throw error
+      }
+      return paymentIntent
+    },
+
+    fetchCheckout (paymentMethod) {
+      return fetch(process.env.VUE_APP_CHECKOUT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          paymentMethod: paymentMethod.id,
+          amount: this.priceCents,
+          currency: this.currency,
+          saveCard: this.saveCard,
+          estimateID: this.estimateID
+        })
+      })
+    },
+
+    fetchConfirm (paymentIntent) {
+      return fetch(process.env.VUE_APP_CHECKOUT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          paymentIntent: paymentIntent.id,
+          saveCard: this.saveCard,
+          estimateID: this.estimateID
+        })
+      })
+    },
+
+    async onCheckoutResponse (response) {
+      const {
+        success,
+        customerID,
+        error: err,
+        requires_action: requiresAction,
+        payment_intent_client_secret: paymentIntentClientSecret
+      } = response
+      if (err) {
+        throw err
+      }
+      if (requiresAction) {
+        const paymentIntent = await this.handleCardAction(paymentIntentClientSecret)
+        const response = await this.fetchConfirm(paymentIntent)
+        const confirm = await response.json()
+        this.onCheckoutResponse(confirm)
+      } else if (success) {
+        trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
+        if (customerID) {
+          // TODO
+          // this.$cookies.set('custID', customerID)
+        }
+        this.$router.push('/success')
+      } else {
+        throw new Error('undefined state in handling server response')
+      }
     },
 
     // The Stripe handler methods below are modified from the docs:
@@ -231,69 +298,12 @@ export default {
     async pay () {
       trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
       // TODO: skip straight to this (ignore form) if user has a card saved already
+      this.processing = true
       try {
-        this.processing = true
-        const { paymentMethod, error: err } = await instance.createPaymentMethod(
-          'card', this.$refs['card-element'].$refs.element._element,
-          { billing_details: { name: this.cardholderName, email: this.cardholderEmail } }
-        )
-        if (err) throw err
-
-        const checkout = await fetch(process.env.VUE_APP_CHECKOUT_API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            paymentMethod: paymentMethod.id,
-            amount: this.priceCents,
-            currency: this.currency,
-            saveCard: this.saveCard,
-            estimateID: this.estimateID
-          })
-        })
-
-        this.handleServerResponse(await checkout.json())
-      } catch (e) {
-        this.displayError(e)
-      }
-    },
-    async handleServerResponse (response) {
-      try {
-        const {
-          success,
-          customerID,
-          error: err,
-          requires_action: requiresAction,
-          payment_intent_client_secret: paymentIntentClientSecret
-        } = response
-
-        if (err) throw err
-
-        if (requiresAction) {
-        // Use Stripe.js to handle required card action
-          const { error: err, paymentIntent } = await instance.handleCardAction(paymentIntentClientSecret)
-
-          if (err) throw err
-
-          const confirm = await fetch(process.env.VUE_APP_CHECKOUT_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              paymentIntent: paymentIntent.id,
-              saveCard: this.saveCard,
-              estimateID: this.estimateID
-            })
-          })
-          this.handleServerResponse(await confirm.json())
-        } else if (success) {
-          trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
-          this.succeeded = true
-          if (customerID) {
-            // TODO
-            // this.$cookies.set('custID', customerID)
-          }
-        } else {
-          throw new Error('undefined state in handling server response')
-        }
+        const paymentMethod = await this.createPaymentMethod()
+        const response = await this.fetchCheckout(paymentMethod)
+        const checkout = await response.json()
+        this.onCheckoutResponse(checkout)
       } catch (err) {
         this.displayError(err)
       }

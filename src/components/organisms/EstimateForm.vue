@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="openEstimateModal">
+  <form @submit.prevent="onSubmit">
     <div class="columns is-centered">
       <div class="column is-half">
         <EstimateFormFlight
@@ -28,18 +28,27 @@
       >
         Estimate
       </BButton>
-
-      <b-modal
-        :active.sync="estimatePromptModalActive"
-        has-modal-card
-      >
-        <EstimatePrompt />
-      </b-modal>
     </div>
+    <BNotification
+      :active="error"
+      type="is-danger"
+      closable
+      aria-close-label="Close"
+    >
+      {{ errorMessage }}
+    </BNotification>
+    <BModal
+      :active.sync="promptActive"
+      has-modal-card
+    >
+      <EstimatePrompt />
+    </BModal>
   </form>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import EstimateFormFlight from '@/components/molecules/EstimateFormFlight'
 import EstimatePrompt from '@/components/organisms/EstimatePrompt'
 
@@ -50,13 +59,14 @@ export default {
   },
   data () {
     return {
-      estimatePromptModalActive: false,
-      withFlightNumber: true,
-      fetching: false,
-      estimate: {}
+      promptActive: false,
+      estimate: {},
+      error: false,
+      errorMessage: ''
     }
   },
   computed: {
+    ...mapState('estimate', ['fetching']),
     flights () {
       return this.$store.state.estimateForm.flights.map(({ id, type }) => ({ id, type }))
     }
@@ -65,18 +75,19 @@ export default {
     addFlight () {
       this.$store.commit('estimateForm/addFlight')
     },
-    async openEstimateModal () {
-      this.fetching = true
-      await this.getEstimate()
-      this.fetching = false
-      this.estimatePromptModalActive = true
+    setError (message = '') {
+      this.error = !!message
+      this.errorMessage = message
     },
-    async getEstimate () {
-      console.log(this.flights)
-      const flights = [
-        { departure: 'YYZ', arrival: 'LHR' }
-      ]
-      await this.$store.dispatch('estimate/create', { flights, currency: 'EUR' })
+    async onSubmit () {
+      const flights = [{ departure: 'YYZ', arrival: 'LHR' }]
+      this.setError('')
+      try {
+        await this.$store.dispatch('estimate/create', { flights, currency: 'EUR' })
+        this.promptActive = true
+      } catch (err) {
+        this.setError(err)
+      }
     }
   }
 }
