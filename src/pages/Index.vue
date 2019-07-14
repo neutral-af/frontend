@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <h1 class="title">
-          Estimate
-        </h1>
-        <EstimateForm />
-      </div>
-    </div>
+    <EstimateForm />
   </div>
 </template>
 
@@ -25,7 +18,7 @@ export default {
 </script>
 
 <style>
-.home-links a {
-  margin-right: 1rem;
+.index {
+  text-align: center;
 }
 </style>

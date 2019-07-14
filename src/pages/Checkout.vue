@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-primary is-bold is-fullheight checkout">
+  <div class="hero is-primary is-bold is-fullheight checkout">
     <div class="hero-body">
       <div class="columns is-centered is-vcentered">
         <div class="column is-two-thirds-tablet is-half-desktop is-one-third-fullhd">
@@ -138,7 +138,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -311,9 +311,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.checkout {
-  text-align: center;
-}
-</style>
