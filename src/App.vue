@@ -61,6 +61,6 @@ export default {
 }
 
 .view {
-  max-width: 550px;
+  max-width: 600px;
 }
 </style>
