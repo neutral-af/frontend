@@ -3,8 +3,6 @@ const path = require('path')
 
 process.env.VUE_APP_BACKEND_URL = process.env.NODE_ENV === 'production'
   ? 'https://backend.jasongwartz.now.sh/graphql' : 'http://localhost:8000/graphql'
-process.env.VUE_APP_CHECKOUT_API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://frontend.jasongwartz.now.sh' : 'http://localhost:3000/api/checkout'
 process.env.VUE_APP_STRIPE_PUBLIC_KEY = 'pk_test_svsiEDfLy9Ibj501NJA5wv7C00mCpMpl3l'
 process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY = '737e1600677f83a69ea60fb1031f9f94'
 
