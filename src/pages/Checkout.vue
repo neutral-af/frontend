@@ -162,6 +162,7 @@ export default {
       processing: false,
       stripeKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY,
       stripeOptions: {
+        hidePostalCode: true,
         style: {
           base: {
             color: '#32325d',

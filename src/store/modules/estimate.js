@@ -1,10 +1,11 @@
-import { createEstimate } from '@/api'
+import { estimate } from '@/api'
 
 export default {
   namespaced: true,
   state: () => ({
     fetching: false,
     id: '',
+    provider: '',
     carbon: 0,
     price: {
       currency: '',
@@ -25,8 +26,7 @@ export default {
       const currency = rootState.userCurrency
       commit('setFetching', true)
       try {
-        const data = await createEstimate({ flights, currency })
-        console.log('query response!', data) // eslint-disable-line
+        const data = await estimate.create({ flights, currency })
         commit('setData', data.estimate.fromFlights)
         commit('setFetching', false)
       } catch (err) {
@@ -34,11 +34,17 @@ export default {
         throw err
       }
     },
-    async update ({ commit, dispatch, state }) {
-      // TODO
+    async update ({ commit, state, rootState }) {
+      const currency = rootState.userCurrency
+      commit('setFetching', true)
+      try {
+        const data = await estimate.update({ id: state.id, provider: state.provider, currency })
+        commit('setData', data.estimate.fromID)
+        commit('setFetching', false)
+      } catch (err) {
+        commit('setFetching', false)
+        throw err
+      }
     }
-    // async fetchExistingEstimate (estimateID) {
-
-    // }
   }
 }

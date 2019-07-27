@@ -111,11 +111,7 @@ export default {
   methods: {
     updateCurrency ({ target }) {
       this.$store.commit('setUserCurrency', target.value)
-      // this.$store.dispatch('estimate/update') // TODO
-      const flights = [
-        { departure: 'YYZ', arrival: 'LHR' }
-      ]
-      this.$store.dispatch('estimate/create', { flights, currency: this.$store.userCurrency })
+      this.$store.dispatch('estimate/update')
     }
   }
 }
