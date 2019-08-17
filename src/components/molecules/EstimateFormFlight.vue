@@ -29,9 +29,7 @@
         Missing flight number? Insert <a @click="toggleType">airports</a> instead
       </p>
     </template>
-    <template
-      v-else
-    >
+    <template v-else>
       <BField grouped>
         <FromField
           :from="flight.from"

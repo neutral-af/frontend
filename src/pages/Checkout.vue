@@ -5,128 +5,99 @@
     </h1>
 
     <div class="box">
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Name</label>
-          <div class="control has-icons-left has-icons-right" />
-        </div>
-        <div class="field-body">
-          <input
-            v-model.trim="cardholderName"
-            placeholder="your full name"
-            type="text"
-            class="input"
-            :class="{ 'is-danger': !cardholderNameValid, 'is-success': cardholderNameValid }"
-          >
-          <span class="icon is-small is-left">
-            <i class="fas fa-user" />
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-check" />
-          </span>
-        </div>
-      </div>
+      <BField
+        label="Cardholder Name"
+        label-for="name"
+        :type="nameValid ? 'is-success' : 'is-danger'"
+      >
+        <BInput
+          v-model.trim="name"
+          name="name"
+          size="is-medium"
+          placeholder="Your Cardholder Name"
+        />
+      </BField>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Email</label>
-          <div class="control has-icons-left has-icons-right" />
-        </div>
-        <div class="field-body">
-          <input
-            v-model.trim="cardholderEmail"
-            placeholder="your email address"
-            type="email"
-            class="input"
-            :class="{ 'is-danger': !cardholderEmailValid, 'is-success':cardholderEmailValid }"
-          >
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope" />
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-exclamation-triangle" />
-          </span>
-        </div>
-      </div>
+      <BField
+        label="Email"
+        label-for="email"
+        :type="emailValid ? 'is-success' : 'is-danger'"
+      >
+        <BInput
+          v-model.trim="email"
+          name="email"
+          placeholder="Your Email Address"
+          size="is-medium"
+          type="email"
+        />
+      </BField>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Carbon</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <input
-                class="input is-static"
-                :value="carbonString"
-                readonly
-                disabled
-              >
-            </p>
-          </div>
-        </div>
-      </div>
+      <BField grouped>
+        <BField
+          label="Carbon amount"
+          name="carbon"
+          label-for="email"
+        >
+          <BInput
+            :value="`${carbon} kg`"
+            readonly
+            disabled
+            size="is-medium"
+            class="input is-static"
+          />
+        </BField>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Price</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <input
-                class="input is-static"
-                :value="priceLocal"
-                readonly
-                disabled
-              >
-            </p>
-          </div>
-        </div>
-      </div>
+        <BField
+          label="Price"
+          name="price"
+          label-for="price"
+        >
+          <BInput
+            :value="priceLocal"
+            readonly
+            disabled
+            size="is-medium"
+            class="input is-static"
+          />
+        </BField>
+      </BField>
 
-      <div class="field box">
-        <card
+      <BField label="Card details">
+        <Card
           ref="card-element"
           :stripe="stripeKey"
           :class="{ complete }"
           :options="stripeOptions"
           @change="complete = $event.complete"
         />
-      </div>
+      </BField>
 
-      <div class="field">
-        <div class="control">
-          <label class="checkbox is-size-7">
-            <input
-              v-model="saveCard"
-              type="checkbox"
-              disabled
-            >
-            <!-- TODO: enable this -->
-            Please save my card to skip this process in the future
-          </label>
-        </div>
-      </div>
+      <BField>
+        <BCheckbox
+          v-model="saveCard"
+          size="is-small"
+          disabled
+        >
+          Please save my card to skip this process in the future.
+        </BCheckbox>
+      </BField>
 
-      <div class="field">
-        <div class="control has-text-centered">
-          <button
-            class="button is-info is-medium"
-            :disabled="!formValid"
-            :class="{ 'is-loading': processing }"
-            @click="pay"
-          >
-            Pay now
-          </button>
-          <div
-            class="content is-size-7"
-            style="margin-top: 1em"
-          >
-            Payment will be processed securely by Stripe.
-          </div>
-        </div>
-      </div>
+      <BField>
+        <BButton
+          native-type="submit"
+          type="is-primary"
+          size="is-medium"
+          :class="{ 'is-loading': processing }"
+          :disabled="!formValid"
+        >
+          Pay now
+        </BButton>
+      </BField>
+      <BField>
+        <p class="content is-small">
+          Payment will be processed securely by Stripe
+        </p>
+      </BField>
     </div>
   </main>
 </template>
@@ -144,8 +115,8 @@ export default {
   components: { Card },
   data () {
     return {
-      cardholderName: '',
-      cardholderEmail: '',
+      name: '',
+      email: '',
       saveCard: false,
       error: '',
       complete: false, // form is completely filled out
@@ -180,17 +151,14 @@ export default {
         currencyDisplay: 'symbol'
       })
     },
-    carbonString () {
-      return `${this.carbon} kg`
+    nameValid () {
+      return !!this.name
     },
-    cardholderNameValid () {
-      return !!this.cardholderName
-    },
-    cardholderEmailValid () {
-      return !!this.cardholderEmail
+    emailValid () {
+      return !!this.email
     },
     formValid () {
-      return this.complete && this.cardholderNameValid && this.cardholderEmailValid
+      return this.complete && this.nameValid && this.emailValid
     }
   },
   created () {
@@ -217,7 +185,7 @@ export default {
     async createPaymentMethod () {
       const { paymentMethod, error } = await instance.createPaymentMethod(
         'card', this.$refs['card-element'].$refs.element._element,
-        { billing_details: { name: this.cardholderName, email: this.cardholderEmail } }
+        { billing_details: { name: this.name, email: this.email } }
       )
       if (error) {
         throw error
