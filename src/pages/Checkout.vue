@@ -5,6 +5,7 @@
     </h1>
 
     <div class="box">
+      <form @submit.prevent="pay">
       <BField
         label="Cardholder Name"
         label-for="name"
@@ -93,11 +94,13 @@
           Pay now
         </BButton>
       </BField>
+
       <BField>
         <p class="content is-small">
           Payment will be processed securely by Stripe
         </p>
       </BField>
+      </form>
     </div>
   </main>
 </template>
@@ -105,6 +108,7 @@
 <script>
 import { mapState } from 'vuex'
 import { Card, instance } from 'vue-stripe-elements-plus'
+
 import { trackEvent } from '../honeycomb'
 import { payments } from '../api'
 
