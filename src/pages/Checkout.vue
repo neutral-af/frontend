@@ -5,13 +5,6 @@
     </h1>
 
     <div class="box">
-      <h2
-        v-if="error"
-        class="subtitle has-text-danger"
-      >
-        {{ error }}
-      </h2>
-
       <div class="field is-horizontal">
         <div class="field-label is-normal">
           <label class="label">Name</label>
