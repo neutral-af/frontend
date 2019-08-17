@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <h1 class="title">
       Estimate
     </h1>
@@ -46,7 +46,7 @@
         </BModal>
       </form>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

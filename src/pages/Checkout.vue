@@ -1,9 +1,5 @@
 <template>
-  <!-- <div class="hero is-primary is-bold is-fullheight checkout">
-    <div class="hero-body">
-      <div class="columns is-centered is-vcentered">
-        <div class="column is-two-thirds-tablet is-half-desktop is-one-third-fullhd"> -->
-  <div>
+  <main>
     <h1 class="title">
       Purchase your offsets
     </h1>
@@ -37,6 +33,7 @@
           </span>
         </div>
       </div>
+
       <div class="field is-horizontal">
         <div class="field-label is-normal">
           <label class="label">Email</label>
@@ -138,7 +135,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -209,16 +206,19 @@ export default {
     }
   },
   methods: {
-    displayError (err) {
-      console.error(err) // eslint-disable-line no-console
-      const data = {
+    showError (err) {
+      const message = err.message || err
+      trackEvent('paymentsFrontendError', {
         'app.estimateID': this.estimateID,
-        errorMessage: err
-      }
-      trackEvent('paymentsFrontendError', data)
-      err = err.message || err
-      this.error = err
-      this.processing = false
+        errorMessage: message
+      })
+      this.$snackbar.open({
+        message,
+        type: 'is-danger',
+        position: 'is-bottom',
+        actionText: 'Retry',
+        indefinite: true
+      })
     },
 
     async createPaymentMethod () {
@@ -280,8 +280,10 @@ export default {
         const paymentMethod = await this.createPaymentMethod()
         const checkout = await this.fetchCheckout(paymentMethod)
         this.onCheckoutResponse(checkout)
+        this.processing = false
       } catch (err) {
-        this.displayError(err)
+        this.showError(err)
+        this.processing = false
       }
     }
   }
