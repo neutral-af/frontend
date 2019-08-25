@@ -5,101 +5,97 @@
     </h1>
 
     <div class="box">
-      <form @submit.prevent="pay">
-      <BField
-        label="Cardholder Name"
-        label-for="name"
-        :type="nameValid ? 'is-success' : 'is-danger'"
-      >
-        <BInput
-          v-model.trim="name"
-          name="name"
-          size="is-medium"
-          placeholder="Your Cardholder Name"
-        />
-      </BField>
-
-      <BField
-        label="Email"
-        label-for="email"
-        :type="emailValid ? 'is-success' : 'is-danger'"
-      >
-        <BInput
-          v-model.trim="email"
-          name="email"
-          placeholder="Your Email Address"
-          size="is-medium"
-          type="email"
-        />
-      </BField>
-
-      <BField grouped>
+      <form @submit.prevent="onSubmit">
         <BField
-          label="Carbon amount"
-          name="carbon"
+          label="Cardholder Name"
+          label-for="name"
+          :type="submitted ? (nameValid ? 'is-success' : 'is-danger') : ''"
+        >
+          <BInput
+            v-model.trim="name"
+            name="name"
+            size="is-medium"
+            placeholder="Your Cardholder Name"
+            @input="onInputChange"
+          />
+        </BField>
+
+        <BField
+          label="Email"
           label-for="email"
+          :type="submitted ? (emailValid ? 'is-success' : 'is-danger') : ''"
         >
           <BInput
-            :value="`${carbon} kg`"
-            readonly
-            disabled
+            v-model.trim="email"
+            name="email"
+            placeholder="Your Email Address"
             size="is-medium"
-            class="input is-static"
+            type="email"
+            @input="onInputChange"
           />
         </BField>
 
-        <BField
-          label="Price"
-          name="price"
-          label-for="price"
-        >
-          <BInput
-            :value="priceLocal"
-            readonly
-            disabled
-            size="is-medium"
-            class="input is-static"
-          />
-        </BField>
-      </BField>
+        <BField grouped>
+          <BField
+            label="Carbon amount"
+            name="carbon"
+            label-for="email"
+          >
+            <BInput
+              :value="`${carbon} kg`"
+              readonly
+              disabled
+              size="is-medium"
+              class="input is-static"
+            />
+          </BField>
 
-      <BField label="Card details">
-        <Card
-          ref="card-element"
-          :stripe="stripeKey"
-          :class="{ complete }"
-          :options="stripeOptions"
-          @change="complete = $event.complete"
+          <BField
+            label="Price"
+            name="price"
+            label-for="price"
+          >
+            <BInput
+              :value="priceLocal"
+              readonly
+              disabled
+              size="is-medium"
+              class="input is-static"
+            />
+          </BField>
+        </BField>
+
+        <CardField
+          label="Card details"
+          @change="onCardChange"
         />
-      </BField>
 
-      <BField>
-        <BCheckbox
-          v-model="saveCard"
-          size="is-small"
-          disabled
-        >
-          Please save my card to skip this process in the future.
-        </BCheckbox>
-      </BField>
+        <BField>
+          <BCheckbox
+            v-model="saveCard"
+            size="is-small"
+            disabled
+          >
+            Please save my card to skip this process in the future.
+          </BCheckbox>
+        </BField>
 
-      <BField>
-        <BButton
-          native-type="submit"
-          type="is-primary"
-          size="is-medium"
-          :class="{ 'is-loading': processing }"
-          :disabled="!formValid"
-        >
-          Pay now
-        </BButton>
-      </BField>
+        <BField>
+          <BButton
+            native-type="submit"
+            type="is-primary"
+            size="is-medium"
+            :class="{ 'is-loading': submitting }"
+          >
+            Pay now
+          </BButton>
+        </BField>
 
-      <BField>
-        <p class="content is-small">
-          Payment will be processed securely by Stripe
-        </p>
-      </BField>
+        <BField>
+          <p class="content is-small">
+            Payment will be processed securely by Stripe
+          </p>
+        </BField>
       </form>
     </div>
   </main>
@@ -107,43 +103,27 @@
 
 <script>
 import { mapState } from 'vuex'
-import { Card, instance } from 'vue-stripe-elements-plus'
+import { instance } from 'vue-stripe-elements-plus'
 
 import { trackEvent } from '../honeycomb'
 import { payments } from '../api'
+import CardField from '@/components/atoms/CardField'
 
 const stateKeys = ['carbon', 'price']
 
 export default {
   name: 'Checkout',
-  components: { Card },
+  components: {
+    CardField
+  },
   data () {
     return {
       name: '',
       email: '',
+      cardComplete: false,
       saveCard: false,
-      error: '',
-      complete: false, // form is completely filled out
-      processing: false,
-      stripeKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY,
-      stripeOptions: {
-        hidePostalCode: true,
-        style: {
-          base: {
-            color: '#32325d',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-              color: '#aab7c4'
-            }
-          },
-          invalid: {
-            color: '#fa755a',
-            iconColor: '#fa755a'
-          }
-        }
-      }
+      submitting: false,
+      submitted: false
     }
   },
   computed: {
@@ -162,7 +142,7 @@ export default {
       return !!this.email
     },
     formValid () {
-      return this.complete && this.nameValid && this.emailValid
+      return this.cardComplete && this.nameValid && this.emailValid
     }
   },
   created () {
@@ -180,10 +160,16 @@ export default {
       this.$snackbar.open({
         message,
         type: 'is-danger',
-        position: 'is-bottom',
-        actionText: 'Retry',
-        indefinite: true
+        position: 'is-bottom'
       })
+    },
+
+    onInputChange () {
+      this.submitted = false
+    },
+
+    onCardChange ({ complete }) {
+      this.cardComplete = !!complete
     },
 
     async createPaymentMethod () {
@@ -237,18 +223,22 @@ export default {
 
     // The Stripe handler methods below are modified from the docs:
     // https://stripe.com/docs/payments/payment-intents/quickstart#manual-confirmation-flow
-    async pay () {
+    async onSubmit () {
+      this.submitted = true
+      if (!this.formValid) {
+        return
+      }
+      this.submitting = true
       trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
       // TODO: skip straight to this (ignore form) if user has a card saved already
-      this.processing = true
       try {
         const paymentMethod = await this.createPaymentMethod()
         const checkout = await this.fetchCheckout(paymentMethod)
         this.onCheckoutResponse(checkout)
-        this.processing = false
+        this.submitting = false
       } catch (err) {
         this.showError(err)
-        this.processing = false
+        this.submitting = false
       }
     }
   }
