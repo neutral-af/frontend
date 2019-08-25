@@ -38,14 +38,14 @@
         label="Departure airport"
         :name="`flight-${id}-from`"
         placeholder="e.g. Milan, Malpensa or MXP"
-        :value="flight.from"
+        :value="flight.from ? flight.from.name : ''"
         @update="updateFrom"
       />
       <AirportField
         label="Arrival airport"
         :name="`flight-${id}-to`"
         placeholder="e.g. Toronto, Pearson or YYZ"
-        :value="flight.to"
+        :value="flight.to ? flight.to.name : ''"
         @update="updateTo"
       />
     </BField>

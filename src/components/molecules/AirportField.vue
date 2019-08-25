@@ -70,8 +70,7 @@ export default {
       }
     },
     select (value) {
-      const option = value ? value.name : ''
-      this.$emit('update', option)
+      this.$emit('update', value || null)
     }
   }
 }
