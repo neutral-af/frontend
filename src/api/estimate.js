@@ -1,16 +1,10 @@
 import request from './request'
 
-const prepareFlight = flight => {
-  if (flight.type === 'locations') {
-    return {
-      departure: flight.departure.icao,
-      arrival: flight.arrival.icao
-    }
+const prepareFlight = ({ arrival, date, departure, flightNumber, type }) => {
+  if (type === 'locations') {
+    return { departure: departure.icao, arrival: arrival.icao }
   }
-  return {
-    flightNumber: flight.number,
-    date: flight.date
-  }
+  return { flightNumber, date }
 }
 
 export const create = async ({ flights, currency }) => {

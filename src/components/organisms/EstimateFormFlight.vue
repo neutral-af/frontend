@@ -24,9 +24,9 @@
     </a> -->
     <!-- <template v-if="flight.type === 'number'">
       <FlightNumberField
-        :name="`flight-${id}-number`"
-        :value="flight.number"
-        @update="update('number', $event)"
+        :name="`flight-${id}-flight-number`"
+        :value="flight.flightNnumber"
+        @update="update('flightNumber', $event)"
       />
       <p class="field">
         Missing flight number? Insert <a @click="toggleType">airports</a> instead
