@@ -7,12 +7,12 @@
       <DateField
         :name="`flight-${id}-date`"
         :value="flight.date"
-        @update="updateDate"
+        @update="update('date', $event)"
       />
       <PassengersField
         :name="`flight-${id}-passengers`"
         :value="flight.passengers"
-        @update="updatePassengers"
+        @update="update('passengers', $event)"
       />
     </BField>
     <!-- <a
@@ -26,7 +26,7 @@
       <FlightNumberField
         :name="`flight-${id}-number`"
         :value="flight.number"
-        @update="updateNumber"
+        @update="update('number', $event)"
       />
       <p class="field">
         Missing flight number? Insert <a @click="toggleType">airports</a> instead
@@ -39,14 +39,14 @@
         :name="`flight-${id}-from`"
         placeholder="e.g. Milan, Malpensa or MXP"
         :value="flight.departure ? flight.departure.name : ''"
-        @update="updateDeparture"
+        @update="update('departure', $event)"
       />
       <AirportField
         label="Arrival airport"
         :name="`flight-${id}-to`"
         placeholder="e.g. Toronto, Pearson or YYZ"
         :value="flight.arrival ? flight.arrival.name : ''"
-        @update="updateArrival"
+        @update="update('arrival', $event)"
       />
     </BField>
     <!-- <p class="field">
@@ -85,28 +85,14 @@ export default {
     }
   },
   methods: {
-    update (data) {
+    update (name, value) {
+      const data = { [name]: value }
       this.$store.commit('estimateForm/updateFlight', { id: this.id, data })
     },
     // toggleType () {
     //   const type = this.flight.type === 'number' ? 'locations' : 'number'
     //   this.update({ type })
     // },
-    updateNumber (value) {
-      this.update({ number: value })
-    },
-    updateFrom (value) {
-      this.update({ from: value })
-    },
-    updateTo (value) {
-      this.update({ to: value })
-    },
-    updateDate (value) {
-      this.update({ date: value })
-    },
-    updatePassengers (value) {
-      this.update({ passengers: value })
-    },
     remove () {
       this.$store.commit('estimateForm/removeFlight', this.id)
     }
