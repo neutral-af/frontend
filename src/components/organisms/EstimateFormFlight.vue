@@ -21,7 +21,7 @@
       <BIcon icon="trash" />
     </a> -->
     <template v-if="flight.type === 'number'">
-      <NumberField
+      <FlightNumberField
         :number="flight.number"
         @update="updateNumber"
       />
@@ -31,13 +31,19 @@
     </template>
     <template v-else>
       <BField grouped>
-        <FromField
-          :from="flight.from"
+        <AirportField
+          label="Departure airport"
+          name="from"
+          placeholder="e.g. Milan, Malpensa or MXP"
+          :value="flight.from"
           @update="updateFrom"
         />
-        <ToField
-          :to="flight.to"
-          @updateTo="updateTo"
+        <AirportField
+          label="Arrival airport"
+          name="to"
+          placeholder="e.g. Toronto, Pearson or YYZ"
+          :value="flight.to"
+          @update="updateTo"
         />
       </BField>
       <p class="field">
@@ -48,19 +54,17 @@
 </template>
 
 <script>
+import AirportField from '@/components/molecules/AirportField'
 import DateField from '@/components/molecules/DateField'
-import FromField from '@/components/molecules/FromField'
-import NumberField from '@/components/molecules/NumberField'
+import FlightNumberField from '@/components/molecules/FlightNumberField'
 import PassengersField from '@/components/molecules/PassengersField'
-import ToField from '@/components/molecules/ToField'
 
 export default {
   components: {
+    AirportField,
     DateField,
-    FromField,
-    NumberField,
-    PassengersField,
-    ToField
+    FlightNumberField,
+    PassengersField
   },
   props: {
     id: {

@@ -1,16 +1,15 @@
 <template>
   <BField
-    label="Departure airport"
     size="is-medium"
-    label-for="from"
+    :label-for="name"
   >
     <BAutocomplete
-      name="from"
-      placeholder="e.g. Milan, Malpensa or MXP"
+      :name="name"
+      :placeholder="placeholder"
       size="is-medium"
       keep-first
       field="name"
-      :value="from"
+      :value="value"
       :data="airports"
       :loading="fetching"
       @typing="fetch"
@@ -24,15 +23,23 @@ import { airports } from '@/api'
 
 export default {
   props: {
-    from: {
+    name: {
       type: String,
       required: true
+    },
+    value: {
+      type: String,
+      required: true
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
       airports: [],
-      text: this.from,
+      text: this.value,
       fetching: false
     }
   },

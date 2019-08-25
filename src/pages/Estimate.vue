@@ -52,7 +52,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import EstimateFormFlight from '@/components/molecules/EstimateFormFlight'
+import EstimateFormFlight from '@/components/organisms/EstimateFormFlight'
 import EstimatePrompt from '@/components/organisms/EstimatePrompt'
 
 export default {
