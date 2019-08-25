@@ -6,10 +6,10 @@ export default {
     fetching: false,
     id: '',
     provider: '',
-    carbon: 0,
+    carbon: 1,
     price: {
-      currency: '',
-      cents: 0,
+      currency: 'EUR',
+      cents: 20,
       breakdown: []
     }
   }),

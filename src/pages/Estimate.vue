@@ -4,47 +4,57 @@
       Estimate
     </h1>
     <div class="box">
-      <form @submit.prevent="create">
-        <div class="flights">
-          <div
-            v-for="flight in flights"
-            :key="flight.id"
-            class="field flight"
-          >
-            <EstimateFormFlight
-              :removeable="flight.id > 1"
-              v-bind="flight"
-            />
-            <hr class="separator">
-          </div>
-        </div>
-        <hr>
-        <BField>
-          <BButton
-            type="button"
-            icon-left="plus"
-            @click="addFlight"
-          >
-            Add flight
-          </BButton>
-        </BField>
-        <BField>
-          <BButton
-            native-type="submit"
-            type="is-primary"
-            size="is-medium"
-            :class="{ 'is-loading': fetching }"
-          >
-            Calculate
-          </BButton>
-        </BField>
-        <BModal
-          :active.sync="promptActive"
-          has-modal-card
+      <ValidationObserver
+        ref="observer"
+        v-slot="{ invalid }"
+        slim
+      >
+        <form
+          novalidate
+          @submit.prevent="onSubmit"
         >
-          <EstimatePrompt />
-        </BModal>
-      </form>
+          <div class="flights">
+            <div
+              v-for="flight in flights"
+              :key="flight.id"
+              class="field flight"
+            >
+              <EstimateFormFlight
+                :removeable="flight.id > 1"
+                v-bind="flight"
+              />
+              <hr class="separator">
+            </div>
+          </div>
+          <hr>
+          <BField>
+            <BButton
+              type="button"
+              icon-left="plus"
+              @click="addFlight"
+            >
+              Add flight
+            </BButton>
+          </BField>
+          <BField>
+            <BButton
+              native-type="submit"
+              type="is-primary"
+              size="is-medium"
+              :disabled="invalid"
+              :class="{ 'is-loading': fetching }"
+            >
+              Calculate
+            </BButton>
+          </BField>
+          <BModal
+            :active.sync="promptActive"
+            has-modal-card
+          >
+            <EstimatePrompt />
+          </BModal>
+        </form>
+      </ValidationObserver>
     </div>
   </main>
 </template>
@@ -86,10 +96,26 @@ export default {
         position: 'is-bottom',
         actionText: 'Retry',
         indefinite: true,
-        onAction: this.create.bind(this)
+        onAction: this.onSubmit.bind(this)
       })
     },
-    async create ({ state, commit, rootState }) {
+    async validate () {
+      const result = await this.$refs.observer.validate()
+      if (!result) {
+        this.$toast.open({
+          message: 'Form is not valid! Please check the fields.',
+          type: 'is-danger',
+          position: 'is-bottom'
+        })
+        return false
+      }
+      return true
+    },
+    async onSubmit ({ state, commit, rootState }) {
+      const valid = await this.validate()
+      if (!valid) {
+        return
+      }
       try {
         await this.$store.dispatch('estimate/create')
         this.promptActive = true

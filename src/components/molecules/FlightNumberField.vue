@@ -1,23 +1,35 @@
 <template>
-  <BField
-    label="Flight number"
-    size="is-medium"
-    label-for="number"
+  <ValidationProvider
+    v-slot="{ errors, invalid }"
+    slim
   >
-    <BInput
-      name="number"
+    <BField
+      label="Flight number"
       size="is-medium"
-      placeholder="e.g. AC895"
-      :value="number"
-      @input="$emit('update', $event)"
-    />
-  </BField>
+      :label-for="name"
+      :type="{ 'is-danger': invalid }"
+      :message="errors[0]"
+    >
+      <BInput
+        :name="name"
+        size="is-medium"
+        placeholder="e.g. AC895"
+        :value="value"
+        required
+        @input="$emit('update', $event)"
+      />
+    </BField>
+  </ValidationProvider>
 </template>
 
 <script>
 export default {
   props: {
-    number: {
+    name: {
+      type: String,
+      required: true
+    },
+    value: {
       type: String,
       required: true
     }

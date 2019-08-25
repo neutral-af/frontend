@@ -1,24 +1,36 @@
 <template>
-  <BField
-    label="Date"
-    size="is-medium"
-    label-for="date"
-    class="date"
+  <ValidationProvider
+    v-slot="{ errors }"
+    slim
   >
-    <BDatepicker
-      name="date"
+    <BField
+      label="Date"
       size="is-medium"
-      placeholder="Date"
-      :value="date"
-      @input="$emit('update', $event)"
-    />
-  </BField>
+      :label-for="name"
+      class="date-field"
+      :type="{ 'is-danger': errors[0] }"
+      :message="errors[0]"
+    >
+      <BDatepicker
+        :name="name"
+        size="is-medium"
+        placeholder="Date"
+        :value="value"
+        required
+        @input="$emit('update', $event)"
+      />
+    </BField>
+  </ValidationProvider>
 </template>
 
 <script>
 export default {
   props: {
-    date: {
+    name: {
+      type: String,
+      required: true
+    },
+    value: {
       type: Date,
       required: true
     }
@@ -27,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-.date .input {
+.date-field .input {
   width: 8em;
 }
 </style>

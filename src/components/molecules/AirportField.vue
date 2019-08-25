@@ -1,21 +1,29 @@
 <template>
-  <BField
-    size="is-medium"
-    :label-for="name"
+  <ValidationProvider
+    v-slot="{ errors }"
+    slim
   >
-    <BAutocomplete
-      :name="name"
-      :placeholder="placeholder"
+    <BField
       size="is-medium"
-      keep-first
-      field="name"
-      :value="value"
-      :data="airports"
-      :loading="fetching"
-      @typing="fetch"
-      @select="select"
-    />
-  </BField>
+      :label="label"
+      :label-for="name"
+      :type="{ 'is-danger': errors[0] }"
+      :message="errors[0]"
+    >
+      <BAutocomplete
+        :name="name"
+        :placeholder="placeholder"
+        size="is-medium"
+        keep-first
+        field="name"
+        :value="value"
+        :data="airports"
+        :loading="fetching"
+        @typing="fetch"
+        @select="select"
+      />
+    </BField>
+  </ValidationProvider>
 </template>
 
 <script>
@@ -23,6 +31,10 @@ import { airports } from '@/api'
 
 export default {
   props: {
+    label: {
+      type: String,
+      required: true
+    },
     name: {
       type: String,
       required: true

@@ -1,6 +1,6 @@
 const createFlight = (id) => ({
   id,
-  type: 'number',
+  type: 'locations',
   number: '',
   from: '',
   to: '',

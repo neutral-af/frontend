@@ -1,27 +1,39 @@
 <template>
-  <BField
-    label="Passengers"
-    size="is-medium"
-    label-for="passengers"
-    class="passengers"
+  <ValidationProvider
+    v-slot="{ errors }"
+    slim
   >
-    <BNumberinput
-      name="passengers"
+    <BField
+      label="Passengers"
       size="is-medium"
-      placeholder=""
-      min="1"
-      max="10"
-      controls-position="compact"
-      :value="passengers"
-      @input="$emit('update', $event)"
-    />
-  </BField>
+      :label-for="name"
+      class="passengers-field"
+      :type="{ 'is-danger': errors[0] }"
+      :message="errors[0]"
+    >
+      <BNumberinput
+        :name="name"
+        size="is-medium"
+        placeholder=""
+        min="1"
+        max="10"
+        controls-position="compact"
+        :value="value"
+        required
+        @input="$emit('update', $event)"
+      />
+    </BField>
+  </ValidationProvider>
 </template>
 
 <script>
 export default {
   props: {
-    passengers: {
+    name: {
+      type: String,
+      required: true
+    },
+    value: {
       type: Number,
       required: true
     }
@@ -30,7 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
-.passengers input[type="number"] {
+.passengers-field input[type="number"] {
   width: 5em;
 }
 </style>

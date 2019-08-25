@@ -11,6 +11,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "now-build": "yarn build",
+    "dev": "yarn serve",
     "start": "yarn serve"
   },
   "dependencies": {
@@ -18,7 +19,7 @@
     "core-js": "^2.6.5",
     "graphql-request": "^1.8.2",
     "stripe": "^7.4.0",
-    "vee-validate": "^2.2.11",
+    "vee-validate": "3.0.1",
     "vue": "^2.6.10",
     "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.7",
