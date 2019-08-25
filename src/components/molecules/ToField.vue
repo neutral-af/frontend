@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { fetchAirports } from '@/api'
+import { airports } from '@/api'
 
 export default {
   props: {
@@ -44,7 +44,7 @@ export default {
       }
       this.fetching = true
       try {
-        this.airports = await fetchAirports(text)
+        this.airports = await airports.fetch(text)
         this.fetching = false
       } catch (err) {
         this.fetching = false
