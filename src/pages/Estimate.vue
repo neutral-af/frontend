@@ -4,7 +4,7 @@
       Estimate
     </h1>
     <div class="box">
-      <form @submit.prevent="createEstimate">
+      <form @submit.prevent="create">
         <div class="flights">
           <div
             v-for="flight in flights"
@@ -86,10 +86,10 @@ export default {
         position: 'is-bottom',
         actionText: 'Retry',
         indefinite: true,
-        onAction: this.createEstimate.bind(this)
+        onAction: this.create.bind(this)
       })
     },
-    async createEstimate () {
+    async create () {
       const flights = [{ departure: 'YYZ', arrival: 'LHR' }]
       try {
         await this.$store.dispatch('estimate/create', { flights, currency: 'EUR' })
