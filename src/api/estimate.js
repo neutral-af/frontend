@@ -17,7 +17,14 @@ export const create = async ({ flights, currency }) => {
       }
     }
   `
-  return request(query, { flights, currency })
+  return request(query, {
+    currency,
+    flights: flights.map(flight => ({
+      ...flight,
+      departure: flight.departure.icao,
+      arrival: flight.arrival.icao
+    }))
+  })
 }
 
 export const update = async ({ id, provider, currency }) => {
@@ -37,5 +44,5 @@ export const update = async ({ id, provider, currency }) => {
       }
     }
   `
-  return request(process.env.VUE_APP_BACKEND_URL, query, { id, provider, currency })
+  return request(query, { id, provider, currency })
 }

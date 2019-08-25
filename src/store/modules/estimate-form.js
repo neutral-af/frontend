@@ -2,8 +2,8 @@ const createFlight = (id) => ({
   id,
   type: 'locations',
   number: '',
-  from: null,
-  to: null,
+  departure: null,
+  arrival: null,
   date: new Date(),
   passengers: 1
 })
