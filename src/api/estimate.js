@@ -1,5 +1,18 @@
 import request from './request'
 
+const prepareFlight = flight => {
+  if (flight.type === 'locations') {
+    return {
+      departure: flight.departure.icao,
+      arrival: flight.arrival.icao
+    }
+  }
+  return {
+    flightNumber: flight.number,
+    date: flight.date
+  }
+}
+
 export const create = async ({ flights, currency }) => {
   const query = `
     query newEstimate($flights: [Flight!]!, $currency: Currency) {
@@ -19,11 +32,7 @@ export const create = async ({ flights, currency }) => {
   `
   return request(query, {
     currency,
-    flights: flights.map(flight => ({
-      ...flight,
-      departure: flight.departure.icao,
-      arrival: flight.arrival.icao
-    }))
+    flights: flights.map(prepareFlight)
   })
 }
 
