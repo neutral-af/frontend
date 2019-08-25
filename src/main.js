@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
-import { ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import Buefy from 'buefy'
 
 import router from './router'
