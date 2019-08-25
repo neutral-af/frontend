@@ -95,6 +95,9 @@ export default {
         this.promptActive = true
       } catch (err) {
         this.showError('Ouch, there was an error while trying to get an estimate')
+        if (process.env.NODE_ENV === 'development') {
+          throw err
+        }
       }
     }
   }

@@ -239,6 +239,9 @@ export default {
       } catch (err) {
         this.showError(err)
         this.submitting = false
+        if (process.env.NODE_ENV === 'development') {
+          throw err
+        }
       }
     }
   }
