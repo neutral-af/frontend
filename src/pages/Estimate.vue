@@ -89,10 +89,9 @@ export default {
         onAction: this.create.bind(this)
       })
     },
-    async create () {
-      const flights = [{ departure: 'YYZ', arrival: 'LHR' }]
+    async create ({ state, commit, rootState }) {
       try {
-        await this.$store.dispatch('estimate/create', { flights, currency: 'EUR' })
+        await this.$store.dispatch('estimate/create')
         this.promptActive = true
       } catch (err) {
         this.showError('Ouch, there was an error while trying to get an estimate')

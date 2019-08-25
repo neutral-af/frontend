@@ -22,11 +22,12 @@ export default {
     }
   },
   actions: {
-    async create ({ commit, rootState }, { flights }) {
+    async create ({ commit, rootState }) {
       const currency = rootState.userCurrency
+      const flights = rootState.estimateForm.flights
       commit('setFetching', true)
       try {
-        const data = await estimate.create({ flights, currency })
+        const data = await estimate.create({ currency, flights })
         commit('setData', data.estimate.fromFlights)
         commit('setFetching', false)
       } catch (err) {
