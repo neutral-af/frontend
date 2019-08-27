@@ -6,18 +6,13 @@
 
     <div class="box">
       <form @submit.prevent="onSubmit">
-        <BField
-          label="Cardholder Name"
-          label-for="name"
-          :type="submitted ? (nameValid ? 'is-success' : 'is-danger') : ''"
-        >
-          <BInput
-            v-model.trim="name"
-            name="name"
-            size="is-medium"
-            placeholder="Your Cardholder Name"
-            @input="onInputChange"
-          />
+        <BField class="level">
+          <div class="level-item">
+            <CarbonField :value="carbon" />
+          </div>
+          <div class="level-item">
+            <PriceField :value="price" />
+          </div>
         </BField>
 
         <BField
@@ -35,42 +30,25 @@
           />
         </BField>
 
-        <BField grouped>
-          <BField
-            label="Carbon amount"
-            name="carbon"
-            label-for="email"
-          >
-            <BInput
-              :value="`${carbon} kg`"
-              readonly
-              disabled
-              size="is-medium"
-              class="input is-static"
-            />
-          </BField>
-
-          <BField
-            label="Price"
-            name="price"
-            label-for="price"
-          >
-            <BInput
-              :value="priceLocal"
-              readonly
-              disabled
-              size="is-medium"
-              class="input is-static"
-            />
-          </BField>
+        <BField
+          label="Cardholder Name"
+          label-for="name"
+          :type="submitted ? (nameValid ? 'is-success' : 'is-danger') : ''"
+        >
+          <BInput
+            v-model.trim="name"
+            name="name"
+            size="is-medium"
+            placeholder="Your Cardholder Name"
+            @input="onInputChange"
+          />
         </BField>
 
         <CardField
           label="Card details"
           @change="onCardChange"
         />
-
-        <BField>
+        <!-- <BField>
           <BCheckbox
             v-model="saveCard"
             size="is-small"
@@ -78,7 +56,7 @@
           >
             Please save my card to skip this process in the future.
           </BCheckbox>
-        </BField>
+        </BField> -->
 
         <BField>
           <BButton
@@ -108,13 +86,17 @@ import { instance } from 'vue-stripe-elements-plus'
 import { trackEvent } from '../honeycomb'
 import { payments } from '../api'
 import CardField from '@/components/atoms/CardField'
+import CarbonField from '@/components/molecules/CarbonField'
+import PriceField from '@/components/molecules/PriceField'
 
 const stateKeys = ['carbon', 'price']
 
 export default {
   name: 'Checkout',
   components: {
-    CardField
+    CardField,
+    CarbonField,
+    PriceField
   },
   data () {
     return {
@@ -128,13 +110,6 @@ export default {
   },
   computed: {
     ...mapState('estimate', stateKeys),
-    priceLocal () {
-      return (this.price.cents / 100).toLocaleString(navigator.languages[0], {
-        style: 'currency',
-        currency: this.price.currency,
-        currencyDisplay: 'symbol'
-      })
-    },
     nameValid () {
       return !!this.name
     },

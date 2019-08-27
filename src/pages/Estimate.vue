@@ -34,11 +34,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.flight:last-child {
-  .separator {
-    display: none;
-  }
-}
-</style>

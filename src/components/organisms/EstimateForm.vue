@@ -22,6 +22,7 @@
           <hr class="separator">
         </div>
       </div>
+      <hr>
       <BField>
         <BButton
           type="button"
@@ -36,7 +37,7 @@
           native-type="submit"
           type="is-primary"
           size="is-medium"
-          :disabled="invalid"
+          :disabled="invalid || loading"
           :class="{ 'is-loading': loading }"
         >
           Calculate
@@ -87,7 +88,10 @@ export default {
       }
       return true
     },
-    async onSubmit ({ state, commit, rootState }) {
+    async onSubmit () {
+      if (this.loading) {
+        return
+      }
       const valid = await this.validate()
       if (!valid) {
         return
@@ -105,3 +109,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.flight:last-child {
+  .separator {
+    display: none;
+  }
+}
+</style>

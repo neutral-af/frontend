@@ -5,6 +5,7 @@
   >
     <Card
       ref="card-element"
+      class="card-element"
       :stripe="key"
       :options="options"
       @change="onChange"
@@ -51,3 +52,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.card-element {
+  margin-top: $size-6;
+  margin-bottom: $size-6;
+}
+</style>

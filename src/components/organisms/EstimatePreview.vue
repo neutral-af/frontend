@@ -1,61 +1,41 @@
 <template>
   <div class="estimate-preview">
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">Carbon</label>
+    <BField class="level fields">
+      <div class="level-item field">
+        <CarbonField :value="carbon" />
       </div>
-      <div class="field-body">
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-static"
-              :value="carbonString"
-              readonly
+      <div class="level-item field">
+        <div>
+          <PriceField :value="price" />
+          <BField>
+            <BSelect
+              placeholder="Select a currency"
+              :value="price.currency"
+              :loading="updatingCurrency"
+              :disabled="updatingCurrency"
+              @input="updateCurrency"
             >
-          </p>
+              <option
+                v-for="currency in currencies"
+                :key="currency"
+                :value="currency"
+              >
+                {{ currency }}
+              </option>
+            </BSelect>
+          </BField>
         </div>
       </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">Price</label>
-      </div>
-      <div class="field-body">
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-static"
-              :value="priceLocal"
-              readonly
-            >
-          </p>
-        </div>
-
-        <div class="field select">
-          <select
-            :value="price.currency"
-            @input="updateCurrency"
-          >
-            <option
-              v-for="c in currencies"
-              :key="c"
-              :value="c"
-            >
-              {{ c }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
+    </BField>
     <BField>
-      <RouterLink
+      <BButton
+        tag="router-link"
+        type="is-primary"
+        size="is-medium"
         :to="{ name: 'checkout' }"
-        class="button is-primary"
-        :class="{ 'is-loading': fetching }"
       >
-        Pay now
-      </RouterLink>
+        Checkout
+      </BButton>
     </BField>
   </div>
 </template>
@@ -63,37 +43,45 @@
 <script>
 import { mapState } from 'vuex'
 
+import CarbonField from '@/components/molecules/CarbonField'
+import PriceField from '@/components/molecules/PriceField'
+
 export default {
-  // props: {
-  //   estimate: {
-  //     type: Object,
-  //     default: () => {}
-  //   }
-  // },
+  components: {
+    CarbonField,
+    PriceField
+  },
   data () {
     return {
-      currencies: ['EUR', 'CAD', 'GBP', 'USD']
+      currencies: ['EUR', 'CAD', 'GBP', 'USD'],
+      updatingCurrency: false
     }
   },
   computed: {
-    ...mapState('estimate', ['price', 'carbon', 'fetching']),
-    priceLocal () {
-      console.log(this.price.currency, this.price.cents) // eslint-disable-line
-      return (this.price.cents / 100).toLocaleString(window.navigator.language, {
-        style: 'currency',
-        currency: this.price.currency,
-        currencyDisplay: 'symbol'
-      })
-    },
-    carbonString () {
-      return `${this.carbon} kilograms C02`
-    }
+    ...mapState('estimate', ['price', 'carbon', 'fetching'])
   },
   methods: {
-    updateCurrency ({ target }) {
-      this.$store.commit('setUserCurrency', target.value)
-      this.$store.dispatch('estimate/update')
+    async updateCurrency (value) {
+      if (this.updatingCurrency) {
+        return
+      }
+      this.updatingCurrency = true
+      this.$store.commit('setUserCurrency', value)
+      await this.$store.dispatch('estimate/update')
+      this.updatingCurrency = false
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.title,
+.subtitle {
+  color: inherit;
+}
+
+.fields,
+.field {
+  align-items: flex-start;
+}
+</style>

@@ -70,7 +70,7 @@ export default {
       }
     },
     select (value) {
-      this.$emit('update', value || null)
+      this.$emit('update', value)
     }
   }
 }
