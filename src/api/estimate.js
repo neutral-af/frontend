@@ -1,11 +1,23 @@
 import request from './request'
 
-const prepareFlight = ({ arrival, date, departure, flightNumber, type }) => {
+const duplicateByPassengers = (flights, flight) => {
+  if (flight.passengers > 1) {
+    const added = Array.from(Array(flight.passengers - 1)).fill(flight)
+    return [...flights, ...added]
+  }
+  return flights
+}
+
+const restrictByType = ({ arrival, date, departure, flightNumber, type }) => {
   if (type === 'locations') {
     return { departure: departure.icao, arrival: arrival.icao }
   }
   return { flightNumber, date }
 }
+
+const prepareFlights = flights => flights
+  .reduce(duplicateByPassengers, flights)
+  .map(restrictByType)
 
 export const create = async ({ flights, currency }) => {
   const query = `
@@ -24,10 +36,7 @@ export const create = async ({ flights, currency }) => {
       }
     }
   `
-  return request(query, {
-    currency,
-    flights: flights.map(prepareFlight)
-  })
+  return request(query, { currency, flights: prepareFlights(flights) })
 }
 
 export const update = async ({ id, provider, currency }) => {
