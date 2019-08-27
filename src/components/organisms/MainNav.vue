@@ -5,7 +5,7 @@
   >
     <div class="navbar-brand">
       <RouterLink
-        to="/"
+        :to="{ name: 'estimate' }"
         class="navbar-item"
         exact-active-class=""
       >
@@ -28,7 +28,7 @@
       <div class="navbar-end">
         <RouterLink
           class="navbar-item"
-          to="/about"
+          :to="{ name: 'about' }"
         >
           About
         </RouterLink>
