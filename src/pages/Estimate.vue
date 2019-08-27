@@ -1,130 +1,35 @@
 <template>
   <main>
     <h1 class="title">
-      Estimate
+      {{ title }}
     </h1>
     <div class="box">
-      <ValidationObserver
-        ref="observer"
-        v-slot="{ invalid }"
-        slim
-      >
-        <form
-          novalidate
-          @submit.prevent="onSubmit"
-        >
-          <div class="flights">
-            <div
-              v-for="flight in flights"
-              :key="flight.id"
-              class="field flight"
-            >
-              <EstimateFormFlight
-                :removeable="flight.id > 1"
-                v-bind="flight"
-              />
-              <hr class="separator">
-            </div>
-          </div>
-          <hr>
-          <BField>
-            <BButton
-              type="button"
-              icon-left="plus"
-              @click="addFlight"
-            >
-              Add flight
-            </BButton>
-          </BField>
-          <BField>
-            <BButton
-              native-type="submit"
-              type="is-primary"
-              size="is-medium"
-              :disabled="invalid"
-              :class="{ 'is-loading': fetching }"
-            >
-              Calculate
-            </BButton>
-          </BField>
-          <BModal
-            :active.sync="promptActive"
-            has-modal-card
-          >
-            <EstimatePrompt />
-          </BModal>
-        </form>
-      </ValidationObserver>
+      <EstimateForm v-if="!hasEstimate" />
+      <EstimatePreview v-else />
     </div>
   </main>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
-import EstimateFormFlight from '@/components/organisms/EstimateFormFlight'
-import EstimatePrompt from '@/components/organisms/EstimatePrompt'
+import EstimateForm from '@/components/organisms/EstimateForm'
+import EstimatePreview from '@/components/organisms/EstimatePreview'
 
 export default {
-  metaInfo: {
-    title: 'Hello, world!'
+  metaInfo () {
+    return {
+      title: this.title
+    }
   },
   components: {
-    EstimateFormFlight,
-    EstimatePrompt
-  },
-  data () {
-    return {
-      promptActive: false,
-      estimate: {}
-    }
+    EstimateForm,
+    EstimatePreview
   },
   computed: {
-    ...mapState('estimate', ['fetching']),
-    flights () {
-      return this.$store.state.estimateForm.flights.map(({ id, type }) => ({ id, type }))
-    }
-  },
-  methods: {
-    addFlight () {
-      this.$store.commit('estimateForm/addFlight')
+    hasEstimate () {
+      return !!this.$store.state.estimate.id
     },
-    showError (message = '') {
-      this.$snackbar.open({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom',
-        actionText: 'Retry',
-        indefinite: true,
-        onAction: this.onSubmit.bind(this)
-      })
-    },
-    async validate () {
-      const result = await this.$refs.observer.validate()
-      if (!result) {
-        this.$toast.open({
-          message: 'Form is not valid! Please check the fields.',
-          type: 'is-danger',
-          position: 'is-bottom'
-        })
-        return false
-      }
-      return true
-    },
-    async onSubmit ({ state, commit, rootState }) {
-      const valid = await this.validate()
-      if (!valid) {
-        return
-      }
-      try {
-        await this.$store.dispatch('estimate/create')
-        this.promptActive = true
-      } catch (err) {
-        this.showError('Ouch, there was an error while trying to get an estimate')
-        if (process.env.NODE_ENV === 'development') {
-          throw err
-        }
-      }
+    title () {
+      return this.hasEstimate ? 'Estimate Preview' : 'Estimate'
     }
   }
 }

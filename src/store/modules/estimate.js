@@ -3,8 +3,8 @@ import { estimate } from '@/api'
 export default {
   namespaced: true,
   state: () => ({
-    fetching: false,
-    id: '',
+    loading: false,
+    id: 0,
     provider: '',
     carbon: 1,
     price: {
@@ -14,8 +14,8 @@ export default {
     }
   }),
   mutations: {
-    setFetching (st, fetching) {
-      st.fetching = fetching
+    setLoading (st, loading) {
+      st.loading = loading
     },
     setData (st, data) {
       Object.assign(st, data)
@@ -25,25 +25,25 @@ export default {
     async create ({ commit, rootState }) {
       const currency = rootState.userCurrency
       const flights = rootState.estimateForm.flights
-      commit('setFetching', true)
+      commit('setLoading', true)
       try {
         const data = await estimate.create({ currency, flights })
         commit('setData', data.estimate.fromFlights)
-        commit('setFetching', false)
+        commit('setLoading', false)
       } catch (err) {
-        commit('setFetching', false)
+        commit('setLoading', false)
         throw err
       }
     },
     async update ({ commit, state, rootState }) {
       const currency = rootState.userCurrency
-      commit('setFetching', true)
+      commit('setLoading', true)
       try {
         const data = await estimate.update({ id: state.id, provider: state.provider, currency })
         commit('setData', data.estimate.fromID)
-        commit('setFetching', false)
+        commit('setLoading', false)
       } catch (err) {
-        commit('setFetching', false)
+        commit('setLoading', false)
         throw err
       }
     }
