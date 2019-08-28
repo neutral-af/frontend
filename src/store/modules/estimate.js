@@ -1,17 +1,17 @@
 import { estimate } from '@/api'
 
-import { state } from './estimate.mock'
+// import { state } from './estimate.mock'
 
 export default {
   namespaced: true,
-  // state: () => ({
-  //   loading: false,
-  //   id: '',
-  //   provider: '',
-  //   carbon: 0,
-  //   price: null
-  // }),
-  state,
+  state: () => ({
+    loading: false,
+    id: '',
+    provider: '',
+    carbon: 0,
+    price: null
+  }),
+  // state,
   mutations: {
     setLoading (st, loading) {
       st.loading = loading

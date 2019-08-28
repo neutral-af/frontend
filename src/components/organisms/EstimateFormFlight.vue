@@ -15,13 +15,7 @@
         @update="update('passengers', $event)"
       />
     </BField>
-    <!-- <a
-      v-if="removeable"
-      class="card-header-icon"
-      @click="remove"
-    >
-      <BIcon icon="trash" />
-    </a> -->
+
     <!-- <template v-if="flight.type === 'number'">
       <FlightNumberField
         :name="`flight-${id}-flight-number`"
@@ -49,10 +43,19 @@
         @update="update('arrival', $event)"
       />
     </BField>
+
     <!-- <p class="field">
       Have a <a @click="toggleType">flight number</a> instead?
     </p>
-    </template> -->
+    </template>
+    -->
+    <BButton
+      v-if="removeable"
+      icon-left="trash"
+      @click="remove"
+    >
+      Remove flight
+    </BButton>
   </section>
 </template>
 

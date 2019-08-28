@@ -25,7 +25,6 @@
       <hr>
       <BField>
         <BButton
-          type="button"
           icon-left="plus"
           @click="addFlight"
         >
