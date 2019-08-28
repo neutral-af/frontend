@@ -1,5 +1,6 @@
 <template>
-  <div class="hero is-primary is-bold is-fullheight">
+  <div class="hero is-primary is-fullheight">
+    <div class="background" />
     <header class="hero-head">
       <MainNav />
     </header>
@@ -56,8 +57,22 @@ export default {
 </script>
 
 <style lang="scss">
-.hero.is-primary.is-bold .navbar-menu {
-  background: transparent !important;
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  bottom: -10vh;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: soft-light;
+  filter: grayscale(50);
+  z-index: 0;
+  background: url(./assets/background.jpg) no-repeat bottom center / cover,
 }
 
 .view {
