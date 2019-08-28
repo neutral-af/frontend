@@ -1,14 +1,13 @@
 <template>
   <ValidationProvider
-    v-slot="{ errors }"
+    v-slot="{ errors, invalid }"
     slim
   >
     <BField
       label="Date"
-      size="is-medium"
       :label-for="name"
       class="date-field"
-      :type="{ 'is-danger': errors[0] }"
+      :type="{ 'is-danger': invalid }"
       :message="errors[0]"
     >
       <BDatepicker

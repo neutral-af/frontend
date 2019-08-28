@@ -5,7 +5,6 @@
   >
     <BField
       label="Flight number"
-      size="is-medium"
       :label-for="name"
       :type="{ 'is-danger': invalid }"
       :message="errors[0]"

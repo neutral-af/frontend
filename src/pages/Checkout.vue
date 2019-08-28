@@ -3,78 +3,100 @@
     <h1 class="title">
       Purchase your offsets
     </h1>
-
     <div class="box">
-      <form @submit.prevent="onSubmit">
-        <BField class="level">
-          <div class="level-item">
-            <CarbonField :value="carbon" />
-          </div>
-          <div class="level-item">
-            <PriceField :value="price" />
-          </div>
-        </BField>
-
-        <BField
-          label="Email"
-          label-for="email"
-          :type="submitted ? (emailValid ? 'is-success' : 'is-danger') : ''"
+      <ValidationObserver
+        ref="observer"
+        v-slot="{ invalid }"
+        slim
+      >
+        <form
+          novalidate
+          @submit.prevent="onSubmit"
         >
-          <BInput
-            v-model.trim="email"
-            name="email"
-            placeholder="Your Email Address"
-            size="is-medium"
-            type="email"
-            @input="onInputChange"
-          />
-        </BField>
+          <BField class="level">
+            <div class="level-item">
+              <CarbonField :value="carbon" />
+            </div>
+            <div class="level-item">
+              <PriceField :value="price" />
+            </div>
+          </BField>
 
-        <BField
-          label="Cardholder Name"
-          label-for="name"
-          :type="submitted ? (nameValid ? 'is-success' : 'is-danger') : ''"
-        >
-          <BInput
-            v-model.trim="name"
-            name="name"
-            size="is-medium"
-            placeholder="Your Cardholder Name"
-            @input="onInputChange"
-          />
-        </BField>
-
-        <CardField
-          label="Card details"
-          @change="onCardChange"
-        />
-        <!-- <BField>
-          <BCheckbox
-            v-model="saveCard"
-            size="is-small"
-            disabled
+          <ValidationProvider
+            v-slot="{ errors, invalid }"
+            slim
           >
-            Please save my card to skip this process in the future.
-          </BCheckbox>
-        </BField> -->
+            <BField
+              label="Email"
+              label-for="email"
+              :type="{ 'is-danger': invalid }"
+              :message="errors[0]"
+            >
+              <BInput
+                v-model.trim="email"
+                name="email"
+                placeholder="Your Email Address"
+                size="is-medium"
+                type="email"
+                required
+              />
+            </BField>
+          </ValidationProvider>
 
-        <BField>
-          <BButton
-            native-type="submit"
-            type="is-primary"
-            size="is-medium"
-            :class="{ 'is-loading': submitting }"
+          <ValidationProvider
+            v-slot="{ errors, invalid }"
+            slim
           >
-            Pay now
-          </BButton>
-        </BField>
+            <BField
+              label="Cardholder Name"
+              label-for="name"
+              :type="{ 'is-danger': invalid }"
+              :message="errors[0]"
+            >
+              <BInput
+                v-model.trim="name"
+                name="name"
+                size="is-medium"
+                placeholder="Your Cardholder Name"
+                required
+              />
+            </BField>
+          </ValidationProvider>
 
-        <BField>
-          <p class="content is-small">
-            Payment will be processed securely by Stripe
-          </p>
-        </BField>
-      </form>
+          <CardField
+            label="Card details"
+            @mounted="onCardMounted"
+            @change="onCardChange"
+          />
+          <!-- <BField>
+            <BCheckbox
+              v-model="saveCard"
+              size="is-small"
+              disabled
+            >
+              Please save my card to skip this process in the future.
+            </BCheckbox>
+          </BField> -->
+
+          <BField>
+            <BButton
+              native-type="submit"
+              type="is-primary"
+              size="is-medium"
+              :disabled="invalid || submitting"
+              :class="{ 'is-loading': submitting }"
+            >
+              Pay now
+            </BButton>
+          </BField>
+
+          <BField>
+            <p class="content is-small">
+              Payment will be processed securely by Stripe
+            </p>
+          </BField>
+        </form>
+      </ValidationObserver>
     </div>
   </main>
 </template>
@@ -102,23 +124,14 @@ export default {
     return {
       name: '',
       email: '',
+      cardElement: null,
       cardComplete: false,
       saveCard: false,
-      submitting: false,
-      submitted: false
+      submitting: false
     }
   },
   computed: {
-    ...mapState('estimate', stateKeys),
-    nameValid () {
-      return !!this.name
-    },
-    emailValid () {
-      return !!this.email
-    },
-    formValid () {
-      return this.cardComplete && this.nameValid && this.emailValid
-    }
+    ...mapState('estimate', stateKeys)
   },
   created () {
     if (stateKeys.some(value => !this[value])) {
@@ -139,8 +152,8 @@ export default {
       })
     },
 
-    onInputChange () {
-      this.submitted = false
+    onCardMounted (element) {
+      this.cardElement = element
     },
 
     onCardChange ({ complete }) {
@@ -149,7 +162,8 @@ export default {
 
     async createPaymentMethod () {
       const { paymentMethod, error } = await instance.createPaymentMethod(
-        'card', this.$refs['card-element'].$refs.element._element,
+        'card',
+        this.cardElement.$refs.element._element,
         { billing_details: { name: this.name, email: this.email } }
       )
       if (error) {
@@ -196,11 +210,27 @@ export default {
       }
     },
 
+    async validate () {
+      const result = await this.$refs.observer.validate()
+      if (!result) {
+        this.$toast.open({
+          message: 'Form is not valid! Please check the fields.',
+          type: 'is-danger',
+          position: 'is-bottom'
+        })
+        return false
+      }
+      return true
+    },
+
     // The Stripe handler methods below are modified from the docs:
     // https://stripe.com/docs/payments/payment-intents/quickstart#manual-confirmation-flow
     async onSubmit () {
-      this.submitted = true
-      if (!this.formValid) {
+      if (this.submitting) {
+        return
+      }
+      const valid = await this.validate()
+      if (!valid) {
         return
       }
       this.submitting = true

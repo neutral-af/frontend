@@ -1,13 +1,12 @@
 <template>
   <ValidationProvider
-    v-slot="{ errors }"
+    v-slot="{ errors, invalid }"
     slim
   >
     <BField
-      size="is-medium"
       :label="label"
       :label-for="name"
-      :type="{ 'is-danger': errors[0] }"
+      :type="{ 'is-danger': invalid }"
       :message="errors[0]"
     >
       <BAutocomplete

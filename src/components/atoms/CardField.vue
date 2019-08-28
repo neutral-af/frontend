@@ -4,8 +4,8 @@
     v-on="$listeners"
   >
     <Card
-      ref="card-element"
-      class="card-element"
+      ref="card"
+      class="stripe-card"
       :stripe="key"
       :options="options"
       @change="onChange"
@@ -45,6 +45,9 @@ export default {
       }
     }
   },
+  mounted () {
+    this.$emit('mounted', this.$refs.card)
+  },
   methods: {
     onChange (...args) {
       this.$emit('change', ...args)
@@ -54,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-element {
+.stripe-card {
   margin-top: $size-6;
   margin-bottom: $size-6;
 }
