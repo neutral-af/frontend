@@ -1,8 +1,11 @@
 <template>
   <footer class="footer container has-text-centered main-foot">
     <p class="is-small">
-      <RouterLink :to="{ name: 'estimate' }">
-        <strong>Carbon Offset</strong>
+      <RouterLink
+        :to="{ name: 'estimate' }"
+        class="is-family-secondary is-size-5"
+      >
+        Carbonara
       </RouterLink> ·
       Photo: <a
         href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"

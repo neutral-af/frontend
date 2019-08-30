@@ -1,40 +1,28 @@
 <template>
-  <nav
-    class="navbar"
-    role="navigation"
+  <BNavbar
+    type="is-primary"
+    class="main-nav"
   >
-    <div class="navbar-brand">
-      <RouterLink
-        :to="{ name: 'estimate' }"
-        class="navbar-item"
+    <template slot="brand">
+      <BNavbarItem
+        tag="router-link"
+        :to="{ name: 'home' }"
+        class="is-family-secondary is-size-4"
         exact-active-class=""
       >
-        <strong>Carbon Offset</strong>
-      </RouterLink>
-      <span
-        class="navbar-burger"
-        :class="{ 'is-active': menuShown }"
-        @click="toggleMenu"
+        Carbonara
+      </BNavbarItem>
+    </template>
+
+    <template slot="end">
+      <BNavbarItem
+        tag="router-link"
+        :to="{ name: 'about' }"
       >
-        <span />
-        <span />
-        <span />
-      </span>
-    </div>
-    <div
-      class="navbar-menu"
-      :class="{ 'is-active': menuShown }"
-    >
-      <div class="navbar-end">
-        <RouterLink
-          class="navbar-item"
-          :to="{ name: 'about' }"
-        >
-          About
-        </RouterLink>
-      </div>
-    </div>
-  </nav>
+        About
+      </BNavbarItem>
+    </template>
+  </BNavbar>
 </template>
 
 <script>
@@ -46,7 +34,7 @@ export default {
   },
   methods: {
     toggleMenu () {
-
+      this.menuShown = !this.menuShown
     }
   }
 }

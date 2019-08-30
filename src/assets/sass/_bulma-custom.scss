@@ -1,0 +1,52 @@
+.button {
+  transition: color $speed-medium ease-in-out,
+    background $speed-medium ease-in-out;
+}
+
+a.navbar-item,
+.navbar-link,
+.navbar-burger {
+  transition: color $speed-medium ease-in-out;
+}
+
+.navbar {
+  &.is-primary {
+    $pair:  map-get($colors, "primary");
+    $color-invert: nth($pair, 2);
+
+    .navbar-item,
+    .navbar-link,
+    .navbar-burger {
+      &:focus,
+      &:hover,
+      &.is-active {
+        color: $color-invert;
+      }
+    }
+
+    .navbar-item,
+    .navbar-link {
+      color: rgba($color-invert, 0.8);
+    }
+
+    .navbar-brand > a.navbar-item,
+    .navbar-brand .navbar-link,
+    .navbar-burger,
+    .navbar-start > a.navbar-item,
+    .navbar-start > .navbar-link,
+    .navbar-end > a.navbar-item,
+    .navbar-end > .navbar-link {
+      color: rgba($color-invert, 0.8);
+
+      &:focus,
+      &:hover,
+      &.is-active {
+        background-color: transparent;
+      }
+    }
+
+    .navbar-menu {
+      background-color: transparent;
+    }
+  }
+}

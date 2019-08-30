@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Home from './pages/Home'
 import Estimate from './pages/Estimate'
 import Checkout from './pages/Checkout'
 import Success from './pages/Success'
@@ -12,6 +13,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/estimate',
     name: 'estimate',
     component: Estimate
   },

@@ -38,8 +38,8 @@ export const confirm = async ({ paymentIntent }) => {
     }
   `
   const response = await request(process.env.VUE_APP_BACKEND_URL, query, { paymentIntent })
-  const { payment:
-    {
+  const {
+    payment: {
       confirm: {
         success,
         requiresAction,

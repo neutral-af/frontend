@@ -1,21 +1,33 @@
 <template>
-  <div class="hero is-primary is-fullheight">
-    <div class="background" />
-    <header class="hero-head">
-      <MainNav />
-    </header>
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column has-text-centered view">
-            <RouterView />
+  <div class="app">
+    <div
+      class="hero is-primary is-fullheight wrapper"
+      :class="{ 'no-header': isHome && !hasHeader }"
+    >
+      <div class="background" />
+      <header class="hero-head">
+        <transition
+          name="fadeDown"
+          mode="out-in"
+          @after-enter="onAfterEnter"
+          @after-leave="onAfterLeave"
+        >
+          <MainNav v-if="!isHome" />
+        </transition>
+      </header>
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column has-text-centered view">
+              <RouterView />
+            </div>
           </div>
         </div>
       </div>
+      <footer class="hero-foot">
+        <MainFoot />
+      </footer>
     </div>
-    <footer class="hero-foot">
-      <MainFoot />
-    </footer>
   </div>
 </template>
 
@@ -27,6 +39,25 @@ export default {
   components: {
     MainNav,
     MainFoot
+  },
+  data () {
+    return {
+      hasHeader: false
+    }
+  },
+  computed: {
+    isHome () {
+      return this.$route.name === 'home'
+    }
+  },
+  methods: {
+    onAfterEnter () {
+      this.hasHeader = true
+    },
+    onAfterLeave () {
+      console.log('on after leave')
+      this.hasHeader = false
+    }
   }
 }
 
@@ -57,10 +88,13 @@ export default {
 </script>
 
 <style lang="scss">
-.hero {
+.wrapper {
   position: relative;
-  height: 100vh;
   overflow: hidden;
+
+  &.no-header {
+    padding-top: 3.25rem;
+  }
 }
 
 .background {
