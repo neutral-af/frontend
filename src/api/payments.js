@@ -12,7 +12,7 @@ export const checkout = async ({ paymentMethod, amount, currency }) => {
       }
     }
   `
-  const response = await request(process.env.VUE_APP_BACKEND_URL, query, { paymentMethod, amount, currency })
+  const response = await request(query, { paymentMethod, amount, currency })
   const {
     payment: {
       checkout: {
@@ -37,7 +37,7 @@ export const confirm = async ({ paymentIntent }) => {
       }
     }
   `
-  const response = await request(process.env.VUE_APP_BACKEND_URL, query, { paymentIntent })
+  const response = await request(query, { paymentIntent })
   const {
     payment: {
       confirm: {
