@@ -1,10 +1,13 @@
 import request from './request'
 
-export const checkout = async ({ paymentMethod, amount, currency }) => {
+export const checkout = async ({ paymentMethod, amount, currency, saveCard }) => {
+  const options = {
+    saveCard
+  }
   const query = `
-    mutation newCheckout($paymentMethod: String!, $amount: Int!, $currency: Currency!) {
+    mutation newCheckout($paymentMethod: String!, $amount: Int!, $currency: Currency!, $options: PaymentOptions) {
       payment {
-        checkout(paymentMethod:$paymentMethod, amount:$amount, currency:$currency) {
+        checkout(paymentMethod:$paymentMethod, amount:$amount, currency:$currency, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
@@ -12,7 +15,7 @@ export const checkout = async ({ paymentMethod, amount, currency }) => {
       }
     }
   `
-  const response = await request(query, { paymentMethod, amount, currency })
+  const response = await request(query, { paymentMethod, amount, currency, options })
   const {
     payment: {
       checkout: {
@@ -25,11 +28,14 @@ export const checkout = async ({ paymentMethod, amount, currency }) => {
   return { success, requiresAction, paymentIntentClientSecret }
 }
 
-export const confirm = async ({ paymentIntent }) => {
+export const confirm = async ({ paymentIntent, saveCard }) => {
+  const options = {
+    saveCard
+  }
   const query = `
-    mutation confirmCheckout($paymentIntent: String!) {
+    mutation confirmCheckout($paymentIntent: String!, $options: PaymentOptions) {
       payment {
-        confirm(paymentIntent:$paymentIntent) {
+        confirm(paymentIntent:$paymentIntent, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
@@ -37,7 +43,7 @@ export const confirm = async ({ paymentIntent }) => {
       }
     }
   `
-  const response = await request(query, { paymentIntent })
+  const response = await request(query, { paymentIntent, options })
   const {
     payment: {
       confirm: {

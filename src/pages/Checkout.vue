@@ -185,12 +185,16 @@ export default {
       return payments.checkout({
         paymentMethod: paymentMethod.id,
         amount: this.price.cents,
-        currency: this.price.currency
+        currency: this.price.currency,
+        saveCard: this.saveCard
       })
     },
 
     fetchConfirm (paymentIntent) {
-      return payments.confirm({ paymentIntent: paymentIntent.id })
+      return payments.confirm({
+        paymentIntent: paymentIntent.id,
+        saveCard: this.saveCard
+      })
     },
 
     async onCheckoutResponse ({ success, requiresAction, paymentIntentClientSecret }) {
