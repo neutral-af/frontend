@@ -68,15 +68,14 @@
             @mounted="onCardMounted"
             @change="onCardChange"
           />
-          <!-- <BField>
+          <BField>
             <BCheckbox
               v-model="saveCard"
               size="is-small"
-              disabled
             >
               Please save my card to skip this process in the future.
             </BCheckbox>
-          </BField> -->
+          </BField>
 
           <BField>
             <BButton
@@ -174,7 +173,9 @@ export default {
 
     // Use Stripe.js to handle required card action
     async handleCardAction (paymentIntentClientSecret) {
-      const { paymentIntent, error } = await instance.handleCardAction(paymentIntentClientSecret)
+      const { paymentIntent, error } = await instance.handleCardAction(
+        paymentIntentClientSecret
+      )
       if (error) {
         throw error
       }
@@ -197,9 +198,15 @@ export default {
       })
     },
 
-    async onCheckoutResponse ({ success, requiresAction, paymentIntentClientSecret }) {
+    async onCheckoutResponse ({
+      success,
+      requiresAction,
+      paymentIntentClientSecret
+    }) {
       if (requiresAction) {
-        const paymentIntent = await this.handleCardAction(paymentIntentClientSecret)
+        const paymentIntent = await this.handleCardAction(
+          paymentIntentClientSecret
+        )
         const confirm = await this.fetchConfirm(paymentIntent)
         this.onCheckoutResponse(confirm)
       } else if (success) {
