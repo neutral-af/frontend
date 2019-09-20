@@ -1,9 +1,6 @@
 import request from './request'
 
-export const checkout = async ({ paymentMethod, amount, currency, saveCard }) => {
-  const options = {
-    saveCard
-  }
+export const checkout = async ({ paymentMethod, amount, currency, options }) => {
   const query = `
     mutation newCheckout($paymentMethod: String!, $amount: Int!, $currency: Currency!, $options: PaymentOptions) {
       payment {

@@ -22,61 +22,72 @@
             </div>
           </BField>
 
-          <ValidationProvider
-            v-slot="{ errors, invalid }"
-            slim
-          >
-            <BField
-              label="Email"
-              label-for="email"
-              :type="{ 'is-danger': invalid }"
-              :message="errors[0]"
+          <div v-if="hasPreviouslySaved">
+            Use previously saved card?
+            <CardField
+              hidden
+              label="Card details"
+              @mounted="onCardMounted"
+              @change="onCardChange"
+            />
+          </div>
+
+          <div v-else>
+            <ValidationProvider
+              v-slot="{ errors, invalid }"
+              slim
             >
-              <BInput
-                v-model.trim="email"
-                name="email"
-                placeholder="Your Email Address"
-                size="is-medium"
-                type="email"
-                required
-              />
+              <BField
+                label="Email"
+                label-for="email"
+                :type="{ 'is-danger': invalid }"
+                :message="errors[0]"
+              >
+                <BInput
+                  v-model.trim="email"
+                  name="email"
+                  placeholder="Your Email Address"
+                  size="is-medium"
+                  type="email"
+                  required
+                />
+              </BField>
+            </ValidationProvider>
+
+            <ValidationProvider
+              v-slot="{ errors, invalid }"
+              slim
+            >
+              <BField
+                label="Cardholder Name"
+                label-for="name"
+                :type="{ 'is-danger': invalid }"
+                :message="errors[0]"
+              >
+                <BInput
+                  v-model.trim="name"
+                  name="name"
+                  size="is-medium"
+                  placeholder="Your Cardholder Name"
+                  required
+                />
+              </BField>
+            </ValidationProvider>
+
+            <CardField
+              label="Card details"
+              @mounted="onCardMounted"
+              @change="onCardChange"
+            />
+            <BField>
+              <BCheckbox
+                v-model="saveCard"
+                size="is-small"
+              >
+                Please save my card to skip this process in the future.
+              </BCheckbox>
             </BField>
-          </ValidationProvider>
-
-          <ValidationProvider
-            v-slot="{ errors, invalid }"
-            slim
-          >
-            <BField
-              label="Cardholder Name"
-              label-for="name"
-              :type="{ 'is-danger': invalid }"
-              :message="errors[0]"
-            >
-              <BInput
-                v-model.trim="name"
-                name="name"
-                size="is-medium"
-                placeholder="Your Cardholder Name"
-                required
-              />
-            </BField>
-          </ValidationProvider>
-
-          <CardField
-            label="Card details"
-            @mounted="onCardMounted"
-            @change="onCardChange"
-          />
-          <BField>
-            <BCheckbox
-              v-model="saveCard"
-              size="is-small"
-            >
-              Please save my card to skip this process in the future.
-            </BCheckbox>
-          </BField>
-
+          </div>
           <BField>
             <BButton
               native-type="submit"
@@ -88,7 +99,6 @@
               Pay now
             </BButton>
           </BField>
-
           <BField>
             <p class="content is-small">
               Payment will be processed securely by Stripe
@@ -130,6 +140,15 @@ export default {
     }
   },
   computed: {
+    hasPreviouslySaved () {
+      return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
+    },
+    previouslySavedDetails () {
+      return {
+        paymentMethod: this.$cookies.get('pmID'),
+        customer: this.$cookies.get('custID')
+      }
+    },
     ...mapState('estimate', stateKeys)
   },
   created () {
@@ -168,6 +187,10 @@ export default {
       if (error) {
         throw error
       }
+
+      if (this.saveCard) {
+        this.$cookies.set('pmID', paymentMethod.id)
+      }
       return paymentMethod
     },
 
@@ -182,12 +205,15 @@ export default {
       return paymentIntent
     },
 
-    fetchCheckout (paymentMethod) {
+    fetchCheckout ({ paymentMethod, customerID }) {
       return payments.checkout({
         paymentMethod: paymentMethod.id,
         amount: this.price.cents,
         currency: this.price.currency,
-        saveCard: this.saveCard
+        options: {
+          saveCard: this.saveCard,
+          ...customerID && { customerID }
+        }
       })
     },
 
@@ -246,10 +272,18 @@ export default {
       }
       this.submitting = true
       trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
-      // TODO: skip straight to this (ignore form) if user has a card saved already
+
       try {
-        const paymentMethod = await this.createPaymentMethod()
-        const checkout = await this.fetchCheckout(paymentMethod)
+        let checkout
+        if (this.hasPreviouslySaved) {
+          checkout = await this.fetchCheckout({
+            paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
+            customerID: this.previouslySavedDetails.customer
+          })
+        } else {
+          const paymentMethod = await this.createPaymentMethod()
+          checkout = await this.fetchCheckout({ paymentMethod })
+        }
         this.onCheckoutResponse(checkout)
         this.submitting = false
       } catch (err) {
