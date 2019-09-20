@@ -11,21 +11,13 @@ export const checkout = async ({ paymentMethod, amount, currency, saveCard }) =>
           success
           requiresAction
           paymentIntentClientSecret
+          customerID
         }
       }
     }
   `
   const response = await request(query, { paymentMethod, amount, currency, options })
-  const {
-    payment: {
-      checkout: {
-        success,
-        requiresAction,
-        paymentIntentClientSecret
-      }
-    }
-  } = response
-  return { success, requiresAction, paymentIntentClientSecret }
+  return response.payment.checkout
 }
 
 export const confirm = async ({ paymentIntent, saveCard }) => {
@@ -39,19 +31,11 @@ export const confirm = async ({ paymentIntent, saveCard }) => {
           success
           requiresAction
           paymentIntentClientSecret
+          customerID
         }
       }
     }
   `
   const response = await request(query, { paymentIntent, options })
-  const {
-    payment: {
-      confirm: {
-        success,
-        requiresAction,
-        paymentIntentClientSecret
-      }
-    }
-  } = response
-  return { success, requiresAction, paymentIntentClientSecret }
+  return response.payment.confirm
 }

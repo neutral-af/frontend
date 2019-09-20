@@ -55,7 +55,6 @@ export default {
       this.hasHeader = true
     },
     onAfterLeave () {
-      console.log('on after leave')
       this.hasHeader = false
     }
   }

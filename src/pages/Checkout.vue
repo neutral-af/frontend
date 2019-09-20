@@ -201,7 +201,8 @@ export default {
     async onCheckoutResponse ({
       success,
       requiresAction,
-      paymentIntentClientSecret
+      paymentIntentClientSecret,
+      customerID
     }) {
       if (requiresAction) {
         const paymentIntent = await this.handleCardAction(
@@ -211,10 +212,9 @@ export default {
         this.onCheckoutResponse(confirm)
       } else if (success) {
         trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
-        // if (customerID) {
-        //   // TODO
-        //   // this.$cookies.set('custID', customerID)
-        // }
+        if (customerID) {
+          this.$cookies.set('custID', customerID)
+        }
         this.$router.push('/success')
       } else {
         throw new Error('undefined state in handling server response')
