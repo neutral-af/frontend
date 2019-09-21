@@ -200,14 +200,14 @@ export default {
 
     async validate () {
       // const result = await this.$refs.observer.validate()
-      if (!result) {
-        this.$toast.open({
-          message: 'Form is not valid! Please check the fields.',
-          type: 'is-danger',
-          position: 'is-bottom'
-        })
-        return false
-      }
+      // if (!result) {
+      // this.$toast.open({
+      //   message: 'Form is not valid! Please check the fields.',
+      //   type: 'is-danger',
+      //   position: 'is-bottom'
+      // })
+      // return false
+      // }
       return true
     },
 
