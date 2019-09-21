@@ -2,7 +2,7 @@
   <main>
     <transition name="fadeDown">
       <h1 class="title is-1">
-        Carbonara
+        Neutral (as f**k)
       </h1>
     </transition>
     <p class="subtitle is-4">

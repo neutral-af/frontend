@@ -5,7 +5,7 @@
         :to="{ name: 'estimate' }"
         class="is-family-secondary is-size-5"
       >
-        Carbonara
+        Neutral (as f**k)
       </RouterLink> ·
       Photo: <a
         href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"

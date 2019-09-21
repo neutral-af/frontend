@@ -4,7 +4,7 @@
       About
     </h1>
     <p class="subtitle is-4">
-      What is Carbonara?
+      What is Neutral (as f**k)?
     </p>
   </main>
 </template>

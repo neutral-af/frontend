@@ -13,15 +13,15 @@ export default {
   }),
   // state,
   mutations: {
-    setLoading(st, loading) {
+    setLoading (st, loading) {
       st.loading = loading
     },
-    setData(st, data) {
+    setData (st, data) {
       Object.assign(st, data)
     }
   },
   actions: {
-    async create({ commit, rootState: { userCurrency: currency, estimateForm: { flights } } }) {
+    async create ({ commit, rootState: { userCurrency: currency, estimateForm: { flights } } }) {
       // TODO: add cancellation of request here
       commit('setLoading', true)
       try {
@@ -33,7 +33,7 @@ export default {
         throw err
       }
     },
-    async update({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
+    async update ({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
       commit('setLoading', true)
       try {
         const data = await estimate.update({ id, provider, currency })
