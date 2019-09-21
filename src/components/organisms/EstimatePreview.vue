@@ -4,28 +4,7 @@
       <CarbonField :value="carbon" />
     </div>
     <div class="level-item field">
-      <div>
-        <PriceField :value="price" />
-        <template v-if="price">
-          <BField>
-            <BSelect
-              placeholder="Select a currency"
-              :value="price.currency"
-              :loading="updatingCurrency"
-              :disabled="updatingCurrency"
-              @input="updateCurrency"
-            >
-              <option
-                v-for="currency in currencies"
-                :key="currency"
-                :value="currency"
-              >
-                {{ currency }}
-              </option>
-            </BSelect>
-          </BField>
-        </template>
-      </div>
+      <PriceField :value="price" />
     </div>
   </BField>
 </template>
@@ -41,25 +20,8 @@ export default {
     CarbonField,
     PriceField
   },
-  data () {
-    return {
-      currencies: ['EUR', 'CAD', 'GBP', 'USD'],
-      updatingCurrency: false
-    }
-  },
   computed: {
     ...mapState('estimate', ['price', 'carbon', 'fetching'])
-  },
-  methods: {
-    async updateCurrency (value) {
-      if (this.updatingCurrency) {
-        return
-      }
-      this.updatingCurrency = true
-      this.$store.commit('setUserCurrency', value)
-      await this.$store.dispatch('estimate/create')
-      this.updatingCurrency = false
-    }
   }
 }
 </script>

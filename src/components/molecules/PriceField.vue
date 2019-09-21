@@ -1,19 +1,24 @@
 <template>
   <BField label="Price">
-    <p class="is-size-3">
-      <Price
-        :cents="cents"
-        :currency="currency"
-      />
-    </p>
+    <BField grouped>
+      <BField class="is-size-3">
+        <Price
+          :cents="cents"
+          :currency="currency"
+        />
+      </BField>
+      <CurrencyField v-if="value" />
+    </BField>
   </BField>
 </template>
 
 <script>
+import CurrencyField from '@/components/molecules/CurrencyField'
 import Price from '@/components/atoms/Price'
 
 export default {
   components: {
+    CurrencyField,
     Price
   },
   props: {
