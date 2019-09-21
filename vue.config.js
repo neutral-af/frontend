@@ -1,4 +1,3 @@
-// vue.config.js
 const path = require('path')
 
 if (!process.env.VUE_APP_BACKEND_URL) {
