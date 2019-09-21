@@ -66,7 +66,7 @@ export default {
       this.$store.commit('estimateForm/addFlight')
     },
     showError (message = '') {
-      this.$snackbar.open({
+      this.$buefy.snackbar.open({
         message,
         type: 'is-danger',
         position: 'is-bottom',

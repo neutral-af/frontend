@@ -145,7 +145,7 @@ export default {
         'app.estimateID': this.estimateID,
         errorMessage: message
       })
-      this.$snackbar.open({
+      this.$buefy.snackbar.open({
         message,
         type: 'is-danger',
         position: 'is-bottom'
