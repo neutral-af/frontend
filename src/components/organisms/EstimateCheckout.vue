@@ -20,6 +20,18 @@
         position="is-centered"
       >
         <BField
+          label="Cardholder Name"
+          label-for="name"
+        >
+          <BInput
+            v-model.trim="name"
+            name="name"
+            size="is-medium"
+            placeholder="Your Cardholder Name"
+            required
+          />
+        </BField>
+        <BField
           label="Email"
           label-for="email"
         >
@@ -29,19 +41,6 @@
             placeholder="Your Email Address"
             size="is-medium"
             type="email"
-            required
-          />
-        </BField>
-
-        <BField
-          label="Cardholder Name"
-          label-for="name"
-        >
-          <BInput
-            v-model.trim="name"
-            name="name"
-            size="is-medium"
-            placeholder="Your Cardholder Name"
             required
           />
         </BField>
