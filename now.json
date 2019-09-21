@@ -14,7 +14,8 @@
     { "src": "static/*", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "/robots.txt", "dest": "/static/robots.txt" }
+    { "src": "/robots.txt", "dest": "/static/robots.txt" },
+    { "src": "/.well-known/apple-developer-merchantid-domain-association", "dest": "/static/apple-developer-merchandid-domain-association" }
   ],
   "regions": ["bru"],
   "public": false
