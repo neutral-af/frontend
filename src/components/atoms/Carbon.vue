@@ -1,11 +1,22 @@
 <template>
   <span>
-    {{ amount }} kg CO<sub>2</sub>
+    {{ amount }}
+    <AnimatedNumber
+      :value="amount"
+      :duration="2000"
+      easing="easeInOutQuad"
+    />
+    kg CO<sub>2</sub>
   </span>
 </template>
 
 <script>
+import AnimatedNumber from 'animated-number-vue'
+
 export default {
+  components: {
+    AnimatedNumber
+  },
   props: {
     amount: {
       type: Number,
