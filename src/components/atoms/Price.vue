@@ -1,5 +1,20 @@
+<template>
+  <AnimatedNumber
+    :value="cents"
+    :duration="1500"
+    :round="1"
+    :format-value="format"
+    easing="easeInOutQuint"
+  />
+</template>
+
 <script>
+import AnimatedNumber from 'animated-number-vue'
+
 export default {
+  components: {
+    AnimatedNumber
+  },
   props: {
     cents: {
       type: Number,
@@ -10,13 +25,14 @@ export default {
       required: true
     }
   },
-  render (create) {
-    const text = (this.cents / 100).toLocaleString(window.navigator.language, {
-      style: 'currency',
-      currency: this.currency,
-      currencyDisplay: 'symbol'
-    })
-    return create('span', text)
+  methods: {
+    format (value) {
+      return (value / 100).toLocaleString(window.navigator.language, {
+        style: 'currency',
+        currency: 'USD',
+        currencyDisplay: 'symbol'
+      })
+    }
   }
 }
 </script>
