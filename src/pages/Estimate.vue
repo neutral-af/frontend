@@ -1,17 +1,56 @@
 <template>
   <main>
     <h1 class="title">
-      {{ title }}
+      Estimate
     </h1>
     <div class="box">
-      <EstimateForm v-if="!hasEstimate" />
-      <EstimatePreview v-else />
+      <ValidationObserver
+        ref="observer"
+        v-slot="{ invalid }"
+        slim
+      >
+        <form
+          novalidate
+          class="estimate-form"
+          @submit.prevent="onSubmit"
+        >
+          <EstimateFlightFields
+            v-for="flight in flights"
+            :key="flight.id"
+            :removeable="flight.id > 1"
+            v-bind="flight"
+          />
+          <BField>
+            <BButton
+              icon-left="plus"
+              @click="addFlight"
+            >
+              Add flight
+            </BButton>
+          </BField>
+          <hr>
+          <EstimatePreview />
+          <BField>
+            <BButton
+              v-if="hasEstimate"
+              type="is-primary"
+              size="is-medium"
+              :disabled="invalid || loading"
+              :class="{ 'is-loading': loading }"
+            >
+              Confirm
+            </BButton>
+          </BField>
+        </form>
+      </ValidationObserver>
     </div>
   </main>
 </template>
 
 <script>
-import EstimateForm from '@/components/organisms/EstimateForm'
+import { mapState } from 'vuex'
+
+import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
 import EstimatePreview from '@/components/organisms/EstimatePreview'
 
 export default {
@@ -21,15 +60,53 @@ export default {
     }
   },
   components: {
-    EstimateForm,
+    EstimateFlightFields,
     EstimatePreview
   },
   computed: {
+    ...mapState('estimate', ['loading']),
+    ...mapState('estimateForm', ['flights']),
     hasEstimate () {
       return !!this.$store.state.estimate.id
+    }
+  },
+  created () {
+    this.$watch(({ flights }) => (
+      flights
+        .map(({ departure, arrival, date, passengers }) => [departure, arrival, date, passengers].join())
+        .join()
+    ), this.update)
+  },
+  methods: {
+    addFlight () {
+      this.$store.commit('estimateForm/addFlight')
     },
-    title () {
-      return this.hasEstimate ? 'Estimate Preview' : 'Estimate'
+    showError (message = '') {
+      this.$buefy.snackbar.open({
+        message,
+        type: 'is-danger',
+        position: 'is-bottom',
+        actionText: 'Retry',
+        // indefinite: true,
+        onAction: this.update.bind(this)
+      })
+    },
+    async update () {
+      if (this.loading) {
+        return
+      }
+      const valid = await this.$refs.observer.validate()
+      if (!valid) {
+        return
+      }
+      try {
+        await this.$store.dispatch('estimate/create')
+      } catch (err) {
+        this.showError('Ouch, there was an error while trying to get an estimate')
+        if (process.env.NODE_ENV === 'development') {
+          throw err
+        }
+      }
     }
   }
 }

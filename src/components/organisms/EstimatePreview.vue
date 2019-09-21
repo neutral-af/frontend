@@ -1,12 +1,20 @@
 <template>
-  <div class="estimate-preview">
-    <BField class="level fields">
-      <div class="level-item field">
-        <CarbonField :value="carbon" />
-      </div>
-      <div class="level-item field">
-        <div>
-          <PriceField :value="price" />
+  <BField class="level fields">
+    <div class="level-item field">
+      <CarbonField
+        v-if="carbon"
+        :value="carbon"
+      />
+      <p v-else>
+        Carbon…
+      </p>
+    </div>
+    <div class="level-item field">
+      <div>
+        <template v-if="price">
+          <PriceField
+            :value="price"
+          />
           <BField>
             <BSelect
               placeholder="Select a currency"
@@ -24,20 +32,13 @@
               </option>
             </BSelect>
           </BField>
-        </div>
+        </template>
+        <p v-else>
+          Price…
+        </p>
       </div>
-    </BField>
-    <BField>
-      <BButton
-        tag="router-link"
-        type="is-primary"
-        size="is-medium"
-        :to="{ name: 'checkout' }"
-      >
-        Checkout
-      </BButton>
-    </BField>
-  </div>
+    </div>
+  </BField>
 </template>
 
 <script>
@@ -75,11 +76,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title,
-.subtitle {
-  color: inherit;
-}
-
 .fields,
 .field {
   align-items: flex-start;

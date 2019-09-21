@@ -1,5 +1,5 @@
 <template>
-  <section class="estimate-form-flight">
+  <section class="estimate-flight-fields">
     <!-- <template v-if="flight.type === 'number'">
       <BField position="is-centered">
         <DateField
@@ -54,19 +54,20 @@
     >
       Remove flight
     </BButton>
+    <hr>
   </section>
 </template>
 
 <script>
 import AirportField from '@/components/molecules/AirportField'
-import DateField from '@/components/molecules/DateField'
+// import DateField from '@/components/molecules/DateField'
 // import FlightNumberField from '@/components/molecules/FlightNumberField'
 import PassengersField from '@/components/molecules/PassengersField'
 
 export default {
   components: {
     AirportField,
-    DateField,
+    // DateField,
     // FlightNumberField,
     PassengersField
   },
