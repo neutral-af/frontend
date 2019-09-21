@@ -15,9 +15,8 @@ export default {
   }),
   mutations: {
     addFlight (state) {
-      const id = state.flights.length + 1
+      const id = Math.max(...state.flights.map(({ id }) => id)) + 1
       const flight = createFlight(id)
-      console.log(id, flight)
       state.flights.push(flight)
     },
     removeFlight (state, id) {
