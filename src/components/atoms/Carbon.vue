@@ -1,6 +1,5 @@
 <template>
   <span>
-    {{ amount }}
     <AnimatedNumber
       :value="amount"
       :duration="2000"
