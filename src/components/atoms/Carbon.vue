@@ -2,8 +2,9 @@
   <span>
     <AnimatedNumber
       :value="amount"
-      :duration="2000"
-      easing="easeInOutQuad"
+      :duration="1500"
+      :round="1"
+      easing="easeInOutQuint"
     />
     kg CO<sub>2</sub>
   </span>
