@@ -30,6 +30,7 @@
             type="is-primary"
             size="is-medium"
             :disabled="!hasEstimate"
+            :class="{ 'is-loading': creating }"
           >
             Confirm
           </BButton>
@@ -91,7 +92,7 @@ export default {
       ))
     },
     async update () {
-      if (this.loading) {
+      if (this.creating) {
         return
       }
       const valid = this.validate()
