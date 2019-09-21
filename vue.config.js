@@ -1,10 +1,19 @@
 // vue.config.js
 const path = require('path')
 
-process.env.VUE_APP_BACKEND_URL = process.env.NODE_ENV === 'production'
-  ? 'https://backend.jasongwartz.now.sh/graphql' : 'http://localhost:8000/graphql'
-process.env.VUE_APP_STRIPE_PUBLIC_KEY = 'pk_test_svsiEDfLy9Ibj501NJA5wv7C00mCpMpl3l'
-process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY = '737e1600677f83a69ea60fb1031f9f94'
+if (!process.env.VUE_APP_BACKEND_URL) {
+  console.error('The environment variable VUE_APP_BACKEND_URL must be provided.')
+  process.exit(1)
+}
+
+if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
+  console.error('The environment variable VUE_APP_STRIPE_PUBLIC_KEY must be provided.')
+  process.exit(1)
+}
+
+if (!process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY) {
+  console.error('The environment variable VUE_APP_STRIPE_PUBLIC_KEY was not provided, so tracking is disabled.')
+}
 
 const addStyleResource = (rule) => {
   rule.use('style-resource')
