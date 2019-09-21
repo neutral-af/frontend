@@ -12,7 +12,7 @@ if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
 }
 
 if (!process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY) {
-  console.error('The environment variable VUE_APP_STRIPE_PUBLIC_KEY was not provided, so tracking is disabled.')
+  console.error('The environment variable VUE_APP_HONEYCOMB_PUBLIC_KEY was not provided, so tracking is disabled.')
 }
 
 const addStyleResource = (rule) => {

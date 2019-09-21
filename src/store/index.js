@@ -4,7 +4,7 @@ import Vuex, { Store } from 'vuex'
 
 import estimate from './modules/estimate'
 import estimateForm from './modules/estimate-form'
-import localeToCurrency from '../../../lib/localeToCurrency'
+import localeToCurrency from '../localeToCurrency'
 
 Vue.use(Vuex)
 
