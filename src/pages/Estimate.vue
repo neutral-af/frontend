@@ -27,11 +27,9 @@
         <EstimatePreview />
         <BField>
           <BButton
-            v-if="hasEstimate"
             type="is-primary"
             size="is-medium"
-            :disabled="loading"
-            :class="{ 'is-loading': loading }"
+            :disabled="!hasEstimate"
           >
             Confirm
           </BButton>
@@ -58,7 +56,7 @@ export default {
     EstimatePreview
   },
   computed: {
-    ...mapState('estimate', ['loading']),
+    ...mapState('estimate', ['creating']),
     ...mapState('estimateForm', ['flights']),
     hasEstimate () {
       return !!this.$store.state.estimate.id

@@ -41,7 +41,7 @@ export const create = async ({ flights, currency }) => {
 
 export const update = async ({ id, provider, currency }) => {
   const query = `
-    query newEstimate($id: ID!, $provider: Provider!, $currency: Currency) {
+    query updateEstimate($id: ID!, $provider: Provider!, $currency: Currency) {
       estimate {
         fromID(id: $id, provider: $provider) {
           id

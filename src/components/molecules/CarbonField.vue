@@ -1,5 +1,5 @@
 <template>
-  <BField label="Carbon amount">
+  <BField label="Carbon">
     <p class="is-size-3">
       <Carbon :amount="value" />
     </p>

@@ -1,20 +1,12 @@
 <template>
   <BField class="level fields">
     <div class="level-item field">
-      <CarbonField
-        v-if="carbon"
-        :value="carbon"
-      />
-      <p v-else>
-        Carbon…
-      </p>
+      <CarbonField :value="carbon" />
     </div>
     <div class="level-item field">
       <div>
+        <PriceField :value="price" />
         <template v-if="price">
-          <PriceField
-            :value="price"
-          />
           <BField>
             <BSelect
               placeholder="Select a currency"
@@ -33,9 +25,6 @@
             </BSelect>
           </BField>
         </template>
-        <p v-else>
-          Price…
-        </p>
       </div>
     </div>
   </BField>
@@ -68,7 +57,7 @@ export default {
       }
       this.updatingCurrency = true
       this.$store.commit('setUserCurrency', value)
-      await this.$store.dispatch('estimate/update')
+      await this.$store.dispatch('estimate/create')
       this.updatingCurrency = false
     }
   }

@@ -1,7 +1,10 @@
 <template>
   <BField label="Price">
     <p class="is-size-3">
-      <Price v-bind="value" />
+      <Price
+        :cents="cents"
+        :currency="currency"
+      />
     </p>
   </BField>
 </template>
@@ -16,7 +19,15 @@ export default {
   props: {
     value: {
       type: Object,
-      required: true
+      default: null
+    }
+  },
+  computed: {
+    cents () {
+      return this.value ? this.value.cents : 0
+    },
+    currency () {
+      return this.value ? this.value.currency : this.$store.state.userCurrency
     }
   }
 }

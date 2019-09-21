@@ -5,7 +5,7 @@ import { estimate } from '@/api'
 export default {
   namespaced: true,
   state: () => ({
-    loading: false,
+    creating: false,
     id: '',
     provider: '',
     carbon: 0,
@@ -13,8 +13,8 @@ export default {
   }),
   // state,
   mutations: {
-    setLoading (st, loading) {
-      st.loading = loading
+    setCreating (st, creating) {
+      st.creating = creating
     },
     setData (st, data) {
       Object.assign(st, data)
@@ -23,26 +23,28 @@ export default {
   actions: {
     async create ({ commit, rootState: { userCurrency: currency, estimateForm: { flights } } }) {
       // TODO: add cancellation of request here
-      commit('setLoading', true)
+      commit('setCreating', true)
       try {
         const data = await estimate.create({ currency, flights })
         commit('setData', data.estimate.fromFlights)
-        commit('setLoading', false)
+        commit('setCreating', false)
       } catch (err) {
-        commit('setLoading', false)
-        throw err
-      }
-    },
-    async update ({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
-      commit('setLoading', true)
-      try {
-        const data = await estimate.update({ id, provider, currency })
-        commit('setData', data.estimate.fromID)
-        commit('setLoading', false)
-      } catch (err) {
-        commit('setLoading', false)
+        commit('setCreating', false)
         throw err
       }
     }
+    /*
+    async update ({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
+      commit('setUpdating', true)
+      try {
+        const data = await estimate.update({ id, provider, currency })
+        commit('setData', data.estimate.fromID)
+        commit('setUpdating', false)
+      } catch (err) {
+        commit('setUpdating', false)
+        throw err
+      }
+    }
+    */
   }
 }
