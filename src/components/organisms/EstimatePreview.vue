@@ -20,9 +20,7 @@ export default {
     CarbonField,
     PriceField
   },
-  computed: {
-    ...mapState('estimate', ['price', 'carbon', 'fetching'])
-  }
+  computed: mapState('estimate', ['price', 'carbon'])
 }
 </script>
 
