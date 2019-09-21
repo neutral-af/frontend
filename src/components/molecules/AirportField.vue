@@ -13,7 +13,7 @@
       :value="value"
       :data="airports"
       :loading="fetching"
-      @typing="fetch"
+      @typing="search"
       @select="select"
     />
   </BField>
@@ -49,16 +49,17 @@ export default {
     }
   },
   methods: {
-    async fetch (text) {
+    search (text) {
       if (!text) {
         this.airports = []
         return
       }
       this.fetching = true
       try {
-        this.airports = await airports.fetch(text)
+        this.airports = airports.search(text)
         this.fetching = false
       } catch (err) {
+        console.log(err)
         this.fetching = false
       }
     },

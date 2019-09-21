@@ -32,7 +32,6 @@
           Confirm
         </BButton>
       </BField>
-
       <template v-if="confirmed">
         <hr>
         <EstimateCheckout />
