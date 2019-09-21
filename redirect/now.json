@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "alias": ["www.neutral.af"],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "status": 301,
+        "headers": { "Location": "https://neutral.af/$1" }
+      }
+    ]
+  }
+  
