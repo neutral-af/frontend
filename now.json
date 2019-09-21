@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "frontend",
+  "alias": ["neutral.af", "www.neutral.af"],
+  "builds": [
+    { "src": "web/package.json", "use": "@now/static-build" },
+    { "src": "static/*", "use": "@now/static" }
+  ],
+  "env": {
+    "ENVIRONMENT": "prod",
+    "VUE_APP_BACKEND_URL": "https://api.neutral.af/graphql",
+    "VUE_APP_STRIPE_PUBLIC_KEY": "@stripe_public_key",
+    "VUE_APP_HONEYCOMB_PUBLIC_KEY": "@honeycomb_public_key"
+  },
+  "routes": [
+    { "src": "/", "dest": "/web" },
+    { "src": "/js/(.+)", "dest": "/web/js/$1" },
+    { "src": "/css/(.+)", "dest": "/web/css/$1" },
+    { "src": "/robots.txt", "dest": "/static/robots.txt" }
+  ],
+  "regions": ["bru"],
+  "public": false
+}
