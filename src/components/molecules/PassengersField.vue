@@ -1,29 +1,22 @@
 <template>
-  <ValidationProvider
-    v-slot="{ errors, invalid }"
-    slim
+  <BField
+    label="Passengers"
+    position="is-centered"
+    :label-for="name"
+    class="passengers-field"
   >
-    <BField
-      label="Passengers"
-      position="is-centered"
-      :label-for="name"
-      class="passengers-field"
-      :type="{ 'is-danger': invalid }"
-      :message="errors[0]"
-    >
-      <BNumberinput
-        :name="name"
-        size="is-medium"
-        placeholder=""
-        min="1"
-        max="10"
-        controls-position="compact"
-        :value="value"
-        required
-        @input="$emit('update', $event)"
-      />
-    </BField>
-  </ValidationProvider>
+    <BNumberinput
+      :name="name"
+      size="is-medium"
+      placeholder=""
+      min="1"
+      max="10"
+      controls-position="compact"
+      :value="value"
+      required
+      @input="$emit('update', $event)"
+    />
+  </BField>
 </template>
 
 <script>

@@ -4,108 +4,88 @@
       Purchase your offsets
     </h1>
     <div class="box">
-      <ValidationObserver
-        ref="observer"
-        v-slot="{ invalid }"
-        slim
+      <form
+        novalidate
+        @submit.prevent="onSubmit"
       >
-        <form
-          novalidate
-          @submit.prevent="onSubmit"
-        >
-          <BField class="level">
-            <div class="level-item">
-              <CarbonField :value="carbon" />
-            </div>
-            <div class="level-item">
-              <PriceField :value="price" />
-            </div>
-          </BField>
-
-          <div v-if="hasPreviouslySaved">
-            Use previously saved card?
-            <CardField
-              hidden
-              label="Card details"
-              @mounted="onCardMounted"
-              @change="onCardChange"
-            />
+        <BField class="level">
+          <div class="level-item">
+            <CarbonField :value="carbon" />
           </div>
-
-          <div v-else>
-            <ValidationProvider
-              v-slot="{ errors, invalid }"
-              slim
-            >
-              <BField
-                label="Email"
-                label-for="email"
-                :type="{ 'is-danger': invalid }"
-                :message="errors[0]"
-              >
-                <BInput
-                  v-model.trim="email"
-                  name="email"
-                  placeholder="Your Email Address"
-                  size="is-medium"
-                  type="email"
-                  required
-                />
-              </BField>
-            </ValidationProvider>
-
-            <ValidationProvider
-              v-slot="{ errors, invalid }"
-              slim
-            >
-              <BField
-                label="Cardholder Name"
-                label-for="name"
-                :type="{ 'is-danger': invalid }"
-                :message="errors[0]"
-              >
-                <BInput
-                  v-model.trim="name"
-                  name="name"
-                  size="is-medium"
-                  placeholder="Your Cardholder Name"
-                  required
-                />
-              </BField>
-            </ValidationProvider>
-
-            <CardField
-              label="Card details"
-              @mounted="onCardMounted"
-              @change="onCardChange"
-            />
-            <BField>
-              <BCheckbox
-                v-model="saveCard"
-                size="is-small"
-              >
-                Please save my card to skip this process in the future.
-              </BCheckbox>
-            </BField>
+          <div class="level-item">
+            <PriceField :value="price" />
           </div>
-          <BField>
-            <BButton
-              native-type="submit"
-              type="is-primary"
+        </BField>
+
+        <div v-if="hasPreviouslySaved">
+          Use previously saved card?
+          <CardField
+            hidden
+            label="Card details"
+            @mounted="onCardMounted"
+            @change="onCardChange"
+          />
+        </div>
+
+        <div v-else>
+          <BField
+            label="Email"
+            label-for="email"
+          >
+            <BInput
+              v-model.trim="email"
+              name="email"
+              placeholder="Your Email Address"
               size="is-medium"
-              :disabled="invalid || submitting"
-              :class="{ 'is-loading': submitting }"
-            >
-              Pay now
-            </BButton>
+              type="email"
+              required
+            />
           </BField>
+
+          <BField
+            label="Cardholder Name"
+            label-for="name"
+          >
+            <BInput
+              v-model.trim="name"
+              name="name"
+              size="is-medium"
+              placeholder="Your Cardholder Name"
+              required
+            />
+          </BField>
+
+          <CardField
+            label="Card details"
+            @mounted="onCardMounted"
+            @change="onCardChange"
+          />
           <BField>
-            <p class="content is-small">
-              Payment will be processed securely by Stripe
-            </p>
+            <BCheckbox
+              v-model="saveCard"
+              size="is-small"
+            >
+              Please save my card to skip this process in the future.
+            </BCheckbox>
           </BField>
-        </form>
-      </ValidationObserver>
+        </div>
+        <BField>
+          <BButton
+            native-type="submit"
+            type="is-primary"
+            size="is-medium"
+            :disabled="submitting"
+            :class="{ 'is-loading': submitting }"
+          >
+            Pay now
+          </BButton>
+        </BField>
+        <BField>
+          <p class="content is-small">
+            Payment will be processed securely by Stripe
+          </p>
+        </BField>
+      </form>
     </div>
   </main>
 </template>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
-import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import Buefy from 'buefy'
 
 import router from './router'
@@ -14,9 +13,6 @@ Vue.use(Buefy, {
   defaultIconPack: 'fas',
   defaultContainerElement: '#content'
 })
-Vue.component('ValidationProvider', ValidationProvider)
-Vue.component('ValidationObserver', ValidationObserver)
-// setInteractionMode('eager')
 
 new Vue({
   render: h => h(App),

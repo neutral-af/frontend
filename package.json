@@ -21,7 +21,6 @@
     "lodash": "^4.17.15",
     "luxon": "^1.17.2",
     "stripe": "^7.8.0",
-    "vee-validate": "3.0.3",
     "vue": "^2.6.10",
     "vue-cookies": "^1.5.13",
     "vue-router": "^3.1.2",

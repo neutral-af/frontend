@@ -1,28 +1,22 @@
 <template>
-  <ValidationProvider
-    v-slot="{ errors, invalid }"
-    slim
+  <BField
+    :label="label"
+    :label-for="name"
   >
-    <BField
-      :label="label"
-      :label-for="name"
-      :type="{ 'is-danger': invalid }"
-      :message="errors[0]"
-    >
-      <BAutocomplete
-        :name="name"
-        :placeholder="placeholder"
-        size="is-medium"
-        keep-first
-        field="name"
-        :value="value"
-        :data="airports"
-        :loading="fetching"
-        @typing="fetch"
-        @select="select"
-      />
-    </BField>
-  </ValidationProvider>
+    <BAutocomplete
+      :name="name"
+      :placeholder="placeholder"
+      size="is-medium"
+      keep-first
+      required
+      field="name"
+      :value="value"
+      :data="airports"
+      :loading="fetching"
+      @typing="fetch"
+      @select="select"
+    />
+  </BField>
 </template>
 
 <script>

@@ -4,45 +4,39 @@
       Estimate
     </h1>
     <div class="box">
-      <ValidationObserver
-        ref="observer"
-        v-slot="{ invalid }"
-        slim
+      <form
+        novalidate
+        class="estimate-form"
+        @submit.prevent="onSubmit"
       >
-        <form
-          novalidate
-          class="estimate-form"
-          @submit.prevent="onSubmit"
-        >
-          <EstimateFlightFields
-            v-for="flight in flights"
-            :key="flight.id"
-            :removeable="flight.id > 1"
-            v-bind="flight"
-          />
-          <BField>
-            <BButton
-              icon-left="plus"
-              @click="addFlight"
-            >
-              Add flight
-            </BButton>
-          </BField>
-          <hr>
-          <EstimatePreview />
-          <BField>
-            <BButton
-              v-if="hasEstimate"
-              type="is-primary"
-              size="is-medium"
-              :disabled="invalid || loading"
-              :class="{ 'is-loading': loading }"
-            >
-              Confirm
-            </BButton>
-          </BField>
-        </form>
-      </ValidationObserver>
+        <EstimateFlightFields
+          v-for="flight in flights"
+          :key="flight.id"
+          :removeable="flight.id > 1"
+          v-bind="flight"
+        />
+        <BField>
+          <BButton
+            icon-left="plus"
+            @click="addFlight"
+          >
+            Add flight
+          </BButton>
+        </BField>
+        <hr>
+        <EstimatePreview />
+        <BField>
+          <BButton
+            v-if="hasEstimate"
+            type="is-primary"
+            size="is-medium"
+            :disabled="loading"
+            :class="{ 'is-loading': loading }"
+          >
+            Confirm
+          </BButton>
+        </BField>
+      </form>
     </div>
   </main>
 </template>
@@ -91,11 +85,18 @@ export default {
         onAction: this.update.bind(this)
       })
     },
+    validate () {
+      return this.flights.every(({ departure, arrival, passengers }) => (
+        !!departure &&
+        !!arrival &&
+        !!passengers
+      ))
+    },
     async update () {
       if (this.loading) {
         return
       }
-      const valid = await this.$refs.observer.validate()
+      const valid = this.validate()
       if (!valid) {
         return
       }
