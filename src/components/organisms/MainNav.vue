@@ -10,7 +10,7 @@
         class="is-family-secondary is-size-4"
         exact-active-class=""
       >
-        Neutral a.f.
+        Neutral.af
       </BNavbarItem>
     </template>
 
