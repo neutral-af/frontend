@@ -1,51 +1,38 @@
 import request from './request'
 
-export const checkout = async ({ paymentMethod, amount, currency }) => {
+export const checkout = async ({ paymentMethod, amount, currency, options }) => {
   const query = `
-    mutation newCheckout($paymentMethod: String!, $amount: Int!, $currency: Currency!) {
+    mutation newCheckout($paymentMethod: String!, $amount: Int!, $currency: Currency!, $options: PaymentOptions) {
       payment {
-        checkout(paymentMethod:$paymentMethod, amount:$amount, currency:$currency) {
+        checkout(paymentMethod:$paymentMethod, amount:$amount, currency:$currency, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
+          customerID
         }
       }
     }
   `
-  const response = await request(query, { paymentMethod, amount, currency })
-  const {
-    payment: {
-      checkout: {
-        success,
-        requiresAction,
-        paymentIntentClientSecret
-      }
-    }
-  } = response
-  return { success, requiresAction, paymentIntentClientSecret }
+  const response = await request(query, { paymentMethod, amount, currency, options })
+  return response.payment.checkout
 }
 
-export const confirm = async ({ paymentIntent }) => {
+export const confirm = async ({ paymentIntent, saveCard }) => {
+  const options = {
+    saveCard
+  }
   const query = `
-    mutation confirmCheckout($paymentIntent: String!) {
+    mutation confirmCheckout($paymentIntent: String!, $options: PaymentOptions) {
       payment {
-        confirm(paymentIntent:$paymentIntent) {
+        confirm(paymentIntent:$paymentIntent, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
+          customerID
         }
       }
     }
   `
-  const response = await request(query, { paymentIntent })
-  const {
-    payment: {
-      confirm: {
-        success,
-        requiresAction,
-        paymentIntentClientSecret
-      }
-    }
-  } = response
-  return { success, requiresAction, paymentIntentClientSecret }
+  const response = await request(query, { paymentIntent, options })
+  return response.payment.confirm
 }
