@@ -5,6 +5,7 @@
   >
     <BField
       label="Passengers"
+      position="is-centered"
       :label-for="name"
       class="passengers-field"
       :type="{ 'is-danger': invalid }"

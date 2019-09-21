@@ -1,22 +1,13 @@
 <template>
   <section class="estimate-form-flight">
-    <BField
-      grouped
-      position="is-centered"
-    >
-      <DateField
-        :name="`flight-${id}-date`"
-        :value="flight.date"
-        @update="update('date', $event)"
-      />
-      <PassengersField
-        :name="`flight-${id}-passengers`"
-        :value="flight.passengers"
-        @update="update('passengers', $event)"
-      />
-    </BField>
-
     <!-- <template v-if="flight.type === 'number'">
+      <BField position="is-centered">
+        <DateField
+          :name="`flight-${id}-date`"
+          :value="flight.date"
+          @update="update('date', $event)"
+        />
+      </BField>
       <FlightNumberField
         :name="`flight-${id}-flight-number`"
         :value="flight.flightNnumber"
@@ -43,6 +34,13 @@
         @update="update('arrival', $event)"
       />
     </BField>
+    <!-- <BField> -->
+    <PassengersField
+      :name="`flight-${id}-passengers`"
+      :value="flight.passengers"
+      @update="update('passengers', $event)"
+    />
+    <!-- </BField> -->
 
     <!-- <p class="field">
       Have a <a @click="toggleType">flight number</a> instead?
