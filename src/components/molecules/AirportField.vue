@@ -8,6 +8,7 @@
       :placeholder="placeholder"
       size="is-medium"
       keep-first
+      open-on-focus
       required
       field="name"
       :value="value"
@@ -48,15 +49,18 @@ export default {
       fetching: false
     }
   },
+  created () {
+    this.airports = airports.search()
+  },
   methods: {
-    search (text) {
-      if (!text) {
+    search (query) {
+      if (!query) {
         this.airports = []
         return
       }
       this.fetching = true
       try {
-        this.airports = airports.search(text)
+        this.airports = airports.search(query)
         this.fetching = false
       } catch (err) {
         console.log(err)
