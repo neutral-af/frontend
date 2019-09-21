@@ -1,4 +1,8 @@
 export function trackEvent (name, data) {
+  if (!process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY) {
+    return Promise.resolve()
+  }
+
   const event = {
     name,
     service_name: 'web-frontend',
