@@ -1,113 +1,95 @@
 <template>
-  <main>
-    <h1 class="title">
-      Purchase your offsets
-    </h1>
-    <div class="box">
-      <form
-        novalidate
-        @submit.prevent="onSubmit"
+  <form
+    novalidate
+    class="checkout-form"
+    @submit.prevent="onSubmit"
+  >
+    <template v-if="hasPreviouslySaved">
+      Use previously saved card?
+      <CardField
+        hidden
+        label="Card details"
+        @mounted="onCardMounted"
+        @change="onCardChange"
+      />
+    </template>
+    <template v-else>
+      <BField
+        grouped
+        group-multiline
+        position="is-centered"
       >
-        <BField class="level">
-          <div class="level-item">
-            <CarbonField :value="carbon" />
-          </div>
-          <div class="level-item">
-            <PriceField :value="price" />
-          </div>
-        </BField>
-
-        <div v-if="hasPreviouslySaved">
-          Use previously saved card?
-          <CardField
-            hidden
-            label="Card details"
-            @mounted="onCardMounted"
-            @change="onCardChange"
-          />
-        </div>
-
-        <div v-else>
-          <BField
-            label="Email"
-            label-for="email"
-          >
-            <BInput
-              v-model.trim="email"
-              name="email"
-              placeholder="Your Email Address"
-              size="is-medium"
-              type="email"
-              required
-            />
-          </BField>
-
-          <BField
-            label="Cardholder Name"
-            label-for="name"
-          >
-            <BInput
-              v-model.trim="name"
-              name="name"
-              size="is-medium"
-              placeholder="Your Cardholder Name"
-              required
-            />
-          </BField>
-
-          <CardField
-            label="Card details"
-            @mounted="onCardMounted"
-            @change="onCardChange"
-          />
-          <BField>
-            <BCheckbox
-              v-model="saveCard"
-              size="is-small"
-            >
-              Please save my card to skip this process in the future.
-            </BCheckbox>
-          </BField>
-        </div>
-        <BField>
-          <BButton
-            native-type="submit"
-            type="is-primary"
+        <BField
+          label="Email"
+          label-for="email"
+        >
+          <BInput
+            v-model.trim="email"
+            name="email"
+            placeholder="Your Email Address"
             size="is-medium"
-            :disabled="submitting"
-            :class="{ 'is-loading': submitting }"
-          >
-            Pay now
-          </BButton>
+            type="email"
+            required
+          />
         </BField>
-        <BField>
-          <p class="content is-small">
-            Payment will be processed securely by Stripe
-          </p>
+
+        <BField
+          label="Cardholder Name"
+          label-for="name"
+        >
+          <BInput
+            v-model.trim="name"
+            name="name"
+            size="is-medium"
+            placeholder="Your Cardholder Name"
+            required
+          />
         </BField>
-      </form>
-    </div>
-  </main>
+      </BField>
+      <CardField
+        label="Card details"
+        @mounted="onCardMounted"
+        @change="onCardChange"
+      />
+      <BField>
+        <BCheckbox
+          v-model="saveCard"
+          size="is-small"
+        >
+          Please save my card to skip this process in the future.
+        </BCheckbox>
+      </BField>
+    </template>
+    <BField>
+      <BButton
+        native-type="submit"
+        type="is-primary"
+        size="is-medium"
+        :disabled="submitting"
+        :class="{ 'is-loading': submitting }"
+      >
+        Pay now
+      </BButton>
+    </BField>
+    <BField>
+      <p class="content is-small">
+        Payment will be processed securely by Stripe
+      </p>
+    </BField>
+  </form>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { instance } from 'vue-stripe-elements-plus'
 
-import { trackEvent } from '../honeycomb'
-import { payments } from '../api'
+import { trackEvent } from '@/honeycomb'
+import { payments } from '@/api'
 import CardField from '@/components/atoms/CardField'
-import CarbonField from '@/components/molecules/CarbonField'
-import PriceField from '@/components/molecules/PriceField'
-
-const stateKeys = ['carbon', 'price']
 
 export default {
-  name: 'Checkout',
   components: {
-    CardField,
-    CarbonField,
-    PriceField
+    CardField
   },
   data () {
     return {
@@ -129,20 +111,10 @@ export default {
         customer: this.$cookies.get('custID')
       }
     },
-    ...mapState('estimate', stateKeys)
-  },
-  created () {
-    if (stateKeys.some(value => !this[value])) {
-      return this.$router.replace('/')
-    }
+    ...mapState('estimate', ['carbon', 'price'])
   },
   methods: {
-    showError (err) {
-      const message = err.message || err
-      trackEvent('paymentsFrontendError', {
-        'app.estimateID': this.estimateID,
-        errorMessage: message
-      })
+    showError (message = '') {
       this.$buefy.snackbar.open({
         message,
         type: 'is-danger',
@@ -228,7 +200,7 @@ export default {
     },
 
     async validate () {
-      const result = await this.$refs.observer.validate()
+      // const result = await this.$refs.observer.validate()
       if (!result) {
         this.$toast.open({
           message: 'Form is not valid! Please check the fields.',
@@ -267,7 +239,12 @@ export default {
         this.onCheckoutResponse(checkout)
         this.submitting = false
       } catch (err) {
-        this.showError(err)
+        const message = err.message || err
+        trackEvent('paymentsFrontendError', {
+          'app.estimateID': this.estimateID,
+          errorMessage: message
+        })
+        this.showError(message)
         this.submitting = false
         if (process.env.NODE_ENV === 'development') {
           throw err

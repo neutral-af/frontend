@@ -1,6 +1,5 @@
 <template>
-  <section class="estimate-flight-fields">
-    <!-- <template v-if="flight.type === 'number'">
+  <!-- <template v-if="flight.type === 'number'">
       <BField position="is-centered">
         <DateField
           :name="`flight-${id}-date`"
@@ -17,45 +16,48 @@
         Missing flight number? Insert <a @click="toggleType">airports</a> instead
       </p>
     </template> -->
-    <!-- <template v-else> -->
-    <BField grouped>
-      <AirportField
-        label="Departure airport"
-        :name="`flight-${id}-from`"
-        placeholder="e.g. Milan, Malpensa or MXP"
-        :value="flight.departure ? flight.departure.name : ''"
-        @update="update('departure', $event)"
-      />
-      <AirportField
-        label="Arrival airport"
-        :name="`flight-${id}-to`"
-        placeholder="e.g. Toronto, Pearson or YYZ"
-        :value="flight.arrival ? flight.arrival.name : ''"
-        @update="update('arrival', $event)"
-      />
-    </BField>
-    <!-- <BField> -->
+  <!-- <template v-else> -->
+  <BField
+    grouped
+    group-multiline
+    position="is-centered"
+    class="estimate-flight-fields"
+  >
+    <AirportField
+      label="Departure airport"
+      :name="`flight-${id}-from`"
+      placeholder="e.g. Milan, Malpensa or MXP"
+      :value="flight.departure ? flight.departure.name : ''"
+      @update="update('departure', $event)"
+    />
+    <AirportField
+      label="Arrival airport"
+      :name="`flight-${id}-to`"
+      placeholder="e.g. Toronto, Pearson or YYZ"
+      :value="flight.arrival ? flight.arrival.name : ''"
+      @update="update('arrival', $event)"
+    />
     <PassengersField
       :name="`flight-${id}-passengers`"
       :value="flight.passengers"
       @update="update('passengers', $event)"
     />
-    <!-- </BField> -->
+    <BField>
+      <BButton
+        v-if="removeable"
+        icon-left="trash"
+        size="is-medium"
+        title="Remove flight"
+        @click="remove"
+      />
+    </BField>
+  </BField>
 
-    <!-- <p class="field">
+  <!-- <p class="field">
       Have a <a @click="toggleType">flight number</a> instead?
     </p>
     </template>
     -->
-    <BButton
-      v-if="removeable"
-      icon-left="trash"
-      @click="remove"
-    >
-      Remove flight
-    </BButton>
-    <hr>
-  </section>
 </template>
 
 <script>
@@ -101,3 +103,9 @@ export default {
   }
 }
 </script>
+
+<style type="scss" scoped>
+.estimate-flight-fields {
+  align-items: last baseline;
+}
+</style>

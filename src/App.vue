@@ -18,9 +18,7 @@
       <div class="hero-body">
         <div class="container">
           <div class="columns is-centered">
-            <div class="column has-text-centered view">
-              <RouterView />
-            </div>
+            <RouterView class="column has-text-centered view" />
           </div>
         </div>
       </div>
@@ -109,6 +107,6 @@ export default {
 }
 
 .view {
-  max-width: 600px;
+  max-width: 800px;
 }
 </style>

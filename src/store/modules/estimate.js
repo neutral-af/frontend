@@ -9,12 +9,16 @@ export default {
     id: '',
     provider: '',
     carbon: 0,
-    price: null
+    price: null,
+    confirmed: false
   }),
   // state,
   mutations: {
     setCreating (st, creating) {
       st.creating = creating
+    },
+    setConfirmed (st, confirmed) {
+      st.confirmed = confirmed
     },
     setData (st, data) {
       Object.assign(st, data)

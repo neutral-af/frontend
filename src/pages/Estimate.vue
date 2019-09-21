@@ -4,38 +4,39 @@
       Estimate
     </h1>
     <div class="box">
-      <form
-        novalidate
-        class="estimate-form"
-        @submit.prevent="onSubmit"
-      >
-        <EstimateFlightFields
-          v-for="flight in flights"
-          :key="flight.id"
-          :removeable="flight.id > 1"
-          v-bind="flight"
-        />
-        <BField>
-          <BButton
-            icon-left="plus"
-            @click="addFlight"
-          >
-            Add flight
-          </BButton>
-        </BField>
+      <EstimateFlightFields
+        v-for="flight in flights"
+        :key="flight.id"
+        :removeable="flights.length > 1"
+        v-bind="flight"
+        class="flight-fields"
+      />
+      <BField>
+        <BButton
+          icon-left="plus"
+          @click="addFlight"
+        >
+          Add flight
+        </BButton>
+      </BField>
+      <hr>
+      <EstimatePreview />
+      <BField v-if="!confirmed">
+        <BButton
+          type="is-primary"
+          size="is-medium"
+          :disabled="!hasEstimate"
+          :class="{ 'is-loading': creating }"
+          @click="confirm"
+        >
+          Confirm
+        </BButton>
+      </BField>
+
+      <template v-if="confirmed">
         <hr>
-        <EstimatePreview />
-        <BField>
-          <BButton
-            type="is-primary"
-            size="is-medium"
-            :disabled="!hasEstimate"
-            :class="{ 'is-loading': creating }"
-          >
-            Confirm
-          </BButton>
-        </BField>
-      </form>
+        <EstimateCheckout />
+      </template>
     </div>
   </main>
 </template>
@@ -43,8 +44,10 @@
 <script>
 import { mapState } from 'vuex'
 
+import { isValidFlight } from '@/validators'
 import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
 import EstimatePreview from '@/components/organisms/EstimatePreview'
+import EstimateCheckout from '@/components/organisms/EstimateCheckout'
 
 export default {
   metaInfo () {
@@ -54,10 +57,11 @@ export default {
   },
   components: {
     EstimateFlightFields,
-    EstimatePreview
+    EstimatePreview,
+    EstimateCheckout
   },
   computed: {
-    ...mapState('estimate', ['creating']),
+    ...mapState('estimate', ['creating', 'confirmed']),
     ...mapState('estimateForm', ['flights']),
     hasEstimate () {
       return !!this.$store.state.estimate.id
@@ -66,7 +70,14 @@ export default {
   created () {
     this.$watch(({ flights }) => (
       flights
-        .map(({ departure, arrival, date, passengers }) => [departure, arrival, date, passengers].join())
+        .map(({ departure, arrival, date, passengers }) => (
+          [
+            departure ? departure.icao : null,
+            arrival ? arrival.icao : null,
+            date,
+            passengers
+          ].join()
+        ))
         .join()
     ), this.update)
   },
@@ -80,18 +91,14 @@ export default {
         type: 'is-danger',
         position: 'is-bottom',
         actionText: 'Retry',
-        // indefinite: true,
         onAction: this.update.bind(this)
       })
     },
     validate () {
-      return this.flights.every(({ departure, arrival, passengers }) => (
-        !!departure &&
-        !!arrival &&
-        !!passengers
-      ))
+      return this.flights.every(isValidFlight)
     },
-    async update () {
+    async update (value) {
+      console.log('update', value)
       if (this.creating) {
         return
       }
@@ -107,7 +114,16 @@ export default {
           throw err
         }
       }
+    },
+    confirm () {
+      this.$store.commit('estimate/setConfirmed', true)
     }
   }
 }
 </script>
+
+<style type="scss" scoped>
+.flight-fields {
+
+}
+</style>

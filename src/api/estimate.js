@@ -1,3 +1,4 @@
+import { isValidFlight } from '@/validators'
 import request from './request'
 
 const duplicateByPassengers = (flights, flight) => {
@@ -16,6 +17,7 @@ const restrictByType = ({ arrival, date, departure, flightNumber, type }) => {
 }
 
 const prepareFlights = flights => flights
+  .filter(isValidFlight)
   .reduce(duplicateByPassengers, flights)
   .map(restrictByType)
 

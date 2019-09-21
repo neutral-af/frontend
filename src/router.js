@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 import Home from './pages/Home'
 import Estimate from './pages/Estimate'
-import Checkout from './pages/Checkout'
 import Success from './pages/Success'
 import About from './pages/About'
 import NotFound from './pages/NotFound'
@@ -20,11 +19,6 @@ const routes = [
     path: '/estimate',
     name: 'estimate',
     component: Estimate
-  },
-  {
-    path: '/checkout',
-    name: 'checkout',
-    component: Checkout
   },
   {
     path: '/success',

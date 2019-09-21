@@ -17,6 +17,7 @@ export default {
     addFlight (state) {
       const id = state.flights.length + 1
       const flight = createFlight(id)
+      console.log(id, flight)
       state.flights.push(flight)
     },
     removeFlight (state, id) {
