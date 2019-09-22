@@ -38,7 +38,7 @@ export const create = async ({ flights, currency }) => {
       }
     }
   `
-  return request(query, { currency, flights: prepareFlights(flights) })
+  return request(query, { currency, flights: prepareFlights(Object.values(flights)) })
 }
 
 export const update = async ({ id, provider, currency }) => {

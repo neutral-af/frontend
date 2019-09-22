@@ -18,7 +18,8 @@ const routes = [
   {
     path: '/estimate',
     name: 'estimate',
-    component: Estimate
+    component: Estimate,
+    props: ({ query }) => ({ initialFlights: query.flights })
   },
   {
     path: '/success',

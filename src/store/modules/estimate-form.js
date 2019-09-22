@@ -1,9 +1,9 @@
 const createFlight = (id) => ({
+  id,
   arrival: null,
   date: new Date(),
   departure: null,
   flightNumber: '',
-  id,
   passengers: 1,
   type: 'locations'
 })
@@ -11,24 +11,28 @@ const createFlight = (id) => ({
 export default {
   namespaced: true,
   state: () => ({
-    flights: [createFlight(1)]
+    flights: {
+      1: createFlight(1)
+    }
   }),
   mutations: {
+    setFlights (state, flights) {
+      state.flights = flights
+    },
     addFlight (state) {
-      const id = Math.max(...state.flights.map(({ id }) => id)) + 1
-      const flight = createFlight(id)
-      state.flights.push(flight)
+      const ids = Object.keys(state.flights).map((id) => parseInt(id, 10))
+      const id = Math.max(...ids) + 1
+      state.flights = { ...state.flights, [id]: createFlight(id) }
     },
     removeFlight (state, id) {
-      const index = state.flights.findIndex(flight => flight.id === id)
-      state.flights.splice(index, 1)
+      delete state.flights[id]
+      state.flights = { ...state.flights }
     },
     updateFlight (state, { id, data }) {
-      const index = state.flights.findIndex(flight => flight.id === id)
-      Object.assign(state.flights[index], data)
+      const flight = state.flights[id]
+      state.flights = {
+        ...state.flights, [id]: { ...flight, ...data }
+      }
     }
-  },
-  getters: {
-    getFlight: state => id => state.flights.find(flight => flight.id === id)
   }
 }

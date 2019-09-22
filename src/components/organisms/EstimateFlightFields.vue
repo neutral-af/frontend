@@ -1,15 +1,15 @@
 <template>
-  <!-- <template v-if="flight.type === 'number'">
+  <!-- <template v-if="type === 'number'">
       <BField position="is-centered">
         <DateField
           :name="`flight-${id}-date`"
-          :value="flight.date"
+          :value="date"
           @update="update('date', $event)"
         />
       </BField>
       <FlightNumberField
         :name="`flight-${id}-flight-number`"
-        :value="flight.flightNnumber"
+        :value="flightNumber"
         @update="update('flightNumber', $event)"
       />
       <p class="field">
@@ -27,24 +27,23 @@
       label="Departure airport"
       :name="`flight-${id}-from`"
       placeholder="e.g. Milan, Malpensa or MXP"
-      :value="flight.departure ? flight.departure.name : ''"
+      :value="departure ? departure.name : ''"
       @update="update('departure', $event)"
     />
     <AirportField
       label="Arrival airport"
       :name="`flight-${id}-to`"
       placeholder="e.g. Toronto, Pearson or YYZ"
-      :value="flight.arrival ? flight.arrival.name : ''"
+      :value="arrival ? arrival.name : ''"
       @update="update('arrival', $event)"
     />
     <PassengersField
       :name="`flight-${id}-passengers`"
-      :value="flight.passengers"
+      :value="passengers"
       @update="update('passengers', $event)"
     />
-    <BField>
+    <BField v-if="removable">
       <BButton
-        v-if="removeable"
         icon-left="trash"
         size="is-medium"
         title="Remove flight"
@@ -75,17 +74,28 @@ export default {
   },
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
-    removeable: {
+    removable: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    flight () {
-      return this.$store.getters['estimateForm/getFlight'](this.id)
+    },
+    type: {
+      type: String,
+      required: true
+    },
+    departure: {
+      type: Object,
+      default: null
+    },
+    arrival: {
+      type: Object,
+      default: null
+    },
+    passengers: {
+      type: Number,
+      required: true
     }
   },
   methods: {
@@ -94,7 +104,7 @@ export default {
       this.$store.commit('estimateForm/updateFlight', { id: this.id, data })
     },
     // toggleType () {
-    //   const type = this.flight.type === 'number' ? 'locations' : 'number'
+    //   const type = this.type === 'number' ? 'locations' : 'number'
     //   this.update({ type })
     // },
     remove () {

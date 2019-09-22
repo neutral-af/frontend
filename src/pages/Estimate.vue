@@ -5,11 +5,11 @@
     </h1>
     <div class="box">
       <EstimateFlightFields
-        v-for="flight in flights"
-        :key="flight.id"
-        :removeable="flights.length > 1"
+        v-for="(flight, id) in flights"
+        :id="id"
+        :key="id"
+        :removable="removable"
         v-bind="flight"
-        class="flight-fields"
       />
       <BField>
         <BButton
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import { isValidFlight } from '@/validators'
 import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
@@ -59,30 +59,55 @@ export default {
     EstimatePreview,
     EstimateCheckout
   },
+  props: {
+    initialFlights: {
+      type: String,
+      default: ''
+    },
+    initialUserCurrency: {
+      type: String,
+      default: ''
+    }
+  },
   computed: {
     ...mapState('estimate', ['creating', 'confirmed']),
     ...mapState('estimateForm', ['flights']),
+    removable () {
+      return Object.keys(this.flights).length > 1
+    },
     hasEstimate () {
       return !!this.$store.state.estimate.id
     }
   },
   created () {
-    this.$watch(({ flights }) => (
-      flights
-        .map(({ departure, arrival, date, passengers }) => (
-          [
-            departure ? departure.icao : null,
-            arrival ? arrival.icao : null,
-            date,
-            passengers
-          ].join()
-        ))
-        .join()
-    ), this.update)
+    this.storeFromInitial()
+    this.unwatch = this.$watch('flights', this.onFlightsUpdate.bind(this))
+  },
+  beforeDestroy () {
+    if (this.unwatch) {
+      this.unwatch()
+    }
   },
   methods: {
-    addFlight () {
-      this.$store.commit('estimateForm/addFlight')
+    ...mapMutations('estimateForm', ['addFlight']),
+    storeFromInitial () {
+      // if (this.initialFlights) {
+      //   try {
+      //     const flights = JSON.parse(atob(this.initialFlights))
+      //     if (flights.every(isValidFlight)) {
+      //       this.$store.commit()
+      //     }
+      //   } catch (err) {
+      //     //
+      //   }
+      // }
+      // if (this.initialUserCurrency) {
+
+      // }
+    },
+    updateUrl () {
+      const flights = btoa(JSON.stringify(this.flights))
+      this.$router.replace({ ...this.$route, query: { flights } })
     },
     showError (message = '') {
       this.$buefy.snackbar.open({
@@ -94,10 +119,9 @@ export default {
       })
     },
     validate () {
-      return this.flights.every(isValidFlight)
+      return Object.values(this.flights).every(isValidFlight)
     },
-    async update (value) {
-      console.log('update', value)
+    async update () {
       if (this.creating) {
         return
       }
@@ -113,6 +137,10 @@ export default {
           throw err
         }
       }
+    },
+    onFlightsUpdate () {
+      this.updateUrl()
+      this.update()
     },
     confirm () {
       this.$store.commit('estimate/setConfirmed', true)

@@ -63,7 +63,6 @@ export default {
         this.airports = airports.search(query)
         this.fetching = false
       } catch (err) {
-        console.log(err)
         this.fetching = false
       }
     },
