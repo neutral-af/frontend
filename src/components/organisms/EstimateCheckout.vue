@@ -10,7 +10,6 @@
         hidden
         label="Card details"
         @mounted="onCardMounted"
-        @change="onCardChange"
       />
     </template>
     <template v-else>
@@ -48,7 +47,6 @@
       <CardField
         label="Card details"
         @mounted="onCardMounted"
-        @change="onCardChange"
       />
       <BField>
         <BCheckbox
@@ -95,7 +93,6 @@ export default {
       name: '',
       email: '',
       cardElement: null,
-      cardComplete: false,
       saveCard: false,
       submitting: false
     }
@@ -123,10 +120,6 @@ export default {
 
     onCardMounted (element) {
       this.cardElement = element
-    },
-
-    onCardChange ({ complete }) {
-      this.cardComplete = !!complete
     },
 
     async createPaymentMethod () {

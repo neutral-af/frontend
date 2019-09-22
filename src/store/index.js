@@ -4,6 +4,7 @@ import Vuex, { Store } from 'vuex'
 
 import estimate from './modules/estimate'
 import estimateForm from './modules/estimate-form'
+import checkoutForm from './modules/checkout-form'
 import localeToCurrency from '../localeToCurrency'
 
 Vue.use(Vuex)
@@ -23,6 +24,7 @@ export default new Store({
     }
   },
   modules: {
+    checkoutForm,
     estimateForm,
     estimate
   },

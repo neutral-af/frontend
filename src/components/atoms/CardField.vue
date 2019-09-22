@@ -5,7 +5,8 @@
   >
     <Card
       ref="card"
-      class="stripe-card"
+      class="stripe-card input"
+      :class="{ 'complete': complete }"
       :stripe="key"
       :options="options"
       @change="onChange"
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import { Card } from 'vue-stripe-elements-plus'
 
 export default {
@@ -21,6 +24,9 @@ export default {
     Card
   },
   computed: {
+    ...mapState('checkout-form', {
+      complete: 'cardComplete'
+    }),
     key () {
       return process.env.VUE_APP_STRIPE_PUBLIC_KEY
     },
@@ -49,8 +55,8 @@ export default {
     this.$emit('mounted', this.$refs.card)
   },
   methods: {
-    onChange (...args) {
-      this.$emit('change', ...args)
+    onChange ({ complete }) {
+      this.$store.commit('setCardComplete', complete)
     }
   }
 }
