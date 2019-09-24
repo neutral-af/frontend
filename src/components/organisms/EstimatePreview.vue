@@ -1,9 +1,9 @@
 <template>
   <BField class="level is-mobile fields">
-    <div class="level-item field">
+    <div class="level-item">
       <CarbonField :value="carbon" />
     </div>
-    <div class="level-item field">
+    <div class="level-item">
       <PriceField :value="price" />
     </div>
   </BField>

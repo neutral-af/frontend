@@ -1,5 +1,5 @@
 <template>
-  <div class="estimate-flight-field">
+  <div class="estimate-flight-fields">
     <!-- <template v-if="type === 'number'">
       <BField position="is-centered">
         <DateField
@@ -13,7 +13,7 @@
         :value="flightNumber"
         @update="update('flightNumber', $event)"
       />
-      <p class="field">
+  >
         Missing flight number? Insert <a @click="toggleType">airports</a> instead
       </p>
     </template> -->
@@ -22,10 +22,9 @@
       grouped
       group-multiline
       position="is-centered"
-      class="estimate-flight-fields"
+      class="fields"
     >
       <AirportField
-        class="field"
         label="Departure airport"
         :name="`flight-${id}-from`"
         placeholder="e.g. Milan, Malpensa or MXP"
@@ -33,7 +32,6 @@
         @update="update('departure', $event)"
       />
       <AirportField
-        class="field"
         label="Arrival airport"
         :name="`flight-${id}-to`"
         placeholder="e.g. Toronto, Pearson or YYZ"
@@ -41,15 +39,11 @@
         @update="update('arrival', $event)"
       />
       <PassengersField
-        class="field"
         :name="`flight-${id}-passengers`"
         :value="passengers"
         @update="update('passengers', $event)"
       />
-      <BField
-        v-if="removable"
-        class="field"
-      >
+      <BField v-if="removable">
         <BButton
           icon-left="trash"
           size="is-medium"
@@ -60,12 +54,11 @@
     </BField>
     <hr>
   </div>
-
-  <!-- <p class="field">
-      Have a <a @click="toggleType">flight number</a> instead?
-    </p>
-    </template>
-    -->
+  <!--
+  <p>
+  Have a <a @click="toggleType">flight number</a> instead?
+  </p>
+  -->
 </template>
 
 <script>
@@ -124,13 +117,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.estimate-flight-fields {
+.fields {
   align-items: last baseline;
-}
-
-.field {
-  @include mobile-small {
-    flex: 1 0 100%;
-  }
 }
 </style>
