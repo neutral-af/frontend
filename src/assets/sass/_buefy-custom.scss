@@ -1,0 +1,18 @@
+.field {
+  @include mobile-small {
+    flex: 1 0 100%;
+  }
+
+  &.is-grouped {
+    .field:last-child {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .has-addons-centered,
+  .is-grouped-centered {
+    .control {
+      text-align: inherit;
+    }
+  }
+}
