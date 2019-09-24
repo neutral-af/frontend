@@ -2,13 +2,31 @@
   <Layout class="home">
     <Hero>
       <transition name="fadeDown">
-        <h1 class="title is-1">
-          Neutral (as f**k)
+        <h1
+          class="title is-1"
+        >
+          <transition-group
+            ref="leadWordsWrapper"
+            class="lead-word-wrapper has-text-right"
+            name="fadeUp"
+            mode="out-in"
+            tag="div"
+          >
+            <span
+              v-for="word in leadWords"
+              v-show="word == selectedLeadWord"
+              :key="word"
+              style="animation-duration: 0.3s"
+              class="leadword has-text-right"
+            >
+              {{ word }}
+            </span>
+          </transition-group>
+          <span>
+            Neutral (as f**k)
+          </span>
         </h1>
       </transition>
-      <p class="subtitle is-4">
-        Reclaim your CO<sub>2</sub> now.
-      </p>
       <BButton
         tag="router-link"
         size="is-medium"
@@ -18,23 +36,101 @@
         rounded
         :to="{ name: 'estimate' }"
       >
-        Start now
+        <span>Offset a flight now</span><i class="fas cta-icon fa-arrow-right" />
       </BButton>
     </Hero>
-    <main>
-      Test
-    </main>
+    <ViewportSection>
+      <div class="columns">
+        <div class="column is-1" />
+        <div class="column is-half has-text-justified">
+          <h1 class="has-text-grey-dark is-size-2">
+            Flying is one of the worst carbon-polluting things you do.
+          </h1>
+          <div class="is-size-4">
+            <p>The International Council on Clean Transportation says "the climate challenge for aviation is worse than anyone expected."</p>
+            <p>A <span class="has-text-weight-bold">single seat</span> on a New York to London flight puts more than a thousand kilograms (one whole tonne) of CO2 into the air. And it hurts the Earth even more when the CO2 is emitted at that elevation.</p>
+            <p>You know you should probably take a train. Or a boat. But sometimes you have to fly.</p>
+          </div>
+        </div>
+        <div class="column is-1" />
+        <div class="column is-2 is-centered">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/4/49/Airport_symbol.svg"
+            class="airport-image"
+          >
+        </div>
+      </div>
+    </ViewportSection>
+    <ViewportSection>
+      <div class="columns">
+        <div class="column is-1" />
+        <div class="column is-one-third">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Circle-icons-takeoff.svg"
+            class="airport-image"
+          >
+        </div>
+        <div class="column is-2" />
+        <div class="column is-two-thirds">
+          <h1 class="has-text-grey-dark is-size-2">
+            Living carbon neutral is really f**king hard.
+          </h1>
+          <div class="is-size-4">
+            <p>Luckily, flying neutral is <span class="has-text-weight-bold">easy a. f.</span></p>
+            <p> New York to London flight costs as little as <span class="has-text-weight-bold">$2.50</span> to offset, and you can do it in less than a minute.</p>
+            <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
+          </div>
+          <br>
+          <BButton
+            tag="router-link"
+            size="is-medium"
+            type="is-primary"
+            inverted
+            rounded
+            :to="{ name: 'estimate' }"
+          >
+            <span>Offset a flight now</span><i class="fas cta-icon fa-arrow-right" />
+          </BButton>
+        </div>
+      </div>
+    </ViewportSection>
+    <div />
   </Layout>
 </template>
 
 <script>
 import Layout from '@/layouts/Content'
 import Hero from '@/components/organisms/Hero'
+import ViewportSection from '@/components/organisms/ViewportSection'
 
 export default {
   components: {
     Hero,
-    Layout
+    Layout,
+    ViewportSection
+  },
+  data () {
+    return {
+      show: false,
+      selectedLeadWord: 'Be',
+      leadWords: [
+        'Fly',
+        'Travel',
+        'Live',
+        'Be'
+      ]
+    }
+  },
+  mounted () {
+    console.log(this.$refs.leadWordsWrapper.children)
+    Array.from(this.$refs.leadWordsWrapper.children).forEach(e => {
+      console.log(e.clientWidth)
+    })
+    let index = 0
+    setInterval(() => {
+      index = (index + 1) % this.leadWords.length
+      this.selectedLeadWord = this.leadWords[index]
+    }, 2000)
   }
 }
 </script>
@@ -42,5 +138,19 @@ export default {
 <style lang="scss" scoped>
 .title {
   font-family: $family-secondary;
+}
+.cta-icon{
+  padding-left: 5px;
+}
+.leadword{
+  display: inline-block
+}
+.lead-word-wrapper{
+  width: 106px;
+  height: 64px;
+  display: inline-block
+}
+.airport-image{
+  width: 100%;
 }
 </style>
