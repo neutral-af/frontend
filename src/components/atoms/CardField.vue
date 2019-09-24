@@ -5,7 +5,7 @@
   >
     <Card
       ref="card"
-      class="stripe-card input"
+      class="stripe-card input is-medium"
       :class="{ 'complete': complete }"
       :stripe="key"
       :options="options"
@@ -24,7 +24,7 @@ export default {
     Card
   },
   computed: {
-    ...mapState('checkout-form', {
+    ...mapState('checkoutForm', {
       complete: 'cardComplete'
     }),
     key () {
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     onChange ({ complete }) {
-      this.$store.commit('setCardComplete', complete)
+      this.$store.commit('checkoutForm/setCardComplete', complete)
     }
   }
 }
@@ -66,5 +66,10 @@ export default {
 .stripe-card {
   margin-top: $size-6;
   margin-bottom: $size-6;
+  padding-top: $size-7;
+
+  &.input {
+    display: block
+  }
 }
 </style>
