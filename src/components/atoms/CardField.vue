@@ -24,7 +24,7 @@ export default {
     Card
   },
   computed: {
-    ...mapState('checkout-form', {
+    ...mapState('checkoutForm', {
       complete: 'cardComplete'
     }),
     key () {
