@@ -10,6 +10,7 @@
 
 <script>
 import AnimatedNumber from 'animated-number-vue'
+import { formatCurrencyCents } from '../../utils'
 
 export default {
   components: {
@@ -27,11 +28,7 @@ export default {
   },
   methods: {
     format (value) {
-      return (value / 100).toLocaleString(window.navigator.language, {
-        style: 'currency',
-        currency: 'USD',
-        currencyDisplay: 'symbol'
-      })
+      return formatCurrencyCents(value, this.currency)
     }
   }
 }
