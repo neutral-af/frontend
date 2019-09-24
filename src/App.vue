@@ -15,12 +15,8 @@
           <MainNav v-if="!isHome" />
         </transition>
       </header>
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered">
-            <RouterView class="column has-text-centered view" />
-          </div>
-        </div>
+      <div class="hero-body has-text-centered body">
+        <RouterView class="view" />
       </div>
       <footer class="hero-foot">
         <MainFoot />
@@ -104,6 +100,12 @@ export default {
   filter: grayscale(50);
   z-index: 0;
   background: url(./assets/background.jpg) no-repeat bottom center / cover,
+}
+
+.hero-body.body {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  justify-content: center;
 }
 
 .view {

@@ -1,13 +1,21 @@
 <template>
-  <BField label="Price">
-    <BField grouped>
+  <BField
+    label="Price"
+    class="price-field"
+  >
+    <BField
+      class="fields"
+      position="is-centered"
+      grouped
+      group-multiline
+    >
       <BField class="is-size-3">
         <Price
           :cents="cents"
           :currency="currency"
         />
       </BField>
-      <CurrencyField v-if="value" />
+      <CurrencyField />
     </BField>
   </BField>
 </template>
@@ -37,3 +45,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.fields {
+  align-items: center;
+}
+</style>

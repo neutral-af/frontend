@@ -1,19 +1,22 @@
 <template>
-  <BSelect
-    placeholder="Select a currency"
-    :value="currency"
-    :loading="updating"
-    :disabled="updating"
-    @input="update"
-  >
-    <option
-      v-for="currency in currencies"
-      :key="currency"
+  <BField class="currency-field">
+    <BSelect
+      name="currency"
+      placeholder="Select a currency"
       :value="currency"
+      :loading="updating"
+      :disabled="updating"
+      @input="update"
     >
-      {{ currency }}
-    </option>
-  </BSelect>
+      <option
+        v-for="currency in currencies"
+        :key="currency"
+        :value="currency"
+      >
+        {{ currency }}
+      </option>
+    </BSelect>
+  </BField>
 </template>
 
 <script>
@@ -36,9 +39,20 @@ export default {
       }
       this.updating = true
       this.$store.commit('setUserCurrency', value)
-      await this.$store.dispatch('estimate/create')
       this.updating = false
     }
   }
 }
 </script>
+
+<style lang="scss">
+.currency-field .select {
+  select:not([multiple]) {
+    padding-right: 1.5em;
+  }
+
+  &:not(.is-multiple):not(.is-loading)::after {
+    right: 1em;
+  }
+}
+</style>

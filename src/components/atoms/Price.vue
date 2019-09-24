@@ -29,7 +29,7 @@ export default {
     format (value) {
       return (value / 100).toLocaleString(window.navigator.language, {
         style: 'currency',
-        currency: 'USD',
+        currency: this.currency,
         currencyDisplay: 'symbol'
       })
     }

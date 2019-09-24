@@ -70,18 +70,23 @@ export default {
     }
   },
   computed: {
+    ...mapState(['userCurrency']),
     ...mapState('estimate', ['creating', 'confirmed']),
     ...mapState('estimateForm', ['flights']),
     removable () {
-      return Object.keys(this.flights).length > 1
+      return this.totalFlights > 1
     },
     hasEstimate () {
       return !!this.$store.state.estimate.id
+    },
+    totalFlights () {
+      return Object.keys(this.flights).length
     }
   },
   created () {
     this.storeFromInitial()
-    this.unwatch = this.$watch('flights', this.onFlightsUpdate.bind(this))
+    this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
+    this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
   },
   beforeDestroy () {
     if (this.unwatch) {
@@ -102,7 +107,6 @@ export default {
       //   }
       // }
       // if (this.initialUserCurrency) {
-
       // }
     },
     updateUrl () {
@@ -138,7 +142,7 @@ export default {
         }
       }
     },
-    onFlightsUpdate () {
+    onWatchUpdate () {
       this.updateUrl()
       this.update()
     },
