@@ -1,5 +1,8 @@
 <template>
-  <BField class="level is-mobile fields">
+  <BField
+    class="level is-mobile fields"
+    :class="{ 'is-loading': creating }"
+  >
     <div class="level-item">
       <CarbonField :value="carbon" />
     </div>
@@ -20,11 +23,20 @@ export default {
     CarbonField,
     PriceField
   },
-  computed: mapState('estimate', ['price', 'carbon'])
+  computed: mapState('estimate', ['creating', 'price', 'carbon'])
 }
 </script>
 
 <style lang="scss" scoped>
+.fields {
+  transition: opacity $speed-medium ease-in-out;
+
+  &.is-loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
 .fields,
 .field {
   align-items: flex-start;
