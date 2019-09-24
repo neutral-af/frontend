@@ -9,7 +9,10 @@
     }
   }
 
-  .has-addons-centered .control {
-    text-align: inherit;
+  .has-addons-centered,
+  .is-grouped-centered {
+    .control {
+      text-align: inherit;
+    }
   }
 }

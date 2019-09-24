@@ -4,8 +4,10 @@
     class="price-field"
   >
     <BField
-      grouped
       class="fields"
+      position="is-centered"
+      grouped
+      group-multiline
     >
       <BField class="is-size-3">
         <Price
