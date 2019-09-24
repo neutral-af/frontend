@@ -1,7 +1,7 @@
 <template>
   <main>
     <transition name="fadeDown">
-      <h1 class="title is-1">
+      <h1 class="title is-size-2-mobile is-size-1">
         Neutral (as f**k)
       </h1>
     </transition>
