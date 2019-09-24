@@ -8,9 +8,9 @@
         What is Neutral (as f**k)?
       </p>
     </Hero>
-    <main>
-      Test
-    </main>
+    <Hero>
+      <vue-markdown>{{ faqText }}</vue-markdown>
+    </Hero>
   </Layout>
 </template>
 
@@ -18,10 +18,19 @@
 import Layout from '@/layouts/Content'
 import Hero from '@/components/organisms/Hero'
 
+import VueMarkdown from 'vue-markdown'
+import FAQ from 'raw-loader!./faq.md' //eslint-disable-line
+
 export default {
   components: {
     Layout,
+    VueMarkdown,
     Hero
+  },
+  data () {
+    return {
+      faqText: FAQ
+    }
   }
 }
 </script>
