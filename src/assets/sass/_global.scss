@@ -1,5 +1,4 @@
 body {
-  background-color: $primary;
   margin: 0;
   padding: 0;
   line-height: 1.5;
@@ -8,14 +7,14 @@ body {
   color: #2c3e50;
 }
 
+hr {
+  margin: 0.75rem 0;
+
+  @include tablet {
+    margin: 1rem 0;
+  }
+}
+
 .sr-only {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: auto; /* new - was 1px */
-  margin: 0; /* new - was -1px */
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-  white-space: nowrap; /* 1 */
+  @extend %sr-only;
 }
