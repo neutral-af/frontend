@@ -1,5 +1,5 @@
 <template>
-  <BField class="level fields">
+  <BField class="level is-mobile fields">
     <div class="level-item field">
       <CarbonField :value="carbon" />
     </div>

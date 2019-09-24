@@ -73,10 +73,13 @@ export default {
     ...mapState('estimate', ['creating', 'confirmed']),
     ...mapState('estimateForm', ['flights']),
     removable () {
-      return Object.keys(this.flights).length > 1
+      return this.totalFlights > 1
     },
     hasEstimate () {
       return !!this.$store.state.estimate.id
+    },
+    totalFlights () {
+      return Object.keys(this.flights).length
     }
   },
   created () {
@@ -102,7 +105,6 @@ export default {
       //   }
       // }
       // if (this.initialUserCurrency) {
-
       // }
     },
     updateUrl () {
