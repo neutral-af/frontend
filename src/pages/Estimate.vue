@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <Layout class="estimate">
     <h1 class="title">
       Estimate
     </h1>
@@ -37,13 +37,14 @@
         <EstimateCheckout />
       </template>
     </div>
-  </main>
+  </Layout>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 
 import { isValidFlight } from '@/validators'
+import Layout from '@/layouts/HeroOnly'
 import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
 import EstimatePreview from '@/components/organisms/EstimatePreview'
 import EstimateCheckout from '@/components/organisms/EstimateCheckout'
@@ -57,7 +58,8 @@ export default {
   components: {
     EstimateFlightFields,
     EstimatePreview,
-    EstimateCheckout
+    EstimateCheckout,
+    Layout
   },
   props: {
     initialFlights: {
