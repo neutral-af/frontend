@@ -38,7 +38,7 @@ export default {
             color: '#4a4a4a',
             fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
-            fontSize: '1.25rem',
+            fontSize: '20px',
             '::placeholder': {
               color: 'rgba(54,54,54,.3)'
             }
