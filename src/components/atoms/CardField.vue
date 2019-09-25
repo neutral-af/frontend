@@ -33,6 +33,21 @@ export default {
     options () {
       return {
         hidePostalCode: true,
+        elements: {
+          fonts: [{
+            family: 'Hind',
+            src: `url('${process.env.BASE_URL}fonts/hind-regular.woff') format('woff')`,
+            weight: '400',
+            style: 'normal',
+            display: 'fallback'
+          }, {
+            family: 'Hind',
+            src: `url('${process.env.BASE_URL}fonts/hind-bold.woff') format('woff')`,
+            weight: '700',
+            style: 'normal',
+            display: 'fallback'
+          }]
+        },
         style: {
           base: {
             color: '#4a4a4a',
