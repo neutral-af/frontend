@@ -35,12 +35,12 @@ export default {
         hidePostalCode: true,
         style: {
           base: {
-            color: '#32325d',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            color: '#4a4a4a',
+            fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
-            fontSize: '16px',
+            fontSize: '1.25rem',
             '::placeholder': {
-              color: '#aab7c4'
+              color: 'rgba(54,54,54,.3)'
             }
           },
           invalid: {
