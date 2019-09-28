@@ -1,5 +1,6 @@
 <template>
-  <!-- <template v-if="type === 'number'">
+  <div class="estimate-flight-fields">
+    <!-- <template v-if="type === 'number'">
       <BField position="is-centered">
         <DateField
           :name="`flight-${id}-date`"
@@ -12,51 +13,52 @@
         :value="flightNumber"
         @update="update('flightNumber', $event)"
       />
-      <p class="field">
+  >
         Missing flight number? Insert <a @click="toggleType">airports</a> instead
       </p>
     </template> -->
-  <!-- <template v-else> -->
-  <BField
-    grouped
-    group-multiline
-    position="is-centered"
-    class="estimate-flight-fields"
-  >
-    <AirportField
-      label="Departure airport"
-      :name="`flight-${id}-from`"
-      placeholder="e.g. Milan, Malpensa or MXP"
-      :value="departure ? departure.name : ''"
-      @update="update('departure', $event)"
-    />
-    <AirportField
-      label="Arrival airport"
-      :name="`flight-${id}-to`"
-      placeholder="e.g. Toronto, Pearson or YYZ"
-      :value="arrival ? arrival.name : ''"
-      @update="update('arrival', $event)"
-    />
-    <PassengersField
-      :name="`flight-${id}-passengers`"
-      :value="passengers"
-      @update="update('passengers', $event)"
-    />
-    <BField v-if="removable">
-      <BButton
-        icon-left="trash"
-        size="is-medium"
-        title="Remove flight"
-        @click="remove"
+    <!-- <template v-else> -->
+    <BField
+      grouped
+      group-multiline
+      position="is-centered"
+      class="fields"
+    >
+      <AirportField
+        label="Departure airport"
+        :name="`flight-${id}-from`"
+        placeholder="e.g. Milan, Malpensa or MXP"
+        :value="departure ? departure.name : ''"
+        @update="update('departure', $event)"
       />
+      <AirportField
+        label="Arrival airport"
+        :name="`flight-${id}-to`"
+        placeholder="e.g. Toronto, Pearson or YYZ"
+        :value="arrival ? arrival.name : ''"
+        @update="update('arrival', $event)"
+      />
+      <PassengersField
+        :name="`flight-${id}-passengers`"
+        :value="passengers"
+        @update="update('passengers', $event)"
+      />
+      <BField v-if="removable">
+        <BButton
+          icon-left="trash"
+          size="is-medium"
+          title="Remove flight"
+          @click="remove"
+        />
+      </BField>
     </BField>
-  </BField>
-
-  <!-- <p class="field">
-      Have a <a @click="toggleType">flight number</a> instead?
-    </p>
-    </template>
-    -->
+    <hr>
+  </div>
+  <!--
+  <p>
+  Have a <a @click="toggleType">flight number</a> instead?
+  </p>
+  -->
 </template>
 
 <script>
@@ -114,8 +116,8 @@ export default {
 }
 </script>
 
-<style type="scss" scoped>
-.estimate-flight-fields {
+<style lang="scss" scoped>
+.fields {
   align-items: last baseline;
 }
 </style>

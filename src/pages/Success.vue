@@ -1,17 +1,23 @@
 <template>
-  <main>
-    <h1 class="title">
+  <Layout as="main">
+    <h1 class="title is-1">
       Success!
     </h1>
-    <h2 class="subtitle">
-      You just offset {{ carbon }} kilograms of carbon!
-    </h2>
-  </main>
+    <p class="subtitle is-4">
+      You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
+    </p>
+  </Layout>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
+import Layout from '@/layouts/HeroOnly'
+
 export default {
+  components: {
+    Layout
+  },
   computed: {
     ...mapState('estimate', ['carbon'])
   }

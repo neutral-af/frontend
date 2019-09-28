@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <Layout class="estimate">
     <h1 class="title">
       Estimate
     </h1>
@@ -37,13 +37,14 @@
         <EstimateCheckout />
       </template>
     </div>
-  </main>
+  </Layout>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 
 import { isValidFlight } from '@/validators'
+import Layout from '@/layouts/HeroOnly'
 import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
 import EstimatePreview from '@/components/organisms/EstimatePreview'
 import EstimateCheckout from '@/components/organisms/EstimateCheckout'
@@ -57,7 +58,8 @@ export default {
   components: {
     EstimateFlightFields,
     EstimatePreview,
-    EstimateCheckout
+    EstimateCheckout,
+    Layout
   },
   props: {
     initialFlights: {
@@ -70,18 +72,23 @@ export default {
     }
   },
   computed: {
+    ...mapState(['userCurrency']),
     ...mapState('estimate', ['creating', 'confirmed']),
     ...mapState('estimateForm', ['flights']),
     removable () {
-      return Object.keys(this.flights).length > 1
+      return this.totalFlights > 1
     },
     hasEstimate () {
       return !!this.$store.state.estimate.id
+    },
+    totalFlights () {
+      return Object.keys(this.flights).length
     }
   },
   created () {
     this.storeFromInitial()
-    this.unwatch = this.$watch('flights', this.onFlightsUpdate.bind(this))
+    this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
+    this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
   },
   beforeDestroy () {
     if (this.unwatch) {
@@ -102,7 +109,6 @@ export default {
       //   }
       // }
       // if (this.initialUserCurrency) {
-
       // }
     },
     updateUrl () {
@@ -138,7 +144,7 @@ export default {
         }
       }
     },
-    onFlightsUpdate () {
+    onWatchUpdate () {
       this.updateUrl()
       this.update()
     },
