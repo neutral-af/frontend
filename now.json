@@ -10,12 +10,10 @@
     }
   },
   "builds": [
-    { "src": "package.json", "use": "@now/static-build" },
-    { "src": "public/*", "use": "@now/static" }
+    { "src": "package.json", "use": "@now/static-build" }
   ],
   "routes": [
-    { "src": "/robots.txt", "dest": "/public/robots.txt" },
-    { "src": "/(?!js|css|img|fonts|favicon.ico/?).+", "status": 301, "headers": { "Location": "/" } }
+    { "src": "/(?!js|css|img|fonts|favicon\\.ico|robots\\.txt/?).+", "status": 301, "headers": { "Location": "/" } }
   ],
   "regions": ["bru"],
   "public": false
