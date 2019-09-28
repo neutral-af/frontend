@@ -11,10 +11,10 @@
   },
   "builds": [
     { "src": "package.json", "use": "@now/static-build" },
-    { "src": "static/*", "use": "@now/static" }
+    { "src": "public/*", "use": "@now/static" }
   ],
   "routes": [
-    { "src": "/robots.txt", "dest": "/static/robots.txt" },
+    { "src": "/robots.txt", "dest": "/public/robots.txt" },
     { "src": "/(?!js|css|img|fonts|favicon.ico/?).+", "status": 301, "headers": { "Location": "/" } }
   ],
   "regions": ["bru"],
