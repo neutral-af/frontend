@@ -1,27 +1,32 @@
 <template>
-  <Layout class="about">
-    <Hero>
-      <h1 class="title is-1">
-        About
-      </h1>
-      <p class="subtitle is-4">
-        What is Neutral (as f**k)?
-      </p>
-    </Hero>
-    <main>
-      Test
-    </main>
-  </Layout>
+  <div>
+    <div class="hero is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title is-1">
+            About Us
+          </h1>
+          <div class="content content-about is-bold">
+            <vue-markdown>
+              {{ faqText }}
+            </vue-markdown>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Layout from '@/layouts/Content'
-import Hero from '@/components/organisms/Hero'
+import VueMarkdown from 'vue-markdown'
+import FAQ from 'raw-loader!./faq.md' //eslint-disable-line
 
 export default {
-  components: {
-    Layout,
-    Hero
+  components: { VueMarkdown },
+  data () {
+    return {
+      faqText: FAQ
+    }
   }
 }
 </script>
