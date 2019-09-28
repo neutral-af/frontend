@@ -3,14 +3,16 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <Card
-      ref="card"
-      class="stripe-card input"
-      :class="{ 'complete': complete }"
-      :stripe="key"
-      :options="options"
-      @change="onChange"
-    />
+    <div class="input is-medium card-wrapper">
+      <Card
+        ref="card"
+        class="card-element"
+        :class="{ 'complete': complete }"
+        :stripe="key"
+        :options="options"
+        @change="onChange"
+      />
+    </div>
   </BField>
 </template>
 
@@ -24,7 +26,7 @@ export default {
     Card
   },
   computed: {
-    ...mapState('checkout-form', {
+    ...mapState('checkoutForm', {
       complete: 'cardComplete'
     }),
     key () {
@@ -33,14 +35,29 @@ export default {
     options () {
       return {
         hidePostalCode: true,
+        elements: {
+          fonts: [{
+            family: 'Hind',
+            src: `url('${process.env.BASE_URL}fonts/hind-regular.woff') format('woff')`,
+            weight: '400',
+            style: 'normal',
+            display: 'fallback'
+          }, {
+            family: 'Hind',
+            src: `url('${process.env.BASE_URL}fonts/hind-bold.woff') format('woff')`,
+            weight: '700',
+            style: 'normal',
+            display: 'fallback'
+          }]
+        },
         style: {
           base: {
-            color: '#32325d',
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            color: '#4a4a4a',
+            fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
-            fontSize: '16px',
+            fontSize: '20px',
             '::placeholder': {
-              color: '#aab7c4'
+              color: 'rgba(54,54,54,.3)'
             }
           },
           invalid: {
@@ -56,15 +73,23 @@ export default {
   },
   methods: {
     onChange ({ complete }) {
-      this.$store.commit('setCardComplete', complete)
+      this.$store.commit('checkoutForm/setCardComplete', complete)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.stripe-card {
-  margin-top: $size-6;
-  margin-bottom: $size-6;
+.card-wrapper {
+  display: block;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.card-element {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>
