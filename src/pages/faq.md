@@ -1,3 +1,4 @@
+
 ## Who are you?
 
 We’re Jason and Emanuele, two developers in Berlin. You can learn about us and read the open-source code behind Neutral.af at github.com/neutral-af.
@@ -29,9 +30,10 @@ All the code for our site and services is open-source and available on Github. A
 ## What are you working on next?
 
 Here are some example features we hope to implement in the future:
-More information on where the offsets go (eg. a map pop-up showing you where a solar farm is being built)
-Allowing you to choose where to send your offsets
-Offsets for transport other than flights
-Reports or a mailing list detailing where our users have contributed to offsets
+
+- More information on where the offsets go (eg. a map pop-up showing you where a solar farm is being built)
+- Allowing you to choose where to send your offsets
+- Offsets for transport other than flights
+- Reports or a mailing list detailing where our users have contributed to offsets
 
 We also hope to create a public roadmap, so people can see what we’re working on and suggest new ideas.

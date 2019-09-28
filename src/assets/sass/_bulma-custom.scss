@@ -72,3 +72,24 @@ a.navbar-item,
     }
   }
 }
+
+.content-about {
+  a {
+    color: white;
+    text-decoration: underline;
+    &:hover,
+    &:focus {
+      color: $grey-light;
+    }
+  }
+  p {
+    font-size: 1.25rem;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-size: 2rem;
+    color: $grey-lighter;
+    font-weight: 200
+    // ;
+    // text-decoration: bold
+  }
+}
