@@ -3,14 +3,16 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <Card
-      ref="card"
-      class="stripe-card input is-medium"
-      :class="{ 'complete': complete }"
-      :stripe="key"
-      :options="options"
-      @change="onChange"
-    />
+    <div class="input is-medium card-wrapper">
+      <Card
+        ref="card"
+        class="card-element"
+        :class="{ 'complete': complete }"
+        :stripe="key"
+        :options="options"
+        @change="onChange"
+      />
+    </div>
   </BField>
 </template>
 
@@ -78,13 +80,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stripe-card {
+.card-wrapper {
   margin-top: $size-6;
   margin-bottom: $size-6;
-  padding-top: $size-7;
+  display: block;
+  padding-top: 0;
+  padding-bottom: 0;
+}
 
-  &.input {
-    display: block
-  }
+.card-element {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>
