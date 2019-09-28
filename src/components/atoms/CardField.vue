@@ -81,8 +81,6 @@ export default {
 
 <style lang="scss" scoped>
 .card-wrapper {
-  margin-top: $size-6;
-  margin-bottom: $size-6;
   display: block;
   padding-top: 0;
   padding-bottom: 0;
