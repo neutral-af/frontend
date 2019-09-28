@@ -22,6 +22,9 @@
     >
       <MainFoot />
     </footer>
+    <div class="bottom">
+      <slot name="bottom" />
+    </div>
   </component>
 </template>
 
@@ -67,5 +70,14 @@ export default {
 
 .view {
   max-width: 800px;
+}
+.bottom {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2rem;
+  bottom: 0
 }
 </style>
