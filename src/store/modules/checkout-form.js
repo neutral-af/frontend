@@ -5,14 +5,23 @@ import { payments } from '@/api'
 export default {
   namespaced: true,
   state: () => ({
-    name: '',
-    email: '',
-    saveCard: false,
     cardComplete: false,
     cardElement: null,
-    paying: false
+    email: '',
+    name: '',
+    paying: false,
+    saveCard: false
   }),
   mutations: {
+    setName (state, name) {
+      state.name = name
+    },
+    setEmail (state, email) {
+      state.email = email
+    },
+    setSaveCard (state, saveCard) {
+      state.saveCard = saveCard
+    },
     setCardComplete (state, complete) {
       state.cardComplete = complete
     },

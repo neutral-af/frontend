@@ -24,11 +24,12 @@
           label-for="name"
         >
           <BInput
-            v-model.trim="name"
             name="name"
             size="is-medium"
             placeholder="Your Cardholder Name"
+            :value="name"
             required
+            @input="setName"
           />
         </BField>
         <BField
@@ -36,12 +37,13 @@
           label-for="email"
         >
           <BInput
-            v-model.trim="email"
             name="email"
-            placeholder="Your Email Address"
             size="is-medium"
+            placeholder="Your Email Address"
+            :value="email"
             type="email"
             required
+            @input="setEmail"
           />
         </BField>
       </BField>
@@ -51,8 +53,9 @@
       />
       <BField>
         <BCheckbox
-          v-model="saveCard"
+          :value="saveCard"
           size="is-small"
+          @input="setSaveCard"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
@@ -89,7 +92,7 @@ export default {
   },
   computed: {
     ...mapState('estimate', ['carbon', 'price']),
-    ...mapState('checkoutForm', ['name', 'email', 'saveCard', 'paying']),
+    ...mapState('checkoutForm', ['cardComplete', 'email', 'name', 'paying', 'saveCard']),
     hasPreviouslySaved () {
       return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
     },
@@ -104,7 +107,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('checkoutForm', ['setCardElement']),
+    ...mapMutations('checkoutForm', [
+      'setCardElement',
+      'setName',
+      'setEmail',
+      'setSaveCard'
+    ]),
     showError (message = '') {
       this.$buefy.snackbar.open({
         message,
@@ -115,7 +123,6 @@ export default {
     onCardMounted (element) {
       this.setCardElement = element.$refs.element._element
     },
-
     // async createPaymentMethod () {
     //   const { paymentMethod, error } = await instance.createPaymentMethod(
     //     'card',
@@ -135,14 +142,13 @@ export default {
     validate () {
       return true
     },
-
     async onSubmit () {
       if (!this.validate()) {
         return
       }
       trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
       try {
-        await this.$store.dispatch('pay')
+        await this.$store.dispatch('checkoutForm/pay')
         trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
         this.$router.push('/success')
       } catch (err) {
