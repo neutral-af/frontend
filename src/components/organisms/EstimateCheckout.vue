@@ -19,33 +19,14 @@
         group-multiline
         position="is-centered"
       >
-        <BField
-          label="Cardholder Name"
-          label-for="name"
-        >
-          <BInput
-            name="name"
-            size="is-medium"
-            placeholder="Your Cardholder Name"
-            :value="name"
-            required
-            @input="setName"
-          />
-        </BField>
-        <BField
-          label="Email"
-          label-for="email"
-        >
-          <BInput
-            name="email"
-            size="is-medium"
-            placeholder="Your Email Address"
-            :value="email"
-            type="email"
-            required
-            @input="setEmail"
-          />
-        </BField>
+        <NameField
+          :value="name"
+          @update="setName"
+        />
+        <EmailField
+          :value="email"
+          @update="setEmail"
+        />
       </BField>
       <CardField
         label="Card details"
@@ -84,11 +65,15 @@
 import { mapState, mapMutations } from 'vuex'
 
 import { trackEvent } from '@/honeycomb'
-import CardField from '@/components/atoms/CardField'
+import CardField from '@/components/molecules/CardField'
+import EmailField from '@/components/molecules/EmailField'
+import NameField from '@/components/molecules/NameField'
 
 export default {
   components: {
-    CardField
+    CardField,
+    EmailField,
+    NameField
   },
   computed: {
     ...mapState('estimate', ['carbon', 'price']),
@@ -121,7 +106,8 @@ export default {
       })
     },
     onCardMounted (element) {
-      this.setCardElement = element.$refs.element._element
+      console.log(element)
+      this.setCardElement(element.$refs.element._element)
     },
     // async createPaymentMethod () {
     //   const { paymentMethod, error } = await instance.createPaymentMethod(

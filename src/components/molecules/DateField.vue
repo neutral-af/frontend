@@ -5,7 +5,7 @@
     class="date-field"
   >
     <BDatepicker
-      :name="name"
+      :name="email"
       size="is-medium"
       placeholder="Date"
       :value="value"
