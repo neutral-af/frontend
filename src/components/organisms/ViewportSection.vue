@@ -4,24 +4,9 @@
     class="hero is-primary is-fullheight wrapper"
   >
     <div class="background" />
-    <header class="hero-head">
-      <MainNav />
-    </header>
     <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column has-text-centered view">
-            <slot />
-          </div>
-        </div>
-      </div>
+      <slot />
     </div>
-    <footer
-      v-if="hasFooter"
-      class="hero-foot"
-    >
-      <MainFoot />
-    </footer>
     <div class="bottom">
       <slot name="bottom" />
     </div>
@@ -29,22 +14,12 @@
 </template>
 
 <script>
-import MainNav from '@/components/organisms/MainNav'
-import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  components: {
-    MainNav,
-    MainFoot
-  },
   props: {
     as: {
       type: String,
       default: 'div'
-    },
-    hasFooter: {
-      type: Boolean,
-      default: false
     }
   }
 }

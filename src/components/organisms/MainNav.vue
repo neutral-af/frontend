@@ -7,10 +7,15 @@
       <BNavbarItem
         tag="router-link"
         :to="{ name: 'home' }"
-        class="is-family-secondary is-size-4"
-        exact-active-class=""
       >
-        Neutral.af
+        <BButton
+          type="is-primary"
+          size="is-medium"
+          class="is-size-4 is-family-monospace"
+          rounded
+        >
+          Neutral.af
+        </BButton>
       </BNavbarItem>
     </template>
 
@@ -19,7 +24,14 @@
         tag="router-link"
         :to="{ name: 'about' }"
       >
-        About
+        <BButton
+          type="is-primary"
+          size="is-medium"
+          class="is-size-4 is-family-monospace"
+          rounded
+        >
+          About Us
+        </BButton>
       </BNavbarItem>
     </template>
   </BNavbar>
