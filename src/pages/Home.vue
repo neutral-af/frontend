@@ -1,35 +1,29 @@
 <template>
   <Layout class="home">
     <Hero>
-      <transition name="fadeDown">
-        <h1
-          class="title"
-        >
-          <transition-group
-            ref="leadWordsWrapper"
-            class="lead-word-wrapper"
-            name="fade"
+      <h1>
+        <div class="title">
+          <transition
+            name="fadeUp"
             mode="out-in"
-            :duration="2000"
-            tag="div"
           >
             <span
-              v-for="word in leadWords"
-              v-show="word == selectedLeadWord"
-              :key="word"
+              ref="leadWord"
+              :key="selectedLeadWord"
               class="leadword"
+              style="animation-duration: '0.4s'"
             >
-              {{ word }}
+              {{ selectedLeadWord }}&nbsp;
             </span>
-          </transition-group>
+          </transition>
           <span>
             Neutral
           </span>
-          <div class="subtitle">
-            (as f**k)
-          </div>
-        </h1>
-      </transition>
+        </div>
+        <div class="subtitle">
+          (as f**k)
+        </div>
+      </h1>
       <BButton
         tag="router-link"
         size="is-medium"
@@ -50,9 +44,7 @@
         rounded
         icon-right="arrow-down"
         @click="scrollViewport('badnews')"
-      >
-        Why?
-      </BButton>
+      />
     </Hero>
     <div ref="badnews">
       <ViewportSection>
@@ -138,27 +130,27 @@ export default {
     ViewportSection
   },
   data () {
+    const leadWords = [
+      'Travel',
+      'Fly',
+      'Live',
+      'Be',
+      'Explore',
+      'Dream'
+    ]
+
     return {
+      leadWords,
       show: false,
-      selectedLeadWord: 'Be',
-      leadWords: [
-        'Fly',
-        'Travel',
-        'Live',
-        'Be'
-      ]
+      selectedLeadWord: leadWords[0]
     }
   },
   mounted () {
-    console.log(this.$refs.leadWordsWrapper.children)
-    Array.from(this.$refs.leadWordsWrapper.children).forEach(e => {
-      console.log(e.clientWidth)
-    })
     let index = 0
     setInterval(() => {
       index = (index + 1) % this.leadWords.length
       this.selectedLeadWord = this.leadWords[index]
-    }, 5000)
+    }, 2000)
   },
   methods: {
     scrollViewport (ref) {
@@ -174,22 +166,23 @@ export default {
 <style lang="scss" scoped>
 .title {
   font-family: $family-secondary;
-  font-size: 6em;
+  font-size: 4em;
 }
 .subtitle {
-  font-size: 0.75em;
+  font-family: $family-secondary;
+  font-size: 2em;
 }
 .cta-icon{
   padding-left: 5px;
 }
 .leadword{
+  float: left;
   text-align: right;
-  display: inline-block
-}
-.lead-word-wrapper{
-  display: inline-block
+  width: 400px; // TODO: make this dynamic
 }
 .airport-image{
   width: 100%;
+  filter: gray;
+  -webkit-filter: grayscale(100%);
 }
 </style>
