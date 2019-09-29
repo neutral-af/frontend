@@ -16,6 +16,9 @@
         />
       </BField>
       <CurrencyField />
+      <PriceBreakdownModal
+        :value="breakdown"
+      />
     </BField>
   </BField>
 </template>
@@ -23,10 +26,12 @@
 <script>
 import CurrencyField from '@/components/molecules/CurrencyField'
 import Price from '@/components/atoms/Price'
+import PriceBreakdownModal from '@/components/molecules/PriceBreakdown'
 
 export default {
   components: {
     CurrencyField,
+    PriceBreakdownModal,
     Price
   },
   props: {
@@ -36,6 +41,9 @@ export default {
     }
   },
   computed: {
+    breakdown () {
+      return this.value ? this.value.breakdown : []
+    },
     cents () {
       return this.value ? this.value.cents : 0
     },
