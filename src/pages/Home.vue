@@ -3,22 +3,7 @@
     <Hero>
       <h1>
         <div class="title">
-          <transition
-            name="fadeUp"
-            mode="out-in"
-          >
-            <span
-              ref="leadWord"
-              :key="selectedLeadWord"
-              class="leadword"
-              style="animation-duration: '0.4s'"
-            >
-              {{ selectedLeadWord }}&nbsp;
-            </span>
-          </transition>
-          <span>
-            Neutral
-          </span>
+          Fly Neutral
         </div>
         <div class="subtitle">
           (as f**k)
@@ -129,29 +114,6 @@ export default {
     Layout,
     ViewportSection
   },
-  data () {
-    const leadWords = [
-      'Travel',
-      'Fly',
-      'Live',
-      'Be',
-      'Explore',
-      'Dream'
-    ]
-
-    return {
-      leadWords,
-      show: false,
-      selectedLeadWord: leadWords[0]
-    }
-  },
-  mounted () {
-    let index = 0
-    setInterval(() => {
-      index = (index + 1) % this.leadWords.length
-      this.selectedLeadWord = this.leadWords[index]
-    }, 2000)
-  },
   methods: {
     scrollViewport (ref) {
       console.log(ref)
@@ -174,11 +136,6 @@ export default {
 }
 .cta-icon{
   padding-left: 5px;
-}
-.leadword{
-  float: left;
-  text-align: right;
-  width: 400px; // TODO: make this dynamic
 }
 .airport-image{
   width: 100%;
