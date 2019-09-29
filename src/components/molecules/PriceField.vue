@@ -17,7 +17,6 @@
       </BField>
       <CurrencyField />
       <PriceBreakdownModal
-        :show="openBreakdownModal"
         :value="breakdown"
       />
     </BField>
@@ -42,6 +41,9 @@ export default {
     }
   },
   computed: {
+    breakdown () {
+      return this.value ? this.value.breakdown : []
+    },
     cents () {
       return this.value ? this.value.cents : 0
     },

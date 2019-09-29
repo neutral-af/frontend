@@ -55,6 +55,9 @@ export default {
       chartOptions: {
         maintainAspectRatio: false,
         responsive: true,
+        animation: {
+          duration: 2000
+        },
         tooltips: {
           callbacks: {
             label: (item, data) => {
