@@ -14,9 +14,9 @@ jobs:
         node-version: 10.x
     - name: yarn lint
       env:
-        "VUE_APP_BACKEND_URL": "nil",
-        "VUE_APP_STRIPE_PUBLIC_KEY": "nil",
-        "VUE_APP_HONEYCOMB_PUBLIC_KEY": "nil"
+        VUE_APP_BACKEND_URL: "nil"
+        VUE_APP_STRIPE_PUBLIC_KEY: "nil"
+        VUE_APP_HONEYCOMB_PUBLIC_KEY: "nil"
       run: |
         yarn
         yarn lint
