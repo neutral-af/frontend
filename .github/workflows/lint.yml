@@ -13,8 +13,8 @@ jobs:
       with:
         node-version: 10.x
     - name: yarn lint
+      # vue-cli-service will fail if VUE_APP_ vars are not provided
       env:
-        # vue-cli-service will fail if VUE_APP_ vars are not provided
         "VUE_APP_BACKEND_URL": "nil",
         "VUE_APP_STRIPE_PUBLIC_KEY": "nil",
         "VUE_APP_HONEYCOMB_PUBLIC_KEY": "nil"
