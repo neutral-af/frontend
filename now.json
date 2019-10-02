@@ -13,7 +13,15 @@
     { "src": "package.json", "use": "@now/static-build" }
   ],
   "routes": [
-    { "src": "/(?!js|css|img|fonts|favicon\\.ico|robots\\.txt/?).+", "status": 301, "headers": { "Location": "/" } }
+    {
+      "src": "/(?!estimate|about|js|css|img|fonts|favicon\\.ico|robots\\.txt/?).+",
+      "status": 301,
+      "headers": { "Location": "/" }
+    },
+    {
+      "src": "/(estimate|about)",
+      "dest": "/index.html"
+    }
   ],
   "regions": ["bru"],
   "public": false
