@@ -21,13 +21,16 @@
       <BNavbarItem
         v-if="!showTestWarning"
       >
-        <BButton
-          type="is-warning"
+        <a
           href="https://github.com/neutral-af/frontend"
-          class="is-warning"
         >
-          WARNING: TEST ENV, DO NOT USE A REAL CREDIT CARD NUMBER
-        </BButton>
+          <BButton
+            type="is-warning"
+            class="is-warning"
+          >
+            WARNING: TEST ENV, DO NOT USE A REAL CREDIT CARD NUMBER
+          </BButton>
+        </a>
       </BNavbarItem>
     </template>
 
