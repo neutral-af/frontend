@@ -96,20 +96,20 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimateForm', ['addFlight']),
+    ...mapMutations('estimateForm', ['addFlight', 'setFlights']),
     storeFromInitial () {
-      // if (this.initialFlights) {
-      //   try {
-      //     const flights = JSON.parse(atob(this.initialFlights))
-      //     if (flights.every(isValidFlight)) {
-      //       this.$store.commit()
-      //     }
-      //   } catch (err) {
-      //     //
-      //   }
-      // }
-      // if (this.initialUserCurrency) {
-      // }
+      if (this.initialFlights) {
+        try {
+          const flights = JSON.parse(atob(this.initialFlights))
+
+          if (Object.values(flights).every(isValidFlight)) {
+            this.setFlights(flights)
+            this.update()
+          }
+        } catch (err) {
+          this.showError(err.message ? err.message : err)
+        }
+      }
     },
     updateUrl () {
       const flights = btoa(JSON.stringify(this.flights))
