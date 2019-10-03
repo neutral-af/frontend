@@ -13,7 +13,7 @@
   ],
   "routes": [
     {
-      "src": "/(?!estimate|about|js|css|img|fonts|favicon\\.ico|robots\\.txt/?).+",
+      "src": "/(?!estimate|about|privacy|js|css|img|fonts|favicon\\.ico|robots\\.txt/?).+",
       "status": 301,
       "headers": { "Location": "/" }
     },
