@@ -4,6 +4,7 @@
   "alias": ["neutral.af", "www.neutral.af"],
   "build": {
     "env": {
+      "VUE_APP_BACKEND_URL": "https://api.neutral.af/graphql",
       "VUE_APP_STRIPE_PUBLIC_KEY": "@stripe_public_key",
       "VUE_APP_HONEYCOMB_PUBLIC_KEY": "@honeycomb_public_key"
     }
