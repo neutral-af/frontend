@@ -9,7 +9,8 @@ jobs:
       - uses: actions/zeit-now@master
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
-        args: --scope neutral-af --build-env BUILD_ENV=staging
+        with:
+          args: --scope neutral-af --build-env BUILD_ENV=staging
 
   only-master:
     runs-on: ubuntu-latest
