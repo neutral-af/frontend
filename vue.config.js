@@ -1,9 +1,11 @@
 const path = require('path')
 
-if (!process.env.VUE_APP_BACKEND_URL) {
-  console.error('The environment variable VUE_APP_BACKEND_URL must be provided.')
-  process.exit(1)
-}
+// TODO: Set up a 'real' production build, with correct keys
+process.env.VUE_APP_ENV = process.env.BUILD_ENV || 'staging'
+
+process.env.VUE_APP_BACKEND_URL = process.env.VUE_APP_BACKEND_URL || (
+  process.env.VUE_APP_ENV === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
+)
 
 if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
   console.error('The environment variable VUE_APP_STRIPE_PUBLIC_KEY must be provided.')
