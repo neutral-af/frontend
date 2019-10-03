@@ -3,9 +3,28 @@
     <div class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title is-1">
-            About Us
-          </h1>
+          <!-- <div class="hero is-transparent"> -->
+          <div class=" columns">
+            <div class="column">
+              <h1 class="title is-1">
+                About Us
+              </h1>
+            </div>
+            <div
+              class="column is-one-fifth"
+            >
+              <BButton
+                class="is-primary is-medium"
+                tag="router-link"
+                :to="{ name: 'privacy' }"
+                rounded
+                inverted
+              >
+                Privacy Policy
+              </BButton>
+            </div>
+          </div>
+
           <div class="content content-about is-bold">
             <vue-markdown>
               {{ faqText }}

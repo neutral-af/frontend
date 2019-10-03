@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Estimate from './pages/Estimate'
 import Success from './pages/Success'
 import About from './pages/About'
+import Privacy from './pages/Privacy'
 import NotFound from './pages/NotFound'
 
 Vue.use(VueRouter)
@@ -30,6 +31,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: About
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: Privacy
   },
   {
     path: '*',

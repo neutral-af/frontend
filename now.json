@@ -18,7 +18,7 @@
       "headers": { "Location": "/" }
     },
     {
-      "src": "/(estimate|about)",
+      "src": "/(estimate|about|privacy)",
       "dest": "/index.html"
     }
   ],
