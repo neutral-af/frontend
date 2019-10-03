@@ -1,9 +1,15 @@
 const path = require('path')
 
-if (!process.env.VUE_APP_BACKEND_URL) {
-  console.error('The environment variable VUE_APP_BACKEND_URL must be provided.')
+if (!process.env.VUE_APP_BACKEND_URL && !process.env.BUILD_ENV) {
+  console.error('Either VUE_APP_BACKEND_URL or BUILD_ENV must be provided.')
   process.exit(1)
 }
+
+// If BACKEND_URL is provided, use that - otherwise, select based on env
+process.env.VUE_APP_BACKEND_URL = process.env.VUE_APP_BACKEND_URL || (
+  process.env.BUILD_ENV === 'prod'
+    ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
+)
 
 if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
   console.error('The environment variable VUE_APP_STRIPE_PUBLIC_KEY must be provided.')
