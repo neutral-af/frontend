@@ -9,6 +9,11 @@ jobs:
       - uses: actions/zeit-now@master
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+        with:
+          args: switch neutral-af
+      - uses: actions/zeit-now@master
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
 
   only-master:
     runs-on: ubuntu-latest
@@ -23,6 +28,11 @@ jobs:
     needs: [only-master]
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/zeit-now@master
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+        with:
+          args: switch neutral-af
       - uses: actions/zeit-now@master
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
