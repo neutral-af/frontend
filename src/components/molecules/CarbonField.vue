@@ -1,17 +1,31 @@
 <template>
   <BField label="Carbon">
-    <p class="is-size-3">
-      <Carbon :amount="value" />
-    </p>
+    <BField
+      class="fields"
+      position="is-centered"
+      grouped
+      group-multiline
+    >
+      <BField class="is-size-3">
+        <Carbon :amount="value.carbon" />
+      </BField>
+
+      <CarbonBreakdownModal
+        :carbon="value.carbon"
+        :km="value.km"
+      />
+    </BField>
   </BField>
 </template>
 
 <script>
 import Carbon from '@/components/atoms/Carbon'
+import CarbonBreakdownModal from '@/components/molecules/CarbonBreakdown'
 
 export default {
   components: {
-    Carbon
+    Carbon,
+    CarbonBreakdownModal
   },
   props: {
     value: {
@@ -21,3 +35,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.fields {
+  align-items: center;
+}
+</style>

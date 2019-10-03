@@ -9,6 +9,7 @@ export default {
     id: '',
     provider: '',
     carbon: 0,
+    km: 0,
     price: null,
     confirmed: false
   }),
