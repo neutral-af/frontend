@@ -28,6 +28,7 @@ export const create = async ({ flights, currency }) => {
         fromFlights(flights:$flights) {
           id
           carbon
+          km
           provider
           price(currency:$currency) {
             currency
@@ -48,6 +49,7 @@ export const update = async ({ id, provider, currency }) => {
         fromID(id: $id, provider: $provider) {
           id
           carbon
+          km
           provider
           price(currency:$currency) {
             currency

@@ -1,8 +1,5 @@
 <template>
-  <BField
-    label="Price"
-    class="price-field"
-  >
+  <BField label="Price">
     <BField
       class="fields"
       position="is-centered"
@@ -15,7 +12,9 @@
           :currency="currency"
         />
       </BField>
+
       <CurrencyField />
+
       <PriceBreakdownModal
         :value="breakdown"
       />

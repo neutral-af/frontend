@@ -4,7 +4,7 @@
     :class="{ 'is-loading': creating }"
   >
     <div class="level-item">
-      <CarbonField :value="carbon" />
+      <CarbonField :value="carbonData" />
     </div>
     <div class="level-item">
       <PriceField :value="price" />
@@ -23,7 +23,12 @@ export default {
     CarbonField,
     PriceField
   },
-  computed: mapState('estimate', ['creating', 'price', 'carbon'])
+  computed: {
+    carbonData () {
+      return { carbon: this.carbon, km: this.km }
+    },
+    ...mapState('estimate', ['creating', 'price', 'carbon', 'km'])
+  }
 }
 </script>
 
