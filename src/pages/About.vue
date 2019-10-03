@@ -3,7 +3,6 @@
     <div class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
-          <!-- <div class="hero is-transparent"> -->
           <div class=" columns">
             <div class="column">
               <h1 class="title is-1">
