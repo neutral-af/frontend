@@ -17,6 +17,18 @@
           Neutral.af
         </BButton>
       </BNavbarItem>
+
+      <BNavbarItem
+        v-if="!showTestWarning"
+      >
+        <BButton
+          type="is-warning"
+          href="https://github.com/neutral-af/frontend"
+          class="is-warning"
+        >
+          WARNING: TEST ENV, DO NOT USE A REAL CREDIT CARD NUMBER
+        </BButton>
+      </BNavbarItem>
     </template>
 
     <template slot="end">
@@ -42,6 +54,11 @@ export default {
   data () {
     return {
       menuShown: false
+    }
+  },
+  computed: {
+    showTestWarning () {
+      return process.env.VUE_APP_ENV === 'prod'
     }
   },
   methods: {
