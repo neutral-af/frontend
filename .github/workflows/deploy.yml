@@ -12,20 +12,13 @@ jobs:
         with:
           args: --scope neutral-af --build-env BUILD_ENV=staging
 
-  only-master:
-    runs-on: ubuntu-latest
-    needs: [staging]
-    steps:
-      - uses: actions/bin/filter@master
-        with:
-          args: "branch master"
-
   prod:
     runs-on: ubuntu-latest
     needs: [only-master]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/zeit-now@master
+        if: github.ref == 'refs/heads/master'
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
         with:
