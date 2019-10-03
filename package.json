@@ -19,6 +19,7 @@
     "buefy": "^0.8.2",
     "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
+    "fuse.js": "^3.4.5",
     "graphql-request": "^1.8.2",
     "lodash": "^4.17.15",
     "luxon": "^1.17.2",
