@@ -34,6 +34,7 @@
         <BField
           label="Email"
           label-for="email"
+          :type="emailError ? 'is-danger' : ''"
         >
           <BInput
             v-model.trim="email"
@@ -99,6 +100,13 @@ export default {
     }
   },
   computed: {
+    emailValid () {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(this.email)
+    },
+    emailError () {
+      return this.email !== '' && !this.emailValid
+    },
     hasPreviouslySaved () {
       return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
     },
