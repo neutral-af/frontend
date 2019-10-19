@@ -37,6 +37,9 @@ export default {
       step: 'flights'
     }
   },
+  created () {
+    this.showNonProdEnvWarning()
+  },
   computed: {
     ...mapState('estimateForm', ['flights', 'currentFlight']),
     flight () {
@@ -44,6 +47,17 @@ export default {
     }
   },
   methods: {
+    showNonProdEnvWarning () {
+      if (process.env.VUE_APP_ENV !== 'prod') {
+        this.$buefy.notification.open({
+          message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
+          position: 'is-bottom',
+          type: 'is-warning',
+          closable: false,
+          indefinite: true
+        })
+      }
+    },
     onFlightComplete () {
       this.step = 'preview'
     }
