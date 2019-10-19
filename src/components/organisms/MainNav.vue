@@ -6,31 +6,20 @@
     <template slot="brand">
       <BNavbarItem
         tag="router-link"
+        class="is-size-5 is-family-monospace"
         :to="{ name: 'home' }"
       >
-        <BButton
-          type="is-primary"
-          size="is-medium"
-          class="is-size-4 is-family-monospace"
-          rounded
-        >
-          Neutral.af
+        Neutral.af
       </BNavbarItem>
     </template>
 
     <template slot="end">
       <BNavbarItem
         tag="router-link"
+        class="is-size-5 is-family-monospace"
         :to="{ name: 'about' }"
       >
-        <BButton
-          type="is-primary"
-          size="is-medium"
-          class="is-size-4 is-family-monospace"
-          rounded
-        >
-          About Us
-        </BButton>
+        About Us
       </BNavbarItem>
     </template>
   </BNavbar>
