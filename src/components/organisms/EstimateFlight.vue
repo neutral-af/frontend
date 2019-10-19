@@ -27,11 +27,13 @@
     <div class="has-text-centered">
       <BButton
         v-if="step === 'passengers'"
+        type="is-primary"
+        size="is-large"
         inverted
-        outline
-        @click="complete"
+        outlined
+        @click="onConfirm"
       >
-        Complete
+        Confirm
       </BButton>
     </div>
   </div>
@@ -96,7 +98,7 @@ export default {
     updatePassengers (value) {
       this.update('passengers', value)
     },
-    complete () {
+    onConfirm () {
       this.$emit('complete')
     },
     remove () {
