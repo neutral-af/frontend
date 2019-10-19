@@ -8,29 +8,14 @@
         tag="router-link"
         :to="{ name: 'home' }"
       >
-        <BButton
+        <!-- <BButton
           type="is-primary"
           size="is-medium"
           class="is-size-4 is-family-monospace"
           rounded
-        >
-          Neutral.af
-        </BButton>
-      </BNavbarItem>
-
-      <BNavbarItem
-        v-if="!showTestWarning"
-      >
-        <a
-          href="https://github.com/neutral-af/frontend"
-        >
-          <BButton
-            type="is-warning"
-            class="is-warning"
-          >
-            WARNING: TEST ENV, DO NOT USE A REAL CREDIT CARD NUMBER
-          </BButton>
-        </a>
+        > -->
+        Neutral.af
+        <!-- </BButton> -->
       </BNavbarItem>
     </template>
 
@@ -39,14 +24,14 @@
         tag="router-link"
         :to="{ name: 'about' }"
       >
-        <BButton
+        <!-- <BButton
           type="is-primary"
           size="is-medium"
           class="is-size-4 is-family-monospace"
           rounded
-        >
-          About Us
-        </BButton>
+        > -->
+        About Us
+        <!-- </BButton> -->
       </BNavbarItem>
     </template>
   </BNavbar>
@@ -59,9 +44,15 @@ export default {
       menuShown: false
     }
   },
-  computed: {
-    showTestWarning () {
-      return process.env.VUE_APP_ENV === 'prod'
+  created () {
+    if (process.env.VUE_APP_ENV !== 'prod') {
+      this.$buefy.notification.open({
+        type: 'is-warning',
+        indefinite: true,
+        closable: false,
+        position: 'is-top',
+        message: '<strong>Warning</strong>: test env, do not use a real credit card number'
+      })
     }
   },
   methods: {

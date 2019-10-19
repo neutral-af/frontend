@@ -20,6 +20,20 @@ $displays: (
   }
 }
 
+.button,
+.input,
+.taginput .taginput-container.is-focusable,
+.textarea,
+.select select,
+.file-cta,
+.file-name,
+.pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis {
+  transition: border $speed-medium ease-in-out;
+}
+
 .input::placeholder,
 .taginput .taginput-container.is-focusable::placeholder,
 .textarea::placeholder,
@@ -31,7 +45,6 @@ $displays: (
   transition: color $speed-medium ease-in-out,
     background $speed-medium ease-in-out;
 }
-
 
 a.navbar-item,
 .navbar-link,
