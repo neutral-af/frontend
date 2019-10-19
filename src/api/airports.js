@@ -6,7 +6,7 @@ export const search = async (q) => {
   const query = `
       query findAirport($query: String!) {
         airport {
-          fuzzySearch(query:$query) {
+          search(query:$query) {
             name
             ICAO
             IATA
@@ -16,7 +16,7 @@ export const search = async (q) => {
         }
       }
     `
-  return (await request(query, { query: q })).airport.fuzzySearch
+  return (await request(query, { query: q })).airport.search
 }
 
 export const detailsByICAOs = async (departure, arrival) => {
