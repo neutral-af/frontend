@@ -1,16 +1,19 @@
 <template>
-  <AnimatedNumber
-    :value="cents"
-    :duration="1500"
-    :round="1"
-    :format-value="format"
-    easing="easeInOutQuint"
-  />
+  <strong class="is-size-5 is-size-3-tablet is-size-2-desktop price">
+    <AnimatedNumber
+      :value="cents"
+      :duration="1500"
+      :round="1"
+      :format-value="format"
+      easing="easeInOutQuint"
+    />
+  </strong>
 </template>
 
 <script>
 import AnimatedNumber from 'animated-number-vue'
-import { formatCurrencyCents } from '../../utils'
+
+import { formatPrice } from '@/utils'
 
 export default {
   components: {
@@ -28,8 +31,14 @@ export default {
   },
   methods: {
     format (value) {
-      return formatCurrencyCents(value, this.currency)
+      return formatPrice(value, this.currency)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.price {
+  color: inherit;
+}
+</style>

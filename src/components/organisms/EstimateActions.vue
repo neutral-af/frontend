@@ -6,8 +6,7 @@
       outlined
       inverted
       icon-left="plus"
-      :disabled="!hasEstimate"
-      @click="onConfirm"
+      @click="$emit('add')"
     >
       Add flight
     </BButton>
@@ -23,9 +22,19 @@
       outlined
       icon-left="credit-card"
       :disabled="!hasEstimate"
-      @click="onConfirm"
+      @click="$emit('next')"
     >
       Go to Checkout
     </BButton>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    hasEstimate () {
+      return this.$store.state.estimate.id
+    }
+  }
+}
+</script>

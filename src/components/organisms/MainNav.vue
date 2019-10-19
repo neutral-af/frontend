@@ -2,6 +2,7 @@
   <BNavbar
     type="is-primary"
     class="main-nav"
+    transparent
   >
     <template slot="brand">
       <BNavbarItem
@@ -12,10 +13,6 @@
         Neutral.af
       </BNavbarItem>
     </template>
-
-    <div slot="start">
-      <EstimatePreview2 v-if="hasPreview" />
-    </div>
 
     <template slot="end">
       <BNavbarItem
@@ -30,11 +27,8 @@
 </template>
 
 <script>
-import EstimatePreview2 from '@/components/organisms/EstimatePreview2'
-
 export default {
   components: {
-    EstimatePreview2
   },
   props: {
     hasPreview: {

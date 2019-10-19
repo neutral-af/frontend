@@ -3,6 +3,7 @@
     <header class="hero-head">
       <MainNav has-preview />
     </header>
+    <EstimatePreview />
     <div class="hero-body estimate-view">
       <div>
         <h1 class="title estimate-title">
@@ -10,10 +11,13 @@
         </h1>
         <EstimateFlight
           v-if="step === 'flight'"
-          v-bind="flight"
           @complete="onFlightComplete"
         />
-        <EstimateActions v-else-if="step === 'actions'" />
+        <EstimateActions
+          v-else-if="step === 'actions'"
+          @add="onAddFlight"
+          @next="onNext"
+        />
         <EstimateCheckout v-else-if="step === 'checkout'" />
       </div>
     </div>
@@ -29,7 +33,9 @@ import { mapState, mapMutations } from 'vuex'
 import { isValidFlight } from '@/validators'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
+import EstimatePreview from '@/components/organisms/EstimatePreview'
 import EstimateFlight from '@/components/organisms/EstimateFlight'
+import EstimateActions from '@/components/organisms/EstimateActions'
 import EstimateCheckout from '@/components/organisms/EstimateCheckout'
 
 export default {
@@ -41,7 +47,9 @@ export default {
   components: {
     MainNav,
     MainFoot,
+    EstimatePreview,
     EstimateFlight,
+    EstimateActions,
     EstimateCheckout
   },
   props: {
@@ -57,13 +65,7 @@ export default {
   computed: {
     ...mapState(['userCurrency']),
     ...mapState('estimate', ['creating', 'step']),
-    ...mapState('estimateForm', ['flights', 'currentFlight']),
-    flight () {
-      return this.flights[this.currentFlight]
-    },
-    hasEstimate () {
-      return !!this.$store.state.estimate.id
-    }
+    ...mapState('estimateForm', ['flights', 'currentFlight'])
   },
   created () {
     this.showNonProdEnvWarning()
@@ -73,13 +75,14 @@ export default {
     ]
   },
   beforeDestroy () {
+    this.setStep('actions')
     if (this.unwatchers) {
       this.unwatchers.forEach(unwatch => unwatch())
     }
   },
   methods: {
     ...mapMutations('estimate', ['setStep']),
-    ...mapMutations('estimateForm', ['addFlight']),
+    ...mapMutations('estimateForm', ['addFlight', 'setCurrentFlight']),
     showNonProdEnvWarning () {
       if (process.env.VUE_APP_ENV !== 'prod') {
         this.$buefy.notification.open({
@@ -117,7 +120,12 @@ export default {
       this.onUpdate()
       this.setStep('actions')
     },
-    onConfirm () {
+    onAddFlight () {
+      this.addFlight()
+      this.setCurrentFlight(this.currentFlight + 1)
+      this.setStep('flight')
+    },
+    onNext () {
       this.setStep('checkout')
     },
     showError (message = '') {
