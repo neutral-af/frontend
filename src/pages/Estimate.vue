@@ -116,7 +116,7 @@ export default {
       if (process.env.VUE_APP_ENV !== 'prod') {
         this.$buefy.notification.open({
           message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
-          position: 'is-top',
+          position: 'is-bottom',
           type: 'is-warning',
           closable: false,
           indefinite: true
