@@ -15,4 +15,94 @@
       text-align: inherit;
     }
   }
+
+  &-invert {
+    .input {
+      background: none;
+      color: $grey-lighter;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      border-radius: 0;
+      box-shadow: none;
+      width: auto;
+      padding: 0;
+
+      &:focus {
+        box-shadow: none;
+        color: $white;
+      }
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    .label {
+      color: $grey-light;
+    }
+
+    .autocomplete {
+      .dropdown {
+        &-menu {
+          padding-top: 0.5rem;
+        }
+
+        &-content {
+          background: none;
+          box-shadow: none;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+
+        &-item {
+          color: $grey;
+          padding: 0;
+          line-height: 2;
+
+          &:hover,
+          &:focus,
+          &.is-hovered {
+            background: none;
+            color: inherit;
+          }
+        }
+      }
+    }
+
+    .control {
+      .button {
+        background: none;
+      }
+    }
+  }
+
+  &-huge {
+    .input {
+      font-size: 4rem;
+      height: 1.5em;
+      line-height: 1;
+      font-weight: $weight-bold;
+      border-bottom-width: 2px;
+    }
+
+    .label {
+      font-size: $size-5;
+    }
+
+    .autocomplete {
+      .dropdown-item {
+        font-size: $size-4;
+      }
+    }
+
+    .control {
+      display: flex;
+      align-items: center;
+
+      .button {
+        height: 100%;
+      }
+    }
+  }
 }

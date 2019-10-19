@@ -3,27 +3,13 @@
     <header class="hero-head">
       <MainNav />
     </header>
-    <div class="hero-body">
-      <form
-        action=""
-        class="form"
-        @submit.prevent="onSubmit"
-      >
-        <div class="field">
-          <label
-            label-for="departure"
-          >
-            <span class="input-label">Departure</span>
-            <input
-              id="departure"
-              type="text"
-              class="input"
-              name="departure"
-              placeholder="e.g. Milan Malpensa or MXP"
-            >
-          </label>
-        </div>
-      </form>
+    <div class="hero-body view">
+      <EstimateFlight
+        v-if="step === 'flights'"
+        v-bind="flight"
+        @complete="onFlightComplete"
+      />
+      <EstimatePreview v-if="step === 'preview'" />
     </div>
     <div class="hero-foot">
       <MainFoot />
@@ -32,45 +18,43 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
+import EstimateFlight from '@/components/organisms/EstimateFlight'
+import EstimatePreview from '@/components/organisms/EstimatePreview'
 
 export default {
   components: {
     MainNav,
-    MainFoot
+    MainFoot,
+    EstimateFlight,
+    EstimatePreview
+  },
+  data () {
+    return {
+      step: 'flights'
+    }
+  },
+  computed: {
+    ...mapState('estimateForm', ['flights', 'currentFlight']),
+    flight () {
+      return this.flights[this.currentFlight]
+    }
+  },
+  methods: {
+    onFlightComplete () {
+      this.step = 'preview'
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-
-}
-
-.form {
-  width: 100%;
-}
-
-.input {
-  background: none;
-  color: $text-invert;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-radius: 0;
-  width: 100%;
-
-  &:focus {
-    box-shadow: none;
-  }
-
-  &::placeholder {
-    color: $grey-light;
-  }
-}
-
-.input-label {
-  @extend %sr-only;
+.view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

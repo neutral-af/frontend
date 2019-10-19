@@ -30,8 +30,12 @@ $displays: (
 .pagination-previous,
 .pagination-next,
 .pagination-link,
-.pagination-ellipsis {
-  transition: border $speed-medium ease-in-out;
+.pagination-ellipsis,
+a.navbar-item,
+.navbar-link,
+.navbar-burger,
+.dropdown-item {
+  transition: all $speed-medium ease-in-out;
 }
 
 .input::placeholder,
@@ -44,12 +48,6 @@ $displays: (
 .button {
   transition: color $speed-medium ease-in-out,
     background $speed-medium ease-in-out;
-}
-
-a.navbar-item,
-.navbar-link,
-.navbar-burger {
-  transition: color $speed-medium ease-in-out;
 }
 
 .navbar {

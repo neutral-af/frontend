@@ -44,17 +44,6 @@ export default {
       menuShown: false
     }
   },
-  created () {
-    if (process.env.VUE_APP_ENV !== 'prod') {
-      this.$buefy.notification.open({
-        type: 'is-warning',
-        indefinite: true,
-        closable: false,
-        position: 'is-top',
-        message: '<strong>Warning</strong>: test env, do not use a real credit card number'
-      })
-    }
-  },
   methods: {
     toggleMenu () {
       this.menuShown = !this.menuShown
