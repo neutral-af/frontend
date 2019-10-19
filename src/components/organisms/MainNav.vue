@@ -14,9 +14,7 @@
     </template>
 
     <div slot="start">
-      <EstimatePreview2
-        v-if="hasPreview"
-      />
+      <EstimatePreview2 v-if="hasPreview" />
     </div>
 
     <template slot="end">

@@ -4,25 +4,18 @@
       <MainNav has-preview />
     </header>
     <div class="hero-body estimate-view">
-      <h1 class="title estimate-title">
-        Estimate
-      </h1>
-      <EstimateFlight
-        v-if="step === 'flight'"
-        v-bind="flight"
-        @complete="onFlightComplete"
-      />
-      <template v-else-if="step === 'preview'">
-        <BButton
-          type="is-primary"
-          size="is-medium"
-          :disabled="!hasEstimate"
-          @click="onConfirm"
-        >
-          Confirm
-        </BButton>
-      </template>
-      <EstimateCheckout v-else-if="step === 'checkout'" />
+      <div>
+        <h1 class="title estimate-title">
+          Estimate
+        </h1>
+        <EstimateFlight
+          v-if="step === 'flight'"
+          v-bind="flight"
+          @complete="onFlightComplete"
+        />
+        <EstimateActions v-else-if="step === 'actions'" />
+        <EstimateCheckout v-else-if="step === 'checkout'" />
+      </div>
     </div>
     <footer class="hero-foot">
       <MainFoot />
@@ -122,7 +115,7 @@ export default {
     },
     onFlightComplete () {
       this.onUpdate()
-      this.setStep('preview')
+      this.setStep('actions')
     },
     onConfirm () {
       this.setStep('checkout')
