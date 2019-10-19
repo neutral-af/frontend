@@ -37,14 +37,14 @@ export default {
       step: 'flights'
     }
   },
-  created () {
-    this.showNonProdEnvWarning()
-  },
   computed: {
     ...mapState('estimateForm', ['flights', 'currentFlight']),
     flight () {
       return this.flights[this.currentFlight]
     }
+  },
+  created () {
+    this.showNonProdEnvWarning()
   },
   methods: {
     showNonProdEnvWarning () {
