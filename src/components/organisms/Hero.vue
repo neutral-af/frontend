@@ -71,6 +71,7 @@ export default {
 .view {
   max-width: 800px;
 }
+
 .bottom {
   position: absolute;
   width: 100%;

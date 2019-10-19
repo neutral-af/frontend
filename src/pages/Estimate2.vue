@@ -70,5 +70,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include mobile {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 </style>
