@@ -86,6 +86,7 @@ export default {
     }
   },
   async created () {
+    this.showNonProdEnvWarning()
     this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
     this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
     if (this.initialFlights) {
@@ -98,9 +99,20 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimateForm', ['addFlight', 'setFlights']),
+    ...mapMutations('estimateForm', ['addFlight']),
     ...mapActions('estimateForm', ['loadFlights']),
     ...mapGetters('estimateForm', ['getFlightsByICAO']),
+    showNonProdEnvWarning () {
+      if (process.env.VUE_APP_ENV !== 'prod') {
+        this.$buefy.notification.open({
+          message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
+          position: 'is-bottom',
+          type: 'is-warning',
+          closable: false,
+          indefinite: true
+        })
+      }
+    },
     updateUrl () {
       const flights = btoa(JSON.stringify(this.getFlightsByICAO()))
       this.$router.replace({ ...this.$route, query: { flights } })

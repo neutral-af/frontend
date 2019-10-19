@@ -6,47 +6,20 @@
     <template slot="brand">
       <BNavbarItem
         tag="router-link"
+        class="is-size-5 is-family-monospace"
         :to="{ name: 'home' }"
       >
-        <BButton
-          type="is-primary"
-          size="is-medium"
-          class="is-size-4 is-family-monospace"
-          rounded
-        >
-          Neutral.af
-        </BButton>
-      </BNavbarItem>
-
-      <BNavbarItem
-        v-if="!showTestWarning"
-      >
-        <a
-          href="https://github.com/neutral-af/frontend"
-        >
-          <BButton
-            type="is-warning"
-            class="is-warning"
-          >
-            WARNING: TEST ENV, DO NOT USE A REAL CREDIT CARD NUMBER
-          </BButton>
-        </a>
+        Neutral.af
       </BNavbarItem>
     </template>
 
     <template slot="end">
       <BNavbarItem
         tag="router-link"
+        class="is-size-5 is-family-monospace"
         :to="{ name: 'about' }"
       >
-        <BButton
-          type="is-primary"
-          size="is-medium"
-          class="is-size-4 is-family-monospace"
-          rounded
-        >
-          About Us
-        </BButton>
+        About Us
       </BNavbarItem>
     </template>
   </BNavbar>
@@ -57,11 +30,6 @@ export default {
   data () {
     return {
       menuShown: false
-    }
-  },
-  computed: {
-    showTestWarning () {
-      return process.env.VUE_APP_ENV === 'prod'
     }
   },
   methods: {
