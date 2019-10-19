@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 
 import { isValidFlight } from '@/validators'
 import Layout from '@/layouts/HeroOnly'
@@ -85,10 +85,12 @@ export default {
       return Object.keys(this.flights).length
     }
   },
-  created () {
-    this.storeFromInitial()
+  async created () {
     this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
     this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
+    if (this.initialFlights) {
+      await this.loadFlights(JSON.parse(atob(this.initialFlights)))
+    }
   },
   beforeDestroy () {
     if (this.unwatch) {
@@ -97,22 +99,10 @@ export default {
   },
   methods: {
     ...mapMutations('estimateForm', ['addFlight', 'setFlights']),
-    storeFromInitial () {
-      if (this.initialFlights) {
-        try {
-          const flights = JSON.parse(atob(this.initialFlights))
-
-          if (Object.values(flights).every(isValidFlight)) {
-            this.setFlights(flights)
-            this.update()
-          }
-        } catch (err) {
-          this.showError(err.message ? err.message : err)
-        }
-      }
-    },
+    ...mapActions('estimateForm', ['loadFlights']),
+    ...mapGetters('estimateForm', ['getFlightsByICAO']),
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.flights))
+      const flights = btoa(JSON.stringify(this.getFlightsByICAO()))
       this.$router.replace({ ...this.$route, query: { flights } })
     },
     showError (message = '') {

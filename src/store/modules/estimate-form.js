@@ -1,3 +1,5 @@
+import { detailsByICAOs } from '@/api/airports'
+
 const createFlight = (id) => ({
   id,
   arrival: null,
@@ -15,6 +17,20 @@ export default {
       1: createFlight(1)
     }
   }),
+  getters: {
+    getFlightsByICAO (state) {
+      return Object.values(state.flights).map(e => {
+        if (e.type === 'locations') {
+          return {
+            departure: { icao: e.departure.ICAO },
+            arrival: { icao: e.arrival.ICAO },
+            passengers: e.passengers,
+            type: e.type
+          }
+        }
+      })
+    }
+  },
   mutations: {
     setFlights (state, flights) {
       state.flights = flights
@@ -33,6 +49,21 @@ export default {
       state.flights = {
         ...state.flights, [id]: { ...flight, ...data }
       }
+    }
+  },
+  actions: {
+    async loadFlights ({ commit }, inputFlights) {
+      const filledOutFlights = inputFlights.map(async f => {
+        if (f.type === 'locations') {
+          const { departure, arrival } = await detailsByICAOs(f.departure.icao, f.arrival.icao)
+          return Object.assign({}, f, { departure, arrival })
+        }
+      })
+      const flights = (await Promise.all(filledOutFlights)).reduce((obj, el, index) => {
+        obj[index] = el
+        return obj
+      }, {})
+      commit('setFlights', flights)
     }
   }
 }

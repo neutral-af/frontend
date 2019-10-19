@@ -1,13 +1,50 @@
-import airports from '@/airports.json'
+import request from './request'
 
-export const search = (query) => {
-  const keys = ['name', 'city', 'country', 'faa', 'icao']
-  let filtered = airports
-  if (query) {
-    const lowercased = query.toLowerCase()
-    filtered = filtered.filter(airport => keys.some(key => airport[key].toLowerCase().includes(lowercased)))
-  }
-  return filtered.slice(0, 10)
+export const search = async (q) => {
+  if (!q || q.length < 3) return
+
+  const query = `
+      query findAirport($query: String!) {
+        airport {
+          fuzzySearch(query:$query) {
+            name
+            ICAO
+            IATA
+            city
+            country
+          }
+        }
+      }
+    `
+  return (await request(query, { query: q })).airport.fuzzySearch
 }
 
-export const findByIcao = (icao) => airports.find(airport => icao === airport.icao)
+export const detailsByICAOs = async (departure, arrival) => {
+  const query = `
+      query airportDetails($departure: String!, $arrival: String!) {
+        departure: airport {
+          fromICAO(code:$departure) {
+            name
+            ICAO
+            IATA
+            city
+            country
+          }
+        }
+        arrival: airport {
+          fromICAO(code:$arrival) {
+            name
+            ICAO
+            IATA
+            city
+            country
+          }
+        }
+      }
+    `
+  const response = await request(query, { departure, arrival })
+  return {
+    departure: response.departure.fromICAO,
+    arrival: response.arrival.fromICAO
+  }
+}
