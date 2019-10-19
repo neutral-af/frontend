@@ -1,52 +1,42 @@
 <template>
-  <Layout class="estimate">
-    <h1 class="title">
-      Estimate
-    </h1>
-    <div class="box">
-      <EstimateFlightFields
-        v-for="(flight, id) in flights"
-        :id="id"
-        :key="id"
-        :removable="removable"
+  <div class="hero is-dark is-fullheight estimate">
+    <header class="hero-head">
+      <MainNav has-preview />
+    </header>
+    <div class="hero-body estimate-view">
+      <h1 class="title estimate-title">
+        Estimate
+      </h1>
+      <EstimateFlight
+        v-if="step === 'flight'"
         v-bind="flight"
+        @complete="onFlightComplete"
       />
-      <BField>
-        <BButton
-          icon-left="plus"
-          @click="addFlight"
-        >
-          Add flight
-        </BButton>
-      </BField>
-      <hr>
-      <EstimatePreview />
-      <BField v-if="!confirmed">
+      <template v-else-if="step === 'preview'">
         <BButton
           type="is-primary"
           size="is-medium"
           :disabled="!hasEstimate"
-          :class="{ 'is-loading': creating }"
-          @click="confirm"
+          @click="onConfirm"
         >
           Confirm
         </BButton>
-      </BField>
-      <template v-if="confirmed">
-        <hr>
-        <EstimateCheckout />
       </template>
+      <EstimateCheckout v-else-if="step === 'checkout'" />
     </div>
-  </Layout>
+    <footer class="hero-foot">
+      <MainFoot />
+    </footer>
+  </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 
 import { isValidFlight } from '@/validators'
-import Layout from '@/layouts/HeroOnly'
-import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
-import EstimatePreview from '@/components/organisms/EstimatePreview'
+import MainNav from '@/components/organisms/MainNav'
+import MainFoot from '@/components/organisms/MainFoot'
+import EstimateFlight from '@/components/organisms/EstimateFlight'
 import EstimateCheckout from '@/components/organisms/EstimateCheckout'
 
 export default {
@@ -56,10 +46,10 @@ export default {
     }
   },
   components: {
-    EstimateFlightFields,
-    EstimatePreview,
-    EstimateCheckout,
-    Layout
+    MainNav,
+    MainFoot,
+    EstimateFlight,
+    EstimateCheckout
   },
   props: {
     initialFlights: {
@@ -73,31 +63,41 @@ export default {
   },
   computed: {
     ...mapState(['userCurrency']),
-    ...mapState('estimate', ['creating', 'confirmed']),
-    ...mapState('estimateForm', ['flights']),
-    removable () {
-      return this.totalFlights > 1
+    ...mapState('estimate', ['creating', 'step']),
+    ...mapState('estimateForm', ['flights', 'currentFlight']),
+    flight () {
+      return this.flights[this.currentFlight]
     },
     hasEstimate () {
       return !!this.$store.state.estimate.id
-    },
-    totalFlights () {
-      return Object.keys(this.flights).length
     }
   },
   created () {
-    this.storeFromInitial()
     this.showNonProdEnvWarning()
-    this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
-    this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
+    this.storeFromInitial()
+    this.unwatchers = [
+      this.$watch('userCurrency', this.onUpdate.bind(this))
+    ]
   },
   beforeDestroy () {
-    if (this.unwatch) {
-      this.unwatch()
+    if (this.unwatchers) {
+      this.unwatchers.forEach(unwatch => unwatch())
     }
   },
   methods: {
+    ...mapMutations('estimate', ['setStep']),
     ...mapMutations('estimateForm', ['addFlight']),
+    showNonProdEnvWarning () {
+      if (process.env.VUE_APP_ENV !== 'prod') {
+        this.$buefy.notification.open({
+          message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
+          position: 'is-bottom',
+          type: 'is-warning',
+          closable: false,
+          indefinite: true
+        })
+      }
+    },
     storeFromInitial () {
       // if (this.initialFlights) {
       //   try {
@@ -112,20 +112,20 @@ export default {
       // if (this.initialUserCurrency) {
       // }
     },
-    showNonProdEnvWarning () {
-      if (process.env.VUE_APP_ENV !== 'prod') {
-        this.$buefy.notification.open({
-          message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
-          position: 'is-bottom',
-          type: 'is-warning',
-          closable: false,
-          indefinite: true
-        })
-      }
-    },
     updateUrl () {
       const flights = btoa(JSON.stringify(this.flights))
       this.$router.replace({ ...this.$route, query: { flights } })
+    },
+    onUpdate () {
+      this.create()
+      this.updateUrl()
+    },
+    onFlightComplete () {
+      this.onUpdate()
+      this.setStep('preview')
+    },
+    onConfirm () {
+      this.setStep('checkout')
     },
     showError (message = '') {
       this.$buefy.snackbar.open({
@@ -133,13 +133,13 @@ export default {
         type: 'is-danger',
         position: 'is-bottom',
         actionText: 'Retry',
-        onAction: this.update.bind(this)
+        onAction: this.create.bind(this)
       })
     },
     validate () {
       return Object.values(this.flights).every(isValidFlight)
     },
-    async update () {
+    async create () {
       if (this.creating) {
         return
       }
@@ -155,14 +155,26 @@ export default {
           throw err
         }
       }
-    },
-    onWatchUpdate () {
-      this.updateUrl()
-      this.update()
-    },
-    confirm () {
-      this.$store.commit('estimate/setConfirmed', true)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.estimate {
+  &-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  &-title {
+    @extend %sr-only;
+  }
+}
+</style>

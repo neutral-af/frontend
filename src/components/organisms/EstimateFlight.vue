@@ -1,6 +1,6 @@
 <template>
   <div class="estimate-flight">
-    <AirportField2
+    <AirportField
       v-if="step === 'departure'"
       :key="`flight-${id}-departure`"
       label="Departure airport"
@@ -9,7 +9,7 @@
       :value="departure ? departure.name : ''"
       @update="updateDeparture($event)"
     />
-    <AirportField2
+    <AirportField
       v-if="step === 'arrival'"
       :key="`flight-${id}-arrival`"
       label="Arrival airport"
@@ -18,7 +18,7 @@
       :value="arrival ? arrival.name : ''"
       @update="updateArrival($event)"
     />
-    <PassengersField2
+    <PassengersField
       v-if="step === 'passengers'"
       :name="`flight-${id}-passengers`"
       :value="passengers"
@@ -42,17 +42,17 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 
-import AirportField2 from '@/components/molecules/AirportField2'
+import AirportField from '@/components/molecules/AirportField'
 // import DateField from '@/components/molecules/DateField'
 // import FlightNumberField from '@/components/molecules/FlightNumberField'
-import PassengersField2 from '@/components/molecules/PassengersField2'
+import PassengersField from '@/components/molecules/PassengersField'
 
 export default {
   components: {
-    AirportField2,
+    AirportField,
     // DateField,
     // FlightNumberField,
-    PassengersField2
+    PassengersField
   },
   props: {
     id: {
@@ -76,9 +76,11 @@ export default {
       required: true
     }
   },
-  computed: mapState('estimateForm', {
-    step: 'currentStep'
-  }),
+  computed: {
+    ...mapState('estimateForm', {
+      step: 'currentStep'
+    })
+  },
   methods: {
     ...mapMutations('estimateForm', {
       setStep: 'setCurrentStep'

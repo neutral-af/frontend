@@ -13,6 +13,12 @@
       </BNavbarItem>
     </template>
 
+    <div slot="start">
+      <EstimatePreview2
+        v-if="hasPreview"
+      />
+    </div>
+
     <template slot="end">
       <BNavbarItem
         tag="router-link"
@@ -26,7 +32,18 @@
 </template>
 
 <script>
+import EstimatePreview2 from '@/components/organisms/EstimatePreview2'
+
 export default {
+  components: {
+    EstimatePreview2
+  },
+  props: {
+    hasPreview: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       menuShown: false

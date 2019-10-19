@@ -2,11 +2,11 @@
   <BField
     :label="label"
     :label-for="name"
+    class="field-invert field-huge aiport-field"
   >
     <BAutocomplete
       :name="name"
       :placeholder="placeholder"
-      size="is-medium"
       keep-first
       open-on-focus
       required

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer container has-text-centered main-foot">
+  <div class="footer container has-text-centered main-foot">
     <p class="is-small">
       <RouterLink
         :to="{ name: 'estimate' }"
@@ -20,7 +20,7 @@
         >Unsplash</a>
       </span>
     </p>
-  </footer>
+  </div>
 </template>
 
 <style lang="scss" scoped>

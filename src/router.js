@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from './pages/Home'
-import Estimate2 from './pages/Estimate2'
+import Estimate from './pages/Estimate'
 import Success from './pages/Success'
 import About from './pages/About'
 import Privacy from './pages/Privacy'
@@ -19,7 +19,7 @@ const routes = [
   {
     path: '/estimate',
     name: 'estimate',
-    component: Estimate2,
+    component: Estimate,
     props: ({ query }) => ({ initialFlights: query.flights })
   },
   {
