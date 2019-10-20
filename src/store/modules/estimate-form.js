@@ -53,14 +53,14 @@ export default {
   },
   actions: {
     async loadFlights ({ commit }, inputFlights) {
-      const flights = await inputFlights.reduce(async (obj, f, index) => {
+      const flights = await inputFlights.reduce(async (previous, f, index) => {
         if (f.type === 'locations') {
           const { departure, arrival } = await detailsByICAOs(f.departure.icao, f.arrival.icao)
+          const obj = await previous
           obj[index] = Object.assign({}, f, { departure, arrival })
           return obj
         }
       }, {})
-
       commit('setFlights', flights)
     }
   }
