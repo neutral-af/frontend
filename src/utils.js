@@ -10,6 +10,22 @@ export const formatWeight = (value, unit = 'kg') => (
   `${value.toLocaleString(window.navigator.language)} ${unit}`
 )
 
+export const formatAirport = ({ name, faa, city, country }, style = 'long') => {
+  if (style === 'long') {
+    let ret = name
+    if (faa && faa !== '\\N') {
+      ret += ` (${faa})`
+    }
+    ret += `, ${city}, ${country}`
+    return ret
+  }
+  let ret = city
+  if (faa && faa !== '\\N') {
+    ret += ` (${faa})`
+  }
+  return ret
+}
+
 const localeCurrencyMap = {
   'en-us': 'USD',
   'en-gb': 'GBP',

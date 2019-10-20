@@ -10,7 +10,7 @@
       keep-first
       open-on-focus
       required
-      field="name"
+      :custom-formatter="format"
       :value="value"
       :data="airports"
       :loading="fetching"
@@ -22,6 +22,7 @@
 
 <script>
 import { airports } from '@/api'
+import { formatAirport } from '@/utils'
 
 export default {
   props: {
@@ -45,7 +46,6 @@ export default {
   data () {
     return {
       airports: [],
-      text: this.value,
       fetching: false
     }
   },
@@ -65,6 +65,9 @@ export default {
       } catch (err) {
         this.fetching = false
       }
+    },
+    format (airport) {
+      return formatAirport(airport)
     },
     select (value) {
       this.$emit('update', value)

@@ -8,7 +8,7 @@
         size="is-small"
       />
       &nbsp;
-      {{ departure.icao }}, {{ departure.city }}, {{ departure.country }}
+      {{ formattedDeparture }}
     </div>
     <div class="level-item">
       <BIcon
@@ -16,7 +16,7 @@
         size="is-small"
       />
       &nbsp;
-      {{ arrival.icao }}, {{ arrival.city }}, {{ arrival.country }}
+      {{ formattedArrival }}
     </div>
     <div class="level-item">
       <BIcon
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { formatAirport } from '@/utils'
+
 export default {
   props: {
     id: {
@@ -57,6 +59,14 @@ export default {
     passengers: {
       type: Number,
       required: true
+    }
+  },
+  computed: {
+    formattedDeparture () {
+      return formatAirport(this.departure, 'short')
+    },
+    formattedArrival () {
+      return formatAirport(this.arrival, 'short')
     }
   },
   methods: {

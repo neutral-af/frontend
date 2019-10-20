@@ -1,6 +1,7 @@
 <template>
   <BField
     v-bind="$attrs"
+    class="field-invert"
     v-on="$listeners"
   >
     <div class="input is-medium card-wrapper">
@@ -52,12 +53,12 @@ export default {
         },
         style: {
           base: {
-            color: '#4a4a4a',
+            color: '#d9d9d9',
             fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
-            fontSize: '20px',
+            fontSize: '22px',
             '::placeholder': {
-              color: 'rgba(54,54,54,.3)'
+              color: '#7a7a7a'
             }
           },
           invalid: {

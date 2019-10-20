@@ -74,6 +74,14 @@
         background: none;
       }
     }
+
+    .checkbox,
+    .radio {
+      &:hover,
+      &:focus {
+        color: $grey-lighter;
+      }
+    }
   }
 
   &-huge {
