@@ -5,13 +5,39 @@
     class="checkout-form"
     @submit.prevent="onSubmit"
   >
-    <template v-if="hasPreviouslySaved">
-      Use previously saved card?
-      <CardField
-        hidden
-        label="Card details"
-        @mounted="onCardMounted"
-      />
+    <template v-if="hasPreviouslySaved && usePreviouslySaved">
+      <BField
+        grouped
+        group-multiline
+        position="is-centered"
+      >
+        <CardField
+          hidden
+          label="Card details"
+          @mounted="onCardMounted"
+        />
+
+        <BField>
+          <BButton
+            native-type="submit"
+            type="is-primary"
+            size="is-medium"
+            :disabled="submitting"
+            :class="{ 'is-loading': submitting }"
+          >
+            Pay with saved card
+          </BButton>
+        </BField>
+        <BField>
+          <BButton
+            type="is-primary"
+            size="is-medium"
+            @click="usePreviouslySaved = false"
+          >
+            Enter new card
+          </BButton>
+        </BField>
+      </BField>
     </template>
     <template v-else>
       <BField
@@ -57,18 +83,18 @@
           Please save my card to skip this process in the future.
         </BCheckbox>
       </BField>
+      <BField>
+        <BButton
+          native-type="submit"
+          type="is-primary"
+          size="is-medium"
+          :disabled="submitting"
+          :class="{ 'is-loading': submitting }"
+        >
+          Pay now
+        </BButton>
+      </BField>
     </template>
-    <BField>
-      <BButton
-        native-type="submit"
-        type="is-primary"
-        size="is-medium"
-        :disabled="submitting"
-        :class="{ 'is-loading': submitting }"
-      >
-        Pay now
-      </BButton>
-    </BField>
     <BField>
       <p class="content is-small">
         Payment will be processed securely by Stripe
@@ -95,7 +121,8 @@ export default {
       email: '',
       cardElement: null,
       saveCard: false,
-      submitting: false
+      submitting: false,
+      usePreviouslySaved: true
     }
   },
   computed: {
@@ -220,7 +247,7 @@ export default {
 
       try {
         let checkout
-        if (this.hasPreviouslySaved) {
+        if (this.hasPreviouslySaved && this.usePreviouslySaved) {
           checkout = await this.fetchCheckout({
             paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
             customerID: this.previouslySavedDetails.customer
