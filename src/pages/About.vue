@@ -12,15 +12,14 @@
             <div
               class="column is-one-fifth"
             >
-              <BButton
+              <RoundedButton
                 class="is-primary is-medium"
                 tag="router-link"
                 :to="{ name: 'privacy' }"
-                rounded
                 inverted
               >
                 Privacy Policy
-              </BButton>
+              </RoundedButton>
             </div>
           </div>
 

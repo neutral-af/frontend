@@ -9,25 +9,23 @@
           (as f**k)
         </div>
       </h1>
-      <BButton
+      <RoundedButton
         tag="router-link"
-        size="is-medium"
+        size="is-large"
         type="is-primary"
         inverted
         icon-right="arrow-right"
-        rounded
         :to="{ name: 'estimate' }"
       >
         Offset a flight now
-      </BButton>
-      <BButton
+      </RoundedButton>
+      <RoundedButton
         slot="bottom"
         size="is-medium"
         type="is-primary"
         inverted
         outlined
-        rounded
-        icon-right="arrow-down"
+        icon-left="arrow-down"
         @click="scrollViewport('badnews')"
       />
     </Hero>
@@ -53,13 +51,12 @@
             >
           </div>
         </div>
-        <BButton
+        <RoundedButton
           slot="bottom"
           size="is-medium"
           type="is-primary"
           inverted
           outlined
-          rounded
           icon-right="arrow-down"
           @click="scrollViewport('goodnews')"
         />
@@ -86,16 +83,15 @@
               <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
             </div>
             <br>
-            <BButton
+            <RoundedButton
               tag="router-link"
-              size="is-medium"
+              size="is-large"
               type="is-primary"
               inverted
-              rounded
               :to="{ name: 'estimate' }"
             >
               <span>Offset a flight now</span><i class="fas cta-icon fa-arrow-right" />
-            </BButton>
+            </RoundedButton>
           </div>
         </div>
       </ViewportSection>

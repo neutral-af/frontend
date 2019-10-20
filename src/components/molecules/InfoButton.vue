@@ -2,7 +2,6 @@
   <RoundedButton
     size="is-small"
     type="is-dark"
-    rounded
     outlined
     inverted
     class="info"

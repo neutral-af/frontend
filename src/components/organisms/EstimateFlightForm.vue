@@ -3,8 +3,8 @@
     <AirportField
       v-if="currentStep === 'departure'"
       :key="`flight-${flight.id}-departure`"
-      label="Departure airport"
       :name="`flight-${flight.id}-departure`"
+      label="Departure airport"
       placeholder="e.g. Milan, Malpensa or MXP"
       :value="flight.departure ? flight.departure.name : ''"
       @update="updateDeparture($event)"
@@ -12,8 +12,8 @@
     <AirportField
       v-if="currentStep === 'arrival'"
       :key="`flight-${flight.id}-arrival`"
-      label="Arrival airport"
       :name="`flight-${flight.id}-arrival`"
+      label="Arrival airport"
       placeholder="e.g. Toronto, Pearson or YYZ"
       :value="flight.arrival ? flight.arrival.name : ''"
       @update="updateArrival($event)"
@@ -25,17 +25,17 @@
       @update="updatePassengers($event)"
     />
     <div class="has-text-centered">
-      <BButton
+      <RoundedButton
         v-if="currentStep === 'passengers'"
         type="is-primary"
         size="is-large"
         inverted
         outlined
-        rounded
+        icon-left="check"
         @click="onConfirm"
       >
         Confirm
-      </BButton>
+      </RoundedButton>
     </div>
   </div>
 </template>

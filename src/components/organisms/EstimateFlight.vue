@@ -27,11 +27,10 @@
       {{ passengers }}
     </div>
     <div class="level-item">
-      <BButton
+      <RoundedButton
         type="is-dark"
         outlined
         inverted
-        rounded
         title="Edit"
         icon-right="pen"
         @click="edit"

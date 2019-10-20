@@ -1,33 +1,31 @@
 <template>
   <div class="estimate-actions">
-    <BButton
+    <RoundedButton
       type="is-dark"
       size="is-large"
       outlined
       inverted
-      rounded
       icon-left="plus"
       @click="$emit('add')"
     >
       Add flight
-    </BButton>
+    </RoundedButton>
     <br>
     <br>
     or
     <br>
     <br>
-    <BButton
+    <RoundedButton
       type="is-primary"
       size="is-large"
       inverted
       outlined
-      rounded
       icon-left="credit-card"
       :disabled="!hasEstimate"
       @click="$emit('next')"
     >
       Go to Checkout
-    </BButton>
+    </RoundedButton>
   </div>
 </template>
 
