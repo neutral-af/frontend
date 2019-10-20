@@ -1,5 +1,5 @@
 <template>
-  <strong class="is-size-5 is-size-3-tablet is-size-2-desktop price">
+  <strong class="is-size-5 is-size-4-tablet is-size-3-desktop price">
     <AnimatedNumber
       :value="cents"
       :duration="1500"

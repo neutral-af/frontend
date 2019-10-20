@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="modal-card"
-    style="width: auto"
-  >
+  <div class="modal-card">
     <div
       ref="chartWrapper"
       class="modal-content modal-card-body"

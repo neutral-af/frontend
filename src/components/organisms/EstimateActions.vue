@@ -1,5 +1,5 @@
 <template>
-  <div class="has-text-centered">
+  <div class="estimate-actions">
     <BButton
       type="is-dark"
       size="is-large"

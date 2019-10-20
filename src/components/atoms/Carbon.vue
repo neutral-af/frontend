@@ -6,7 +6,7 @@
       class="carbon-icon"
     />
     &nbsp;
-    <strong class="is-size-5 is-size-3-tablet is-size-2-desktop carbon-value">
+    <strong class="is-size-5 is-size-4-tablet is-size-3-desktop carbon-value">
       <AnimatedNumber
         :value="amount"
         :duration="1500"

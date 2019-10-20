@@ -9,15 +9,25 @@
         <h1 class="title estimate-title">
           Estimate
         </h1>
-        <EstimateFlight
+        <EstimateFlightForm
           v-if="step === 'flight'"
           @complete="onFlightComplete"
         />
-        <EstimateActions
+        <div
           v-else-if="step === 'actions'"
-          @add="onAddFlight"
-          @next="onNext"
-        />
+          class="has-text-centered"
+        >
+          <EstimateFlight
+            v-for="flight in flights"
+            :key="flight.id"
+            v-bind="flight"
+            @edit="onEditFlight"
+          />
+          <EstimateActions
+            @add="onAddFlight"
+            @next="onNext"
+          />
+        </div>
         <EstimateCheckout v-else-if="step === 'checkout'" />
       </div>
     </div>
@@ -34,6 +44,7 @@ import { isValidFlight } from '@/validators'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
 import EstimatePreview from '@/components/organisms/EstimatePreview'
+import EstimateFlightForm from '@/components/organisms/EstimateFlightForm'
 import EstimateFlight from '@/components/organisms/EstimateFlight'
 import EstimateActions from '@/components/organisms/EstimateActions'
 import EstimateCheckout from '@/components/organisms/EstimateCheckout'
@@ -48,6 +59,7 @@ export default {
     MainNav,
     MainFoot,
     EstimatePreview,
+    EstimateFlightForm,
     EstimateFlight,
     EstimateActions,
     EstimateCheckout
@@ -123,6 +135,10 @@ export default {
     onAddFlight () {
       this.addFlight()
       this.setCurrentFlight(this.currentFlight + 1)
+      this.setStep('flight')
+    },
+    onEditFlight (id) {
+      this.setCurrentFlight(id)
       this.setStep('flight')
     },
     onNext () {

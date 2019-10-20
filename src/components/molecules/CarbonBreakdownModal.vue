@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="modal-card"
-  >
+  <div class="modal-card">
     <div class="modal-content modal-card-body">
       <div class="title has-text-grey-dark">
         Carbon Estimate Breakdown
