@@ -1,31 +1,41 @@
 <template>
-  <div
-    class="level is-mobile estimate-flight"
-  >
-    <div class="level-item">
+  <div class="level is-mobile estimate-flight">
+    <BTooltip
+      class="level-item"
+      label="Departure"
+      type="is-light"
+    >
       <BIcon
         icon="plane-departure"
         size="is-small"
       />
       &nbsp;
       {{ formattedDeparture }}
-    </div>
-    <div class="level-item">
+    </BTooltip>
+    <BTooltip
+      class="level-item"
+      label="Arrival"
+      type="is-light"
+    >
       <BIcon
         icon="plane-arrival"
         size="is-small"
       />
       &nbsp;
       {{ formattedArrival }}
-    </div>
-    <div class="level-item">
+    </BTooltip>
+    <BTooltip
+      class="level-item"
+      label="Passengers"
+      type="is-light"
+    >
       <BIcon
         icon="user"
         size="is-small"
       />
       &nbsp;
       {{ passengers }}
-    </div>
+    </BTooltip>
     <div class="level-item">
       <RoundedButton
         type="is-dark"
