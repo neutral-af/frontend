@@ -53,16 +53,14 @@ export default {
   },
   actions: {
     async loadFlights ({ commit }, inputFlights) {
-      const filledOutFlights = inputFlights.map(async f => {
+      const flights = await inputFlights.reduce(async (obj, f, index) => {
         if (f.type === 'locations') {
           const { departure, arrival } = await detailsByICAOs(f.departure.icao, f.arrival.icao)
-          return Object.assign({}, f, { departure, arrival })
+          obj[index] = Object.assign({}, f, { departure, arrival })
+          return obj
         }
-      })
-      const flights = (await Promise.all(filledOutFlights)).reduce((obj, el, index) => {
-        obj[index] = el
-        return obj
       }, {})
+
       commit('setFlights', flights)
     }
   }
