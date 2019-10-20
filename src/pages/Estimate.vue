@@ -13,16 +13,14 @@
           v-if="step === 'flight'"
           @complete="onFlightComplete"
         />
-        <div
-          v-else-if="step === 'actions'"
-          class="has-text-centered"
-        >
+        <div v-else-if="step === 'actions'">
           <EstimateFlight
             v-for="flight in flights"
             :key="flight.id"
             v-bind="flight"
             @edit="onEditFlight"
           />
+          <hr>
           <EstimateActions
             @add="onAddFlight"
             @next="onNext"
