@@ -52,7 +52,7 @@
                   <h2>
                     Flying is one of the worst carbon-polluting things you do
                   </h2>
-                  <p>The International Council on Clean Transportation says: "The climate challenge for aviation is worse than anyone expected."</p>
+                  <p>The International Council on Clean Transportation says: “The climate challenge for aviation is worse than anyone expected”.</p>
                   <p>A <strong>single seat</strong> on a New York to London flight puts more than <strong>a thousand kilograms</strong> (one whole tonne) of CO2 into the air. And it hurts the Earth even more when the CO2 is emitted at that elevation.</p>
                   <p>You know you should probably take a train. Or a boat. But sometimes you have to fly.</p>
                 </div>

@@ -3,10 +3,25 @@
     :is="as"
     class="hero is-fullheight hero-section"
   >
-    <div
-      v-if="background"
-      class="hero-section-background"
-    />
+    <template v-if="background">
+      <div class="hero-section-background" />
+      <div class="is-size-7 hero-section-credits">
+        <BIcon
+          icon="info-circle"
+          size="is-small"
+          class="hero-section-credits-icon"
+        />
+        <a
+          href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          noreferrer
+          target="_blank"
+        >Joss Woodhead</a> · <a
+          href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          noreferrer
+          target="_blank"
+        >Unsplash</a>
+      </div>
+    </template>
     <header
       v-if="$slots.head"
       class="hero-head"
@@ -57,6 +72,27 @@ export default {
     filter: grayscale(50);
     z-index: 0;
     background: url(../../assets/background.jpg) no-repeat bottom center / cover,
+  }
+
+  &-credits {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+
+    &-icon {
+      vertical-align: text-bottom;
+      margin-right: .25rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
   }
 
   &-foot {
