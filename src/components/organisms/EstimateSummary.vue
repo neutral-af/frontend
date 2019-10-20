@@ -5,6 +5,12 @@
   >
     <div class="level-item estimate-summary-carbon">
       <span class="estimate-summary-label">Carbon</span>
+      <BIcon
+        icon="cloud"
+        size="is-small"
+        class="estimate-summary-carbon-icon"
+      />
+      &nbsp;
       <AnimatedCarbon :amount="carbon" />
       <InfoButton
         v-if="carbon"
@@ -102,8 +108,12 @@ export default {
   }
 
   &-carbon {
+    &-icon {
+      margin-right: .5em;
+    }
+
     @include tablet {
-      margin-right: 2rem !important;
+      margin-right: 2em !important;
     }
   }
 
