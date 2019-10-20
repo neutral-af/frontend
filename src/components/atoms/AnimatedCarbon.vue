@@ -1,12 +1,6 @@
 <template>
-  <span class="carbon">
-    <BIcon
-      icon="cloud"
-      size="is-small"
-      class="carbon-icon"
-    />
-    &nbsp;
-    <strong class="is-size-5 is-size-4-tablet is-size-3-desktop carbon-value">
+  <span class="animated-carbon">
+    <strong class="is-size-5 is-size-4-tablet is-size-3-desktop animated-carbon-value">
       <AnimatedNumber
         :value="amount"
         :duration="1500"
@@ -45,11 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.carbon {
-  &-icon {
-    vertical-align: -0.25rem;
-  }
-
+.animated-carbon {
   &-value {
     color: inherit;
   }
