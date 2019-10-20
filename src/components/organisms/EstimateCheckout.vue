@@ -61,17 +61,18 @@
     </template>
     <div class="has-text-centered">
       <BField>
-        <BButton
+        <RoundedButton
           native-type="submit"
           type="is-primary"
           size="is-large"
           outlined
           inverted
+          icon-left="check"
           :disabled="submitting"
           :class="{ 'is-loading': submitting }"
         >
           Pay now
-        </BButton>
+        </RoundedButton>
       </BField>
       <p>
         Payment will be processed securely by Stripe
