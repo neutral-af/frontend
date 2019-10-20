@@ -90,7 +90,12 @@ export default {
     this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
     this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
     if (this.initialFlights) {
-      await this.loadFlights(JSON.parse(atob(this.initialFlights)))
+      try {
+        const dataFromURL = JSON.parse(atob(this.initialFlights))
+        await this.loadFlights(dataFromURL)
+      } catch (e) {
+        console.error(`Error when decoding or loading flight data from URL: ${e}`)
+      }
     }
   },
   beforeDestroy () {
