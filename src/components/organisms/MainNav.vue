@@ -7,7 +7,7 @@
     <template slot="brand">
       <BNavbarItem
         tag="router-link"
-        class="is-size-5 is-family-monospace"
+        class="is-size-3 is-size-4-mobile is-family-secondary"
         :to="{ name: 'home' }"
       >
         Neutral.af
@@ -17,7 +17,6 @@
     <template slot="end">
       <BNavbarItem
         tag="router-link"
-        class="is-size-5 is-family-monospace"
         :to="{ name: 'about' }"
       >
         About Us
