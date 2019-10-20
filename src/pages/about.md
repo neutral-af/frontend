@@ -1,7 +1,7 @@
 
 ## Who are you?
 
-We’re Jason and Emanuele, two developers in Berlin. You can learn about us and read the open-source code behind Neutral.af at github.com/neutral-af.
+We’re Jason and Emanuele, two developers in Berlin. You can learn about us and read the open-source code behind Neutral.af [on GitHub](https://www.github.com/neutral-af).
 
 ## Carbon offsets aren’t enough, people should fly less!
 
