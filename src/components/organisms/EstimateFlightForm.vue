@@ -31,6 +31,7 @@
         size="is-large"
         inverted
         outlined
+        rounded
         @click="onConfirm"
       >
         Confirm

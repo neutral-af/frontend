@@ -31,6 +31,7 @@
         type="is-dark"
         outlined
         inverted
+        rounded
         title="Edit"
         icon-right="pen"
         @click="edit"

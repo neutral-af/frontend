@@ -1,27 +1,29 @@
 <template>
   <div
-    class="level is-mobile estimate-preview"
+    class="level is-mobile estimate-summary"
     :class="{ 'is-loading': creating }"
   >
-    <div class="level-item estimate-preview-carbon">
-      <span class="estimate-preview-label">Carbon</span>
-      <Carbon :amount="carbon" />
-      &nbsp;
-      <Info
+    <div class="level-item estimate-summary-carbon">
+      <span class="estimate-summary-label">Carbon</span>
+      <AnimatedCarbon :amount="carbon" />
+      <InfoButton
         v-if="carbon"
+        class="estimate-summary-info"
+        title="Open carbon breakdown"
         @click="openCarbonBreakdown"
       />
     </div>
     <div class="level-item">
-      <span class="estimate-preview-label">Price</span>
-      <Price
+      <span class="estimate-summary-label">Price</span>
+      <AnimatedPrice
         :cents="price ? price.cents : 0"
         :currency="price ? price.currency : $store.state.userCurrency"
       />
       <!-- <CurrencyField /> -->
-      &nbsp;
-      <Info
+      <InfoButton
         v-if="price"
+        class="estimate-summary-info"
+        title="Open price breakdown"
         @click="openPriceBreakdown"
       />
     </div>
@@ -31,18 +33,18 @@
 <script>
 import { mapState } from 'vuex'
 
-import Info from '@/components/atoms/Info'
-import Carbon from '@/components/atoms/Carbon'
-import CarbonBreakdownModal from '@/components/molecules/CarbonBreakdownModal'
-import Price from '@/components/atoms/Price'
-import PriceBreakdownModal from '@/components/molecules/PriceBreakdownModal'
+import AnimatedCarbon from '@/components/atoms/AnimatedCarbon'
+import AnimatedPrice from '@/components/atoms/AnimatedPrice'
+import InfoButton from '@/components/molecules/InfoButton'
+import CarbonBreakdown from '@/components/molecules/CarbonBreakdown'
+import PriceBreakdown from '@/components/molecules/PriceBreakdown'
 // import CurrencyField from '@/components/molecules/CurrencyField'
 
 export default {
   components: {
-    Carbon,
-    Price,
-    Info
+    AnimatedCarbon,
+    AnimatedPrice,
+    InfoButton
     // CurrencyField
   },
   computed: {
@@ -52,7 +54,7 @@ export default {
     openCarbonBreakdown () {
       this.$buefy.modal.open({
         parent: this,
-        component: CarbonBreakdownModal,
+        component: CarbonBreakdown,
         hasModalCard: true,
         props: {
           carbon: this.carbon,
@@ -63,7 +65,7 @@ export default {
     openPriceBreakdown () {
       this.$buefy.modal.open({
         parent: this,
-        component: PriceBreakdownModal,
+        component: PriceBreakdown,
         hasModalCard: true,
         props: {
           value: this.price.breakdown
@@ -75,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.estimate-preview {
+.estimate-summary {
   position: absolute;
   top: 0;
   left: 50%;
@@ -107,6 +109,10 @@ export default {
 
   &-label {
     @extend %sr-only;
+  }
+
+  &-info {
+    margin-left: .5rem;
   }
 }
 </style>

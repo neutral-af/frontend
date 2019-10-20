@@ -3,7 +3,7 @@
     <header class="hero-head">
       <MainNav has-preview />
     </header>
-    <EstimatePreview />
+    <EstimateSummary />
     <div class="hero-body estimate-view">
       <div>
         <h1 class="title estimate-title">
@@ -43,7 +43,7 @@ import { mapState, mapMutations } from 'vuex'
 import { isValidFlight } from '@/validators'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
-import EstimatePreview from '@/components/organisms/EstimatePreview'
+import EstimateSummary from '@/components/organisms/EstimateSummary'
 import EstimateFlightForm from '@/components/organisms/EstimateFlightForm'
 import EstimateFlight from '@/components/organisms/EstimateFlight'
 import EstimateActions from '@/components/organisms/EstimateActions'
@@ -58,7 +58,7 @@ export default {
   components: {
     MainNav,
     MainFoot,
-    EstimatePreview,
+    EstimateSummary,
     EstimateFlightForm,
     EstimateFlight,
     EstimateActions,

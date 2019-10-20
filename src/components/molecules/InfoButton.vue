@@ -1,15 +1,16 @@
 <template>
-  <BButton
+  <RoundedButton
     size="is-small"
     type="is-dark"
     rounded
     outlined
     inverted
     class="info"
+    title="What is this?"
     v-on="$listeners"
   >
-    <span class="info-text">What is this</span>?
-  </BButton>
+    <span aria-hidden="true">?</span>
+  </RoundedButton>
 </template>
 
 <style lang="scss" scoped>

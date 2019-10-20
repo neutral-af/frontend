@@ -5,9 +5,11 @@ import Buefy from 'buefy'
 import router from './router'
 import store from './store'
 import App from './App'
+import RoundedButton from './components/atoms/RoundedButton'
 import './assets/sass/main.scss'
 
 Vue.config.productionTip = process.env.NODE_ENV !== 'production'
+Vue.component('RoundedButton', RoundedButton)
 Vue.use(VueCookies)
 Vue.use(Buefy, {
   defaultIconPack: 'fas',

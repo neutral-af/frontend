@@ -1,21 +1,23 @@
 <template>
-  <div class="modal-card">
+  <section class="modal-card">
     <div
       ref="chartWrapper"
       class="modal-content modal-card-body"
     >
-      <p class="title has-text-grey-dark">
+      <h3 class="title has-text-grey-dark">
         Price Breakdown
-      </p>
+      </h3>
       <BreakdownChart
         :chart-data="breakdown"
         :options="chartOptions"
       />
-      <div class="has-text-grey-darker">
-        This breakdown shows the relative cost of your offset contribution and all fees.
+      <div class="section">
+        <p class="has-text-grey-darker">
+          This breakdown shows the relative cost of your offset contribution and all fees.
+        </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

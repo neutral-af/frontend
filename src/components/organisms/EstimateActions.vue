@@ -5,6 +5,7 @@
       size="is-large"
       outlined
       inverted
+      rounded
       icon-left="plus"
       @click="$emit('add')"
     >
@@ -20,6 +21,7 @@
       size="is-large"
       inverted
       outlined
+      rounded
       icon-left="credit-card"
       :disabled="!hasEstimate"
       @click="$emit('next')"
