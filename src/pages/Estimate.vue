@@ -7,7 +7,7 @@
     <div class="hero-body estimate-view">
       <div>
         <h1 class="title estimate-title">
-          Estimate
+          {{ title }}
         </h1>
         <EstimateFlightForm
           v-if="step === 'flight'"
@@ -75,17 +75,20 @@ export default {
   computed: {
     ...mapState(['userCurrency']),
     ...mapState('estimate', ['creating', 'step']),
-    ...mapState('estimateForm', ['flights', 'currentFlight'])
+    ...mapState('estimateForm', ['flights', 'currentFlight']),
+    title () {
+      return 'Estimate'
+    }
   },
   created () {
     this.showNonProdEnvWarning()
     this.storeFromInitial()
+    this.setInitialStep()
     this.unwatchers = [
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
   },
   beforeDestroy () {
-    this.setStep('actions')
     if (this.unwatchers) {
       this.unwatchers.forEach(unwatch => unwatch())
     }
@@ -117,6 +120,11 @@ export default {
       // }
       // if (this.initialUserCurrency) {
       // }
+    },
+    setInitialStep () {
+      if (this.flights.length === 0) {
+        this.setStep('flight')
+      }
     },
     updateUrl () {
       const flights = btoa(JSON.stringify(this.flights))

@@ -1,5 +1,5 @@
 <template>
-  <div class="footer container has-text-centered main-foot">
+  <div class="container main-foot">
     <p class="is-small">
       <RouterLink
         :to="{ name: 'estimate' }"

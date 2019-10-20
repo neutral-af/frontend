@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     as: {
@@ -41,10 +40,6 @@ export default {
   filter: grayscale(50);
   z-index: 0;
   background: url(../../assets/background.jpg) no-repeat bottom center / cover,
-}
-
-.view {
-  max-width: 800px;
 }
 
 .bottom {

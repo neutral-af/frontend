@@ -6,7 +6,7 @@
           <h1 class="title is-1">
             Privacy Policy
           </h1>
-          <div class="content content-about is-bold">
+          <div class="content is-medium is-inverted">
             <vue-markdown>
               {{ text }}
             </vue-markdown>
@@ -19,13 +19,23 @@
 
 <script>
 import VueMarkdown from 'vue-markdown'
-import PrivacyText from 'raw-loader!./privacy-policy.md' //eslint-disable-line
+import text from 'raw-loader!./privacy-policy.md' //eslint-disable-line
 
 export default {
-  components: { VueMarkdown },
-  data () {
+  metaInfo () {
     return {
-      text: PrivacyText
+      title: this.title
+    }
+  },
+  components: {
+    VueMarkdown
+  },
+  computed: {
+    title () {
+      return 'Privacy policy'
+    },
+    text () {
+      return text
     }
   }
 }

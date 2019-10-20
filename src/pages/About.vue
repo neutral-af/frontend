@@ -6,26 +6,25 @@
           <div class=" columns">
             <div class="column">
               <h1 class="title is-1">
-                About Us
+                {{ title }}
               </h1>
             </div>
-            <div
-              class="column is-one-fifth"
-            >
+            <div class="column is-one-fifth">
               <RoundedButton
-                class="is-primary is-medium"
+                type="is-primary"
+                size="is-medium"
+                outlined
+                inverted
                 tag="router-link"
                 :to="{ name: 'privacy' }"
-                inverted
               >
                 Privacy Policy
               </RoundedButton>
             </div>
           </div>
-
-          <div class="content content-about is-bold">
+          <div class="content is-medium is-inverted">
             <vue-markdown>
-              {{ faqText }}
+              {{ faq }}
             </vue-markdown>
           </div>
         </div>
@@ -39,10 +38,20 @@ import VueMarkdown from 'vue-markdown'
 import FAQ from 'raw-loader!./faq.md' //eslint-disable-line
 
 export default {
-  components: { VueMarkdown },
-  data () {
+  metaInfo () {
     return {
-      faqText: FAQ
+      title: this.title
+    }
+  },
+  components: {
+    VueMarkdown
+  },
+  computed: {
+    title () {
+      return 'About'
+    },
+    faq () {
+      return FAQ
     }
   }
 }

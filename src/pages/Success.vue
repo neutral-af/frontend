@@ -1,25 +1,33 @@
 <template>
-  <Layout as="main">
+  <HeroSection as="main">
     <h1 class="title is-1">
-      Success!
+      {{ title }}
     </h1>
     <p class="subtitle is-4">
       You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
     </p>
-  </Layout>
+  </HeroSection>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import Layout from '@/layouts/HeroOnly'
+import HeroSection from '@/components/organisms/HeroSection'
 
 export default {
+  metaInfo () {
+    return {
+      title: this.title
+    }
+  },
   components: {
-    Layout
+    HeroSection
   },
   computed: {
-    ...mapState('estimate', ['carbon'])
+    ...mapState('estimate', ['carbon']),
+    title () {
+      return 'Success!'
+    }
   }
 }
 </script>

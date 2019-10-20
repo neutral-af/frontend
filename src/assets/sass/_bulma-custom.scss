@@ -92,23 +92,28 @@ a.navbar-item,
   }
 }
 
-.content-about {
+.content.is-inverted {
+  * {
+    color: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 2rem;
+    opacity: 0.8;
+    font-weight: 200;
+  }
+
   a {
-    color: white;
     text-decoration: underline;
+
     &:hover,
     &:focus {
       color: $grey-light;
     }
-  }
-  p {
-    font-size: 1.25rem;
-  }
-  h1,h2,h3,h4,h5,h6 {
-    font-size: 2rem;
-    color: $grey-lighter;
-    font-weight: 200
-    // ;
-    // text-decoration: bold
   }
 }
