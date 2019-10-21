@@ -7,7 +7,8 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'standard',
-    'plugin:vue/recommended'
+    'plugin:vue/recommended',
+    'plugin:import/recommended'
   ],
   globals: {
     Atomics: 'readonly',
@@ -16,5 +17,15 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2019,
     sourceType: 'module'
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src']
+        ],
+        extensions: ['.js', '.json', '.vue']
+      }
+    }
   }
 }
