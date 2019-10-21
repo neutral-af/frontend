@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from './pages/Home'
-import Estimate from './pages/Estimate'
-import EstimateHome from './pages/EstimateHome'
-import EstimateFlightForm from './pages/EstimateFlightForm'
-import EstimateCheckout from './pages/EstimateCheckout'
-import Success from './pages/Success'
-import About from './pages/About'
-import Privacy from './pages/Privacy'
-import NotFound from './pages/NotFound'
+import Home from './views/Home'
+import Estimate from './views/Estimate'
+import EstimateHome from './views/EstimateHome'
+import EstimateFlightForm from './views/EstimateFlightForm'
+import EstimateCheckout from './views/EstimateCheckout'
+import EstimateSuccess from './views/EstimateSuccess'
+import About from './views/About'
+import Privacy from './views/Privacy'
+import NotFound from './views/NotFound'
 
 Vue.use(VueRouter)
 
@@ -41,12 +41,11 @@ const routes = [
       name: 'estimate-checkout',
       path: 'checkout',
       component: EstimateCheckout
+    }, {
+      name: 'estimate-success',
+      path: 'success',
+      component: EstimateSuccess
     }]
-  },
-  {
-    path: '/success',
-    name: 'success',
-    component: Success
   },
   {
     path: '/about',

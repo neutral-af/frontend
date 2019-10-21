@@ -1,27 +1,22 @@
 <template>
-  <HeroSection as="main">
-    <h1 class="title is-1">
+  <div class="has-text-centered">
+    <div class="title is-size-1">
       {{ title }}
-    </h1>
-    <p class="subtitle is-4">
-      You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
+    </div>
+    <p class="subtitle is-size-6-mobile is-size-5-tablet is-size-4-desktop">
+      Congratulations! You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
     </p>
-  </HeroSection>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-
-import HeroSection from '@/components/organisms/HeroSection'
 
 export default {
   metaInfo () {
     return {
       title: this.title
     }
-  },
-  components: {
-    HeroSection
   },
   computed: {
     ...mapState('estimate', ['carbon']),
