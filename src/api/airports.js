@@ -1,9 +1,10 @@
 import request from './request'
 
-export const search = async (q) => {
-  if (!q || q.length < 3) return
-
-  const query = `
+export const search = async (query) => {
+  if (!query || query.length < 3) {
+    return
+  }
+  const queryBody = `
       query findAirport($query: String!) {
         airport {
           search(query:$query) {
@@ -16,7 +17,7 @@ export const search = async (q) => {
         }
       }
     `
-  const response = await request(query, { query: q })
+  const response = await request(queryBody, { query })
   return response.airport.search
 }
 
