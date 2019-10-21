@@ -16,7 +16,8 @@ export const search = async (q) => {
         }
       }
     `
-  return (await request(query, { query: q })).airport.search
+  const response = await request(query, { query: q })
+  return response.airport.search
 }
 
 export const detailsByICAOs = async (departure, arrival) => {

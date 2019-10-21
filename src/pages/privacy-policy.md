@@ -6,8 +6,8 @@ At Neutral.af, we don’t collect any information about you aside from what is s
 Here you'll find the privacy policy of each of our partners:
 
 - [Stripe (payment processing)](https://stripe.com/privacy)
-- [Cloverly (offset provider)(https://cloverly.com/privacy-policy)
-- [Honeycomb (technical monitoring)(https://www.honeycomb.io/privacy/)
+- [Cloverly (offset provider)](https://cloverly.com/privacy-policy)
+- [Honeycomb (technical monitoring)](https://www.honeycomb.io/privacy/)
 
 When making an estimate to purchase a carbon offset, as well as when that offset is purchased, the transaction is facilitated by Cloverly. The invoice for the Cloverly purchase is handled by us, which means Cloverly doesn’t have any information about you at all, aside from how many kilos of carbon you’ve offset - they won’t even know your name.
 
@@ -17,4 +17,4 @@ When you choose to save a favourite card, so that you don’t have to put in the
 
 Honeycomb is used in both our backend and frontend code to monitor errors and evaluate performance. We use the estimate ID as a way of tracking the lifetime of an estimate across our frontend and backend services, but no personal information is sent to Honeycomb.
 
-If you (or a programmer friend of yours) would like to verify, all our code is available to review [on Github](github.com/neutral-af).
+If you (or a programmer friend of yours) would like to verify, all our code is available to review [on Github](https://www.github.com/neutral-af).

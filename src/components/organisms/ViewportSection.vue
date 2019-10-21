@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     as: {
@@ -43,9 +42,6 @@ export default {
   background: url(../../assets/background.jpg) no-repeat bottom center / cover,
 }
 
-.view {
-  max-width: 800px;
-}
 .bottom {
   position: absolute;
   width: 100%;

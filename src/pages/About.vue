@@ -1,49 +1,60 @@
 <template>
-  <div>
-    <div class="hero is-primary is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <div class=" columns">
-            <div class="column">
-              <h1 class="title is-1">
-                About Us
-              </h1>
-            </div>
-            <div
-              class="column is-one-fifth"
-            >
-              <BButton
-                class="is-primary is-medium"
-                tag="router-link"
-                :to="{ name: 'privacy' }"
-                rounded
-                inverted
-              >
-                Privacy Policy
-              </BButton>
-            </div>
-          </div>
-
-          <div class="content content-about is-bold">
-            <vue-markdown>
-              {{ faqText }}
-            </vue-markdown>
-          </div>
+  <HeroSection class="is-primary is-bold">
+    <MainNav slot="head" />
+    <div class="columns is-centered">
+      <div class="column is-10-tablet is-9-desktop is-8-widescreen">
+        <div class="content is-medium is-inverted">
+          <h1 class="title is-1 is-family-secondary">
+            {{ title }}
+          </h1>
+          <VueMarkdown>
+            {{ text }}
+          </VueMarkdown>
+        </div>
+        <div class="has-text-centered">
+          <RoundedButton
+            type="is-primary"
+            size="is-medium"
+            tag="router-link"
+            outlined
+            inverted
+            :to="{ name: 'privacy' }"
+          >
+            Privacy Policy
+          </RoundedButton>
         </div>
       </div>
     </div>
-  </div>
+    <MainFoot slot="foot" />
+  </HeroSection>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown'
-import FAQ from 'raw-loader!./faq.md' //eslint-disable-line
+import text from 'raw-loader!./about.md' //eslint-disable-line
+
+import HeroSection from '@/components/organisms/HeroSection'
+import MainNav from '@/components/organisms/MainNav'
+import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  components: { VueMarkdown },
-  data () {
+  metaInfo () {
     return {
-      faqText: FAQ
+      title: this.title
+    }
+  },
+  components: {
+    HeroSection,
+    MainNav,
+    MainFoot,
+    VueMarkdown
+  },
+  computed: {
+    title () {
+      return 'About us'
+    },
+    text () {
+      return text
     }
   }
 }

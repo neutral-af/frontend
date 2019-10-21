@@ -1,52 +1,49 @@
 <template>
-  <Layout class="estimate">
-    <h1 class="title">
-      Estimate
-    </h1>
-    <div class="box">
-      <EstimateFlightFields
-        v-for="(flight, id) in flights"
-        :id="id"
-        :key="id"
-        :removable="removable"
-        v-bind="flight"
+  <HeroSection class="is-dark estimate">
+    <MainNav slot="head" />
+    <EstimateSummary />
+    <div class="container estimate-view">
+      <h1 class="title estimate-title">
+        {{ title }}
+      </h1>
+      <EstimateFlightForm
+        v-if="step === 'flight'"
+        @complete="onFlightComplete"
       />
-      <BField>
-        <BButton
-          icon-left="plus"
-          @click="addFlight"
-        >
-          Add flight
-        </BButton>
-      </BField>
-      <hr>
-      <EstimatePreview />
-      <BField v-if="!confirmed">
-        <BButton
-          type="is-primary"
-          size="is-medium"
-          :disabled="!hasEstimate"
-          :class="{ 'is-loading': creating }"
-          @click="confirm"
-        >
-          Confirm
-        </BButton>
-      </BField>
-      <template v-if="confirmed">
-        <hr>
-        <EstimateCheckout />
-      </template>
+      <div v-else-if="step === 'actions'">
+        <template v-if="flightsCount > 0">
+          <EstimateFlight
+            v-for="flight in flights"
+            :key="flight.id"
+            v-bind="flight"
+            :removable="removable"
+            @edit="onEditFlight"
+            @remove="onRemoveFlight"
+          />
+          <hr>
+        </template>
+        <EstimateActions
+          @add="onAddFlight"
+          @next="onNext"
+        />
+      </div>
+      <EstimateCheckout v-else-if="step === 'checkout'" />
     </div>
-  </Layout>
+    <MainFoot slot="foot" />
+  </HeroSection>
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 import { isValidFlight } from '@/validators'
-import Layout from '@/layouts/HeroOnly'
-import EstimateFlightFields from '@/components/organisms/EstimateFlightFields'
-import EstimatePreview from '@/components/organisms/EstimatePreview'
+import MainNav from '@/components/organisms/MainNav'
+import MainFoot from '@/components/organisms/MainFoot'
+import HeroSection from '@/components/organisms/HeroSection'
+import EstimateSummary from '@/components/organisms/EstimateSummary'
+import EstimateFlightForm from '@/components/organisms/EstimateFlightForm'
+import EstimateFlight from '@/components/organisms/EstimateFlight'
+import EstimateActions from '@/components/organisms/EstimateActions'
 import EstimateCheckout from '@/components/organisms/EstimateCheckout'
 
 export default {
@@ -56,10 +53,14 @@ export default {
     }
   },
   components: {
-    EstimateFlightFields,
-    EstimatePreview,
-    EstimateCheckout,
-    Layout
+    MainNav,
+    MainFoot,
+    HeroSection,
+    EstimateSummary,
+    EstimateFlightForm,
+    EstimateFlight,
+    EstimateActions,
+    EstimateCheckout
   },
   props: {
     initialFlights: {
@@ -73,54 +74,74 @@ export default {
   },
   computed: {
     ...mapState(['userCurrency']),
-    ...mapState('estimate', ['creating', 'confirmed']),
-    ...mapState('estimateForm', ['flights']),
+    ...mapState('estimate', ['creating', 'step']),
+    ...mapState('estimateForm', ['flights', 'currentFlight']),
+    ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
+    title () {
+      return 'Estimate'
+    },
     removable () {
-      return this.totalFlights > 1
-    },
-    hasEstimate () {
-      return !!this.$store.state.estimate.id
-    },
-    totalFlights () {
-      return Object.keys(this.flights).length
+      return this.flightsCount > 1
     }
   },
   async created () {
-    this.showNonProdEnvWarning()
-    this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
-    this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
-    if (this.initialFlights) {
-      try {
-        const dataFromURL = JSON.parse(atob(this.initialFlights))
-        await this.loadFlights(dataFromURL)
-      } catch (e) {
-        console.error(`Error when decoding or loading flight data from URL: ${e}`)
-      }
-    }
+    await this.loadInitialFlights()
+    this.unwatchers = [
+      // this.$watch('flights', this.onUpdate.bind(this)),
+      this.$watch('userCurrency', this.onUpdate.bind(this))
+    ]
   },
   beforeDestroy () {
-    if (this.unwatch) {
-      this.unwatch()
+    if (this.unwatchers) {
+      this.unwatchers.forEach(unwatch => unwatch())
     }
   },
   methods: {
-    ...mapMutations('estimateForm', ['addFlight']),
+    ...mapMutations('estimate', ['setStep']),
+    ...mapMutations('estimateForm', [
+      'addFlight',
+      'removeFlight',
+      'setCurrentFlight'
+    ]),
     ...mapActions('estimateForm', ['loadFlights']),
-    ...mapGetters('estimateForm', ['getFlightsByICAO']),
-    showNonProdEnvWarning () {
-      if (process.env.VUE_APP_ENV !== 'prod') {
-        this.$buefy.notification.open({
-          message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
-          position: 'is-bottom',
-          type: 'is-warning',
-          closable: false,
-          indefinite: true
-        })
+    async loadInitialFlights () {
+      if (!this.initialFlights) {
+        return
+      }
+      try {
+        const flights = JSON.parse(atob(this.initialFlights))
+        return this.loadFlights(flights)
+      } catch (err) {
+        console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
     },
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.getFlightsByICAO()))
+      const flights = btoa(JSON.stringify(this.flightsByICAO))
       this.$router.replace({ ...this.$route, query: { flights } })
+    },
+    onUpdate () {
+      this.create()
+      this.updateUrl()
+    },
+    onFlightComplete () {
+      this.onUpdate()
+      this.setStep('actions')
+    },
+    onAddFlight () {
+      this.addFlight()
+      this.setCurrentFlight(this.currentFlight + 1)
+      this.setStep('flight')
+    },
+    onEditFlight (id) {
+      this.setCurrentFlight(id)
+      this.setStep('flight')
+    },
+    onRemoveFlight (id) {
+      this.removeFlight(id)
+      this.setCurrentFlight(1)
+    },
+    onNext () {
+      this.setStep('checkout')
     },
     showError (message = '') {
       this.$buefy.snackbar.open({
@@ -128,13 +149,13 @@ export default {
         type: 'is-danger',
         position: 'is-bottom',
         actionText: 'Retry',
-        onAction: this.update.bind(this)
+        onAction: this.create.bind(this)
       })
     },
     validate () {
       return Object.values(this.flights).every(isValidFlight)
     },
-    async update () {
+    async create () {
       if (this.creating) {
         return
       }
@@ -150,14 +171,21 @@ export default {
           throw err
         }
       }
-    },
-    onWatchUpdate () {
-      this.updateUrl()
-      this.update()
-    },
-    confirm () {
-      this.$store.commit('estimate/setConfirmed', true)
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.estimate {
+  &-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-title {
+    @extend %sr-only;
+  }
+}
+</style>

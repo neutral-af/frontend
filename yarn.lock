@@ -1747,9 +1747,9 @@ browserslist@^4.0.0, browserslist@^4.3.4, browserslist@^4.5.4, browserslist@^4.6
     node-releases "^1.1.29"
 
 buefy@^0.8.2:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.8.4.tgz#0c62d559e63aee8a18876ff90056f9a8b90f686f"
-  integrity sha512-hDUUKbKxQmtYlo/IPH9H+ewEN6KulpDxfNFIPvO5z3ukYqEG29psW6oFbJGisZDEIYGxqE2jMPcBOOjm8LxJVQ==
+  version "0.8.5"
+  resolved "https://registry.npmjs.org/buefy/-/buefy-0.8.5.tgz#a91291cd86355df06ea35174000f948dad2bd212"
+  integrity sha512-yGQUhIsZWTodCx1rpfDTA32v5OjILpDIDAP+X6KoE6du3F3EZwJ/k5aT8D6Ba6AxNzVdDa2M7f0hzMddLbm38A==
   dependencies:
     bulma "0.7.5"
 
@@ -1784,7 +1784,7 @@ builtin-status-codes@^3.0.0:
 
 bulma@0.7.5:
   version "0.7.5"
-  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.5.tgz#35066c37f82c088b68f94450be758fc00a967208"
+  resolved "https://registry.npmjs.org/bulma/-/bulma-0.7.5.tgz#35066c37f82c088b68f94450be758fc00a967208"
   integrity sha512-cX98TIn0I6sKba/DhW0FBjtaDpxTelU166pf7ICXpCCuplHWyu6C9LYZmL5PEsnePIeJaiorsTEzzNk3Tsm1hw==
 
 bytes@3.0.0:
@@ -2788,6 +2788,11 @@ deepmerge@^2.1.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
   integrity sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==
+
+deepmerge@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-4.1.1.tgz#ee0866e4019fe62c1276b9062d4c4803d9aea14c"
+  integrity sha512-+qO5WbNBKBaZez95TffdUDnGIo4+r5kmsX8aOb7PDHvXsTbghAmleuxjs6ytNaf5Eg4FGBXDS5vqO61TRi6BMg==
 
 default-gateway@^4.2.0:
   version "4.2.0"
@@ -8860,6 +8865,13 @@ vue-markdown@^2.2.4:
     markdown-it-sup "^1.0.0"
     markdown-it-task-lists "^2.0.1"
     markdown-it-toc-and-anchor "^4.1.2"
+
+vue-meta@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/vue-meta/-/vue-meta-2.3.1.tgz#32a1c2634f49433f30e7e7a028aa5e5743f84f6a"
+  integrity sha512-hnZvDNvLh+PefJLfYkZhG6cSBNKikgQyiEK8lI/P2qscM1DC/qHHOfdACPQ/VDnlaWU9VlcobCTNyVtssTR4XQ==
+  dependencies:
+    deepmerge "^4.0.0"
 
 vue-router@^3.1.2:
   version "3.1.3"

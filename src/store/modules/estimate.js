@@ -11,15 +11,15 @@ export default {
     carbon: 0,
     km: 0,
     price: null,
-    confirmed: false
+    step: 'actions'
   }),
   // state,
   mutations: {
     setCreating (st, creating) {
       st.creating = creating
     },
-    setConfirmed (st, confirmed) {
-      st.confirmed = confirmed
+    setStep (st, step) {
+      st.step = step
     },
     setData (st, data) {
       Object.assign(st, data)

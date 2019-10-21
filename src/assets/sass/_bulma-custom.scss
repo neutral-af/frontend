@@ -20,6 +20,24 @@ $displays: (
   }
 }
 
+.button,
+.input,
+.taginput .taginput-container.is-focusable,
+.textarea,
+.select select,
+.file-cta,
+.file-name,
+.pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis,
+a.navbar-item,
+.navbar-link,
+.navbar-burger,
+.dropdown-item {
+  transition: all $speed-medium ease-in-out;
+}
+
 .input::placeholder,
 .taginput .taginput-container.is-focusable::placeholder,
 .textarea::placeholder,
@@ -30,13 +48,6 @@ $displays: (
 .button {
   transition: color $speed-medium ease-in-out,
     background $speed-medium ease-in-out;
-}
-
-
-a.navbar-item,
-.navbar-link,
-.navbar-burger {
-  transition: color $speed-medium ease-in-out;
 }
 
 .navbar {
@@ -81,23 +92,33 @@ a.navbar-item,
   }
 }
 
-.content-about {
-  a {
-    color: white;
-    text-decoration: underline;
-    &:hover,
-    &:focus {
-      color: $grey-light;
+.content {
+  &.is-medium {
+    font-size: 1.2rem;
+  }
+
+  &.is-inverted {
+    * {
+      color: inherit;
     }
-  }
-  p {
-    font-size: 1.25rem;
-  }
-  h1,h2,h3,h4,h5,h6 {
-    font-size: 2rem;
-    color: $grey-lighter;
-    font-weight: 200
-    // ;
-    // text-decoration: bold
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      opacity: 0.8;
+      font-weight: 200;
+    }
+
+    a {
+      text-decoration: underline;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
   }
 }

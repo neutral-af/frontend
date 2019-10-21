@@ -1,43 +1,28 @@
 <template>
-  <div>
-    <BButton
-      class="field"
-      rounded
-      icon-right="question"
-      @click="show = true"
-    />
-    <BModal
-      :active.sync="show"
-      has-modal-card
+  <section class="modal-card">
+    <div
+      ref="chartWrapper"
+      class="modal-content modal-card-body"
     >
-      <div
-        class="modal-card"
-        style="width: auto"
-      >
-        <div
-          ref="chartWrapper"
-          class="modal-content modal-card-body"
-        >
-          <p class="title has-text-grey-dark">
-            Price Breakdown
-          </p>
-          <BreakdownChart
-            v-if="value"
-            :chart-data="breakdown"
-            :options="chartOptions"
-          />
-          <div class="has-text-grey-darker">
-            This breakdown shows the relative cost of your offset contribution and all fees.
-          </div>
-        </div>
+      <h3 class="title has-text-grey-dark">
+        Price Breakdown
+      </h3>
+      <BreakdownChart
+        :chart-data="breakdown"
+        :options="chartOptions"
+      />
+      <div class="section">
+        <p class="has-text-grey-darker">
+          This breakdown shows the relative cost of your offset contribution and all fees.
+        </p>
       </div>
-    </BModal>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import BreakdownChart from '../atoms/BreakdownChart'
-import { formatCurrencyCents } from '../../utils'
+import { formatPrice } from '@/utils'
+import BreakdownChart from '@/components/atoms/BreakdownChart'
 
 export default {
   components: {
@@ -46,28 +31,7 @@ export default {
   props: {
     value: {
       type: Array,
-      default: null
-    }
-  },
-  data () {
-    return {
-      show: false,
-      chartOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-        animation: {
-          duration: 2000
-        },
-        tooltips: {
-          callbacks: {
-            label: (item, data) => {
-              const details = this.value[item.index]
-              const formatted = formatCurrencyCents(details.cents, details.currency)
-              return `${details.name}: ${formatted}`
-            }
-          }
-        }
-      }
+      required: true
     }
   },
   computed: {
@@ -80,6 +44,24 @@ export default {
             data: this.value.map(e => e.cents / 100)
           }
         ]
+      }
+    },
+    chartOptions () {
+      return {
+        maintainAspectRatio: false,
+        responsive: true,
+        animation: {
+          duration: 2000
+        },
+        tooltips: {
+          callbacks: {
+            label: (item, data) => {
+              const details = this.value[item.index]
+              const formatted = formatPrice(details.cents, details.currency)
+              return `${details.name}: ${formatted}`
+            }
+          }
+        }
       }
     }
   }

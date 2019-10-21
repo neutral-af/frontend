@@ -22,6 +22,7 @@
         <BField
           label="Cardholder Name"
           label-for="name"
+          class="field-invert"
         >
           <BInput
             v-model.trim="name"
@@ -34,6 +35,7 @@
         <BField
           label="Email"
           label-for="email"
+          class="field-invert"
         >
           <BInput
             v-model.trim="email"
@@ -49,31 +51,40 @@
         label="Card details"
         @mounted="onCardMounted"
       />
-      <BField>
+      <BField class="field-invert">
         <BCheckbox
           v-model="saveCard"
-          size="is-small"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
       </BField>
-    </template>
-    <BField>
-      <BButton
-        native-type="submit"
-        type="is-primary"
-        size="is-medium"
-        :disabled="submitting"
-        :class="{ 'is-loading': submitting }"
+      <BNotification
+        v-if="envWarningShown"
+        type="is-warning"
+        :closable="false"
       >
-        Pay now
-      </BButton>
-    </BField>
-    <BField>
-      <p class="content is-small">
+        Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
+      </BNotification>
+    </template>
+    <div class="has-text-centered">
+      <BField>
+        <RoundedButton
+          native-type="submit"
+          type="is-primary"
+          size="is-large"
+          outlined
+          inverted
+          icon-left="check"
+          :disabled="submitting"
+          :class="{ 'is-loading': submitting }"
+        >
+          Pay now
+        </RoundedButton>
+      </BField>
+      <p>
         Payment will be processed securely by Stripe
       </p>
-    </BField>
+    </div>
   </form>
 </template>
 
@@ -99,6 +110,13 @@ export default {
     }
   },
   computed: {
+    ...mapState('estimate', ['carbon', 'price']),
+    envWarningShown () {
+      return this.env !== 'prod'
+    },
+    env () {
+      return process.env.VUE_APP_ENV
+    },
     hasPreviouslySaved () {
       return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
     },
@@ -107,8 +125,7 @@ export default {
         paymentMethod: this.$cookies.get('pmID'),
         customer: this.$cookies.get('custID')
       }
-    },
-    ...mapState('estimate', ['carbon', 'price'])
+    }
   },
   methods: {
     showError (message = '') {

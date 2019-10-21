@@ -3,23 +3,16 @@
     label="Passengers"
     position="is-centered"
     :label-for="name"
-    class="passengers-field"
+    class="field-invert field-huge passengers-field"
   >
-    <BSelect
+    <BNumberinput
       :name="name"
-      size="is-medium"
       :value="value"
+      min="1"
+      max="8"
       required
       @input="$emit('update', $event)"
-    >
-      <option
-        v-for="option in options"
-        :key="option"
-        :value="option"
-      >
-        {{ option }}
-      </option>
-    </BSelect>
+    />
   </BField>
 </template>
 
@@ -34,23 +27,14 @@ export default {
       type: Number,
       required: true
     }
-  },
-  computed: {
-    options () {
-      return Array.from(Array(9), (value, index) => index)
-    }
   }
 }
 </script>
 
 <style lang="scss">
-.passengers-field .select {
-  select:not([multiple]) {
-    padding-right: 1.5em;
-  }
-
-  &:not(.is-multiple):not(.is-loading)::after {
-    right: 1em;
+.passengers-field {
+  input[type="number"] {
+    width: 2em;
   }
 }
 </style>

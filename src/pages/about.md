@@ -1,11 +1,11 @@
 
 ## Who are you?
 
-We’re Jason and Emanuele, two developers in Berlin. You can learn about us and read the open-source code behind Neutral.af at github.com/neutral-af.
+We’re Jason and Emanuele, two developers in Berlin. You can learn about us and read the open-source code behind Neutral.af [on GitHub](https://www.github.com/neutral-af).
 
-## Carbon offsets aren’t enough - people should fly less!
+## Carbon offsets aren’t enough, people should fly less!
 
-Not a question - but in any case, yes, people should fly less. Airplane travel is one of the biggest sources of CO2 emissions, and travel by train or other means has a drastically lower carbon footprint. But as young people who live and work abroad in other countries (and for some of us, other continents), we understand that it’s not always possible to stop flying entirely. You should definitely take the train when you can - and offset your flight when you can’t.
+Not a question, but in any case, yes, people should fly less. Airplane travel is one of the biggest sources of CO2 emissions, and travel by train or other means has a drastically lower carbon footprint. But as young people who live and work abroad in other countries (and for some of us, other continents), we understand that it’s not always possible to stop flying entirely. You should definitely take the train when you can - and offset your flight when you can’t.
 
 ## How do you calculate how much carbon is needed to offset my flight?
 
@@ -17,7 +17,7 @@ We work together with providers like [Cloverly](https://www.cloverly.com/) to pu
 
 ## How do you make money?
 
-In short, we don't - we’re in this to help people live a bit greener, not to get rich. We do add a commission of 10% onto your offset charge, to pay for our servers and domains. But if we have any extra money left over after our own expenses, we’ll put that towards even more carbon offsets.
+In short, we don't. We’re in this to help people live a bit greener, not to get rich. We do add a commission of 10% onto your offset charge, to pay for our servers and domains. But if we have any extra money left over after our own expenses, we’ll put that towards even more carbon offsets.
 
 ## How much of the cost I pay goes to offsetting?
 

@@ -48,5 +48,6 @@ export default new VueRouter({
   linkActiveClass: '',
   linkExactActiveClass: 'is-active',
   mode: 'history',
-  routes
+  routes,
+  scrollBehavior: () => ({ x: 0, y: 0 })
 })

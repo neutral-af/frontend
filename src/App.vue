@@ -5,7 +5,10 @@
 <script>
 // import { trackEvent } from './honeycomb'
 
-// export default {
+export default {
+  metaInfo: {
+    titleTemplate: '%s · Neutral (as f**k)'
+  }
 // data () {
 //   return {
 //     carbon: 0,
@@ -26,5 +29,5 @@
 //     'app.estimateID': this.estimateID
 //   })
 // }
-// }
+}
 </script>

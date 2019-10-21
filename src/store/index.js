@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
 // import createPersistedState from 'vuex-persistedstate'
 
-import estimate from './modules/estimate'
-import estimateForm from './modules/estimate-form'
-import checkoutForm from './modules/checkout-form'
-import localeToCurrency from '../localeToCurrency'
+import { getCurrencyFromLocale } from '@/utils'
+import estimate from '@/store/modules/estimate'
+import estimateForm from '@/store/modules/estimate-form'
+import checkoutForm from '@/store/modules/checkout-form'
 
 Vue.use(Vuex)
 
@@ -16,7 +16,7 @@ const strict = process.env.NODE_ENV !== 'production'
 
 export default new Store({
   state: () => ({
-    userCurrency: localeToCurrency(window.navigator.language)
+    userCurrency: getCurrencyFromLocale(window.navigator.language)
   }),
   mutations: {
     setUserCurrency (st, val) {
