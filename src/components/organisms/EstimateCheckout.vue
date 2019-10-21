@@ -58,6 +58,13 @@
           Please save my card to skip this process in the future.
         </BCheckbox>
       </BField>
+      <BNotification
+        v-if="envWarningShown"
+        type="is-warning"
+        :closable="false"
+      >
+        Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
+      </BNotification>
     </template>
     <div class="has-text-centered">
       <BField>
@@ -103,6 +110,13 @@ export default {
     }
   },
   computed: {
+    ...mapState('estimate', ['carbon', 'price']),
+    envWarningShown () {
+      return this.env !== 'prod'
+    },
+    env () {
+      return process.env.VUE_APP_ENV
+    },
     hasPreviouslySaved () {
       return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
     },
@@ -111,8 +125,7 @@ export default {
         paymentMethod: this.$cookies.get('pmID'),
         customer: this.$cookies.get('custID')
       }
-    },
-    ...mapState('estimate', ['carbon', 'price'])
+    }
   },
   methods: {
     showError (message = '') {
