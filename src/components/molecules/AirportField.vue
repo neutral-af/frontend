@@ -50,17 +50,17 @@ export default {
     }
   },
   created () {
-    this.airports = airports.search()
+    this.airports = []
   },
   methods: {
-    search (query) {
+    async search (query) {
       if (!query) {
         this.airports = []
         return
       }
       this.fetching = true
       try {
-        this.airports = airports.search(query)
+        this.airports = await airports.search(query)
         this.fetching = false
       } catch (err) {
         this.fetching = false

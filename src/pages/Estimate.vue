@@ -81,12 +81,20 @@ export default {
       return Object.keys(this.flights).length > 1
     }
   },
-  created () {
-    this.storeFromInitial()
-    this.setInitialStep()
+  async created () {
     this.unwatchers = [
+      this.$watch('flights', this.onUpdate.bind(this)),
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
+    if (this.initialFlights) {
+      try {
+        const dataFromURL = JSON.parse(atob(this.initialFlights))
+        await this.loadFlights(dataFromURL)
+      } catch (e) {
+        console.error(`Error when decoding or loading flight data from URL: ${e}`)
+      }
+    }
+    this.setInitialStep()
   },
   beforeDestroy () {
     if (this.unwatchers) {
@@ -96,24 +104,12 @@ export default {
   methods: {
     ...mapMutations('estimate', ['setStep']),
     ...mapMutations('estimateForm', [
+      'loadFlights',
       'addFlight',
       'removeFlight',
-      'setCurrentFlight'
+      'setCurrentFlight',
+      'getFlightsByICAO'
     ]),
-    storeFromInitial () {
-      // if (this.initialFlights) {
-      //   try {
-      //     const flights = JSON.parse(atob(this.initialFlights))
-      //     if (flights.every(isValidFlight)) {
-      //       this.$store.commit()
-      //     }
-      //   } catch (err) {
-      //     //
-      //   }
-      // }
-      // if (this.initialUserCurrency) {
-      // }
-    },
     setInitialStep () {
       if (isValidFlight(this.flights[1])) {
         this.setStep('actions')
@@ -122,7 +118,7 @@ export default {
       }
     },
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.flights))
+      const flights = btoa(JSON.stringify(this.getFlightsByICAO()))
       this.$router.replace({ ...this.$route, query: { flights } })
     },
     onUpdate () {

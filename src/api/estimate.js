@@ -11,7 +11,7 @@ const duplicateByPassengers = (flights, flight) => {
 
 const restrictByType = ({ arrival, date, departure, flightNumber, type }) => {
   if (type === 'locations') {
-    return { departure: departure.icao, arrival: arrival.icao }
+    return { departure: departure.ICAO, arrival: arrival.ICAO }
   }
   return { flightNumber, date }
 }
