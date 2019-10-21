@@ -96,11 +96,6 @@ export default {
       return formatAirport(this.arrival, 'short')
     }
   },
-  methods: {
-    ...mapMutations('estimateForm', ['removeFlight']),
-    remove (id) {
-      this.removeFlight(id)
-    }
-  }
+  methods: mapMutations('estimateForm', { remove: 'removeFlight' })
 }
 </script>
