@@ -24,26 +24,3 @@
     </template>
   </BNavbar>
 </template>
-
-<script>
-export default {
-  components: {
-  },
-  props: {
-    hasPreview: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data () {
-    return {
-      menuShown: false
-    }
-  },
-  methods: {
-    toggleMenu () {
-      this.menuShown = !this.menuShown
-    }
-  }
-}
-</script>
