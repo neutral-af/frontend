@@ -37,13 +37,11 @@ export default {
   computed: {
     breakdown () {
       return {
-        labels: this.value.map(e => e.name),
-        datasets: [
-          {
-            backgroundColor: ['green'],
-            data: this.value.map(e => e.cents / 100)
-          }
-        ]
+        labels: this.value.map(item => item.name),
+        datasets: [{
+          backgroundColor: ['green'],
+          data: this.value.map(item => item.cents / 100)
+        }]
       }
     },
     chartOptions () {

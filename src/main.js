@@ -20,7 +20,7 @@ Vue.use(Buefy, {
 })
 
 new Vue({
-  render: h => h(App),
+  render: create => create(App),
   router,
   store
 }).$mount('#app')

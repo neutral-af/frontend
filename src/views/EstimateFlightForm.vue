@@ -23,7 +23,7 @@
     />
     <PassengersField
       v-if="step === 'passengers'"
-      name="passengers"
+      id="passengers"
       :value="flight.passengers"
       @update="updatePassengers($event)"
     />
