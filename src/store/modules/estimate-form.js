@@ -1,6 +1,6 @@
 import { detailsByICAOs } from '@/api/airports'
 
-const createFlight = (id) => ({
+const createFlight = () => ({
   arrival: null,
   date: new Date(),
   departure: null,
