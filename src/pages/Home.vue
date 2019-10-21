@@ -5,7 +5,7 @@
       class="is-primary is-bold"
     >
       <MainNav slot="head" />
-      <div class="has-text-centered">
+      <div class="container has-text-centered">
         <h1 class="home-headline is-family-secondary">
           <div class="title home-title">
             Fly Neutral

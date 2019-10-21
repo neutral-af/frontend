@@ -1,38 +1,32 @@
 <template>
-  <div class="hero is-dark is-fullheight estimate">
-    <header class="hero-head">
-      <MainNav has-preview />
-    </header>
+  <HeroSection class="is-dark estimate">
+    <MainNav slot="head" />
     <EstimateSummary />
-    <div class="hero-body estimate-view">
-      <div>
-        <h1 class="title estimate-title">
-          {{ title }}
-        </h1>
-        <EstimateFlightForm
-          v-if="step === 'flight'"
-          @complete="onFlightComplete"
+    <div class="container estimate-view">
+      <h1 class="title estimate-title">
+        {{ title }}
+      </h1>
+      <EstimateFlightForm
+        v-if="step === 'flight'"
+        @complete="onFlightComplete"
+      />
+      <div v-else-if="step === 'actions'">
+        <EstimateFlight
+          v-for="flight in flights"
+          :key="flight.id"
+          v-bind="flight"
+          @edit="onEditFlight"
         />
-        <div v-else-if="step === 'actions'">
-          <EstimateFlight
-            v-for="flight in flights"
-            :key="flight.id"
-            v-bind="flight"
-            @edit="onEditFlight"
-          />
-          <hr>
-          <EstimateActions
-            @add="onAddFlight"
-            @next="onNext"
-          />
-        </div>
-        <EstimateCheckout v-else-if="step === 'checkout'" />
+        <hr>
+        <EstimateActions
+          @add="onAddFlight"
+          @next="onNext"
+        />
       </div>
+      <EstimateCheckout v-else-if="step === 'checkout'" />
     </div>
-    <footer class="hero-foot">
-      <MainFoot />
-    </footer>
-  </div>
+    <MainFoot slot="foot" />
+  </HeroSection>
 </template>
 
 <script>
@@ -41,6 +35,7 @@ import { mapState, mapMutations } from 'vuex'
 import { isValidFlight } from '@/validators'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
+import HeroSection from '@/components/organisms/HeroSection'
 import EstimateSummary from '@/components/organisms/EstimateSummary'
 import EstimateFlightForm from '@/components/organisms/EstimateFlightForm'
 import EstimateFlight from '@/components/organisms/EstimateFlight'
@@ -56,6 +51,7 @@ export default {
   components: {
     MainNav,
     MainFoot,
+    HeroSection,
     EstimateSummary,
     EstimateFlightForm,
     EstimateFlight,
@@ -122,7 +118,9 @@ export default {
       // }
     },
     setInitialStep () {
-      if (this.flights.length === 0) {
+      if (isValidFlight(this.flights[1])) {
+        this.setStep('actions')
+      } else {
         this.setStep('flight')
       }
     },
@@ -189,11 +187,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    @include mobile {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
   }
 
   &-title {

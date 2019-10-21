@@ -29,9 +29,7 @@
       <slot name="head" />
     </header>
     <div class="hero-body">
-      <div class="container">
-        <slot />
-      </div>
+      <slot />
     </div>
     <footer
       v-if="$slots.foot"
