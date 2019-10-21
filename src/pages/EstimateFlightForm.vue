@@ -1,43 +1,47 @@
 <template>
-  <div class="estimate-flight-form">
+  <form
+    class="estimate-flight-form"
+    @submit.prevent="onSubmit"
+  >
     <AirportField
-      v-if="currentStep === 'departure'"
-      :key="`flight-${flight.id}-departure`"
-      :name="`flight-${flight.id}-departure`"
+      v-if="step === 'departure'"
+      id="departure"
+      key="departure"
       label="Departure airport"
       placeholder="e.g. Milan, Malpensa or MXP"
       :value="flight.departure ? flight.departure.name : ''"
       @update="updateDeparture($event)"
     />
     <AirportField
-      v-if="currentStep === 'arrival'"
-      :key="`flight-${flight.id}-arrival`"
-      :name="`flight-${flight.id}-arrival`"
+      v-if="step === 'arrival'"
+      id="arrival"
+      key="arrival"
       label="Arrival airport"
       placeholder="e.g. Toronto, Pearson or YYZ"
       :value="flight.arrival ? flight.arrival.name : ''"
       @update="updateArrival($event)"
     />
     <PassengersField
-      v-if="currentStep === 'passengers'"
-      :name="`flight-${flight.id}-passengers`"
+      v-if="step === 'passengers'"
+      name="passengers"
       :value="flight.passengers"
       @update="updatePassengers($event)"
     />
     <div class="has-text-centered">
       <RoundedButton
-        v-if="currentStep === 'passengers'"
+        v-if="step === 'passengers'"
+        native-type="submit"
         type="is-primary"
         size="is-large"
         inverted
         outlined
         icon-left="check"
-        @click="onConfirm"
       >
         Confirm
       </RoundedButton>
     </div>
-  </div>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -55,38 +59,66 @@ export default {
     // FlightNumberField,
     PassengersField
   },
+  props: {
+    id: {
+      type: String,
+      default: null
+    }
+  },
   computed: {
-    ...mapState('estimateForm', ['currentFlight', 'currentStep']),
+    ...mapState('estimateForm', {
+      step: 'currentStep',
+      newFlight: 'newFlight'
+    }),
+    mode () {
+      return this.id ? 'edit' : 'add'
+    },
     flight () {
-      return this.$store.state.estimateForm.flights[this.currentFlight]
+      return this.mode === 'edit'
+        ? this.$store.getters['estimateForm/flightById'](this.id)
+        : this.newFlight
     }
   },
   created () {
-    this.setCurrentStep('departure')
+    if (!this.flight) {
+      this.$router.replace({ name: 'estimate-home' })
+      return
+    }
+    this.setStep('departure')
   },
   methods: {
-    ...mapMutations('estimateForm', ['setCurrentStep']),
+    ...mapMutations('estimateForm', {
+      setStep: 'setCurrentStep',
+      addFlight: 'addFlight',
+      updateFlight: 'updateFlight',
+      updateNewFlight: 'updateNewFlight',
+      resetNewFlight: 'resetNewFlight'
+    }),
     update (name, value) {
       const data = { [name]: value }
-      this.$store.commit('estimateForm/updateFlight', { id: this.currentFlight, data })
+      if (this.mode === 'edit') {
+        this.updateFlight({ id: this.id, data })
+      } else {
+        this.updateNewFlight(data)
+      }
     },
     updateDeparture (value) {
       this.update('departure', value)
-      this.setCurrentStep('arrival')
+      this.setStep('arrival')
     },
     updateArrival (value) {
       this.update('arrival', value)
-      this.setCurrentStep('passengers')
+      this.setStep('passengers')
     },
     updatePassengers (value) {
       this.update('passengers', value)
     },
-    onConfirm () {
-      this.$emit('complete')
-      this.setCurrentStep('departure')
-    },
-    remove () {
-      this.$store.commit('estimateForm/removeFlight', this.id)
+    onSubmit () {
+      if (this.mode === 'add') {
+        this.addFlight(this.flight)
+        this.resetNewFlight()
+      }
+      this.$router.push({ name: 'estimate-home' })
     }
   }
 }

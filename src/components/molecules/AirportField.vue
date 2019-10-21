@@ -1,11 +1,11 @@
 <template>
   <BField
     :label="label"
-    :label-for="name"
-    class="field-invert field-huge aiport-field"
+    :label-for="id"
+    class="field-invert field-huge airport-field"
   >
     <BAutocomplete
-      :name="name"
+      :id="id"
       :placeholder="placeholder"
       keep-first
       open-on-focus
@@ -30,7 +30,7 @@ export default {
       type: String,
       required: true
     },
-    name: {
+    id: {
       type: String,
       required: true
     },

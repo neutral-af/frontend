@@ -1,7 +1,6 @@
 import { detailsByICAOs } from '@/api/airports'
 
 const createFlight = (id) => ({
-  id,
   arrival: null,
   date: new Date(),
   departure: null,
@@ -14,11 +13,13 @@ export default {
   namespaced: true,
   state: () => ({
     flights: {},
+    newFlight: createFlight(),
     currentFlight: 0,
     currentStep: 'departure'
   }),
   getters: {
     flightsCount: ({ flights }) => Object.keys(flights).length,
+    flightById: ({ flights }) => id => flights[id],
     flightsByICAO: ({ flights }) => Object.values(flights).map((flight) => {
       if (flight.type === 'locations') {
         return {
@@ -34,10 +35,10 @@ export default {
     setFlights (state, flights) {
       state.flights = flights
     },
-    addFlight (state) {
+    addFlight (state, data) {
       const ids = Object.keys(state.flights)
       const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
-      state.flights = { ...state.flights, [id]: createFlight(id) }
+      state.flights = { ...state.flights, [id]: data }
     },
     removeFlight (state, id) {
       delete state.flights[id]
@@ -46,6 +47,12 @@ export default {
     updateFlight (state, { id, data }) {
       const flight = state.flights[id]
       state.flights = { ...state.flights, [id]: { ...flight, ...data } }
+    },
+    updateNewFlight (state, data) {
+      state.newFlight = { ...state.newFlight, ...data }
+    },
+    resetNewFlight (state) {
+      state.newFlight = createFlight()
     },
     setCurrentFlight (state, currentFlight) {
       state.currentFlight = currentFlight

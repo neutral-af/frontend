@@ -10,16 +10,14 @@ export default {
     provider: '',
     carbon: 0,
     km: 0,
-    price: null,
-    step: 'actions'
+    price: null
   }),
-  // state,
+  getters: {
+    hasEstimate: ({ id }) => !!id
+  },
   mutations: {
     setCreating (st, creating) {
       st.creating = creating
-    },
-    setStep (st, step) {
-      st.step = step
     },
     setData (st, data) {
       Object.assign(st, data)

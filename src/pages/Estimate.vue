@@ -6,28 +6,8 @@
       <h1 class="title estimate-title">
         {{ title }}
       </h1>
-      <EstimateFlightForm
-        v-if="step === 'flight'"
-        @complete="onFlightComplete"
-      />
-      <div v-else-if="step === 'actions'">
-        <template v-if="flightsCount > 0">
-          <EstimateFlight
-            v-for="flight in flights"
-            :key="flight.id"
-            v-bind="flight"
-            :removable="removable"
-            @edit="onEditFlight"
-            @remove="onRemoveFlight"
-          />
-          <hr>
-        </template>
-        <EstimateActions
-          @add="onAddFlight"
-          @next="onNext"
-        />
-      </div>
-      <EstimateCheckout v-else-if="step === 'checkout'" />
+      <RouterView />
+      <!-- <EstimateCheckout v-else-if="step === 'checkout'" /> -->
     </div>
     <MainFoot slot="foot" />
   </HeroSection>
@@ -41,10 +21,6 @@ import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
 import HeroSection from '@/components/organisms/HeroSection'
 import EstimateSummary from '@/components/organisms/EstimateSummary'
-import EstimateFlightForm from '@/components/organisms/EstimateFlightForm'
-import EstimateFlight from '@/components/organisms/EstimateFlight'
-import EstimateActions from '@/components/organisms/EstimateActions'
-import EstimateCheckout from '@/components/organisms/EstimateCheckout'
 
 export default {
   metaInfo () {
@@ -56,11 +32,7 @@ export default {
     MainNav,
     MainFoot,
     HeroSection,
-    EstimateSummary,
-    EstimateFlightForm,
-    EstimateFlight,
-    EstimateActions,
-    EstimateCheckout
+    EstimateSummary
   },
   props: {
     initialFlights: {
@@ -75,19 +47,17 @@ export default {
   computed: {
     ...mapState(['userCurrency']),
     ...mapState('estimate', ['creating', 'step']),
-    ...mapState('estimateForm', ['flights', 'currentFlight']),
+    ...mapState('estimateForm', ['flights']),
     ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
-    },
-    removable () {
-      return this.flightsCount > 1
     }
   },
   async created () {
     await this.loadInitialFlights()
+    this.setInitialPage()
     this.unwatchers = [
-      // this.$watch('flights', this.onUpdate.bind(this)),
+      this.$watch('flights', this.onUpdate.bind(this)),
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
   },
@@ -97,12 +67,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimate', ['setStep']),
-    ...mapMutations('estimateForm', [
-      'addFlight',
-      'removeFlight',
-      'setCurrentFlight'
-    ]),
     ...mapActions('estimateForm', ['loadFlights']),
     async loadInitialFlights () {
       if (!this.initialFlights) {
@@ -115,33 +79,18 @@ export default {
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
     },
+    setInitialPage () {
+      if (this.flightsCount === 0) {
+        this.$router.replace({ name: 'estimate-add-flight' })
+      }
+    },
     updateUrl () {
       const flights = btoa(JSON.stringify(this.flightsByICAO))
       this.$router.replace({ ...this.$route, query: { flights } })
     },
     onUpdate () {
       this.create()
-      this.updateUrl()
-    },
-    onFlightComplete () {
-      this.onUpdate()
-      this.setStep('actions')
-    },
-    onAddFlight () {
-      this.addFlight()
-      this.setCurrentFlight(this.currentFlight + 1)
-      this.setStep('flight')
-    },
-    onEditFlight (id) {
-      this.setCurrentFlight(id)
-      this.setStep('flight')
-    },
-    onRemoveFlight (id) {
-      this.removeFlight(id)
-      this.setCurrentFlight(1)
-    },
-    onNext () {
-      this.setStep('checkout')
+      // this.updateUrl()
     },
     showError (message = '') {
       this.$buefy.snackbar.open({
