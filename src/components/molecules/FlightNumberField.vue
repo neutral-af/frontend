@@ -1,10 +1,10 @@
 <template>
   <BField
     label="Flight number"
-    :label-for="name"
+    :label-for="id"
   >
     <BInput
-      :name="name"
+      :id="id"
       size="is-medium"
       placeholder="e.g. AC895"
       :value="value"
@@ -17,7 +17,7 @@
 <script>
 export default {
   props: {
-    name: {
+    id: {
       type: String,
       required: true
     },

@@ -2,11 +2,11 @@
   <BField
     label="Passengers"
     position="is-centered"
-    :label-for="name"
+    :label-for="id"
     class="field-invert field-huge passengers-field"
   >
     <BNumberinput
-      :name="name"
+      :id="id"
       :value="value"
       min="1"
       max="8"

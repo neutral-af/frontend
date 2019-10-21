@@ -1,11 +1,11 @@
 <template>
   <BField
     label="Date"
-    :label-for="name"
+    :label-for="id"
     class="date-field"
   >
     <BDatepicker
-      :name="name"
+      :id="id"
       size="is-medium"
       placeholder="Date"
       :value="value"
@@ -18,7 +18,7 @@
 <script>
 export default {
   props: {
-    name: {
+    id: {
       type: String,
       required: true
     },
