@@ -89,7 +89,7 @@ export default {
     },
     onUpdate () {
       this.create()
-      // this.updateUrl()
+      this.updateUrl()
     },
     showError (message = '') {
       this.$buefy.snackbar.open({
