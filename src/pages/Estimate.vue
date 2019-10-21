@@ -7,7 +7,6 @@
         {{ title }}
       </h1>
       <RouterView />
-      <!-- <EstimateCheckout v-else-if="step === 'checkout'" /> -->
     </div>
     <MainFoot slot="foot" />
   </HeroSection>
