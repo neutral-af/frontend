@@ -82,7 +82,7 @@ export default {
     }
   },
   created () {
-    this.showNonProdEnvWarning()
+    this.showEnvWarning()
     this.storeFromInitial()
     this.setInitialStep()
     this.unwatchers = [
@@ -90,6 +90,9 @@ export default {
     ]
   },
   beforeDestroy () {
+    if (this.envWarning) {
+      this.envWarning.close()
+    }
     if (this.unwatchers) {
       this.unwatchers.forEach(unwatch => unwatch())
     }
@@ -101,9 +104,9 @@ export default {
       'removeFlight',
       'setCurrentFlight'
     ]),
-    showNonProdEnvWarning () {
+    showEnvWarning () {
       if (process.env.VUE_APP_ENV !== 'prod') {
-        this.$buefy.notification.open({
+        this.envWarning = this.$buefy.notification.open({
           message: `Environment is <strong>${process.env.VUE_APP_ENV}</strong>, do not use a real credit card number!`,
           position: 'is-bottom',
           type: 'is-warning',
