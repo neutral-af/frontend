@@ -18,6 +18,13 @@ module.exports = {
     ecmaVersion: 2019,
     sourceType: 'module'
   },
+  rules: {
+    curly: ['error', 'all'],
+    'id-length': ['error', {
+      min: 2,
+      properties: 'never'
+    }]
+  },
   settings: {
     'import/resolver': {
       alias: {
