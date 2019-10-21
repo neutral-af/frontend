@@ -15,7 +15,9 @@
           v-for="flight in flights"
           :key="flight.id"
           v-bind="flight"
+          :removable="removable"
           @edit="onEditFlight"
+          @remove="onRemoveFlight"
         />
         <hr>
         <EstimateActions
@@ -74,6 +76,9 @@ export default {
     ...mapState('estimateForm', ['flights', 'currentFlight']),
     title () {
       return 'Estimate'
+    },
+    removable () {
+      return Object.keys(this.flights).length > 1
     }
   },
   created () {
@@ -91,7 +96,11 @@ export default {
   },
   methods: {
     ...mapMutations('estimate', ['setStep']),
-    ...mapMutations('estimateForm', ['addFlight', 'setCurrentFlight']),
+    ...mapMutations('estimateForm', [
+      'addFlight',
+      'removeFlight',
+      'setCurrentFlight'
+    ]),
     showNonProdEnvWarning () {
       if (process.env.VUE_APP_ENV !== 'prod') {
         this.$buefy.notification.open({
@@ -144,6 +153,10 @@ export default {
     onEditFlight (id) {
       this.setCurrentFlight(id)
       this.setStep('flight')
+    },
+    onRemoveFlight (id) {
+      this.removeFlight(id)
+      this.setCurrentFlight(1)
     },
     onNext () {
       this.setStep('checkout')

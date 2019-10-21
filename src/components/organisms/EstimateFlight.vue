@@ -45,6 +45,16 @@
         icon-right="pen"
         @click="edit"
       />
+      &nbsp;
+      <RoundedButton
+        v-if="removable"
+        type="is-dark"
+        outlined
+        inverted
+        title="Remove"
+        icon-right="trash"
+        @click="remove"
+      />
     </div>
   </div>
 </template>
@@ -69,6 +79,10 @@ export default {
     passengers: {
       type: Number,
       required: true
+    },
+    removable: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -82,15 +96,10 @@ export default {
   methods: {
     edit () {
       this.$emit('edit', this.id)
+    },
+    remove () {
+      this.$emit('remove', this.id)
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.estimate-flight {
-  &-edit {
-    @extend %sr-only;
-  }
-}
-</style>
