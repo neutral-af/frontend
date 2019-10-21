@@ -40,7 +40,6 @@
         Confirm
       </RoundedButton>
     </div>
-    </div>
   </form>
 </template>
 

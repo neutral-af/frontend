@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { isValidFlight } from '@/validators'
 import MainNav from '@/components/organisms/MainNav'
