@@ -13,30 +13,30 @@ const createFlight = (id) => ({
 export default {
   namespaced: true,
   state: () => ({
-    flights: {
-      1: createFlight(1)
-    },
-    currentFlight: 1,
+    flights: {},
+    currentFlight: 0,
     currentStep: 'departure'
   }),
   getters: {
-    getFlightsByICAO (state) {
-      return Object.values(state.flights).map(e => {
-        if (e.type === 'locations') {
-          return {
-            departure: { icao: e.departure.ICAO },
-            arrival: { icao: e.arrival.ICAO },
-            passengers: e.passengers,
-            type: e.type
-          }
+    flightsCount: ({ flights }) => Object.keys(flights).length,
+    flightsByICAO: ({ flights }) => Object.values(flights).map((flight) => {
+      if (flight.type === 'locations') {
+        return {
+          departure: flight.departure ? { icao: flight.departure.ICAO } : null,
+          arrival: flight.arrival ? { icao: flight.arrival.ICAO } : null,
+          passengers: flight.passengers,
+          type: flight.type
         }
-      })
-    }
+      }
+    })
   },
   mutations: {
+    setFlights (state, flights) {
+      state.flights = flights
+    },
     addFlight (state) {
-      const ids = Object.keys(state.flights).map((id) => parseInt(id, 10))
-      const id = Math.max(...ids) + 1
+      const ids = Object.keys(state.flights)
+      const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
       state.flights = { ...state.flights, [id]: createFlight(id) }
     },
     removeFlight (state, id) {
@@ -45,9 +45,7 @@ export default {
     },
     updateFlight (state, { id, data }) {
       const flight = state.flights[id]
-      state.flights = {
-        ...state.flights, [id]: { ...flight, ...data }
-      }
+      state.flights = { ...state.flights, [id]: { ...flight, ...data } }
     },
     setCurrentFlight (state, currentFlight) {
       state.currentFlight = currentFlight
@@ -57,14 +55,22 @@ export default {
     }
   },
   actions: {
-    async loadFlights ({ commit }, inputFlights) {
-      const flights = await inputFlights.reduce(async (previous, f, index) => {
-        if (f.type === 'locations') {
-          const { departure, arrival } = await detailsByICAOs(f.departure.icao, f.arrival.icao)
-          const obj = await previous
-          obj[index] = Object.assign({}, f, { departure, arrival })
-          return obj
-        }
+    async loadFlights ({ commit }, initialFlights) {
+      const promises = initialFlights
+        .filter(flight => (
+          flight.type === 'location' &&
+          flight.departure &&
+          flight.departure.icao &&
+          flight.arrival &&
+          flight.arrival.icao
+        ))
+        .map((flight) => detailsByICAOs(flight.departure.icao, flight.arrival.icao))
+      const list = await Promise.all(promises)
+      const flights = list.reduce((acc, flight, index) => {
+        const id = index + 1
+        const withId = { ...flight, id }
+        acc[id] = withId
+        return acc
       }, {})
       commit('setFlights', flights)
     }

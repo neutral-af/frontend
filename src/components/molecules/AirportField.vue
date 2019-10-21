@@ -50,7 +50,9 @@ export default {
     }
   },
   created () {
-    this.airports = []
+    if (this.value) {
+      this.search()
+    }
   },
   methods: {
     async search (query) {

@@ -11,15 +11,17 @@
         @complete="onFlightComplete"
       />
       <div v-else-if="step === 'actions'">
-        <EstimateFlight
-          v-for="flight in flights"
-          :key="flight.id"
-          v-bind="flight"
-          :removable="removable"
-          @edit="onEditFlight"
-          @remove="onRemoveFlight"
-        />
-        <hr>
+        <template v-if="flightsCount > 0">
+          <EstimateFlight
+            v-for="flight in flights"
+            :key="flight.id"
+            v-bind="flight"
+            :removable="removable"
+            @edit="onEditFlight"
+            @remove="onRemoveFlight"
+          />
+          <hr>
+        </template>
         <EstimateActions
           @add="onAddFlight"
           @next="onNext"
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 import { isValidFlight } from '@/validators'
 import MainNav from '@/components/organisms/MainNav'
@@ -74,27 +76,20 @@ export default {
     ...mapState(['userCurrency']),
     ...mapState('estimate', ['creating', 'step']),
     ...mapState('estimateForm', ['flights', 'currentFlight']),
+    ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
     },
     removable () {
-      return Object.keys(this.flights).length > 1
+      return this.flightsCount > 1
     }
   },
   async created () {
+    await this.loadInitialFlights()
     this.unwatchers = [
-      this.$watch('flights', this.onUpdate.bind(this)),
+      // this.$watch('flights', this.onUpdate.bind(this)),
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
-    if (this.initialFlights) {
-      try {
-        const dataFromURL = JSON.parse(atob(this.initialFlights))
-        await this.loadFlights(dataFromURL)
-      } catch (e) {
-        console.error(`Error when decoding or loading flight data from URL: ${e}`)
-      }
-    }
-    this.setInitialStep()
   },
   beforeDestroy () {
     if (this.unwatchers) {
@@ -104,21 +99,24 @@ export default {
   methods: {
     ...mapMutations('estimate', ['setStep']),
     ...mapMutations('estimateForm', [
-      'loadFlights',
       'addFlight',
       'removeFlight',
-      'setCurrentFlight',
-      'getFlightsByICAO'
+      'setCurrentFlight'
     ]),
-    setInitialStep () {
-      if (isValidFlight(this.flights[1])) {
-        this.setStep('actions')
-      } else {
-        this.setStep('flight')
+    ...mapActions('estimateForm', ['loadFlights']),
+    async loadInitialFlights () {
+      if (!this.initialFlights) {
+        return
+      }
+      try {
+        const flights = JSON.parse(atob(this.initialFlights))
+        return this.loadFlights(flights)
+      } catch (err) {
+        console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
     },
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.getFlightsByICAO()))
+      const flights = btoa(JSON.stringify(this.flightsByICAO))
       this.$router.replace({ ...this.$route, query: { flights } })
     },
     onUpdate () {

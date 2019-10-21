@@ -11,7 +11,7 @@ export default {
     carbon: 0,
     km: 0,
     price: null,
-    step: 'flight'
+    step: 'actions'
   }),
   // state,
   mutations: {
