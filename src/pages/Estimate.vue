@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 
 import { isValidFlight } from '@/validators'
 import Layout from '@/layouts/HeroOnly'
@@ -85,11 +85,18 @@ export default {
       return Object.keys(this.flights).length
     }
   },
-  created () {
-    this.storeFromInitial()
+  async created () {
     this.showNonProdEnvWarning()
     this.unwatch = this.$watch('flights', this.onWatchUpdate.bind(this))
     this.unwatch = this.$watch('userCurrency', this.onWatchUpdate.bind(this))
+    if (this.initialFlights) {
+      try {
+        const dataFromURL = JSON.parse(atob(this.initialFlights))
+        await this.loadFlights(dataFromURL)
+      } catch (e) {
+        console.error(`Error when decoding or loading flight data from URL: ${e}`)
+      }
+    }
   },
   beforeDestroy () {
     if (this.unwatch) {
@@ -98,20 +105,8 @@ export default {
   },
   methods: {
     ...mapMutations('estimateForm', ['addFlight']),
-    storeFromInitial () {
-      // if (this.initialFlights) {
-      //   try {
-      //     const flights = JSON.parse(atob(this.initialFlights))
-      //     if (flights.every(isValidFlight)) {
-      //       this.$store.commit()
-      //     }
-      //   } catch (err) {
-      //     //
-      //   }
-      // }
-      // if (this.initialUserCurrency) {
-      // }
-    },
+    ...mapActions('estimateForm', ['loadFlights']),
+    ...mapGetters('estimateForm', ['getFlightsByICAO']),
     showNonProdEnvWarning () {
       if (process.env.VUE_APP_ENV !== 'prod') {
         this.$buefy.notification.open({
@@ -124,7 +119,7 @@ export default {
       }
     },
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.flights))
+      const flights = btoa(JSON.stringify(this.getFlightsByICAO()))
       this.$router.replace({ ...this.$route, query: { flights } })
     },
     showError (message = '') {

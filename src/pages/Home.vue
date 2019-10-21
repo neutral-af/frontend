@@ -116,7 +116,6 @@ export default {
   },
   methods: {
     scrollViewport (ref) {
-      console.log(ref)
       this.$refs[ref].scrollIntoView({
         behavior: 'smooth'
       })
