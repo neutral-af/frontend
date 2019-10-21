@@ -88,9 +88,10 @@
       </div>
       <div ref="goodnews">
         <HeroSection class="is-bold">
-          <div class="columns">
-            <div
-              class="
+          <div class="container">
+            <div class="columns">
+              <div
+                class="
               column
               is-6-mobile
               is-3-tablet
@@ -98,39 +99,40 @@
               is-offset-3-mobile
               is-offset-1-desktop
             "
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Circle-icons-takeoff.svg"
-                class="home-image"
               >
-            </div>
-            <div
-              class="
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Circle-icons-takeoff.svg"
+                  class="home-image"
+                >
+              </div>
+              <div
+                class="
               column
               is-12-mobile
               is-9-tablet
               is-6-desktop
               is-offset-1-desktop
             "
-            >
-              <div class="content is-medium is-inverted">
-                <h2>
-                  Living carbon neutral is really f**king hard.
-                </h2>
-                <p>Luckily, flying neutral is <strong>easy a. f.</strong></p>
-                <p> New York to London flight costs as little as <strong>$2.50</strong> to offset, and you can do it in less than a minute.</p>
-                <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
-              </div>
-              <RoundedButton
-                tag="router-link"
-                size="is-large"
-                type="is-primary"
-                outlined
-                icon-right="arrow-right"
-                :to="{ name: 'estimate' }"
               >
-                Offset a flight now
-              </RoundedButton>
+                <div class="content is-medium is-inverted">
+                  <h2>
+                    Living carbon neutral is really f**king hard.
+                  </h2>
+                  <p>Luckily, flying neutral is <strong>easy a. f.</strong></p>
+                  <p> New York to London flight costs as little as <strong>$2.50</strong> to offset, and you can do it in less than a minute.</p>
+                  <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
+                </div>
+                <RoundedButton
+                  tag="router-link"
+                  size="is-large"
+                  type="is-dark"
+                  outlined
+                  icon-right="arrow-right"
+                  :to="{ name: 'estimate' }"
+                >
+                  Offset a flight now
+                </RoundedButton>
+              </div>
             </div>
           </div>
           <MainFoot slot="foot" />
