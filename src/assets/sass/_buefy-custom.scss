@@ -19,7 +19,7 @@
   &-invert {
     .input {
       background: none;
-      color: $grey-lighter;
+      color: rgba($white, .85);
       border-top: 0;
       border-left: 0;
       border-right: 0;
@@ -29,16 +29,16 @@
 
       &:focus {
         box-shadow: none;
-        color: $white;
+        color: rgba($white, 1);
       }
 
       &::placeholder {
-        color: $grey;
+        color: rgba($white, .33);
       }
     }
 
     .label {
-      color: $grey-light;
+      color: rgba($white, .66);
     }
 
     .autocomplete {
@@ -55,7 +55,7 @@
         }
 
         &-item {
-          color: $grey;
+          color: rgba($white, .5);
           padding: 0;
           line-height: 2;
 
@@ -79,7 +79,7 @@
     .radio {
       &:hover,
       &:focus {
-        color: $grey-lighter;
+        color: rgba($white, .85);
       }
     }
   }

@@ -2,6 +2,7 @@
   <HeroSection class="is-dark estimate">
     <MainNav slot="head" />
     <EstimateSummary />
+    <EstimateBackground />
     <div class="container estimate-view">
       <h1 class="title estimate-title">
         {{ title }}
@@ -16,6 +17,7 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { isValidFlight } from '@/validators'
+import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
 import HeroSection from '@/components/organisms/HeroSection'
@@ -31,7 +33,8 @@ export default {
     MainNav,
     MainFoot,
     HeroSection,
-    EstimateSummary
+    EstimateSummary,
+    EstimateBackground
   },
   props: {
     initialFlights: {
