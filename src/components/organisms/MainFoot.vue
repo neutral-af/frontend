@@ -7,27 +7,46 @@
       Neutral (as f**k)
     </RouterLink>
     &nbsp;
-    <RouterLink :to="{ name: 'privacy' }">
+    <RouterLink
+      :to="{ name: 'privacy' }"
+      class="main-foot-link"
+    >
       Privacy policy
     </RouterLink>
-    ·
     <a
       href="https://www.github.com/neutral-af"
       target="_blank"
       rel="noopener"
+      class="main-foot-link"
     >
       Source code
+    </a>
+    <a
+      href="mailto:feedback@neutral.af"
+      rel="noopener"
+      class="main-foot-link"
+    >
+      Feedback
     </a>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .main-foot {
-  font-size: 0.875rem;
+  font-size: $small-font-size;
 
-  a,
-  strong {
+  a {
     color: inherit;
+  }
+
+  &-link {
+    &::after {
+      content: '·'
+    }
+
+    &:last-child::after {
+      content: ''
+    }
   }
 }
 </style>
