@@ -4,13 +4,13 @@
       :to="{ name: 'home' }"
       class="is-family-secondary is-size-5"
     >
-      Neutral (as f**k)
+      {{ name }}
     </RouterLink>
     &nbsp;
     <RouterLink :to="{ name: 'privacy' }">
       Privacy policy
     </RouterLink>
-    ·
+    {{ separator }}
     <a
       href="https://www.github.com/neutral-af"
       target="_blank"
@@ -20,6 +20,21 @@
     </a>
   </div>
 </template>
+
+<script>
+import { NAME, SEPARATOR } from '@/constants'
+
+export default {
+  computed: {
+    name () {
+      return NAME
+    },
+    separator () {
+      return SEPARATOR
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .main-foot {

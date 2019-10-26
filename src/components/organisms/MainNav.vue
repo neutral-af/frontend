@@ -10,7 +10,7 @@
         class="is-size-3 is-size-4-mobile is-family-secondary"
         :to="{ name: 'home' }"
       >
-        Neutral.af
+        {{ brandText }}
       </BNavbarItem>
     </template>
 
@@ -24,3 +24,15 @@
     </template>
   </BNavbar>
 </template>
+
+<script>
+import { NAME_COMPACT } from '@/constants'
+
+export default {
+  computed: {
+    brandText () {
+      return NAME_COMPACT
+    }
+  }
+}
+</script>
