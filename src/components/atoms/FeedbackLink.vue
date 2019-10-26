@@ -1,0 +1,9 @@
+<template>
+  <a
+    :href="`mailto:${email}`"
+    rel="noopener"
+    class="main-foot-link"
+  >
+    Feedback
+  </a>
+</template>

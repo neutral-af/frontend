@@ -7,10 +7,12 @@ import router from './router'
 import store from './store'
 import App from './App'
 import RoundedButton from './components/atoms/RoundedButton'
+import FeedbackLink from './components/atoms/FeedbackLink'
 import './assets/sass/main.scss'
 
 Vue.config.productionTip = process.env.NODE_ENV !== 'production'
 Vue.component('RoundedButton', RoundedButton)
+Vue.component('FeedbackLink', FeedbackLink)
 Vue.use(VueCookies)
 Vue.use(VueMeta)
 Vue.use(Buefy, {

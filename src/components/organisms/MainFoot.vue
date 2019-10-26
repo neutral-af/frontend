@@ -22,21 +22,19 @@
       >
         Source code
       </a>
-      <a
-        :href="`mailto:${email}`"
-        rel="noopener"
-        class="main-foot-link"
-      >
-        Feedback
-      </a>
+      <FeedbackLink />
     </div>
   </footer>
 </template>
 
 <script>
 import { FEEDBACK_EMAIL } from '@/constants'
+import FeedbackLink from '@/components/atoms/FeedbackLink'
 
 export default {
+  components: {
+    FeedbackLink
+  },
   computed: {
     email () {
       return FEEDBACK_EMAIL
