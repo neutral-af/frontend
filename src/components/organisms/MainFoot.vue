@@ -22,7 +22,7 @@
       Source code
     </a>
     <a
-      href="mailto:feedback@neutral.af"
+      :href="`mailto:${email}`"
       rel="noopener"
       class="main-foot-link"
     >
@@ -30,6 +30,18 @@
     </a>
   </div>
 </template>
+
+<script>
+import { FEEDBACK_EMAIL } from '@/constants'
+
+export default {
+  computed: {
+    email () {
+      return FEEDBACK_EMAIL
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .main-foot {
