@@ -23,6 +23,9 @@ export default {
     title () {
       return 'Success!'
     }
+  },
+  beforeDestroy () {
+    this.$store.commit('estimate/reset')
   }
 }
 </script>

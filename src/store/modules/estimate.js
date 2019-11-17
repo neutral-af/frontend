@@ -1,26 +1,30 @@
 import { estimate } from '@/api'
 
-// import { state } from './estimate.mock'
+export const createState = () => ({
+  creating: false,
+  id: '',
+  provider: '',
+  carbon: 0,
+  km: 0,
+  price: null
+})
 
 export default {
   namespaced: true,
-  state: () => ({
-    creating: false,
-    id: '',
-    provider: '',
-    carbon: 0,
-    km: 0,
-    price: null
-  }),
+  state: createState,
   getters: {
     hasEstimate: ({ id }) => !!id
   },
   mutations: {
-    setCreating (st, creating) {
-      st.creating = creating
+    reset (state) {
+      const newState = createState()
+      Object.assign(state, newState)
     },
-    setData (st, data) {
-      Object.assign(st, data)
+    setCreating (state, creating) {
+      state.creating = creating
+    },
+    setData (state, data) {
+      Object.assign(state, data)
     }
   },
   actions: {
@@ -36,7 +40,7 @@ export default {
         throw err
       }
     }
-    /*
+    /* TODO: use update when BE will support it
     async update ({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
       commit('setUpdating', true)
       try {
