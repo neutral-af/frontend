@@ -205,11 +205,7 @@ export default {
         const confirm = await this.fetchConfirm(paymentIntent)
         this.onCheckoutResponse(confirm)
       } else if (success) {
-        trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
-        if (customerID) {
-          this.$cookies.set('custID', customerID)
-        }
-        this.$router.push({ name: 'estimate-success' })
+        this.onSuccess({ customerID })
       } else {
         throw new Error('undefined state in handling server response')
       }
@@ -266,6 +262,14 @@ export default {
           throw err
         }
       }
+    },
+
+    onSuccess (data) {
+      trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
+      if (data.customerID) {
+        this.$cookies.set('custID', data.customerID)
+      }
+      this.$router.push({ name: 'estimate-success' })
     }
   }
 }
