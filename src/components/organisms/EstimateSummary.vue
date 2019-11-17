@@ -8,7 +8,7 @@
       <BIcon
         icon="cloud"
         size="is-small"
-        class="estimate-summary-carbon-icon"
+        class="is-hidden-mobile estimate-summary-carbon-icon"
       />
       &nbsp;
       <AnimatedCarbon :amount="carbon" />
