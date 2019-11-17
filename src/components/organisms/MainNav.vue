@@ -25,13 +25,3 @@
     </template>
   </BNavbar>
 </template>
-
-<script>
-import FeedbackLink from '@/components/atoms/FeedbackLink'
-
-export default {
-  components: {
-    FeedbackLink
-  }
-}
-</script>
