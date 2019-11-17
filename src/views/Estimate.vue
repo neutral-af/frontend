@@ -1,7 +1,7 @@
 <template>
   <HeroSection class="is-dark estimate">
     <MainNav slot="head" />
-    <EstimateSummary />
+    <EstimateSummary v-if="summaryShown" />
     <EstimateBackground />
     <div class="container estimate-view">
       <h1 class="title estimate-title">
@@ -53,6 +53,9 @@ export default {
     ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
+    },
+    summaryShown () {
+      return this.$route.name !== 'estimate-success'
     }
   },
   async created () {
