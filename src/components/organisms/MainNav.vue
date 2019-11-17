@@ -21,6 +21,7 @@
       >
         About Us
       </BNavbarItem>
+      <BNavbarItem tag="FeedbackLink" />
     </template>
   </BNavbar>
 </template>
