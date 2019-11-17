@@ -1,8 +1,8 @@
-# Neutral.af - Web
+# Neutral (as f**k) - Web
 
 *The Vue.js project that's carbon neutral (as f\*\*k).*
 
-This is the frontend code that powers https://neutral.af - the easiest way to offset your travel. We're in an early development stage, so contributions are welcome!
+This is the frontend code that powers [https://neutral.af](https://neutral.af) - the easiest way to offset your travel. We're in an early development stage, so contributions are welcome!
 
 ## Developing
 

@@ -31,12 +31,12 @@
     <div class="hero-body">
       <slot />
     </div>
-    <footer
+    <div
       v-if="$slots.foot"
       class="has-text-centered hero-foot hero-section-foot"
     >
       <slot name="foot" />
-    </footer>
+    </div>
   </component>
 </template>
 
@@ -93,8 +93,8 @@ export default {
     }
   }
 
-  &-foot {
-    padding-bottom: 1.5rem;
-  }
+  // &-foot {
+    // padding-bottom: 1.5rem;
+  // }
 }
 </style>
