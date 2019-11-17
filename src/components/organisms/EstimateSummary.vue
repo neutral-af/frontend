@@ -85,9 +85,8 @@ export default {
 <style lang="scss" scoped>
 .estimate-summary {
   position: absolute;
-  top: 0;
+  top: 0.75rem;
   left: 50%;
-  height: 3.25rem;
   transform: translateX(-50%);
   z-index: 31;
   transition: opacity $speed-medium ease-in-out;
@@ -99,7 +98,8 @@ export default {
   }
 
   @include desktop {
-    height: 4rem;
+    // height: 4rem;
+    top: .5rem;
   }
 
   &.is-loading {
