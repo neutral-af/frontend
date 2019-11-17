@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import { NAME } from '@/constants'
+import { NAME_COMPACT } from '@/constants'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import HeroSection from '@/components/organisms/HeroSection'
 import MainNav from '@/components/organisms/MainNav'
@@ -151,7 +151,7 @@ import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
   metaInfo: {
-    title: NAME,
+    title: NAME_COMPACT,
     titleTemplate: null
   },
   components: {
