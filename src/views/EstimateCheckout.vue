@@ -81,9 +81,23 @@
           Pay now
         </RoundedButton>
       </BField>
-      <p>
-        Payment will be processed securely by Stripe
+      <p class="field">
+        <small>
+          Payment will be processed securely by Stripe
+        </small>
       </p>
+      <BField class="checkout-form-back">
+        <RoundedButton
+          tag="router-link"
+          :to="{ name: 'estimate-home' }"
+          type="is-dark"
+          outlined
+          inverted
+          icon-left="arrow-left"
+        >
+          Back to Flights
+        </RoundedButton>
+      </BField>
     </div>
   </form>
 </template>
@@ -274,3 +288,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.checkout-form {
+  &-back {
+    padding-top: $size-6;
+  }
+}
+</style>
