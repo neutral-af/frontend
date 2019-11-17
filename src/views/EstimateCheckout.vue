@@ -209,7 +209,7 @@ export default {
         if (customerID) {
           this.$cookies.set('custID', customerID)
         }
-        this.$router.push('/success')
+        this.$router.push({ name: 'estimate-success' })
       } else {
         throw new Error('undefined state in handling server response')
       }
