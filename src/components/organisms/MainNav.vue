@@ -10,7 +10,7 @@
         class="is-size-3 is-size-4-mobile is-family-secondary"
         :to="{ name: 'home' }"
       >
-        Neutral.af
+        {{ NAME }}
       </BNavbarItem>
     </template>
 
@@ -25,3 +25,13 @@
     </template>
   </BNavbar>
 </template>
+
+<script>
+import { mapConstants } from '@/utils'
+
+export default {
+  computed: {
+    ...mapConstants(['NAME'])
+  }
+}
+</script>

@@ -1,6 +1,6 @@
 <template>
   <a
-    :href="`mailto:${email}`"
+    :href="`mailto:${FEEDBACK_EMAIL}`"
     rel="noopener"
     class="main-foot-link"
   >
@@ -9,13 +9,11 @@
 </template>
 
 <script>
-import { FEEDBACK_EMAIL } from '@/constants'
+import { mapConstants } from '@/utils'
 
 export default {
   computed: {
-    email () {
-      return FEEDBACK_EMAIL
-    }
+    ...mapConstants(['FEEDBACK_EMAIL'])
   }
 }
 </script>
