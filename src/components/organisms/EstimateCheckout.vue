@@ -110,12 +110,21 @@ export default {
     }
   },
   computed: {
-    ...mapState('estimate', ['carbon', 'price']),
+    ...mapState('estimate', ['id', 'provider', 'carbon', 'price']),
     envWarningShown () {
       return this.env !== 'prod'
     },
     env () {
       return process.env.VUE_APP_ENV
+    },
+    estimateForPayment () {
+      return {
+        id: this.id,
+        carbon: this.carbon,
+        options: {
+          provider: this.provider
+        }
+      }
     },
     hasPreviouslySaved () {
       return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
@@ -169,6 +178,7 @@ export default {
 
     fetchCheckout ({ paymentMethod, customerID }) {
       return payments.checkout({
+        estimate: this.estimateForPayment,
         paymentMethod: paymentMethod.id,
         amount: this.price.cents,
         currency: this.price.currency,
@@ -181,6 +191,7 @@ export default {
 
     fetchConfirm (paymentIntent) {
       return payments.confirm({
+        estimate: this.estimateForPayment,
         paymentIntent: paymentIntent.id,
         saveCard: this.saveCard
       })

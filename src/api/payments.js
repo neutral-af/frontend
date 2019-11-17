@@ -1,10 +1,10 @@
 import request from './request'
 
-export const checkout = async ({ paymentMethod, amount, currency, options }) => {
+export const checkout = async ({ estimate, paymentMethod, amount, currency, options }) => {
   const query = `
-    mutation newCheckout($paymentMethod: String!, $amount: Int!, $currency: Currency!, $options: PaymentOptions) {
+    mutation newCheckout($estimate: EstimateIn!, $paymentMethod: String!, $amount: Int!, $currency: Currency!, $options: PaymentOptions) {
       payment {
-        checkout(paymentMethod:$paymentMethod, amount:$amount, currency:$currency, options:$options) {
+        checkout(estimate:$estimate, paymentMethod:$paymentMethod, amount:$amount, currency:$currency, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
@@ -13,18 +13,18 @@ export const checkout = async ({ paymentMethod, amount, currency, options }) => 
       }
     }
   `
-  const response = await request(query, { paymentMethod, amount, currency, options })
+  const response = await request(query, { estimate, paymentMethod, amount, currency, options })
   return response.payment.checkout
 }
 
-export const confirm = async ({ paymentIntent, saveCard }) => {
+export const confirm = async ({ estimate, paymentIntent, saveCard }) => {
   const options = {
     saveCard
   }
   const query = `
-    mutation confirmCheckout($paymentIntent: String!, $options: PaymentOptions) {
+    mutation confirmCheckout($estimate: EstimateIn!, $paymentIntent: String!, $options: PaymentOptions) {
       payment {
-        confirm(paymentIntent:$paymentIntent, options:$options) {
+        confirm(estimate:$estimate, paymentIntent:$paymentIntent, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
@@ -33,6 +33,6 @@ export const confirm = async ({ paymentIntent, saveCard }) => {
       }
     }
   `
-  const response = await request(query, { paymentIntent, options })
+  const response = await request(query, { estimate, paymentIntent, options })
   return response.payment.confirm
 }
