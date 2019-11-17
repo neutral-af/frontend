@@ -4,7 +4,7 @@
       :to="{ name: 'home' }"
       class="is-family-secondary is-size-5"
     >
-      {{ name }}
+      {{ NAME }}
     </RouterLink>
     <nav class="main-foot-nav">
       <RouterLink :to="{ name: 'privacy' }">
@@ -23,16 +23,11 @@
 </template>
 
 <script>
-import { FEEDBACK_EMAIL, NAME } from '@/constants'
+import { mapConstants } from '@/utils'
 
 export default {
   computed: {
-    name () {
-      return NAME
-    },
-    email () {
-      return FEEDBACK_EMAIL
-    }
+    ...mapConstants(['NAME'])
   }
 }
 </script>

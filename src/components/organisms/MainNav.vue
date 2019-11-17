@@ -10,7 +10,7 @@
         class="is-size-3 is-size-4-mobile is-family-secondary"
         :to="{ name: 'home' }"
       >
-        {{ brandText }}
+        {{ NAME }}
       </BNavbarItem>
     </template>
 
@@ -27,13 +27,11 @@
 </template>
 
 <script>
-import { NAME_COMPACT } from '@/constants'
+import { mapConstants } from '@/utils'
 
 export default {
   computed: {
-    brandText () {
-      return NAME_COMPACT
-    }
+    ...mapConstants(['NAME'])
   }
 }
 </script>

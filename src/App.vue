@@ -3,12 +3,12 @@
 </template>
 
 <script>
-import { NAME_COMPACT, SEPARATOR } from '@/constants'
+import { NAME, SEPARATOR } from '@/constants'
 // import { trackEvent } from './honeycomb'
 
 export default {
   metaInfo: {
-    titleTemplate: `%s ${SEPARATOR} ${NAME_COMPACT}`
+    titleTemplate: `%s ${SEPARATOR} ${NAME}`
   }
 // data () {
 //   return {

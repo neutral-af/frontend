@@ -1,3 +1,16 @@
+import * as constants from '@/constants'
+
+export const mapConstants = (options) => (
+  Object
+    .entries(constants)
+    .reduce((computed, [key, value]) => {
+      if (options.includes(key)) {
+        computed[key] = () => value
+      }
+      return computed
+    }, {})
+)
+
 export const formatPrice = (value, currency) => {
   return (value / 100).toLocaleString(window.navigator.language, {
     style: 'currency',
