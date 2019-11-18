@@ -1,5 +1,6 @@
 <template>
   <form
+    v-if="flight"
     class="estimate-flight-form"
     @submit.prevent="onSubmit"
   >
