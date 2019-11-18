@@ -34,7 +34,8 @@ $displays: (
 a.navbar-item,
 .navbar-link,
 .navbar-burger,
-.dropdown-item {
+.dropdown-item,
+.select:not(.is-multiple):not(.is-loading)::after {
   transition: all $speed-medium ease-in-out;
 }
 

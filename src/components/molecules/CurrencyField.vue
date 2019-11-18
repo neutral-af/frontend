@@ -1,11 +1,15 @@
 <template>
-  <BField class="currency-field">
+  <div
+    class="currency-field field-invert"
+  >
     <BSelect
       name="currency"
       placeholder="Select a currency"
       :value="currency"
       :loading="updating"
       :disabled="updating"
+      rounded
+      size="is-small"
       @input="update"
     >
       <option
@@ -16,7 +20,7 @@
         {{ currency }}
       </option>
     </BSelect>
-  </BField>
+  </div>
 </template>
 
 <script>
@@ -46,13 +50,15 @@ export default {
 </script>
 
 <style lang="scss">
-.currency-field .select {
-  select:not([multiple]) {
-    padding-right: 1.5em;
-  }
+.currency-field {
+  .select {
+    select:not([multiple]) {
+      padding-right: 1em;
+    }
 
-  &:not(.is-multiple):not(.is-loading)::after {
-    right: 1em;
+    &:not(.is-multiple):not(.is-loading)::after {
+      right: .5em;
+    }
   }
 }
 </style>

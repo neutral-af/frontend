@@ -17,7 +17,8 @@
   }
 
   &-invert {
-    .input {
+    .input,
+    .select select {
       background: none;
       color: rgba($white, .85);
       border-top: 0;
@@ -34,6 +35,19 @@
 
       &::placeholder {
         color: rgba($white, .33);
+      }
+    }
+
+    .select:not(.is-multiple):not(.is-loading) {
+      &::after {
+        border-color: rgba($white, .85);
+      }
+
+      &:hover,
+      &:focus {
+        &::after {
+          border-color: rgba($white, .66);
+        }
       }
     }
 

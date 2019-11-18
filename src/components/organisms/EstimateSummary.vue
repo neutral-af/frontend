@@ -25,13 +25,13 @@
         :cents="price ? price.cents : 0"
         :currency="price ? price.currency : $store.state.userCurrency"
       />
-      <!-- <CurrencyField /> -->
       <InfoButton
         v-if="price"
         class="estimate-summary-info"
         title="Open price breakdown"
         @click="openPriceBreakdown"
       />
+      <CurrencyField class="estimate-summary-currency" />
     </div>
   </div>
 </template>
@@ -44,14 +44,14 @@ import AnimatedPrice from '@/components/atoms/AnimatedPrice'
 import InfoButton from '@/components/molecules/InfoButton'
 import CarbonBreakdown from '@/components/molecules/CarbonBreakdown'
 import PriceBreakdown from '@/components/molecules/PriceBreakdown'
-// import CurrencyField from '@/components/molecules/CurrencyField'
+import CurrencyField from '@/components/molecules/CurrencyField'
 
 export default {
   components: {
     AnimatedCarbon,
     AnimatedPrice,
-    InfoButton
-    // CurrencyField
+    InfoButton,
+    CurrencyField
   },
   computed: {
     ...mapState('estimate', ['creating', 'price', 'carbon', 'km'])
@@ -122,6 +122,10 @@ export default {
   }
 
   &-info {
+    margin-left: .5rem;
+  }
+
+  &-currency {
     margin-left: .5rem;
   }
 }
