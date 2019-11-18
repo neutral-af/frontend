@@ -121,6 +121,14 @@
       display: flex;
       align-items: center;
 
+
+      &.is-loading::after {
+        width: 2em;
+        height: 2em;
+        right: 0;
+        top: 1.5em;
+      }
+
       .button {
         height: 100%;
       }
