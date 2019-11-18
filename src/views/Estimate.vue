@@ -85,7 +85,7 @@ export default {
       }
     },
     setInitialPage () {
-      if (this.flightsCount === 0) {
+      if (this.flightsCount === 0 && this.$route.name !== 'estimate-add-flight') {
         this.$router.replace({ name: 'estimate-add-flight' })
       }
     },
