@@ -1,6 +1,7 @@
 <template>
-  <div
-    class="currency-field field-invert"
+  <CustomField
+    class="currency-field"
+    invert
   >
     <BSelect
       name="currency"
@@ -20,7 +21,7 @@
         {{ currency }}
       </option>
     </BSelect>
-  </div>
+  </CustomField>
 </template>
 
 <script>

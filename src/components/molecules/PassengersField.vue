@@ -1,9 +1,11 @@
 <template>
-  <BField
+  <CustomField
     label="Passengers"
     position="is-centered"
     :label-for="id"
-    class="field-invert field-huge passengers-field"
+    invert
+    huge
+    class="passengers-field"
   >
     <BNumberinput
       :id="id"
@@ -13,7 +15,7 @@
       required
       @input="$emit('update', $event)"
     />
-  </BField>
+  </CustomField>
 </template>
 
 <script>

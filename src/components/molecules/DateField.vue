@@ -1,5 +1,5 @@
 <template>
-  <BField
+  <CustomField
     label="Date"
     :label-for="id"
     class="date-field"
@@ -12,7 +12,7 @@
       required
       @input="$emit('update', $event)"
     />
-  </BField>
+  </CustomField>
 </template>
 
 <script>

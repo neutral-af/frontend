@@ -1,4 +1,43 @@
-.field {
+<template>
+  <BField
+    class="custom-field"
+    :class="classes"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <slot />
+  </BField>
+</template>
+
+<script>
+export default {
+  props: {
+    huge: {
+      type: Boolean,
+      default: null
+    },
+    invert: {
+      type: Boolean,
+      default: null
+    }
+  },
+  computed: {
+    classes () {
+      const classes = []
+      if (this.huge) {
+        classes.push('custom-field-huge')
+      }
+      if (this.invert) {
+        classes.push('custom-field-invert')
+      }
+      return classes
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.custom-field {
   @include mobile-small {
     flex: 1 0 100%;
   }
@@ -6,13 +45,6 @@
   &.is-grouped {
     .field:last-child {
       margin-bottom: 0.75rem;
-    }
-  }
-
-  .has-addons-centered,
-  .is-grouped-centered {
-    .control {
-      text-align: inherit;
     }
   }
 
@@ -121,12 +153,12 @@
       display: flex;
       align-items: center;
 
-
       &.is-loading::after {
         width: 2em;
         height: 2em;
         right: 0;
-        top: 1.5em;
+        top: auto;
+        bottom: 2em;
       }
 
       .button {
@@ -134,4 +166,12 @@
       }
     }
   }
+
+  .has-addons-centered,
+  .is-grouped-centered {
+    .control {
+      text-align: inherit;
+    }
+  }
 }
+</style>

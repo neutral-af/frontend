@@ -1,8 +1,10 @@
 <template>
-  <BField
+  <CustomField
     :label="label"
     :label-for="id"
-    class="field-invert field-huge airport-field"
+    invert
+    huge
+    class="airport-field"
   >
     <BAutocomplete
       :id="id"
@@ -17,7 +19,7 @@
       @typing="search"
       @select="select"
     />
-  </BField>
+  </CustomField>
 </template>
 
 <script>

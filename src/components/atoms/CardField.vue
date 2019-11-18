@@ -1,7 +1,7 @@
 <template>
-  <BField
+  <CustomField
+    invert
     v-bind="$attrs"
-    class="field-invert"
     v-on="$listeners"
   >
     <div class="input is-medium card-wrapper">
@@ -14,7 +14,7 @@
         @change="onChange"
       />
     </div>
-  </BField>
+  </CustomField>
 </template>
 
 <script>

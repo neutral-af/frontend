@@ -14,15 +14,15 @@
       />
     </template>
     <template v-else>
-      <BField
+      <CustomField
         grouped
         group-multiline
         position="is-centered"
       >
-        <BField
+        <CustomField
           label="Cardholder Name"
           label-for="name"
-          class="field-invert"
+          invert
         >
           <BInput
             v-model.trim="name"
@@ -31,11 +31,11 @@
             placeholder="Your Cardholder Name"
             required
           />
-        </BField>
-        <BField
+        </CustomField>
+        <CustomField
           label="Email"
           label-for="email"
-          class="field-invert"
+          invert
         >
           <BInput
             v-model.trim="email"
@@ -45,19 +45,19 @@
             type="email"
             required
           />
-        </BField>
-      </BField>
+        </CustomField>
+      </CustomField>
       <CardField
         label="Card details"
         @mounted="onCardMounted"
       />
-      <BField class="field-invert">
+      <CustomField invert>
         <BCheckbox
           v-model="saveCard"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
-      </BField>
+      </CustomField>
       <BNotification
         v-if="envWarningShown"
         type="is-warning"
@@ -67,7 +67,7 @@
       </BNotification>
     </template>
     <div class="has-text-centered">
-      <BField>
+      <CustomField>
         <RoundedButton
           native-type="submit"
           type="is-primary"
@@ -80,13 +80,13 @@
         >
           Pay now
         </RoundedButton>
-      </BField>
+      </CustomField>
       <p class="field">
         <small>
           Payment will be processed securely by Stripe
         </small>
       </p>
-      <BField class="checkout-form-back">
+      <CustomField class="checkout-form-back">
         <RoundedButton
           tag="router-link"
           :to="{ name: 'estimate-home' }"
@@ -97,7 +97,7 @@
         >
           Back to Flights
         </RoundedButton>
-      </BField>
+      </CustomField>
     </div>
   </form>
 </template>
