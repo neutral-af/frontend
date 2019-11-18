@@ -107,7 +107,8 @@ export default {
       })
     },
     validate () {
-      return Object.values(this.flights).every(isValidFlight)
+      const flights = Object.values(this.flights)
+      return flights.length > 0 && flights.every(isValidFlight)
     },
     async create () {
       if (this.creating) {
