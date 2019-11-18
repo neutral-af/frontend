@@ -14,8 +14,7 @@ export default {
   state: () => ({
     flights: {},
     newFlight: createFlight(),
-    currentFlight: 0,
-    currentStep: 'departure'
+    step: 'departure'
   }),
   getters: {
     flightsCount: ({ flights }) => Object.keys(flights).length,
@@ -54,11 +53,8 @@ export default {
     resetNewFlight (state) {
       state.newFlight = createFlight()
     },
-    setCurrentFlight (state, currentFlight) {
-      state.currentFlight = currentFlight
-    },
-    setCurrentStep (state, currentStep) {
-      state.currentStep = currentStep
+    setStep (state, step) {
+      state.step = step
     }
   },
   actions: {

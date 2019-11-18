@@ -66,10 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('estimateForm', {
-      step: 'currentStep',
-      newFlight: 'newFlight'
-    }),
+    ...mapState('estimateForm', ['step', 'newFlight']),
     mode () {
       return this.id ? 'edit' : 'add'
     },
@@ -88,7 +85,7 @@ export default {
   },
   methods: {
     ...mapMutations('estimateForm', {
-      setStep: 'setCurrentStep',
+      setStep: 'setStep',
       addFlight: 'addFlight',
       updateFlight: 'updateFlight',
       updateNewFlight: 'updateNewFlight',
