@@ -47,18 +47,18 @@ export default {
   },
   data () {
     return {
+      query: '',
       airports: [],
       fetching: false
     }
   },
   created () {
-    if (this.value) {
-      this.search()
-    }
+    this.search(this.value)
   },
   methods: {
     async search (query) {
-      if (!query) {
+      this.query = query
+      if (!this.query) {
         this.airports = []
         return
       }
