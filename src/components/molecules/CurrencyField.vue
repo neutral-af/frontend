@@ -1,6 +1,7 @@
 <template>
   <CustomField
     class="currency-field"
+    title="Update currency"
     invert
   >
     <BSelect
