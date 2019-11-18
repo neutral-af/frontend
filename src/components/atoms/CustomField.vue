@@ -117,7 +117,10 @@ export default {
 
     .control {
       .button {
-        background: none;
+        &,
+        &[disabled] {
+          background-color: transparent;
+        }
       }
     }
 
