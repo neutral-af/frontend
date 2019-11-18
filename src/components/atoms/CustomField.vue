@@ -12,6 +12,10 @@
 <script>
 export default {
   props: {
+    autofocus: {
+      type: Boolean,
+      default: false
+    },
     huge: {
       type: Boolean,
       default: null
@@ -31,6 +35,14 @@ export default {
         classes.push('custom-field-invert')
       }
       return classes
+    }
+  },
+  mounted () {
+    if (this.autofocus) {
+      const input = this.$el.querySelector('input,select,textarea,button')
+      if (input) {
+        input.focus()
+      }
     }
   }
 }

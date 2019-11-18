@@ -2,6 +2,7 @@
   <CustomField
     :label="label"
     :label-for="id"
+    autofocus
     invert
     huge
     class="airport-field"
