@@ -9,7 +9,6 @@
       :value="currency"
       :loading="updating"
       :disabled="updating"
-      rounded
       size="is-small"
       @input="update"
     >
