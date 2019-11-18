@@ -142,7 +142,7 @@ export default {
       }
     }
   },
-  created () {
+  beforeCreate () {
     if (!this.hasEstimate) {
       this.$router.replace({ name: 'estimate-home' })
     }
