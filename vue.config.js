@@ -1,14 +1,20 @@
 const path = require('path')
 
+console.log(`Detecting branch: ${process.env.NOW_GITHUB_COMMIT_REF}`)
+
 process.env.VUE_APP_ENV = process.env.NOW_GITHUB_COMMIT_REF === 'master' ? 'prod' : 'dev'
+
+console.log(`Running build for env: ${process.env.VUE_APP_ENV}`)
 
 process.env.VUE_APP_BACKEND_URL = process.env.VUE_APP_BACKEND_URL || (
   process.env.VUE_APP_ENV === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
 )
 
-console.log(`Running build for env: ${process.env.VUE_APP_ENV}`)
+console.log(`Using backend url: ${process.env.VUE_APP_BACKEND_URL}`)
 
-if (!process.env[`${process.env.VUE_APP_ENV.toUpperCase()}_VUE_APP_STRIPE_PUBLIC_KEY`]) {
+process.env.VUE_APP_STRIPE_PUBLIC_KEY = process.env[`${process.env.VUE_APP_ENV.toUpperCase()}_STRIPE_PUBLIC_KEY`]
+
+if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
   console.error('The environment variable $ENV_VUE_APP_STRIPE_PUBLIC_KEY must be provided, where $ENV must be "prod" or "dev".')
   process.exit(1)
 }
