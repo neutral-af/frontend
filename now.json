@@ -4,7 +4,8 @@
   "alias": ["neutral.af", "www.neutral.af"],
   "build": {
     "env": {
-      "VUE_APP_STRIPE_PUBLIC_KEY": "@stripe_public_key",
+      "PROD_VUE_APP_STRIPE_PUBLIC_KEY": "@prod_stripe_public_key",
+      "DEV_VUE_APP_STRIPE_PUBLIC_KEY": "@dev_stripe_public_key",
       "VUE_APP_HONEYCOMB_PUBLIC_KEY": "@honeycomb_public_key"
     }
   },

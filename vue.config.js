@@ -1,14 +1,15 @@
 const path = require('path')
 
-// TODO: Set up a 'real' production build, with correct keys
-process.env.VUE_APP_ENV = process.env.BUILD_ENV || 'staging'
+process.env.VUE_APP_ENV = process.env.NOW_GITHUB_COMMIT_REF === 'master' ? 'prod' : 'dev'
 
 process.env.VUE_APP_BACKEND_URL = process.env.VUE_APP_BACKEND_URL || (
   process.env.VUE_APP_ENV === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
 )
 
-if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
-  console.error('The environment variable VUE_APP_STRIPE_PUBLIC_KEY must be provided.')
+console.log(`Running build for env: ${process.env.VUE_APP_ENV}`)
+
+if (!process.env[`${process.env.VUE_APP_ENV.toUpperCase()}_VUE_APP_STRIPE_PUBLIC_KEY`]) {
+  console.error('The environment variable $ENV_VUE_APP_STRIPE_PUBLIC_KEY must be provided, where $ENV must be "prod" or "dev".')
   process.exit(1)
 }
 
