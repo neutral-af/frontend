@@ -17,6 +17,14 @@
       >
         Source code
       </a>
+      <a
+        href="https://simpleanalytics.com/neutral.af"
+        target="_blank"
+        rel="noopener"
+      >
+        Analytics
+      </a>
+
       <FeedbackLink />
     </nav>
   </footer>

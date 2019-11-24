@@ -79,7 +79,8 @@ export default {
       }
       try {
         const flights = JSON.parse(atob(this.initialFlights))
-        return this.loadFlights(flights)
+        await this.loadFlights(flights)
+        await this.create()
       } catch (err) {
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }

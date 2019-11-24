@@ -61,20 +61,20 @@ export default {
     async loadFlights ({ commit }, initialFlights) {
       const promises = initialFlights
         .filter(flight => (
-          flight.type === 'location' &&
-          flight.departure &&
-          flight.departure.icao &&
-          flight.arrival &&
-          flight.arrival.icao
+          flight.type === 'locations' && flight.passengers &&
+          flight.departure && flight.departure.icao &&
+          flight.arrival && flight.arrival.icao
         ))
         .map((flight) => detailsByICAOs(flight.departure.icao, flight.arrival.icao))
       const list = await Promise.all(promises)
+
       const flights = list.reduce((acc, flight, index) => {
         const id = index + 1
-        const withId = { ...flight, id }
+        const withId = { ...initialFlights[index], ...flight, id }
         acc[id] = withId
         return acc
       }, {})
+
       commit('setFlights', flights)
     }
   }
