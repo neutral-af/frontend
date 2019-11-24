@@ -107,10 +107,7 @@ export default {
       })
     },
     async create () {
-      if (this.creating) {
-        return
-      }
-      if (!areValidFlights(Object.values(this.flights))) {
+      if (this.creating || !areValidFlights(Object.values(this.flights))) {
         return
       }
       try {

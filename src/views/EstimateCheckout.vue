@@ -5,7 +5,7 @@
     class="checkout-form"
     @submit.prevent="onSubmit"
   >
-    <template v-if="hasPreviouslySaved">
+    <template v-if="saved">
       Use previously saved card?
       <CardField
         hidden
@@ -57,8 +57,8 @@
           outlined
           inverted
           icon-left="check"
-          :disabled="submitting"
-          :class="{ 'is-loading': submitting }"
+          :disabled="!payable"
+          :class="{ 'is-loading': paying }"
         >
           Pay now
         </RoundedButton>
@@ -86,10 +86,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
-import { instance } from 'vue-stripe-elements-plus'
 
-import { trackEvent } from '@/honeycomb'
-import { payments } from '@/api'
 import CardField from '@/components/molecules/CardField'
 import EmailField from '@/components/molecules/EmailField'
 import NameField from '@/components/molecules/NameField'
@@ -107,32 +104,31 @@ export default {
     }
   },
   computed: {
-    ...mapState('checkoutForm', ['cardComplete', 'email', 'name', 'paying', 'saveCard']),
+    ...mapState('checkoutForm', [
+      'cardComplete',
+      'customerId',
+      'email',
+      'name',
+      'paying',
+      'paymentMethodId',
+      'saveCard'
+    ]),
     ...mapState('estimate', ['id', 'carbon', 'price', 'provider']),
     ...mapGetters('estimate', ['hasEstimate']),
-    envWarningShown () {
-      return this.env !== 'prod'
-    },
     env () {
       return process.env.VUE_APP_ENV
     },
-    estimateForPayment () {
-      return {
-        id: this.id,
-        carbon: this.carbon,
-        options: {
-          provider: this.provider
-        }
-      }
+    envWarningShown () {
+      return this.env !== 'prod'
     },
-    hasPreviouslySaved () {
-      return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
+    saved () {
+      return this.paymentMethodId && this.customerId
     },
-    previouslySavedDetails () {
-      return {
-        paymentMethod: this.$cookies.get('pmID'),
-        customer: this.$cookies.get('custID')
-      }
+    valid () {
+      return this.email && this.name && this.cardComplete
+    },
+    payable () {
+      return this.valid && !this.paying
     }
   },
   created () {
@@ -158,146 +154,19 @@ export default {
       this.cardElement = element
     },
 
-    async createPaymentMethod () {
-      const { paymentMethod, error } = await instance.createPaymentMethod(
-        'card',
-        this.cardElement.$refs.element._element,
-        { billing_details: { name: this.name, email: this.email } }
-      )
-      if (error) {
-        throw error
-      }
-
-      if (this.saveCard) {
-        this.$cookies.set('pmID', paymentMethod.id)
-      }
-      return paymentMethod
-    },
-
-    // Use Stripe.js to handle required card action
-    async handleCardAction (paymentIntentClientSecret) {
-      const { paymentIntent, error } = await instance.handleCardAction(
-        paymentIntentClientSecret
-      )
-      if (error) {
-        throw error
-      }
-      return paymentIntent
-    },
-
-    fetchCheckout ({ paymentMethod, customerID }) {
-      return payments.checkout({
-        estimate: this.estimateForPayment,
-        paymentMethod: paymentMethod.id,
-        amount: this.price.cents,
-        currency: this.price.currency,
-        options: {
-          saveCard: this.saveCard,
-          ...customerID && { customerID }
-        }
-      })
-    },
-
-    fetchConfirm (paymentIntent) {
-      return payments.confirm({
-        estimate: this.estimateForPayment,
-        paymentIntent: paymentIntent.id,
-        saveCard: this.saveCard
-      })
-    },
-
-    async onCheckoutResponse ({
-      success,
-      requiresAction,
-      paymentIntentClientSecret,
-      customerID
-    }) {
-      if (requiresAction) {
-        const paymentIntent = await this.handleCardAction(
-          paymentIntentClientSecret
-        )
-        const confirm = await this.fetchConfirm(paymentIntent)
-        this.onCheckoutResponse(confirm)
-      } else if (success) {
-        this.onSuccess({ customerID })
-      } else {
-        throw new Error('undefined state in handling server response')
-      }
-    },
-
-    async validate () {
-      // const result = await this.$refs.observer.validate()
-      // if (!result) {
-      // this.$toast.open({
-      //   message: 'Form is not valid! Please check the fields.',
-      //   type: 'is-danger',
-      //   position: 'is-bottom'
-      // })
-      // return false
-      // }
-      return true
-    },
-
-    // The Stripe handler methods below are modified from the docs:
-    // https://stripe.com/docs/payments/payment-intents/quickstart#manual-confirmation-flow
     async onSubmit () {
-      trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
+      if (!this.payable) {
+        return
+      }
       try {
-        await this.$store.dispatch('checkoutForm/pay')
-        trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
+        await this.$store.dispatch('checkoutForm/pay', this.cardElement.$refs.element._element)
         this.$router.push({ name: 'estimate-success' })
       } catch (err) {
-        const message = err.message || err
-        trackEvent('paymentsFrontendError', {
-          'app.estimateID': this.estimateID,
-          errorMessage: message
-        })
-        this.showError(message)
+        this.showError(err)
         if (process.env.NODE_ENV === 'development') {
           throw err
         }
       }
-
-      // const valid = await this.validate()
-      // if (!valid) {
-      //   return
-      // }
-      // this.submitting = true
-      // trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
-
-      // try {
-      //   let checkout
-      //   if (this.hasPreviouslySaved) {
-      //     checkout = await this.fetchCheckout({
-      //       paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
-      //       customerID: this.previouslySavedDetails.customer
-      //     })
-      //   } else {
-      //     const paymentMethod = await this.createPaymentMethod()
-      //     checkout = await this.fetchCheckout({ paymentMethod })
-      //   }
-      //   this.onCheckoutResponse(checkout)
-      //   this.submitting = false
-      // } catch (err) {
-      //   const message = err.message || err
-      //   trackEvent('paymentsFrontendError', {
-      //     'app.estimateID': this.estimateID,
-      //     errorMessage: message
-      //   })
-      //   this.showError(message)
-      //   this.submitting = false
-      //   if (process.env.NODE_ENV === 'development') {
-      //     throw err
-      //   }
-      // }
-    },
-
-    onSuccess (data) {
-      trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
-      if (data.customerID) {
-        this.$cookies.set('custID', data.customerID)
-      }
-      this.$router.push({ name: 'estimate-success' })
     }
   }
 }
