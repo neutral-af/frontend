@@ -1,25 +1,27 @@
 <template>
-  <BField
+  <CustomField
     label="Passengers"
     position="is-centered"
-    :label-for="name"
-    class="field-invert field-huge passengers-field"
+    :label-for="id"
+    invert
+    huge
+    class="passengers-field"
   >
     <BNumberinput
-      :name="name"
+      :id="id"
       :value="value"
       min="1"
       max="8"
       required
       @input="$emit('update', $event)"
     />
-  </BField>
+  </CustomField>
 </template>
 
 <script>
 export default {
   props: {
-    name: {
+    id: {
       type: String,
       required: true
     },

@@ -38,12 +38,17 @@
     </BTooltip>
     <div class="level-item">
       <RoundedButton
+        tag="router-link"
+        :to="{
+          name: 'estimate-edit-flight',
+          params: { id },
+          query: this.$route.query
+        }"
         type="is-dark"
         outlined
         inverted
         title="Edit"
         icon-right="pen"
-        @click="edit"
       />
       &nbsp;
       <RoundedButton
@@ -60,12 +65,14 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import { formatAirport } from '@/utils'
 
 export default {
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     departure: {
@@ -93,13 +100,6 @@ export default {
       return formatAirport(this.arrival, 'short')
     }
   },
-  methods: {
-    edit () {
-      this.$emit('edit', this.id)
-    },
-    remove () {
-      this.$emit('remove', this.id)
-    }
-  }
+  methods: mapMutations('estimateForm', { remove: 'removeFlight' })
 }
 </script>

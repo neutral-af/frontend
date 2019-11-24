@@ -20,7 +20,7 @@
           type="is-primary"
           inverted
           icon-right="arrow-right"
-          :to="{ name: 'estimate' }"
+          :to="{ name: 'estimate-home' }"
         >
           Offset a flight now
         </RoundedButton>
@@ -128,7 +128,7 @@
                   type="is-dark"
                   outlined
                   icon-right="arrow-right"
-                  :to="{ name: 'estimate' }"
+                  :to="{ name: 'estimate-home' }"
                 >
                   Offset a flight now
                 </RoundedButton>

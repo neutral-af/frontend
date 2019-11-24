@@ -31,7 +31,7 @@
 
 <script>
 import VueMarkdown from 'vue-markdown'
-import text from 'raw-loader!./about.md' //eslint-disable-line
+import text from 'raw-loader!../content/about.md' //eslint-disable-line
 
 import HeroSection from '@/components/organisms/HeroSection'
 import MainNav from '@/components/organisms/MainNav'

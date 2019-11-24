@@ -1,11 +1,14 @@
 <template>
-  <BField
+  <CustomField
     :label="label"
-    :label-for="name"
-    class="field-invert field-huge aiport-field"
+    :label-for="id"
+    autofocus
+    invert
+    huge
+    class="airport-field"
   >
     <BAutocomplete
-      :name="name"
+      :id="id"
       :placeholder="placeholder"
       keep-first
       open-on-focus
@@ -17,7 +20,7 @@
       @typing="search"
       @select="select"
     />
-  </BField>
+  </CustomField>
 </template>
 
 <script>
@@ -30,7 +33,7 @@ export default {
       type: String,
       required: true
     },
-    name: {
+    id: {
       type: String,
       required: true
     },
@@ -45,18 +48,18 @@ export default {
   },
   data () {
     return {
+      query: '',
       airports: [],
       fetching: false
     }
   },
   created () {
-    if (this.value) {
-      this.search()
-    }
+    this.search(this.value)
   },
   methods: {
     async search (query) {
-      if (!query) {
+      this.query = query
+      if (!this.query) {
         this.airports = []
         return
       }

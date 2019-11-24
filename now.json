@@ -14,12 +14,10 @@
   ],
   "routes": [
     {
-      "src": "/(?!estimate|about|privacy|js|css|img|fonts|favicon\\.ico|robots\\.txt/?).+",
-      "status": 301,
-      "headers": { "Location": "/" }
+      "handle": "filesystem"
     },
     {
-      "src": "/(estimate|about|privacy)",
+      "src": "/.*",
       "dest": "/index.html"
     }
   ],

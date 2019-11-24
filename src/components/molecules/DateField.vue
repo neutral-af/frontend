@@ -1,24 +1,24 @@
 <template>
-  <BField
+  <CustomField
     label="Date"
-    :label-for="name"
+    :label-for="id"
     class="date-field"
   >
     <BDatepicker
-      :name="name"
+      :id="id"
       size="is-medium"
       placeholder="Date"
       :value="value"
       required
       @input="$emit('update', $event)"
     />
-  </BField>
+  </CustomField>
 </template>
 
 <script>
 export default {
   props: {
-    name: {
+    id: {
       type: String,
       required: true
     },

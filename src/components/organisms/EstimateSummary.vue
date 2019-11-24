@@ -8,7 +8,7 @@
       <BIcon
         icon="cloud"
         size="is-small"
-        class="estimate-summary-carbon-icon"
+        class="is-hidden-mobile estimate-summary-carbon-icon"
       />
       &nbsp;
       <AnimatedCarbon :amount="carbon" />
@@ -25,13 +25,13 @@
         :cents="price ? price.cents : 0"
         :currency="price ? price.currency : $store.state.userCurrency"
       />
-      <!-- <CurrencyField /> -->
       <InfoButton
         v-if="price"
         class="estimate-summary-info"
         title="Open price breakdown"
         @click="openPriceBreakdown"
       />
+      <CurrencyField class="estimate-summary-currency" />
     </div>
   </div>
 </template>
@@ -44,14 +44,14 @@ import AnimatedPrice from '@/components/atoms/AnimatedPrice'
 import InfoButton from '@/components/molecules/InfoButton'
 import CarbonBreakdown from '@/components/molecules/CarbonBreakdown'
 import PriceBreakdown from '@/components/molecules/PriceBreakdown'
-// import CurrencyField from '@/components/molecules/CurrencyField'
+import CurrencyField from '@/components/molecules/CurrencyField'
 
 export default {
   components: {
     AnimatedCarbon,
     AnimatedPrice,
-    InfoButton
-    // CurrencyField
+    InfoButton,
+    CurrencyField
   },
   computed: {
     ...mapState('estimate', ['creating', 'price', 'carbon', 'km'])
@@ -85,9 +85,8 @@ export default {
 <style lang="scss" scoped>
 .estimate-summary {
   position: absolute;
-  top: 0;
+  top: 0.75rem;
   left: 50%;
-  height: 3.25rem;
   transform: translateX(-50%);
   z-index: 31;
   transition: opacity $speed-medium ease-in-out;
@@ -99,7 +98,8 @@ export default {
   }
 
   @include desktop {
-    height: 4rem;
+    // height: 4rem;
+    top: .5rem;
   }
 
   &.is-loading {
@@ -122,6 +122,10 @@ export default {
   }
 
   &-info {
+    margin-left: .5rem;
+  }
+
+  &-currency {
     margin-left: .5rem;
   }
 }

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { sync as syncStoreWithRouter } from 'vuex-router-sync'
 
 import router from './router'
 import store from './store'
@@ -10,6 +11,7 @@ import './assets/sass/main.scss'
 Vue.config.productionTip = process.env.NODE_ENV !== 'production'
 initPlugins()
 initComponents()
+syncStoreWithRouter(store, router)
 
 new Vue({
   render: create => create(App),

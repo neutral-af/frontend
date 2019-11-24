@@ -14,15 +14,15 @@
       />
     </template>
     <template v-else>
-      <BField
+      <CustomField
         grouped
         group-multiline
         position="is-centered"
       >
-        <BField
+        <CustomField
           label="Cardholder Name"
           label-for="name"
-          class="field-invert"
+          invert
         >
           <BInput
             v-model.trim="name"
@@ -31,11 +31,11 @@
             placeholder="Your Cardholder Name"
             required
           />
-        </BField>
-        <BField
+        </CustomField>
+        <CustomField
           label="Email"
           label-for="email"
-          class="field-invert"
+          invert
         >
           <BInput
             v-model.trim="email"
@@ -45,19 +45,19 @@
             type="email"
             required
           />
-        </BField>
-      </BField>
+        </CustomField>
+      </CustomField>
       <CardField
         label="Card details"
         @mounted="onCardMounted"
       />
-      <BField class="field-invert">
+      <CustomField invert>
         <BCheckbox
           v-model="saveCard"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
-      </BField>
+      </CustomField>
       <BNotification
         v-if="envWarningShown"
         type="is-warning"
@@ -67,7 +67,7 @@
       </BNotification>
     </template>
     <div class="has-text-centered">
-      <BField>
+      <CustomField>
         <RoundedButton
           native-type="submit"
           type="is-primary"
@@ -80,16 +80,30 @@
         >
           Pay now
         </RoundedButton>
-      </BField>
-      <p>
-        Payment will be processed securely by Stripe
+      </CustomField>
+      <p class="field">
+        <small>
+          Payment will be processed securely by Stripe
+        </small>
       </p>
+      <CustomField class="checkout-form-back">
+        <RoundedButton
+          tag="router-link"
+          :to="{ name: 'estimate-home', query: this.$route.query }"
+          type="is-dark"
+          outlined
+          inverted
+          icon-left="arrow-left"
+        >
+          Back to Flights
+        </RoundedButton>
+      </CustomField>
     </div>
   </form>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { instance } from 'vue-stripe-elements-plus'
 
 import { trackEvent } from '@/honeycomb'
@@ -110,7 +124,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('estimate', ['id', 'provider', 'carbon', 'price']),
+    ...mapState('estimate', ['id', 'carbon', 'price', 'provider']),
+    ...mapGetters('estimate', ['hasEstimate']),
     envWarningShown () {
       return this.env !== 'prod'
     },
@@ -134,6 +149,11 @@ export default {
         paymentMethod: this.$cookies.get('pmID'),
         customer: this.$cookies.get('custID')
       }
+    }
+  },
+  created () {
+    if (!this.hasEstimate) {
+      this.$router.replace({ name: 'estimate-home', query: this.$route.query })
     }
   },
   methods: {
@@ -210,11 +230,7 @@ export default {
         const confirm = await this.fetchConfirm(paymentIntent)
         this.onCheckoutResponse(confirm)
       } else if (success) {
-        trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
-        if (customerID) {
-          this.$cookies.set('custID', customerID)
-        }
-        this.$router.push('/success')
+        this.onSuccess({ customerID })
       } else {
         throw new Error('undefined state in handling server response')
       }
@@ -271,7 +287,23 @@ export default {
           throw err
         }
       }
+    },
+
+    onSuccess (data) {
+      trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
+      if (data.customerID) {
+        this.$cookies.set('custID', data.customerID)
+      }
+      this.$router.push({ name: 'estimate-success' })
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.checkout-form {
+  &-back {
+    padding-top: $size-6;
+  }
+}
+</style>
