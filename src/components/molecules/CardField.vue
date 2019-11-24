@@ -1,5 +1,5 @@
 <template>
-  <CustomField
+  <Field
     invert
     v-bind="$attrs"
     v-on="$listeners"
@@ -14,7 +14,7 @@
         @change="onChange"
       />
     </div>
-  </CustomField>
+  </Field>
 </template>
 
 <script>

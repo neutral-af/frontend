@@ -1,5 +1,5 @@
 <template>
-  <CustomField
+  <Field
     :label="label"
     :label-for="id"
     autofocus
@@ -20,7 +20,7 @@
       @typing="search"
       @select="select"
     />
-  </CustomField>
+  </Field>
 </template>
 
 <script>

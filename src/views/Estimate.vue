@@ -16,7 +16,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
-import { isValidFlight } from '@/validators'
+import { areValidFlights } from '@/validators'
 import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
@@ -60,11 +60,11 @@ export default {
   },
   async created () {
     await this.loadInitialFlights()
-    this.setInitialPage()
     this.unwatchers = [
-      this.$watch('flights', this.onUpdate.bind(this)),
+      this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
+    this.setInitialPage()
   },
   beforeDestroy () {
     if (this.unwatchers) {
@@ -80,7 +80,6 @@ export default {
       try {
         const flights = JSON.parse(atob(this.initialFlights))
         await this.loadFlights(flights)
-        await this.create()
       } catch (err) {
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
@@ -107,16 +106,11 @@ export default {
         onAction: this.create.bind(this)
       })
     },
-    validate () {
-      const flights = Object.values(this.flights)
-      return flights.length > 0 && flights.every(isValidFlight)
-    },
     async create () {
       if (this.creating) {
         return
       }
-      const valid = this.validate()
-      if (!valid) {
+      if (!areValidFlights(Object.values(this.flights))) {
         return
       }
       try {
