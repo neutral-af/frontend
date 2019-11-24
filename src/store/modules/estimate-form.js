@@ -1,3 +1,4 @@
+import { createSetMutations } from '@/utils/store'
 import { detailsByICAOs } from '@/api/airports'
 
 const createFlight = () => ({
@@ -31,9 +32,10 @@ export default {
     })
   },
   mutations: {
-    setFlights (state, flights) {
-      state.flights = flights
-    },
+    ...createSetMutations([
+      'flights',
+      'step'
+    ]),
     addFlight (state, data) {
       const ids = Object.keys(state.flights)
       const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
@@ -52,9 +54,6 @@ export default {
     },
     resetNewFlight (state) {
       state.newFlight = createFlight()
-    },
-    setStep (state, step) {
-      state.step = step
     }
   },
   actions: {

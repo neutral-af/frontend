@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { formatPrice } from '@/utils'
+import { price as format } from '@/utils/formatters'
 import BreakdownChart from '@/components/atoms/BreakdownChart'
 
 export default {
@@ -54,9 +54,9 @@ export default {
         tooltips: {
           callbacks: {
             label: (item, data) => {
-              const details = this.value[item.index]
-              const formatted = formatPrice(details.cents, details.currency)
-              return `${details.name}: ${formatted}`
+              const { cents, currency, name } = this.value[item.index]
+              const formatted = format(cents, currency)
+              return `${name}: ${formatted}`
             }
           }
         }

@@ -18,7 +18,7 @@
 <script>
 import AnimatedNumber from 'animated-number-vue'
 
-import { formatWeight } from '@/utils'
+import { weight as format } from '@/utils/formatters'
 
 export default {
   components: {
@@ -31,9 +31,7 @@ export default {
     }
   },
   methods: {
-    format (value) {
-      return formatWeight(value)
-    }
+    format
   }
 }
 </script>
