@@ -1,27 +1,44 @@
 const path = require('path')
 
-console.log(`Detecting branch: ${process.env.NOW_GITHUB_COMMIT_REF}`)
+// Here we use an object to remap incoming env vars onto how they are used in templates
+const config = {
+  branch: { key: 'NOW_GITHUB_COMMIT_REF', value: null },
+  environment: { key: 'VUE_APP_ENV', value: '' },
+  backendUrl: { key: 'VUE_APP_BACKEND_URL', value: '' },
+  stripePublicKey: { key: 'VUE_APP_STRIPE_PUBLIC_KEY', value: '' },
+  honeycombPublicKey: { key: 'VUE_APP_HONEYCOMB_PUBLIC_KEY', value: '' }
+}
 
-process.env.VUE_APP_ENV = process.env.NOW_GITHUB_COMMIT_REF === 'master' ? 'prod' : 'dev'
+config.branch.value = process.env[config.branch.key]
 
-console.log(`Running build for env: ${process.env.VUE_APP_ENV}`)
-
-process.env.VUE_APP_BACKEND_URL = process.env.VUE_APP_BACKEND_URL || (
-  process.env.VUE_APP_ENV === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
+config.environment.value = process.env[config.environment.key] || (
+  config.branch.value ? (config.branch.value === 'master' ? 'prod' : 'staging') : 'dev'
 )
 
-console.log(`Using backend url: ${process.env.VUE_APP_BACKEND_URL}`)
+config.backendUrl.value = config.backendUrl.value || (
+  config.environment.value === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
+)
 
-process.env.VUE_APP_STRIPE_PUBLIC_KEY = process.env[`${process.env.VUE_APP_ENV.toUpperCase()}_STRIPE_PUBLIC_KEY`]
-
-if (!process.env.VUE_APP_STRIPE_PUBLIC_KEY) {
-  console.error('The environment variable $ENV_VUE_APP_STRIPE_PUBLIC_KEY must be provided, where $ENV must be "prod" or "dev".')
-  process.exit(1)
+config.stripePublicKey.value = process.env[config.stripePublicKey.key]
+if (config.stripePublicKey.value) {
+  console.log('=> Config: Using stripe key from VUE_APP_STRIPE_PUBLIC_KEY env var')
+} else {
+  config.stripePublicKey.value = process.env[`${config.environment.value}_${config.stripePublicKey.key}`]
+  if (config.stripePublicKey.value) {
+    console.log(`=> Config: Found stripe key at ${config.environment.key}_${config.stripePublicKey.key}.`)
+  } else {
+    console.error(`=> Config: Either ${config.stripePublicKey.key} or $ENV_${config.stripePublicKey.key} (where $ENV must be "prod" or "staging") must be provided.`)
+    process.exit(1)
+  }
 }
 
-if (!process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY) {
-  console.error('The environment variable VUE_APP_HONEYCOMB_PUBLIC_KEY was not provided, so tracking is disabled.')
+config.honeycombPublicKey.value = process.env[config.honeycombPublicKey.key]
+if (!config.honeycombPublicKey.value) {
+  console.error('=> Config: The environment variable VUE_APP_HONEYCOMB_PUBLIC_KEY was not provided, so tracking is disabled.')
 }
+
+// Map config object onto environment variables
+Object.values(config).map((el) => (process.env[el.key] = el.value))
 
 const addStyleResource = (rule) => {
   rule.use('style-resource')
