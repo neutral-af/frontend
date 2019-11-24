@@ -89,7 +89,7 @@
       <CustomField class="checkout-form-back">
         <RoundedButton
           tag="router-link"
-          :to="{ name: 'estimate-home' }"
+          :to="{ name: 'estimate-home', query: this.$route.query }"
           type="is-dark"
           outlined
           inverted

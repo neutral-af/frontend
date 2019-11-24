@@ -3,7 +3,7 @@
     <div class="level-item estimate-actions-item">
       <RoundedButton
         tag="router-link"
-        :to="{ name: 'estimate-add-flight' }"
+        :to="{ name: 'estimate-add-flight', query: this.$route.query }"
         type="is-dark"
         size="is-large"
         outlined
@@ -19,7 +19,7 @@
     <div class="level-item estimate-actions-item">
       <RoundedButton
         tag="router-link"
-        :to="{ name: 'estimate-checkout' }"
+        :to="{ name: 'estimate-checkout', query: this.$route.query }"
         type="is-primary"
         size="is-large"
         inverted

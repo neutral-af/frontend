@@ -39,7 +39,11 @@
     <div class="level-item">
       <RoundedButton
         tag="router-link"
-        :to="{ name: 'estimate-edit-flight', params: { id } }"
+        :to="{
+          name: 'estimate-edit-flight',
+          params: { id },
+          query: this.$route.query
+        }"
         type="is-dark"
         outlined
         inverted
