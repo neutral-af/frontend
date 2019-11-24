@@ -17,7 +17,7 @@ config.environment.value = process.env[config.environment.key] || (
 )
 console.log(`=> Config: detected environment ${config.environment.value}`)
 
-config.backendUrl.value = config.backendUrl.value || (
+config.backendUrl.value = process.env[config.backendUrl.key] || (
   config.environment.value === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
 )
 console.log(`=> Config: using backend URL ${config.backendUrl.value}`)
