@@ -151,9 +151,9 @@ export default {
       }
     }
   },
-  beforeCreate () {
+  created () {
     if (!this.hasEstimate) {
-      this.$router.replace({ name: 'estimate-home' })
+      this.$router.replace({ name: 'estimate-home', query: this.$route.query })
     }
   },
   methods: {
