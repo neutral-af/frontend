@@ -16,7 +16,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
-import { isValidFlight } from '@/validators'
+import { areValidFlights } from '@/validators'
 import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
@@ -106,16 +106,11 @@ export default {
         onAction: this.create.bind(this)
       })
     },
-    validate () {
-      const flights = Object.values(this.flights)
-      return flights.length > 0 && flights.every(isValidFlight)
-    },
     async create () {
       if (this.creating) {
         return
       }
-      const valid = this.validate()
-      if (!valid) {
+      if (!areValidFlights(Object.values(this.flights))) {
         return
       }
       try {
