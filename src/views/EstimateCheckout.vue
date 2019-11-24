@@ -19,33 +19,14 @@
         group-multiline
         position="is-centered"
       >
-        <Field
-          label="Cardholder Name"
-          label-for="name"
-          invert
-        >
-          <BInput
-            v-model.trim="name"
-            name="name"
-            size="is-medium"
-            placeholder="Your Cardholder Name"
-            required
-          />
-        </Field>
-        <Field
-          label="Email"
-          label-for="email"
-          invert
-        >
-          <BInput
-            v-model.trim="email"
-            name="email"
-            placeholder="Your Email Address"
-            size="is-medium"
-            type="email"
-            required
-          />
-        </Field>
+        <NameField
+          :value="name"
+          @update="setName"
+        />
+        <EmailField
+          :value="email"
+          @update="setEmail"
+        />
       </Field>
       <CardField
         label="Card details"
@@ -53,7 +34,8 @@
       />
       <Field invert>
         <BCheckbox
-          v-model="saveCard"
+          :value="saveCard"
+          @input="setSaveCard"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
@@ -103,27 +85,29 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 import { instance } from 'vue-stripe-elements-plus'
 
 import { trackEvent } from '@/honeycomb'
 import { payments } from '@/api'
 import CardField from '@/components/molecules/CardField'
+import EmailField from '@/components/molecules/EmailField'
+import NameField from '@/components/molecules/NameField'
 
 export default {
   components: {
-    CardField
+    CardField,
+    EmailField,
+    NameField
   },
   data () {
     return {
-      name: '',
-      email: '',
       cardElement: null,
-      saveCard: false,
       submitting: false
     }
   },
   computed: {
+    ...mapState('checkoutForm', ['cardComplete', 'email', 'name', 'paying', 'saveCard']),
     ...mapState('estimate', ['id', 'carbon', 'price', 'provider']),
     ...mapGetters('estimate', ['hasEstimate']),
     envWarningShown () {
@@ -157,6 +141,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('checkoutForm', [
+      'setName',
+      'setEmail',
+      'setSaveCard'
+    ]),
     showError (message = '') {
       this.$buefy.snackbar.open({
         message,
