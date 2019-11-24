@@ -1,5 +1,5 @@
 <template>
-  <CustomField
+  <Field
     label="Date"
     :label-for="id"
     class="date-field"
@@ -12,7 +12,7 @@
       required
       @input="$emit('update', $event)"
     />
-  </CustomField>
+  </Field>
 </template>
 
 <script>

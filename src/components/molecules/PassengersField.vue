@@ -1,5 +1,5 @@
 <template>
-  <CustomField
+  <Field
     label="Passengers"
     position="is-centered"
     :label-for="id"
@@ -15,7 +15,7 @@
       required
       @input="$emit('update', $event)"
     />
-  </CustomField>
+  </Field>
 </template>
 
 <script>

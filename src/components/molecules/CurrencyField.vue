@@ -1,5 +1,5 @@
 <template>
-  <CustomField
+  <Field
     class="currency-field"
     title="Update currency"
     invert
@@ -21,7 +21,7 @@
         {{ currency }}
       </option>
     </BSelect>
-  </CustomField>
+  </Field>
 </template>
 
 <script>

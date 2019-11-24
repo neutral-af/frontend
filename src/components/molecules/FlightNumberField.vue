@@ -1,5 +1,5 @@
 <template>
-  <CustomField
+  <Field
     label="Flight number"
     :label-for="id"
   >
@@ -11,7 +11,7 @@
       required
       @input="$emit('update', $event)"
     />
-  </CustomField>
+  </Field>
 </template>
 
 <script>

@@ -14,12 +14,12 @@
       />
     </template>
     <template v-else>
-      <CustomField
+      <Field
         grouped
         group-multiline
         position="is-centered"
       >
-        <CustomField
+        <Field
           label="Cardholder Name"
           label-for="name"
           invert
@@ -31,8 +31,8 @@
             placeholder="Your Cardholder Name"
             required
           />
-        </CustomField>
-        <CustomField
+        </Field>
+        <Field
           label="Email"
           label-for="email"
           invert
@@ -45,19 +45,19 @@
             type="email"
             required
           />
-        </CustomField>
-      </CustomField>
+        </Field>
+      </Field>
       <CardField
         label="Card details"
         @mounted="onCardMounted"
       />
-      <CustomField invert>
+      <Field invert>
         <BCheckbox
           v-model="saveCard"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
-      </CustomField>
+      </Field>
       <BNotification
         v-if="envWarningShown"
         type="is-warning"
@@ -67,7 +67,7 @@
       </BNotification>
     </template>
     <div class="has-text-centered">
-      <CustomField>
+      <Field>
         <RoundedButton
           native-type="submit"
           type="is-primary"
@@ -80,13 +80,13 @@
         >
           Pay now
         </RoundedButton>
-      </CustomField>
+      </Field>
       <p class="field">
         <small>
           Payment will be processed securely by Stripe
         </small>
       </p>
-      <CustomField class="checkout-form-back">
+      <Field class="checkout-form-back">
         <RoundedButton
           tag="router-link"
           :to="{ name: 'estimate-home', query: this.$route.query }"
@@ -97,7 +97,7 @@
         >
           Back to Flights
         </RoundedButton>
-      </CustomField>
+      </Field>
     </div>
   </form>
 </template>
@@ -108,7 +108,7 @@ import { instance } from 'vue-stripe-elements-plus'
 
 import { trackEvent } from '@/honeycomb'
 import { payments } from '@/api'
-import CardField from '@/components/atoms/CardField'
+import CardField from '@/components/molecules/CardField'
 
 export default {
   components: {
