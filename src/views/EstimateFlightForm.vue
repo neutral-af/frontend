@@ -115,7 +115,7 @@ export default {
         this.addFlight(this.flight)
         this.resetNewFlight()
       }
-      this.$router.push({ name: 'estimate-home' })
+      this.$router.push({ name: 'estimate-home', query: this.$route.query })
     }
   }
 }
