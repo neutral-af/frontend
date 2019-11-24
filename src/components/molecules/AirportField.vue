@@ -25,7 +25,7 @@
 
 <script>
 import { airports } from '@/api'
-import { formatAirport } from '@/utils'
+import { airport as format } from '@/utils/formatters'
 
 export default {
   props: {
@@ -71,9 +71,7 @@ export default {
         this.fetching = false
       }
     },
-    format (airport) {
-      return formatAirport(airport)
-    },
+    format,
     select (value) {
       this.$emit('update', value)
     }
