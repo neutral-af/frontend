@@ -22,7 +22,6 @@ const routes = [
   {
     path: '/estimate',
     component: Estimate,
-    name: 'estimate',
     props: ({ query }) => ({ initialFlights: query.flights }),
     children: [{
       name: 'estimate-home',
