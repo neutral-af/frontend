@@ -60,11 +60,11 @@ export default {
   },
   async created () {
     await this.loadInitialFlights()
-    this.setInitialPage()
     this.unwatchers = [
       this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
+    this.setInitialPage()
   },
   beforeDestroy () {
     if (this.unwatchers) {
