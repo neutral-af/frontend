@@ -241,29 +241,11 @@ export default {
     // The Stripe handler methods below are modified from the docs:
     // https://stripe.com/docs/payments/payment-intents/quickstart#manual-confirmation-flow
     async onSubmit () {
-      if (this.submitting) {
-        return
-      }
-      const valid = await this.validate()
-      if (!valid) {
-        return
-      }
-      this.submitting = true
       trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
-
       try {
-        let checkout
-        if (this.hasPreviouslySaved) {
-          checkout = await this.fetchCheckout({
-            paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
-            customerID: this.previouslySavedDetails.customer
-          })
-        } else {
-          const paymentMethod = await this.createPaymentMethod()
-          checkout = await this.fetchCheckout({ paymentMethod })
-        }
-        this.onCheckoutResponse(checkout)
-        this.submitting = false
+        await this.$store.dispatch('checkoutForm/pay')
+        trackEvent('paymentSuccessful', { 'app.estimateID': this.estimateID })
+        this.$router.push({ name: 'estimate-success' })
       } catch (err) {
         const message = err.message || err
         trackEvent('paymentsFrontendError', {
@@ -271,11 +253,43 @@ export default {
           errorMessage: message
         })
         this.showError(message)
-        this.submitting = false
         if (process.env.NODE_ENV === 'development') {
           throw err
         }
       }
+
+      // const valid = await this.validate()
+      // if (!valid) {
+      //   return
+      // }
+      // this.submitting = true
+      // trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
+
+      // try {
+      //   let checkout
+      //   if (this.hasPreviouslySaved) {
+      //     checkout = await this.fetchCheckout({
+      //       paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
+      //       customerID: this.previouslySavedDetails.customer
+      //     })
+      //   } else {
+      //     const paymentMethod = await this.createPaymentMethod()
+      //     checkout = await this.fetchCheckout({ paymentMethod })
+      //   }
+      //   this.onCheckoutResponse(checkout)
+      //   this.submitting = false
+      // } catch (err) {
+      //   const message = err.message || err
+      //   trackEvent('paymentsFrontendError', {
+      //     'app.estimateID': this.estimateID,
+      //     errorMessage: message
+      //   })
+      //   this.showError(message)
+      //   this.submitting = false
+      //   if (process.env.NODE_ENV === 'development') {
+      //     throw err
+      //   }
+      // }
     },
 
     onSuccess (data) {
