@@ -5,4 +5,4 @@ export const isValidFlight = ({ arrival, date, departure, flightNumber, passenge
   return !!date && !!flightNumber
 }
 
-export const areValidFlights = (flights) => flights.every(isValidFlight);
+export const areValidFlights = (flights) => flights.every(isValidFlight)
