@@ -78,7 +78,7 @@ export default {
   },
   created () {
     if (!this.flight) {
-      this.$router.replace({ name: 'estimate-home' })
+      this.$router.replace({ name: 'estimate-home', query: this.$route.query })
       return
     }
     this.setStep('departure')
