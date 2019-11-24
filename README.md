@@ -31,7 +31,3 @@ You should already have a `.env` file (as per the [Quick Start](#quick-start) ab
 All contributions are welcome! Please feel free to open issues or PRs, update documentation, or implement features. Look for issues marked as `good-first-issue` for good places to jump in. We're especially looking for contributions in the area of design (eg. a logo).
 
 If you're considering implementing a new feature or modifying an existing one, please open an issue first for discussion (so that we can talk about implementation before you spend your precious time on it).
-
-## Acknowledgements
-
-Airport data is sourced from the [OpenFlights Airports Database](https://openflights.org/data.html)

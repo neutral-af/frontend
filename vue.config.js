@@ -10,24 +10,27 @@ const config = {
 }
 
 config.branch.value = process.env[config.branch.key]
+console.log(`=> Config: detected git branch ${config.branch.value}`)
 
 config.environment.value = process.env[config.environment.key] || (
   config.branch.value ? (config.branch.value === 'master' ? 'prod' : 'staging') : 'dev'
 )
+console.log(`=> Config: detected environment ${config.environment.value}`)
 
 config.backendUrl.value = config.backendUrl.value || (
   config.environment.value === 'prod' ? 'https://api.neutral.af/graphql' : 'https://backend-jasongwartz.neutral-af.now.sh/graphql'
 )
+console.log(`=> Config: using backend URL ${config.backendUrl.value}`)
 
 config.stripePublicKey.value = process.env[config.stripePublicKey.key]
 if (config.stripePublicKey.value) {
-  console.log('=> Config: Using stripe key from VUE_APP_STRIPE_PUBLIC_KEY env var')
+  console.log(`=> Config: Using stripe key from ${config.stripePublicKey.key} env var`)
 } else {
-  config.stripePublicKey.value = process.env[`${config.environment.value}_${config.stripePublicKey.key}`]
+  config.stripePublicKey.value = process.env[`${config.environment.value.toUpperCase()}_${config.stripePublicKey.key}`]
   if (config.stripePublicKey.value) {
-    console.log(`=> Config: Found stripe key at ${config.environment.key}_${config.stripePublicKey.key}.`)
+    console.log(`=> Config: Found stripe key at ${config.environment.value.toUpperCase()}_${config.stripePublicKey.key}.`)
   } else {
-    console.error(`=> Config: Either ${config.stripePublicKey.key} or $ENV_${config.stripePublicKey.key} (where $ENV must be "prod" or "staging") must be provided.`)
+    console.error(`=> Config: Either ${config.stripePublicKey.key} or ${config.environment.value.toUpperCase()}_${config.stripePublicKey.key} must be provided.`)
     process.exit(1)
   }
 }
