@@ -13,7 +13,7 @@
 <script>
 import AnimatedNumber from 'animated-number-vue'
 
-import { formatPrice } from '@/utils'
+import { price as format } from '@/utils/formatters'
 
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     format (value) {
-      return formatPrice(value, this.currency)
+      return format(value, this.currency)
     }
   }
 }

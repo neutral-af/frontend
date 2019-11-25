@@ -67,7 +67,7 @@
 <script>
 import { mapMutations } from 'vuex'
 
-import { formatAirport } from '@/utils'
+import { airport as format } from '@/utils/formatters'
 
 export default {
   props: {
@@ -94,10 +94,10 @@ export default {
   },
   computed: {
     formattedDeparture () {
-      return formatAirport(this.departure, 'short')
+      return format(this.departure, 'short')
     },
     formattedArrival () {
-      return formatAirport(this.arrival, 'short')
+      return format(this.arrival, 'short')
     }
   },
   methods: mapMutations('estimateForm', { remove: 'removeFlight' })

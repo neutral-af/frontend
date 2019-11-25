@@ -1,4 +1,5 @@
-import { estimate } from '@/api'
+import { createSetMutations } from '@/utils/store'
+import { create } from '@/api/estimate' // update
 
 export const createState = () => ({
   creating: false,
@@ -16,14 +17,12 @@ export default {
     hasEstimate: ({ id }) => !!id
   },
   mutations: {
+    ...createSetMutations(['creating']),
     reset (state) {
       const newState = createState()
       Object.assign(state, newState)
     },
-    setCreating (state, creating) {
-      state.creating = creating
-    },
-    setData (state, data) {
+    set (state, data) {
       Object.assign(state, data)
     }
   },
@@ -32,8 +31,8 @@ export default {
       // TODO: add cancellation of request here
       commit('setCreating', true)
       try {
-        const data = await estimate.create({ currency, flights })
-        commit('setData', data.estimate.fromFlights)
+        const data = await create({ currency, flights })
+        commit('set', data.estimate.fromFlights)
         commit('setCreating', false)
       } catch (err) {
         commit('setCreating', false)
@@ -44,7 +43,7 @@ export default {
     async update ({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
       commit('setUpdating', true)
       try {
-        const data = await estimate.update({ id, provider, currency })
+        const data = await update({ id, provider, currency })
         commit('setData', data.estimate.fromID)
         commit('setUpdating', false)
       } catch (err) {
