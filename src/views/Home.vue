@@ -32,6 +32,7 @@
         inverted
         outlined
         tooltip-type="is-light"
+        class="home-scroll"
         @click="scrollTo('badnews')"
       />
     </HeroSection>
@@ -82,6 +83,7 @@
             type="is-dark"
             outlined
             tooltip-type="is-light"
+            class="home-scroll"
             @click="scrollTo('goodnews')"
           />
         </HeroSection>
@@ -188,6 +190,10 @@ export default {
     width: 100%;
     filter: grayscale(100%);
     opacity: .75;
+  }
+
+  &-scroll {
+    margin-bottom: 1.5rem;
   }
 }
 </style>
