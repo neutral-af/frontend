@@ -3,15 +3,48 @@ import VueRouter from 'vue-router'
 
 import Home from './views/Home'
 import Estimate from './views/Estimate'
-import EstimateHome from './views/EstimateHome'
-import EstimateFlightForm from './views/EstimateFlightForm'
-import EstimateCheckout from './views/EstimateCheckout'
-import EstimateSuccess from './views/EstimateSuccess'
+import Flights from './views/Flights'
+import AddEditFlight from './views/AddEditFlight'
+import AddEditFlightType from './views/AddFlightType'
+import AddEditFlightDeparture from './views/AddEditFlightDeparture'
+import AddEditFlightArrival from './views/AddEditFlightArrival'
+import AddEditFlightFlightNumber from './views/AddEditFlightNumber'
+import AddEditFlightDate from './views/AddEditFlightDate'
+import AddEditFlightPassengers from './views/AddEditFlightPassengers'
+import Checkout from './views/Checkout'
+import Success from './views/Success'
 import About from './views/About'
 import Privacy from './views/Privacy'
 import NotFound from './views/NotFound'
 
 Vue.use(VueRouter)
+
+const getFlightFormChildren = namePrefix => [{
+  name: `${namePrefix}-departure`,
+  path: 'departure',
+  component: AddEditFlightDeparture,
+  props: true
+}, {
+  name: `${namePrefix}-arrival`,
+  path: 'arrival',
+  component: AddEditFlightArrival,
+  props: true
+}, {
+  name: `${namePrefix}-number`,
+  path: 'number',
+  component: AddEditFlightFlightNumber,
+  props: true
+}, {
+  name: `${namePrefix}-date`,
+  path: 'date',
+  component: AddEditFlightDate,
+  props: true
+}, {
+  name: `${namePrefix}-passengers`,
+  path: 'passengers',
+  component: AddEditFlightPassengers,
+  props: true
+}]
 
 const routes = [
   {
@@ -24,27 +57,36 @@ const routes = [
     component: Estimate,
     props: ({ query }) => ({ initialFlights: query.flights }),
     children: [{
-      name: 'estimate-home',
+      name: 'flights',
       path: '',
-      component: EstimateHome
-    },
-    {
-      name: 'estimate-add-flight',
+      component: Flights
+    }, {
+      name: 'add-flight',
       path: 'add-flight',
-      component: EstimateFlightForm
+      component: AddEditFlight,
+      children: [
+        {
+          name: 'add-flight-type',
+          path: 'type',
+          component: AddEditFlightType,
+          props: true
+        },
+        ...getFlightFormChildren('add-flight')
+      ]
     }, {
-      name: 'estimate-edit-flight',
+      name: 'edit-flight',
       path: 'edit-flight/:id',
-      component: EstimateFlightForm,
-      props: true
+      component: AddEditFlight,
+      props: true,
+      children: getFlightFormChildren('edit-flight')
     }, {
-      name: 'estimate-checkout',
+      name: 'checkout',
       path: 'checkout',
-      component: EstimateCheckout
+      component: Checkout
     }, {
-      name: 'estimate-success',
+      name: 'success',
       path: 'success',
-      component: EstimateSuccess
+      component: Success
     }]
   },
   {

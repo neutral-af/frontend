@@ -3,39 +3,37 @@ import { detailsByICAOs } from '@/api/airports'
 
 const createFlight = () => ({
   arrival: null,
-  date: new Date(),
+  date: null,
   departure: null,
   flightNumber: '',
   passengers: 1,
-  type: 'locations'
+  type: ''
 })
 
 export default {
   namespaced: true,
   state: () => ({
     flights: {},
-    newFlight: createFlight(),
-    step: 'departure'
+    newFlight: createFlight()
   }),
   getters: {
     flightsCount: ({ flights }) => Object.keys(flights).length,
     flightById: ({ flights }) => id => flights[id],
     flightsByICAO: ({ flights }) => Object.values(flights).map((flight) => {
-      if (flight.type === 'locations') {
+      const { type } = flight
+      const byICAO = { type }
+      if (type === 'locations') {
         return {
+          ...byICAO,
           departure: flight.departure ? { icao: flight.departure.ICAO } : null,
           arrival: flight.arrival ? { icao: flight.arrival.ICAO } : null,
-          passengers: flight.passengers,
-          type: flight.type
+          passengers: flight.passengers
         }
       }
     })
   },
   mutations: {
-    ...createSetMutations([
-      'flights',
-      'step'
-    ]),
+    ...createSetMutations(['flights']),
     addFlight (state, data) {
       const ids = Object.keys(state.flights)
       const id = ids.length > 0 ? Math.max(...ids) + 1 : 1

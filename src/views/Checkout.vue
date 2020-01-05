@@ -71,7 +71,7 @@
       <Field class="checkout-form-back">
         <RoundedButton
           tag="router-link"
-          :to="{ name: 'estimate-home', query: this.$route.query }"
+          :to="{ name: 'flights', query: this.$route.query }"
           type="is-dark"
           outlined
           inverted
@@ -137,7 +137,7 @@ export default {
   },
   created () {
     if (!this.hasEstimate) {
-      this.$router.replace({ name: 'estimate-home', query: this.$route.query })
+      this.$router.replace({ name: 'flights', query: this.$route.query })
     }
   },
   methods: {
@@ -283,7 +283,7 @@ export default {
       if (data.customerID) {
         this.$cookies.set('custID', data.customerID)
       }
-      this.$router.push({ name: 'estimate-success' })
+      this.$router.push({ name: 'success' })
     }
   }
 }

@@ -55,7 +55,7 @@ export default {
       return 'Estimate'
     },
     summaryShown () {
-      return this.$route.name !== 'estimate-success'
+      return this.$route.name !== 'success'
     }
   },
   async created () {
@@ -85,8 +85,8 @@ export default {
       }
     },
     setInitialPage () {
-      if (this.flightsCount === 0 && this.$route.name !== 'estimate-add-flight') {
-        this.$router.replace({ name: 'estimate-add-flight' })
+      if (this.flightsCount === 0 && this.$route.matched.every(({ name }) => name !== 'add-flight')) {
+        this.$router.replace({ name: 'add-flight' })
       }
     },
     updateUrl () {

@@ -143,6 +143,26 @@ export default {
         color: rgba($white, .85);
       }
     }
+
+    .field.has-addons .control:last-child:not(:only-child) .button {
+      border: 0;
+      color: inherit;
+    }
+
+    .dropdown-content {
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    .datepicker .datepicker-table .datepicker-body .datepicker-cell {
+      &.is-selectable {
+        color: $white;
+      }
+
+      &.is-unselectable {
+        color: rgba($white, .5);
+      }
+    }
   }
 
   &-huge {
