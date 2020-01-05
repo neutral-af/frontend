@@ -13,14 +13,17 @@
       :value="value"
       inline
       required
-      :max-date="new Date()"
+      :min-date="minDate"
       @input="update($event)"
     />
   </Field>
 </template>
 
 <script>
+import { DateTime } from 'luxon'
 import { mapState, mapMutations } from 'vuex'
+
+const PAST_DAYS = 7
 
 export default {
   computed: {
@@ -38,6 +41,9 @@ export default {
     },
     parent () {
       return this.$route.matched[this.$route.matched.length - 2].name
+    },
+    minDate () {
+      return DateTime.local().minus({ hours: 24 * PAST_DAYS }).toJSDate()
     }
   },
   methods: {
