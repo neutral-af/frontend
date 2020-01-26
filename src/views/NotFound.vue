@@ -13,7 +13,7 @@
 import HeroSection from '@/components/organisms/HeroSection'
 
 export default {
-  metaInfo: {
+  head: {
     title: 'Not found'
   },
   components: {

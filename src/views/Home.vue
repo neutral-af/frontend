@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <!-- <div class="home">
     <HeroSection
       background
       class="is-primary is-bold"
@@ -139,26 +139,33 @@
         </HeroSection>
       </div>
     </main>
+  </div> -->
+
+  <div class="home">
+    <div class="h-screen">
+      <!-- hero -->
+      <div>Test</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { NAME } from '@/constants'
-import ScrollButton from '@/components/molecules/ScrollButton'
-import HeroSection from '@/components/organisms/HeroSection'
-import MainNav from '@/components/organisms/MainNav'
-import MainFoot from '@/components/organisms/MainFoot'
+// import ScrollButton from '@/components/molecules/ScrollButton'
+// import HeroSection from '@/components/organisms/HeroSection'
+// import MainNav from '@/components/organisms/MainNav'
+// import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  metaInfo: {
+  head: {
     title: NAME,
     titleTemplate: null
   },
   components: {
-    ScrollButton,
-    HeroSection,
-    MainNav,
-    MainFoot
+    // ScrollButton,
+    // HeroSection,
+    // MainNav,
+    // MainFoot
   },
   methods: {
     scrollTo (ref) {

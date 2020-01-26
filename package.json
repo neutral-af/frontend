@@ -7,8 +7,9 @@
     "npm": ">=6.9.0"
   },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:css": "tailwind build ./src/assets/css/main.css -c ./tailwind.config.js -o ./public/css/main.css",
+    "serve": "npm run build:css && vue-cli-service serve",
+    "build": "npm run build:css && vue-cli-service build",
     "lint": "vue-cli-service lint --no-fix",
     "now-build": "yarn build",
     "dev": "yarn serve",
@@ -23,6 +24,7 @@
     "lodash": "^4.17.15",
     "luxon": "^1.17.2",
     "stripe": "^7.8.0",
+    "tailwindcss": "^1.1.4",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.2",
     "vue-cookie-law": "^1.11.0",

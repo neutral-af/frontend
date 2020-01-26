@@ -7,8 +7,11 @@ import { NAME, SEPARATOR } from '@/constants'
 // import { trackEvent } from './honeycomb'
 
 export default {
-  metaInfo: {
-    titleTemplate: `%s ${SEPARATOR} ${NAME}`
+  head: {
+    titleTemplate: `%s ${SEPARATOR} ${NAME}`,
+    htmlAttrs: {
+      class: 'font-sans text-gray-700'
+    }
   }
 // data () {
 //   return {
