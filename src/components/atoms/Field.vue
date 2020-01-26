@@ -107,19 +107,18 @@ export default {
     .autocomplete {
       .dropdown {
         &-menu {
-          padding-top: 0.5rem;
+          padding-top: 0;
         }
 
         &-content {
-          background: none;
-          box-shadow: none;
           padding-top: 0;
           padding-bottom: 0;
         }
 
         &-item {
           color: rgba($white, .5);
-          padding: 0;
+          padding-top: 0;
+          padding-bottom: 0;
           line-height: 2;
 
           &:hover,
@@ -155,7 +154,7 @@ export default {
     }
 
     .dropdown-content {
-      background-color: transparent;
+      background-color: saturate(darken($dark, 10%), 12%);
       box-shadow: none;
     }
 
