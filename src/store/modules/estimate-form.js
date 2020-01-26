@@ -3,7 +3,7 @@ import { detailsByICAOs } from '@/api/airports'
 
 const createFlight = () => ({
   arrival: null,
-  date: null,
+  date: new Date(),
   departure: null,
   flightNumber: '',
   passengers: 1,

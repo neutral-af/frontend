@@ -16,7 +16,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
-import { areValidFlights } from '@/validators'
+import { areValidFlights } from '@/utils/validators'
 import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'

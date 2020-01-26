@@ -43,6 +43,7 @@
           outlined
           inverted
           icon-left="check"
+          :disabled="!valid"
           @click="save"
         >
           Confirm
@@ -55,6 +56,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { DateTime } from 'luxon'
+
+import { isValidFlightNumber, isValidFlightDate } from '@/utils/validators'
 
 const PAST_DAYS = 7
 
@@ -74,6 +77,9 @@ export default {
     },
     minDate () {
       return DateTime.local().minus({ hours: 24 * PAST_DAYS }).toJSDate()
+    },
+    valid () {
+      return isValidFlightNumber(this.flight.flightNumber) && isValidFlightDate(this.flight.date)
     }
   },
   methods: {
@@ -92,6 +98,9 @@ export default {
       }
     },
     save () {
+      if (!this.valid) {
+        return
+      }
       if (this.mode === 'add') {
         this.addFlight(this.flight)
         this.resetNewFlight()
