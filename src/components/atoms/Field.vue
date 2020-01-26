@@ -54,6 +54,11 @@ export default {
     flex: 1 0 100%;
   }
 
+  .dropdown.is-inline {
+    display: flex !important;
+    justify-content: center;
+  }
+
   &.is-grouped {
     .field:last-child {
       margin-bottom: 0.75rem;
@@ -154,6 +159,10 @@ export default {
       box-shadow: none;
     }
 
+    .datepicker .datepicker-header {
+      border-bottom: 0;
+    }
+
     .datepicker .datepicker-table .datepicker-body .datepicker-cell {
       &.is-selectable {
         color: $white;
@@ -161,6 +170,26 @@ export default {
 
       &.is-unselectable {
         color: rgba($white, .5);
+      }
+    }
+
+    .pagination {
+      &-previous,
+      &-next {
+        border: 0;
+
+        .icon {
+          color: rgba($white, .85) !important;
+        }
+
+        &:hover,
+        &:focus {
+          box-shadow: none;
+
+          .icon {
+            color: rgba($white, .66) !important;
+          }
+        }
       }
     }
   }

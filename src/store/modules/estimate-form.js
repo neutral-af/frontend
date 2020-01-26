@@ -34,10 +34,10 @@ export default {
   },
   mutations: {
     ...createSetMutations(['flights']),
-    addFlight (state, data) {
+    addFlight (state, flight) {
       const ids = Object.keys(state.flights)
       const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
-      state.flights = { ...state.flights, [id]: data }
+      state.flights = { ...state.flights, [id]: flight }
     },
     removeFlight (state, id) {
       delete state.flights[id]

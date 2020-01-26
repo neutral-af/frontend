@@ -8,8 +8,8 @@ import AddEditFlight from './views/AddEditFlight'
 import AddEditFlightType from './views/AddFlightType'
 import AddEditFlightDeparture from './views/AddEditFlightDeparture'
 import AddEditFlightArrival from './views/AddEditFlightArrival'
-import AddEditFlightFlightNumber from './views/AddEditFlightNumber'
-import AddEditFlightDate from './views/AddEditFlightDate'
+import AddEditFlightNumberForm from './views/AddEditFlightNumberForm'
+// import AddEditFlightDate from './views/AddEditFlightDate'
 import AddEditFlightPassengers from './views/AddEditFlightPassengers'
 import Checkout from './views/Checkout'
 import Success from './views/Success'
@@ -31,13 +31,8 @@ const getFlightFormChildren = namePrefix => [{
   props: true
 }, {
   name: `${namePrefix}-number`,
-  path: 'number',
-  component: AddEditFlightFlightNumber,
-  props: true
-}, {
-  name: `${namePrefix}-date`,
-  path: 'date',
-  component: AddEditFlightDate,
+  path: 'flight-number',
+  component: AddEditFlightNumberForm,
   props: true
 }, {
   name: `${namePrefix}-passengers`,
