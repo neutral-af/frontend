@@ -15,7 +15,7 @@
       icon-right="arrow-right"
       :to="{ name: 'estimate-home' }"
     >
-      Offset other flights
+      Offset more flights
     </RoundedButton>
   </div>
 </template>
