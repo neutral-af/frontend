@@ -34,5 +34,10 @@ module.exports = {
         extensions: ['.js', '.json', '.vue']
       }
     }
-  }
+  },
+
+  overrides: [{
+    files: ['src/**/*.test.js?(x)'],
+    env: { jest: true }
+  }]
 }
