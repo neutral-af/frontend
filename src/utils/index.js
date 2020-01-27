@@ -1,4 +1,4 @@
-import * as constants from '@/constants'
+import * as constants from '@/../constants'
 import * as converters from './converters'
 import * as formatters from './formatters'
 import * as store from './store'
