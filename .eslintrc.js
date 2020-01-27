@@ -35,7 +35,6 @@ module.exports = {
       }
     }
   },
-
   overrides: [{
     files: ['src/**/*.test.js?(x)'],
     env: { jest: true }
