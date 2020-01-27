@@ -156,11 +156,6 @@ export default {
       return isValidFlight(this.flight)
     }
   },
-  watch: {
-    flight (value) {
-      console.log(value)
-    }
-  },
   created () {
     if (!this.flight) {
       this.$router.replace({ name: 'flights', query: this.$route.query })
