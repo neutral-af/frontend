@@ -2,16 +2,14 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=10.15.3",
-    "npm": ">=6.9.0"
-  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test": "yarn test:unit",
     "lint": "vue-cli-service lint --no-fix",
-    "now-build": "yarn build",
     "dev": "yarn serve",
+    "now-build": "yarn build",
     "start": "yarn serve"
   },
   "dependencies": {
@@ -39,7 +37,9 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-plugin-unit-jest": "^4.1.2",
     "@vue/cli-service": "^3.11.0",
+    "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.3",
     "babel-runtime": "^6.26.0",
     "concurrently": "^4.1.2",
@@ -57,5 +57,9 @@
     "style-resources-loader": "^1.2.1",
     "vue-markdown": "^2.2.4",
     "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=10.15.3",
+    "npm": ">=6.9.0"
   }
 }
