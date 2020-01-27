@@ -145,7 +145,7 @@
 </template>
 
 <script>
-import { NAME } from '@/constants'
+import { NAME } from '@/../constants'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import HeroSection from '@/components/organisms/HeroSection'
 import MainNav from '@/components/organisms/MainNav'

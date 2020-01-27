@@ -7,6 +7,7 @@ import initPlugins from './plugins'
 import initComponents from './components'
 import App from './App'
 import './assets/sass/main.scss'
+import './registerServiceWorker'
 
 Vue.config.productionTip = process.env.NODE_ENV !== 'production'
 initPlugins()
