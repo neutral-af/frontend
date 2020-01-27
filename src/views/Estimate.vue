@@ -78,9 +78,9 @@ export default {
         return
       }
       try {
-        console.log(JSON.parse(atob(this.initialFlights)))
-        // const flights = JSON.parse(atob(this.initialFlights))
-        // await this.loadFlights(flights)
+        const converted = atob(this.initialFlights)
+        const flights = JSON.parse(converted)
+        await this.loadFlights(flights)
       } catch (err) {
         console.log(err)
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
@@ -92,8 +92,11 @@ export default {
       }
     },
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.flightsByICAO))
-      this.$router.replace({ ...this.$route, query: { flights } })
+      const query = {}
+      if (this.flightsByICAO.length > 0) {
+        query.flights = btoa(JSON.stringify(this.flightsByICAO))
+      }
+      this.$router.replace({ name: this.$route.name, query })
     },
     onUpdate () {
       this.create()
@@ -112,7 +115,11 @@ export default {
       if (this.creating) {
         return
       }
-      if (!areValidFlights(Object.values(this.flights))) {
+      const flights = Object.values(this.flights)
+      if (flights.length === 0) {
+        return
+      }
+      if (!areValidFlights(flights)) {
         return
       }
       try {
