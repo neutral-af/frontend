@@ -6,6 +6,17 @@
     <p class="subtitle is-size-6-mobile is-size-5-tablet is-size-4-desktop">
       Congratulations! You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
     </p>
+    <RoundedButton
+      tag="router-link"
+      size="is-large"
+      type="is-primary"
+      inverted
+      outlined
+      icon-right="arrow-right"
+      :to="{ name: 'estimate-home' }"
+    >
+      Offset other flights
+    </RoundedButton>
   </div>
 </template>
 
