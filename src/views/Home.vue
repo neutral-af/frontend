@@ -43,35 +43,47 @@
             <div class="columns">
               <div
                 class="
-                column
-                is-8-tablet
-                is-6-desktop
-                is-offset-1-desktop
-              "
+                  column
+                  is-8-tablet
+                  is-6-desktop
+                  is-offset-1-desktop
+                "
               >
                 <div class="content is-medium is-inverted">
                   <h2>
                     Flying is one of the worst carbon-polluting things you do
                   </h2>
-                  <p>The International Council on Clean Transportation says: “The climate challenge for aviation is worse than anyone expected”.</p>
-                  <p>A <strong>single seat</strong> on a New York to London flight puts more than <strong>a thousand kilograms</strong> (one whole tonne) of CO2 into the air. And it hurts the Earth even more when the CO2 is emitted at that elevation.</p>
-                  <p>You know you should probably take a train. Or a boat. But sometimes you have to fly.</p>
+                  <p>
+                    The International Council on Clean Transportation <a
+                      href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
+                      noreferrer
+                      target="_blank"
+                    >says</a>:
+                  </p>
+                  <blockquote cite="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html">
+                    “The climate challenge for aviation is worse than anyone expected”.
+                  </blockquote>
+                  <p>
+                    A <strong>single seat</strong> on a New York&rarr;London flight puts more than
+                    <strong>{{ co2 }}</strong> (one whole tonne) of CO<sub>2</sub>
+                    into the air. And it hurts the Earth even more when the CO<sub>2</sub>
+                    is emitted at that elevation.
+                  </p>
+                  <p>You know you should probably take a train. Or a boat. But sometimes, you have to fly.</p>
                 </div>
               </div>
               <div
                 class="
-                column
-                is-6-mobile
-                is-offset-3-mobile
-                is-4-tablet
-                is-3-desktop
-                is-offset-1-desktop
-                is-2-widescreen
-                is-centered
-              "
+                  column
+                  is-6-mobile
+                  is-offset-3-mobile
+                  is-4-tablet
+                  is-offset-1-desktop
+                  is-centered
+                "
               >
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/4/49/Airport_symbol.svg"
+                  src="../assets/img/home-aircraft.svg"
                   class="home-image"
                 >
               </div>
@@ -80,48 +92,53 @@
           <ScrollButton
             slot="foot"
             size="is-medium"
-            type="is-dark"
+            type="is-text"
             outlined
             tooltip-type="is-light"
             class="home-scroll"
             @click="scrollTo('goodnews')"
           />
+          <SectionCredits side="right">
+            Illustration: <a
+              href="https://undraw.co"
+              noreferrer
+              target="_blank"
+            >unDraw</a>
+          </SectionCredits>
         </HeroSection>
       </div>
       <div ref="goodnews">
         <HeroSection class="is-bold">
           <div class="container">
-            <div class="columns">
+            <div class="columns is-vcentered">
               <div
                 class="
-              column
-              is-6-mobile
-              is-3-tablet
-              is-3-desktop
-              is-offset-3-mobile
-              is-offset-1-desktop
-            "
+                  column
+                  is-6-mobile
+                  is-4-tablet
+                  is-4-desktop
+                  is-offset-3-mobile
+                  is-offset-1-desktop
+                "
               >
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Circle-icons-takeoff.svg"
+                  src="../assets/img/home-wind.svg"
                   class="home-image"
                 >
               </div>
               <div
                 class="
-              column
-              is-12-mobile
-              is-9-tablet
-              is-6-desktop
-              is-offset-1-desktop
-            "
+                  column
+                  is-12-mobile
+                  is-8-tablet
+                  is-6-desktop
+                  is-offset-1-desktop
+                "
               >
                 <div class="content is-medium is-inverted">
-                  <h2>
-                    Living carbon neutral is really f**king hard.
-                  </h2>
+                  <h2>Living carbon neutral is really f**king hard</h2>
                   <p>Luckily, flying neutral is <strong>easy a. f.</strong></p>
-                  <p> New York to London flight costs as little as <strong>$2.50</strong> to offset, and you can do it in less than a minute.</p>
+                  <p>New York&rarr;London flight costs as little as <strong>{{ price }}</strong> to offset, and you can do it in less than a minute.</p>
                   <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
                 </div>
                 <RoundedButton
@@ -137,16 +154,26 @@
               </div>
             </div>
           </div>
-          <MainFoot slot="foot" />
+          <SectionCredits>
+            Illustration:
+            <a
+              href="https://undraw.co"
+              noreferrer
+              target="_blank"
+            >unDraw</a>
+          </SectionCredits>
         </HeroSection>
       </div>
     </main>
+    <MainFoot slot="foot" />
   </div>
 </template>
 
 <script>
 import { NAME } from '@/constants'
+import { weight, price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
+import SectionCredits from '@/components/molecules/SectionCredits'
 import HeroSection from '@/components/organisms/HeroSection'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
@@ -158,9 +185,18 @@ export default {
   },
   components: {
     ScrollButton,
+    SectionCredits,
     HeroSection,
     MainNav,
     MainFoot
+  },
+  computed: {
+    co2 () {
+      return weight(1000)
+    },
+    price () {
+      return price(250, 'USD')
+    }
   },
   methods: {
     scrollTo (ref) {
@@ -177,19 +213,11 @@ export default {
   }
 
   &-title {
-    // font-family: $family-secondary;
     font-size: 6em;
   }
 
   &-subtitle {
-    // font-family: $family-secondary;
     font-size: 3em;
-  }
-
-  &-image {
-    width: 100%;
-    filter: grayscale(100%);
-    opacity: .75;
   }
 
   &-scroll {

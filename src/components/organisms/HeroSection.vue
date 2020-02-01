@@ -5,12 +5,7 @@
   >
     <template v-if="background">
       <div class="hero-section-background" />
-      <div class="is-size-7 hero-section-credits">
-        <BIcon
-          icon="info-circle"
-          size="is-small"
-          class="hero-section-credits-icon"
-        />
+      <SectionCredits>
         <a
           href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
           noreferrer
@@ -20,7 +15,7 @@
           noreferrer
           target="_blank"
         >Unsplash</a>
-      </div>
+      </SectionCredits>
     </template>
     <header
       v-if="$slots.head"
@@ -41,7 +36,12 @@
 </template>
 
 <script>
+import SectionCredits from '@/components/molecules/SectionCredits'
+
 export default {
+  components: {
+    SectionCredits
+  },
   props: {
     as: {
       type: String,
@@ -69,32 +69,7 @@ export default {
     mix-blend-mode: soft-light;
     filter: grayscale(50);
     z-index: 0;
-    background: url(../../assets/background.jpg) no-repeat bottom center / cover,
+    background: url(../../assets/img/background.jpg) no-repeat bottom center / cover,
   }
-
-  &-credits {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-
-    &-icon {
-      vertical-align: text-bottom;
-      margin-right: .25rem;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: underline;
-
-      &:hover,
-      &:focus {
-        text-decoration: none;
-      }
-    }
-  }
-
-  // &-foot {
-    // padding-bottom: 1.5rem;
-  // }
 }
 </style>
