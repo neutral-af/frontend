@@ -9,7 +9,7 @@
 export default {
   computed: {
     type () {
-      return this.$route.name === 'estimate-success' ? 'is-primary' : 'is-dark'
+      return this.$route.name === 'success' ? 'is-primary' : 'is-dark'
     }
   }
 }
