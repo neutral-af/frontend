@@ -5,7 +5,7 @@ import isNumber from 'lodash/isNumber'
 export const isValidFlightDeparture = isPlainObject
 export const isValidFlightArrival = isPlainObject
 export const isValidFlightDate = isDate
-export const isValidFlightNumber = (value) => /([A-Z]+)([0-9]+)/.test(value)
+export const isValidFlightNumber = (value) => /([A-Z]+)([0-9]+)/.test(value.toUpperCase())
 export const isValidFlightPassengers = (value) => isNumber(value) && value >= 1
 
 export const isValidFlight = ({ arrival, date, departure, flightNumber, passengers, type }) => {
