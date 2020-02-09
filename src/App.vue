@@ -4,7 +4,6 @@
 
 <script>
 import { NAME, SEPARATOR } from '@/constants'
-// import { trackEvent } from './honeycomb'
 
 export default {
   metaInfo: {
@@ -24,11 +23,6 @@ export default {
 //   this.priceCents = parseInt(urlParams.get('priceCents'))
 //   this.currency = urlParams.get('currency')
 //   this.estimateID = urlParams.get('estimateID')
-// },
-// async mounted () {
-//   trackEvent('pageload', {
-//     'app.estimateID': this.estimateID
-//   })
 // }
 }
 </script>

@@ -1,4 +1,8 @@
 export function trackEvent (name, data) {
+  // Track event using SimpleAnalytics event API
+  // https://docs.simpleanalytics.com/events
+  sa(name)
+
   if (!process.env.VUE_APP_HONEYCOMB_PUBLIC_KEY) {
     return Promise.resolve()
   }
