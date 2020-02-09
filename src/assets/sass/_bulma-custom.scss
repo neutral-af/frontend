@@ -109,8 +109,15 @@ a.navbar-item,
     h4,
     h5,
     h6 {
-      opacity: 0.8;
       font-weight: 200;
+      line-height: 1.25;
+      opacity: .85;
+    }
+
+    h1,
+    h2,
+    h3 {
+      letter-spacing: -.02rem;
     }
 
     a {
@@ -120,6 +127,14 @@ a.navbar-item,
       &:focus {
         text-decoration: none;
       }
+    }
+
+    blockquote {
+      font-family: $family-serif;
+      background: initial;
+      border: initial;
+      padding: initial;
+      font-style: italic;
     }
   }
 }

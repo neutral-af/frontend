@@ -39,7 +39,7 @@ export default {
   mix-blend-mode: soft-light;
   filter: grayscale(50);
   z-index: 0;
-  background: url(../../assets/background.jpg) no-repeat bottom center / cover,
+  background: url(../../assets/img/background.jpg) no-repeat bottom center / cover,
 }
 
 .bottom {
