@@ -88,7 +88,7 @@
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import { instance } from 'vue-stripe-elements-plus'
 
-import { trackEvent } from '@/honeycomb'
+import { trackEvent } from '@/tracking'
 import { payments } from '@/api'
 import CardField from '@/components/molecules/CardField'
 import EmailField from '@/components/molecules/EmailField'

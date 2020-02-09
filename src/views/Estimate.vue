@@ -16,6 +16,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
+import { trackEvent } from '@/tracking'
 import { areValidFlights } from '@/utils/validators'
 import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainNav from '@/components/organisms/MainNav'
@@ -103,6 +104,7 @@ export default {
       this.updateUrl()
     },
     showError (message = '') {
+      trackEvent('estimateError', {})
       this.$buefy.snackbar.open({
         message,
         type: 'is-danger',
@@ -124,6 +126,7 @@ export default {
       }
       try {
         await this.$store.dispatch('estimate/create')
+        trackEvent('estimateCreated', {})
       } catch (err) {
         this.showError('Ouch, there was an error while trying to get an estimate')
         if (process.env.NODE_ENV === 'development') {

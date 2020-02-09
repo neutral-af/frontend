@@ -10,11 +10,12 @@
     <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
+    <script>window.saTrack=window.saTrack||function(){a=[].slice.call(arguments);saTrack.q?saTrack.q.push(a):saTrack.q=[a]};</script>
     <noscript>
       <strong>We're sorry but payments doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
-    <script async defer src="https://cdn.simpleanalytics.io/hello.js"></script>
+    <script async defer data-sa-global="saTrack" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <noscript><img src="https://api.simpleanalytics.io/hello.gif" alt=""></noscript>
   </body>
 </html>
