@@ -23,6 +23,8 @@
 <script>
 import { mapState } from 'vuex'
 
+import { trackEvent } from '@/tracking'
+
 export default {
   metaInfo () {
     return {
@@ -34,6 +36,9 @@ export default {
     title () {
       return 'Success!'
     }
+  },
+  created () {
+    trackEvent('successPage', {})
   },
   beforeDestroy () {
     this.$store.commit('estimate/reset')

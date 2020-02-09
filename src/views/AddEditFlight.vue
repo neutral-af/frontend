@@ -122,6 +122,7 @@
 import { mapState, mapMutations } from 'vuex'
 import { DateTime } from 'luxon'
 
+import { trackEvent } from '@/tracking'
 import { isValidFlight } from '@/utils/validators'
 import Actions from '@/components/atoms/Actions'
 import AirportField from '@/components/molecules/AirportField'
@@ -184,6 +185,8 @@ export default {
         this.addFlight(this.flight)
         this.resetNewFlight()
       }
+
+      trackEvent('flightAdded', {})
       this.$router.push({ name: 'flights', query: this.$route.query })
     }
   }
