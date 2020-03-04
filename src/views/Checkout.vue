@@ -71,7 +71,7 @@
       <Field class="checkout-form-back">
         <RoundedButton
           tag="router-link"
-          :to="{ name: 'estimate-home', query: this.$route.query }"
+          :to="{ name: 'flights', query: this.$route.query }"
           type="is-dark"
           outlined
           inverted
@@ -133,7 +133,7 @@ export default {
   },
   created () {
     if (!this.hasEstimate) {
-      this.$router.replace({ name: 'estimate-home', query: this.$route.query })
+      this.$router.replace({ name: 'flights', query: this.$route.query })
     }
   },
   methods: {
@@ -160,7 +160,7 @@ export default {
       }
       try {
         await this.$store.dispatch('checkoutForm/pay', this.cardElement.$refs.element._element)
-        this.$router.push({ name: 'estimate-success' })
+        this.$router.push({ name: 'success' })
       } catch (err) {
         this.showError(err)
         if (process.env.NODE_ENV === 'development') {

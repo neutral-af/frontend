@@ -54,6 +54,11 @@ export default {
     flex: 1 0 100%;
   }
 
+  .dropdown.is-inline {
+    display: flex !important;
+    justify-content: center;
+  }
+
   &.is-grouped {
     .field:last-child {
       margin-bottom: 0.75rem;
@@ -102,19 +107,18 @@ export default {
     .autocomplete {
       .dropdown {
         &-menu {
-          padding-top: 0.5rem;
+          padding-top: 0;
         }
 
         &-content {
-          background: none;
-          box-shadow: none;
           padding-top: 0;
           padding-bottom: 0;
         }
 
         &-item {
           color: rgba($white, .5);
-          padding: 0;
+          padding-top: 0;
+          padding-bottom: 0;
           line-height: 2;
 
           &:hover,
@@ -141,6 +145,50 @@ export default {
       &:hover,
       &:focus {
         color: rgba($white, .85);
+      }
+    }
+
+    .field.has-addons .control:last-child:not(:only-child) .button {
+      border: 0;
+      color: inherit;
+    }
+
+    .dropdown-content {
+      background-color: saturate(darken($dark, 10%), 12%);
+      box-shadow: none;
+    }
+
+    .datepicker .datepicker-header {
+      border-bottom: 0;
+    }
+
+    .datepicker .datepicker-table .datepicker-body .datepicker-cell {
+      &.is-selectable {
+        color: $white;
+      }
+
+      &.is-unselectable {
+        color: rgba($white, .5);
+      }
+    }
+
+    .pagination {
+      &-previous,
+      &-next {
+        border: 0;
+
+        .icon {
+          color: rgba($white, .85) !important;
+        }
+
+        &:hover,
+        &:focus {
+          box-shadow: none;
+
+          .icon {
+            color: rgba($white, .66) !important;
+          }
+        }
       }
     }
   }

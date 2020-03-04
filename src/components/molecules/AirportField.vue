@@ -14,7 +14,7 @@
       open-on-focus
       required
       :custom-formatter="format"
-      :value="value"
+      :value="viewValue"
       :data="airports"
       :loading="fetching"
       @typing="search"
@@ -38,8 +38,8 @@ export default {
       required: true
     },
     value: {
-      type: String,
-      required: true
+      type: Object,
+      default: null
     },
     placeholder: {
       type: String,
@@ -49,12 +49,18 @@ export default {
   data () {
     return {
       query: '',
+      viewValue: '',
       airports: [],
       fetching: false
     }
   },
-  created () {
-    this.search(this.value)
+  watch: {
+    value: {
+      handler (value) {
+        this.viewValue = value ? format(value) : ''
+      },
+      immediate: true
+    }
   },
   methods: {
     async search (query) {
@@ -73,7 +79,7 @@ export default {
     },
     format,
     select (value) {
-      this.$emit('update', value)
+      this.$emit('input', value)
     }
   }
 }

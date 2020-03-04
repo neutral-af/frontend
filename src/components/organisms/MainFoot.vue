@@ -1,5 +1,6 @@
 <template>
   <footer class="footer main-foot">
+    <CookieNotice />
     <RouterLink
       :to="{ name: 'home' }"
       class="is-family-secondary is-size-5"
@@ -32,8 +33,12 @@
 
 <script>
 import { mapConstants } from '@/utils'
+import CookieNotice from '@/components/molecules/CookieNotice'
 
 export default {
+  components: {
+    CookieNotice
+  },
   computed: {
     ...mapConstants(['NAME'])
   }

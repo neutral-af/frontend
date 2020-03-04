@@ -1,5 +1,7 @@
 const path = require('path')
 
+const { NAME } = require('./constants')
+
 // Here we use an object to remap incoming env vars onto how they are used in templates
 const config = {
   branch: { key: 'NOW_GITHUB_COMMIT_REF', value: null },
@@ -57,5 +59,13 @@ module.exports = {
   chainWebpack: config => {
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
     types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)))
+  },
+  pwa: {
+    name: NAME,
+    themeColor: '#4DBA87',
+    msTileColor: '#000000',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
+    workboxPluginMode: 'GenerateSW'
   }
 }
