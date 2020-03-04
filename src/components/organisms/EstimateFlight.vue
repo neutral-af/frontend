@@ -1,29 +1,57 @@
 <template>
   <div class="level is-mobile estimate-flight">
-    <BTooltip
-      class="level-item"
-      label="Departure"
-      type="is-light"
-    >
-      <BIcon
-        icon="plane-departure"
-        size="is-small"
-      />
-      &nbsp;
-      {{ formattedDeparture }}
-    </BTooltip>
-    <BTooltip
-      class="level-item"
-      label="Arrival"
-      type="is-light"
-    >
-      <BIcon
-        icon="plane-arrival"
-        size="is-small"
-      />
-      &nbsp;
-      {{ formattedArrival }}
-    </BTooltip>
+    <template v-if="type === 'locations'">
+      <BTooltip
+        class="level-item"
+        label="Departure"
+        type="is-light"
+      >
+        <BIcon
+          icon="plane-departure"
+          size="is-small"
+        />
+        &nbsp;
+        {{ formattedDeparture }}
+      </BTooltip>
+      <BTooltip
+        class="level-item"
+        label="Arrival"
+        type="is-light"
+      >
+        <BIcon
+          icon="plane-arrival"
+          size="is-small"
+        />
+        &nbsp;
+        {{ formattedArrival }}
+      </BTooltip>
+    </template>
+    <template v-else>
+      <BTooltip
+        class="level-item"
+        label="Flight number"
+        type="is-light"
+      >
+        <BIcon
+          icon="ticket-alt"
+          size="is-small"
+        />
+        &nbsp;
+        {{ flightNumber }}
+      </BTooltip>
+      <BTooltip
+        class="level-item"
+        label="Date"
+        type="is-light"
+      >
+        <BIcon
+          icon="calendar-alt"
+          size="is-small"
+        />
+        &nbsp;
+        {{ formattedDate }}
+      </BTooltip>
+    </template>
     <BTooltip
       class="level-item"
       label="Passengers"
@@ -40,7 +68,7 @@
       <RoundedButton
         tag="router-link"
         :to="{
-          name: 'estimate-edit-flight',
+          name: 'edit-flight',
           params: { id },
           query: this.$route.query
         }"
@@ -50,7 +78,7 @@
         title="Edit"
         icon-right="pen"
       />
-      &nbsp;
+    &nbsp;
       <RoundedButton
         v-if="removable"
         type="is-dark"
@@ -67,7 +95,7 @@
 <script>
 import { mapMutations } from 'vuex'
 
-import { airport as format } from '@/utils/formatters'
+import { airport as formatAirport, date as formatDate } from '@/utils/formatters'
 
 export default {
   props: {
@@ -75,13 +103,25 @@ export default {
       type: String,
       required: true
     },
+    type: {
+      type: String,
+      required: true
+    },
     departure: {
       type: Object,
-      required: true
+      default: null
     },
     arrival: {
       type: Object,
-      required: true
+      default: null
+    },
+    flightNumber: {
+      type: String,
+      default: ''
+    },
+    date: {
+      type: Date,
+      default: null
     },
     passengers: {
       type: Number,
@@ -94,12 +134,20 @@ export default {
   },
   computed: {
     formattedDeparture () {
-      return format(this.departure, 'short')
+      return formatAirport(this.departure, 'short')
     },
     formattedArrival () {
-      return format(this.arrival, 'short')
+      return formatAirport(this.arrival, 'short')
+    },
+    formattedDate () {
+      return formatDate(this.date)
     }
   },
-  methods: mapMutations('estimateForm', { remove: 'removeFlight' })
+  methods: {
+    ...mapMutations('estimateForm', ['removeFlight']),
+    remove () {
+      this.removeFlight(this.id)
+    }
+  }
 }
 </script>

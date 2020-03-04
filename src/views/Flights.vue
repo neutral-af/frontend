@@ -1,5 +1,5 @@
 <template>
-  <div class="estimate-home">
+  <div class="flights">
     <template v-if="flightsCount > 0">
       <EstimateFlight
         v-for="(flight, id) in flights"
