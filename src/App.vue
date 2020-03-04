@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { NAME, SEPARATOR } from '@/constants'
+import { NAME, SEPARATOR } from '@/../constants'
 // import { trackEvent } from './honeycomb'
 
 export default {

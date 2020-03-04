@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY } from '@/constants'
+import { DEFAULT_CURRENCY } from '@/../constants'
 
 const map = {
   'en-us': 'USD',

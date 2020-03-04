@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import { NAME } from '@/constants'
+import { NAME } from '@/../constants'
 import { weight, price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'

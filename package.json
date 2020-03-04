@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "dev": "yarn serve",
+    "lint": "vue-cli-service lint --no-fix",
+    "now-build": "yarn build",
+    "serve": "vue-cli-service serve",
     "test:unit": "vue-cli-service test:unit",
     "test": "yarn test:unit",
-    "lint": "vue-cli-service lint --no-fix",
-    "dev": "yarn serve",
-    "now-build": "yarn build",
     "start": "yarn serve"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "graphql-request": "^1.8.2",
     "lodash": "^4.17.15",
     "luxon": "^1.17.2",
+    "register-service-worker": "^1.6.2",
     "stripe": "^7.8.0",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.2",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-plugin-pwa": "^4.1.2",
     "@vue/cli-plugin-unit-jest": "^4.1.2",
     "@vue/cli-service": "^3.11.0",
     "@vue/test-utils": "1.0.0-beta.29",
