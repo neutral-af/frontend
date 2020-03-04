@@ -16,7 +16,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
-import { areValidFlights } from '@/validators'
+import { areValidFlights } from '@/utils/validators'
 import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainNav from '@/components/organisms/MainNav'
 import MainFoot from '@/components/organisms/MainFoot'
@@ -55,7 +55,7 @@ export default {
       return 'Estimate'
     },
     summaryShown () {
-      return this.$route.name !== 'estimate-success'
+      return this.$route.name !== 'success'
     }
   },
   async created () {
@@ -78,20 +78,25 @@ export default {
         return
       }
       try {
-        const flights = JSON.parse(atob(this.initialFlights))
+        const converted = atob(this.initialFlights)
+        const flights = JSON.parse(converted)
         await this.loadFlights(flights)
       } catch (err) {
+        console.log(err)
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
     },
     setInitialPage () {
-      if (this.flightsCount === 0 && this.$route.name !== 'estimate-add-flight') {
-        this.$router.replace({ name: 'estimate-add-flight' })
+      if (this.flightsCount === 0 && this.$route.matched.every(({ name }) => name !== 'add-flight')) {
+        this.$router.replace({ name: 'add-flight' })
       }
     },
     updateUrl () {
-      const flights = btoa(JSON.stringify(this.flightsByICAO))
-      this.$router.replace({ ...this.$route, query: { flights } })
+      const query = {}
+      if (this.flightsByICAO.length > 0) {
+        query.flights = btoa(JSON.stringify(this.flightsByICAO))
+      }
+      this.$router.replace({ name: this.$route.name, query })
     },
     onUpdate () {
       this.create()
@@ -110,7 +115,11 @@ export default {
       if (this.creating) {
         return
       }
-      if (!areValidFlights(Object.values(this.flights))) {
+      const flights = Object.values(this.flights)
+      if (flights.length === 0) {
+        return
+      }
+      if (!areValidFlights(flights)) {
         return
       }
       try {

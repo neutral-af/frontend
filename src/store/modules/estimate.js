@@ -1,13 +1,14 @@
 import { createSetMutations } from '@/utils/store'
-import { create } from '@/api/estimate' // update
+import { create, update } from '@/api/estimate'
 
 export const createState = () => ({
+  carbon: 0,
   creating: false,
   id: '',
-  provider: '',
-  carbon: 0,
   km: 0,
-  price: null
+  price: null,
+  provider: '',
+  updating: false
 })
 
 export default {
@@ -17,7 +18,7 @@ export default {
     hasEstimate: ({ id }) => !!id
   },
   mutations: {
-    ...createSetMutations(['creating']),
+    ...createSetMutations(['creating', 'updating']),
     reset (state) {
       const newState = createState()
       Object.assign(state, newState)
@@ -38,19 +39,18 @@ export default {
         commit('setCreating', false)
         throw err
       }
-    }
-    /* TODO: use update when BE will support it
+    },
     async update ({ commit, state: { id, provider }, rootState: { userCurrency: currency } }) {
+      // TODO: add cancellation of request here
       commit('setUpdating', true)
       try {
         const data = await update({ id, provider, currency })
-        commit('setData', data.estimate.fromID)
+        commit('set', data.estimate.fromID)
         commit('setUpdating', false)
       } catch (err) {
         commit('setUpdating', false)
         throw err
       }
     }
-    */
   }
 }

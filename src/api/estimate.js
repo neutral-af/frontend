@@ -1,4 +1,4 @@
-import { isValidFlight } from '@/validators'
+import { isValidFlight } from '@/utils/validators'
 import request from './request'
 
 const duplicateByPassengers = (flights, flight) => {

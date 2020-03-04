@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 export const price = (value, currency) => (
   (value / 100).toLocaleString(window.navigator.language, {
     style: 'currency',
@@ -25,3 +27,5 @@ export const airport = ({ name, faa, city, country }, style = 'long') => {
   }
   return ret
 }
+
+export const date = (date) => DateTime.fromJSDate(date).toLocaleString()

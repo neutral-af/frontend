@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 
 import Home from './views/Home'
 import Estimate from './views/Estimate'
-import EstimateHome from './views/EstimateHome'
-import EstimateFlightForm from './views/EstimateFlightForm'
-import EstimateCheckout from './views/EstimateCheckout'
-import EstimateSuccess from './views/EstimateSuccess'
+import Flights from './views/Flights'
+import AddEditFlight from './views/AddEditFlight'
+import Checkout from './views/Checkout'
+import Success from './views/Success'
 import About from './views/About'
 import Privacy from './views/Privacy'
 import NotFound from './views/NotFound'
@@ -24,27 +24,26 @@ const routes = [
     component: Estimate,
     props: ({ query }) => ({ initialFlights: query.flights }),
     children: [{
-      name: 'estimate-home',
+      name: 'flights',
       path: '',
-      component: EstimateHome
-    },
-    {
-      name: 'estimate-add-flight',
-      path: 'add-flight',
-      component: EstimateFlightForm
+      component: Flights
     }, {
-      name: 'estimate-edit-flight',
+      name: 'add-flight',
+      path: 'add-flight',
+      component: AddEditFlight
+    }, {
+      name: 'edit-flight',
       path: 'edit-flight/:id',
-      component: EstimateFlightForm,
+      component: AddEditFlight,
       props: true
     }, {
-      name: 'estimate-checkout',
+      name: 'checkout',
       path: 'checkout',
-      component: EstimateCheckout
+      component: Checkout
     }, {
-      name: 'estimate-success',
+      name: 'success',
       path: 'success',
-      component: EstimateSuccess
+      component: Success
     }]
   },
   {
