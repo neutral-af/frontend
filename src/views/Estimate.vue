@@ -21,7 +21,7 @@ import MainFoot from '@/components/organisms/MainFoot'
 // import EstimateSummary from '@/components/organisms/EstimateSummary'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }
@@ -56,11 +56,11 @@ export default {
     }
   },
   async created () {
-    await this.loadInitialFlights()
-    this.unwatchers = [
-      this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
-      this.$watch('userCurrency', this.onUpdate.bind(this))
-    ]
+    // await this.loadInitialFlights()
+    // this.unwatchers = [
+    //   this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
+    //   this.$watch('userCurrency', this.onUpdate.bind(this))
+    // ]
     this.setInitialPage()
   },
   beforeDestroy () {
@@ -100,13 +100,13 @@ export default {
       this.updateUrl()
     },
     showError (message = '') {
-      this.$buefy.snackbar.open({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom',
-        actionText: 'Retry',
-        onAction: this.create.bind(this)
-      })
+      // this.$buefy.snackbar.open({
+      //   message,
+      //   type: 'is-danger',
+      //   position: 'is-bottom',
+      //   actionText: 'Retry',
+      //   onAction: this.create.bind(this)
+      // })
     },
     async create () {
       if (this.creating) {

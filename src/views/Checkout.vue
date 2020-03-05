@@ -135,11 +135,11 @@ export default {
       'setSaveCard'
     ]),
     showError (message = '') {
-      this.$buefy.snackbar.open({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom'
-      })
+      // this.$buefy.snackbar.open({
+      //   message,
+      //   type: 'is-danger',
+      //   position: 'is-bottom'
+      // })
     },
 
     onCardMounted (element) {

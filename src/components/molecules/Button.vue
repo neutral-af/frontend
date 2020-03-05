@@ -19,6 +19,7 @@
     <Icon
       v-if="iconLeft"
       :icon="iconLeft"
+      :size="size"
       :class="{ 'mr-2 md:mr-3': !!$slots.default }"
     />
     <span v-if="!!$slots.default">
@@ -27,6 +28,7 @@
     <Icon
       v-if="iconRight"
       :icon="iconRight"
+      :size="size"
       :class="{ 'ml-2 md:ml-3': !!$slots.default }"
     />
   </component>

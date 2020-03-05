@@ -58,25 +58,25 @@ export default {
   },
   methods: {
     openCarbonBreakdown () {
-      this.$buefy.modal.open({
-        parent: this,
-        component: CarbonBreakdown,
-        hasModalCard: true,
-        props: {
-          carbon: this.carbon,
-          km: this.km
-        }
-      })
+      // this.$buefy.modal.open({
+      //   parent: this,
+      //   component: CarbonBreakdown,
+      //   hasModalCard: true,
+      //   props: {
+      //     carbon: this.carbon,
+      //     km: this.km
+      //   }
+      // })
     },
     openPriceBreakdown () {
-      this.$buefy.modal.open({
-        parent: this,
-        component: PriceBreakdown,
-        hasModalCard: true,
-        props: {
-          value: this.price.breakdown
-        }
-      })
+      // this.$buefy.modal.open({
+      //   parent: this,
+      //   component: PriceBreakdown,
+      //   hasModalCard: true,
+      //   props: {
+      //     value: this.price.breakdown
+      //   }
+      // })
     }
   }
 }

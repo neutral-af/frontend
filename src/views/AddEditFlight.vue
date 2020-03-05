@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-md">
     <Title as="h1">
-      Add your first flight
+      {{ title }}
     </Title>
     <Actions
       v-if="mode === 'add'"
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapState, mapMutations } from 'vuex'
 import { DateTime } from 'luxon'
 
 import { date as formatDate } from '@/utils/formatters'
@@ -115,6 +115,11 @@ import AirportField from '@/components/molecules/AirportField'
 const PAST_DAYS = 7
 
 export default {
+  head () {
+    return {
+      title: this.title
+    }
+  },
   components: {
     Actions,
     AirportField
@@ -126,7 +131,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('estimateForm', ['step', 'newFlight']),
+    ...mapState('estimateForm', ['newFlight']),
+    ...mapGetters('estimateForm', ['flightsCount']),
     mode () {
       return this.id ? 'edit' : 'add'
     },
@@ -143,6 +149,16 @@ export default {
     },
     valid () {
       return isValidFlight(this.flight)
+    },
+    title () {
+      if (this.mode === 'edit') {
+        return 'Edit flight'
+      }
+      console.log(this.flightsCount)
+      if (this.flightsCount === 0) {
+        return 'Add your first flight'
+      }
+      return 'Add a flight'
     }
   },
   created () {

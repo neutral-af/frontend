@@ -26,7 +26,7 @@ import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }

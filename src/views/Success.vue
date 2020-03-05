@@ -21,7 +21,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }
