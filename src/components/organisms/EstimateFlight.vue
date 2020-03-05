@@ -65,7 +65,7 @@
       {{ passengers }}
     </BTooltip>
     <div class="level-item">
-      <RoundedButton
+      <Button
         tag="router-link"
         :to="{
           name: 'edit-flight',
@@ -79,7 +79,7 @@
         icon-right="pen"
       />
     &nbsp;
-      <RoundedButton
+      <Button
         v-if="removable"
         type="is-dark"
         outlined

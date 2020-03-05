@@ -2,7 +2,6 @@
   <a
     :href="`mailto:${FEEDBACK_EMAIL}`"
     rel="noopener"
-    class="main-foot-link"
   >
     Feedback
   </a>

@@ -1,5 +1,5 @@
 <template>
-  <RoundedButton
+  <Button
     size="is-small"
     type="is-dark"
     outlined
@@ -9,16 +9,12 @@
     v-on="$listeners"
   >
     <span aria-hidden="true">?</span>
-  </RoundedButton>
+  </Button>
 </template>
 
 <style lang="scss" scoped>
 .info {
   padding: .5em !important;
   height: 1.5em;
-
-  &-text {
-    @extend %sr-only;
-  }
 }
 </style>

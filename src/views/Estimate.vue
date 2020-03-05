@@ -1,10 +1,10 @@
 <template>
   <HeroSection class="is-dark estimate">
-    <MainNav slot="head" />
+    <MainHead slot="head" />
     <EstimateSummary v-if="summaryShown" />
     <EstimateBackground />
     <div class="container estimate-view">
-      <h1 class="title estimate-title">
+      <h1 class="title sr-only">
         {{ title }}
       </h1>
       <RouterView />
@@ -18,7 +18,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { areValidFlights } from '@/utils/validators'
 import EstimateBackground from '@/components/atoms/EstimateBackground'
-import MainNav from '@/components/organisms/MainNav'
+import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 import HeroSection from '@/components/organisms/HeroSection'
 import EstimateSummary from '@/components/organisms/EstimateSummary'
@@ -30,7 +30,7 @@ export default {
     }
   },
   components: {
-    MainNav,
+    MainHead,
     MainFoot,
     HeroSection,
     EstimateSummary,
@@ -141,10 +141,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  &-title {
-    @extend %sr-only;
   }
 }
 </style>

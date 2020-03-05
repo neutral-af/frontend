@@ -1,6 +1,6 @@
 <template>
   <Actions>
-    <RoundedButton
+    <Button
       slot="left"
       tag="router-link"
       :to="{ name: 'add-flight', query: this.$route.query }"
@@ -11,8 +11,8 @@
       icon-left="plus"
     >
       Add flight
-    </RoundedButton>
-    <RoundedButton
+    </Button>
+    <Button
       slot="right"
       tag="router-link"
       :to="{ name: 'checkout', query: this.$route.query }"
@@ -24,7 +24,7 @@
       :disabled="!hasEstimate"
     >
       Go to Checkout
-    </RoundedButton>
+    </Button>
   </Actions>
 </template>
 

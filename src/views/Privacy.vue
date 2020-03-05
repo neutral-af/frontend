@@ -1,6 +1,6 @@
 <template>
   <HeroSection class="is-primary is-bold">
-    <MainNav slot="head" />
+    <MainHead slot="head" />
     <div class="columns is-centered">
       <div class="column is-10-tablet is-9-desktop is-8-widescreen">
         <div class="content is-medium is-inverted">
@@ -22,7 +22,7 @@ import VueMarkdown from 'vue-markdown'
 import text from 'raw-loader!../content/privacy-policy.md' //eslint-disable-line
 
 import HeroSection from '@/components/organisms/HeroSection'
-import MainNav from '@/components/organisms/MainNav'
+import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
@@ -33,7 +33,7 @@ export default {
   },
   components: {
     HeroSection,
-    MainNav,
+    MainHead,
     MainFoot,
     VueMarkdown
   },

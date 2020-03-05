@@ -1,9 +1,8 @@
 <template>
-  <footer class="footer main-foot">
-    <CookieNotice />
+  <footer class="text-white bg-teal-700 text-xs text-center p-4 mt-4 sm:flex sm:items-center sm:justify-center">
     <RouterLink
       :to="{ name: 'home' }"
-      class="is-family-secondary is-size-5"
+      class="font-brand block text-xl mr-4"
     >
       {{ NAME }}
     </RouterLink>
@@ -33,12 +32,8 @@
 
 <script>
 import { mapConstants } from '@/utils'
-import CookieNotice from '@/components/molecules/CookieNotice'
 
 export default {
-  components: {
-    CookieNotice
-  },
   computed: {
     ...mapConstants(['NAME'])
   }
@@ -46,29 +41,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-foot {
-  font-size: $small-font-size;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  > :first-child {
-    margin-right: $size-6;
-  }
-
+.main-foot-nav {
   a {
-    color: inherit;
-  }
+    &::after {
+      content: '·'
+    }
 
-  &-nav {
-    a {
-      &::after {
-        content: '·'
-      }
-
-      &:last-child::after {
-        content: ''
-      }
+    &:last-child::after {
+      content: ''
     }
   }
 }

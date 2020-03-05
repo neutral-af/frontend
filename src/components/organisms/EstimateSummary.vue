@@ -1,14 +1,14 @@
 <template>
   <div
-    class="level is-mobile estimate-summary"
+    class="level is-mobile estimate-summary sm:mr-16 sm:left-auto sm:translate-x-0 md:mt-2"
     :class="{ 'is-loading': creating }"
   >
-    <div class="level-item estimate-summary-carbon">
-      <span class="estimate-summary-label">Carbon</span>
+    <div class="level-item estimate-summary-carbon sm:mr-4">
+      <span class="estimate-summary-label sr-only">Carbon</span>
       <BIcon
         icon="cloud"
         size="is-small"
-        class="is-hidden-mobile estimate-summary-carbon-icon"
+        class="is-hidden-mobile estimate-summary-carbon-icon mr-2"
       />
       &nbsp;
       <AnimatedCarbon :amount="carbon" />
@@ -89,36 +89,11 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   z-index: 31;
-  transition: opacity $speed-medium ease-in-out;
-
-  @include mobile {
-    right: 3.25rem + .5rem;
-    left: auto;
-    transform: none;
-  }
-
-  @include desktop {
-    // height: 4rem;
-    top: .5rem;
-  }
+  transition: opacity 100 ease-in-out;
 
   &.is-loading {
     opacity: 0.5;
     pointer-events: none;
-  }
-
-  &-carbon {
-    &-icon {
-      margin-right: .5em;
-    }
-
-    @include tablet {
-      margin-right: 2em !important;
-    }
-  }
-
-  &-label {
-    @extend %sr-only;
   }
 
   &-info {

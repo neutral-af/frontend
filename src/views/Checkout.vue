@@ -50,7 +50,7 @@
     </template>
     <div class="has-text-centered">
       <Field>
-        <RoundedButton
+        <Button
           native-type="submit"
           type="is-primary"
           size="is-large"
@@ -61,15 +61,15 @@
           :class="{ 'is-loading': submitting }"
         >
           Pay now
-        </RoundedButton>
+        </Button>
       </Field>
       <p class="field">
         <small>
           Payment will be processed securely by Stripe
         </small>
       </p>
-      <Field class="checkout-form-back">
-        <RoundedButton
+      <Field class="pt-4">
+        <Button
           tag="router-link"
           :to="{ name: 'flights', query: this.$route.query }"
           type="is-dark"
@@ -78,7 +78,7 @@
           icon-left="arrow-left"
         >
           Back to Flights
-        </RoundedButton>
+        </Button>
       </Field>
     </div>
   </form>
@@ -288,11 +288,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.checkout-form {
-  &-back {
-    padding-top: $size-6;
-  }
-}
-</style>

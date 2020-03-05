@@ -6,19 +6,19 @@ $displays: (
   'inline-flex'
 );
 
-@each $display in $displays {
-  @include mobile-small {
-    .is-#{$display}-mobile-small {
-      display: #{$display} !important;
-    }
-  }
-}
+// @each $display in $displays {
+//   @include mobile-small {
+//     .is-#{$display}-mobile-small {
+//       display: #{$display} !important;
+//     }
+//   }
+// }
 
-@include mobile-small {
-  .is-hidden-mobile-small {
-    display: none !important
-  }
-}
+// @include mobile-small {
+//   .is-hidden-mobile-small {
+//     display: none !important
+//   }
+// }
 
 .button,
 .input,

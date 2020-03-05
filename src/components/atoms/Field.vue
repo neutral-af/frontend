@@ -1,6 +1,6 @@
 <template>
   <BField
-    class="custom-field"
+    class="custom-field flex-1 sm:flex-1"
     :class="classes"
     v-bind="$attrs"
     v-on="$listeners"
@@ -48,11 +48,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .custom-field {
-  @include mobile-small {
-    flex: 1 0 100%;
-  }
+  flex-basis: 100%;
 
   .dropdown.is-inline {
     display: flex !important;
@@ -69,7 +67,7 @@ export default {
     .input,
     .select select {
       background: none;
-      color: rgba($white, .85);
+      // color: rgba($white, .85);
       border-top: 0;
       border-left: 0;
       border-right: 0;
@@ -79,29 +77,29 @@ export default {
 
       &:focus {
         box-shadow: none;
-        color: rgba($white, 1);
+        // color: rgba($white, 1);
       }
 
       &::placeholder {
-        color: rgba($white, .33);
+        // color: rgba($white, .33);
       }
     }
 
     .select:not(.is-multiple):not(.is-loading) {
       &::after {
-        border-color: rgba($white, .85);
+        // border-color: rgba($white, .85);
       }
 
       &:hover,
       &:focus {
         &::after {
-          border-color: rgba($white, .66);
+          // border-color: rgba($white, .66);
         }
       }
     }
 
     .label {
-      color: rgba($white, .66);
+      // color: rgba($white, .66);
     }
 
     .autocomplete {
@@ -116,7 +114,7 @@ export default {
         }
 
         &-item {
-          color: rgba($white, .5);
+          // color: rgba($white, .5);
           padding-top: 0;
           padding-bottom: 0;
           line-height: 2;
@@ -144,7 +142,7 @@ export default {
     .radio {
       &:hover,
       &:focus {
-        color: rgba($white, .85);
+        // color: rgba($white, .85);
       }
     }
 
@@ -154,7 +152,7 @@ export default {
     }
 
     .dropdown-content {
-      background-color: saturate(darken($dark, 10%), 12%);
+      // background-color: saturate(darken($dark, 10%), 12%);
       box-shadow: none;
     }
 
@@ -164,11 +162,11 @@ export default {
 
     .datepicker .datepicker-table .datepicker-body .datepicker-cell {
       &.is-selectable {
-        color: $white;
+        // color: $white;
       }
 
       &.is-unselectable {
-        color: rgba($white, .5);
+        // color: rgba($white, .5);
       }
     }
 
@@ -178,7 +176,7 @@ export default {
         border: 0;
 
         .icon {
-          color: rgba($white, .85) !important;
+          // color: rgba($white, .85) !important;
         }
 
         &:hover,
@@ -186,7 +184,7 @@ export default {
           box-shadow: none;
 
           .icon {
-            color: rgba($white, .66) !important;
+            // color: rgba($white, .66) !important;
           }
         }
       }
@@ -198,17 +196,17 @@ export default {
       font-size: 4rem;
       height: 1.5em;
       line-height: 1;
-      font-weight: $weight-bold;
+      // font-weight: $weight-bold;
       border-bottom-width: 2px;
     }
 
     .label {
-      font-size: $size-5;
+      // font-size: $size-5;
     }
 
     .autocomplete {
       .dropdown-item {
-        font-size: $size-4;
+        // font-size: $size-4;
       }
     }
 

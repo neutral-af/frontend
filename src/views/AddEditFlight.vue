@@ -7,7 +7,7 @@
       v-if="mode === 'add' && !flight.type"
       class="add-flight-type"
     >
-      <RoundedButton
+      <Button
         slot="left"
         size="is-large"
         type="is-dark"
@@ -17,8 +17,8 @@
         @click="update('type', 'locations')"
       >
         Departure+Arrival
-      </RoundedButton>
-      <RoundedButton
+      </Button>
+      <Button
         slot="right"
         size="is-large"
         type="is-dark"
@@ -28,7 +28,7 @@
         @click="update('type', 'number')"
       >
         Flight Number
-      </RoundedButton>
+      </Button>
     </Actions>
     <template v-else>
       <template v-if="flight.type === 'locations'">
@@ -102,7 +102,7 @@
         />
       </Field>
       <div class="has-text-centered">
-        <RoundedButton
+        <Button
           type="is-primary"
           size="is-large"
           inverted
@@ -112,7 +112,7 @@
           @click="save"
         >
           Confirm
-        </RoundedButton>
+        </Button>
       </div>
     </template>
   </div>
@@ -190,7 +190,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .add-edit-flight-passengers {
   .b-numberinput.field.is-grouped {
     justify-content: center;

@@ -8,10 +8,7 @@ import { NAME, SEPARATOR } from '@/../constants'
 
 export default {
   head: {
-    titleTemplate: `%s ${SEPARATOR} ${NAME}`,
-    htmlAttrs: {
-      class: 'font-sans text-gray-700'
-    }
+    titleTemplate: `%s ${SEPARATOR} ${NAME}`
   }
 // data () {
 //   return {
