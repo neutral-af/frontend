@@ -1,27 +1,24 @@
 <template>
-  <HeroSection class="is-dark estimate">
-    <MainHead slot="head" />
-    <EstimateSummary v-if="summaryShown" />
-    <EstimateBackground />
-    <div class="container estimate-view">
-      <h1 class="title sr-only">
-        {{ title }}
-      </h1>
-      <RouterView />
+  <div class="flex flex-col min-h-screen md:text-lg lg:text-xl">
+    <div class="flex flex-col flex-grow">
+      <MainHead />
+      <!-- <EstimateSummary v-if="summaryShown" /> -->
+      <!-- <EstimateBackground /> -->
+      <RouterView class="container py-8 text-center" />
     </div>
-    <MainFoot slot="foot" />
-  </HeroSection>
+    <MainFoot />
+  </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { areValidFlights } from '@/utils/validators'
-import EstimateBackground from '@/components/atoms/EstimateBackground'
+// import EstimateBackground from '@/components/atoms/EstimateBackground'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
-import HeroSection from '@/components/organisms/HeroSection'
-import EstimateSummary from '@/components/organisms/EstimateSummary'
+// import HeroSection from '@/components/organisms/HeroSection'
+// import EstimateSummary from '@/components/organisms/EstimateSummary'
 
 export default {
   metaInfo () {
@@ -31,10 +28,10 @@ export default {
   },
   components: {
     MainHead,
-    MainFoot,
-    HeroSection,
-    EstimateSummary,
-    EstimateBackground
+    MainFoot
+    // HeroSection,
+    // EstimateSummary,
+    // EstimateBackground
   },
   props: {
     initialFlights: {
@@ -134,13 +131,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.estimate {
-  &-view {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-</style>

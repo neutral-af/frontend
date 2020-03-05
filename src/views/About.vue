@@ -13,11 +13,7 @@
         </div>
         <div class="has-text-centered">
           <Button
-            type="is-primary"
-            size="is-medium"
-            tag="router-link"
-            outlined
-            inverted
+            tag="RouterLink"
             :to="{ name: 'privacy' }"
           >
             Privacy Policy

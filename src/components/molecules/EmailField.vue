@@ -1,16 +1,15 @@
 <template>
   <Field
+    id="email"
     label="Email"
-    label-for="email"
     class="email-field"
-    invert
   >
-    <BInput
-      name="email"
-      size="is-medium"
-      placeholder="Your Email Address"
-      :value="value"
+    <Input
+      id="email"
       type="email"
+      name="email"
+      :value="value"
+      placeholder="Your Email Address"
       required
       @input="$emit('update', $event)"
     />

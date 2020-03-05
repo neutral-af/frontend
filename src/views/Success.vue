@@ -7,11 +7,8 @@
       Congratulations! You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
     </p>
     <Button
-      tag="router-link"
-      size="is-large"
-      type="is-primary"
-      inverted
-      outlined
+      as="RouterLink"
+      size="lg"
       icon-right="arrow-right"
       :to="{ name: 'estimate-home' }"
     >

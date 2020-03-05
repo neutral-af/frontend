@@ -1,20 +1,10 @@
 <template>
   <Button
-    size="is-small"
-    type="is-dark"
-    outlined
-    inverted
-    class="info"
+    size="sm"
+    class="p-2"
     title="What is this?"
     v-on="$listeners"
   >
     <span aria-hidden="true">?</span>
   </Button>
 </template>
-
-<style lang="scss" scoped>
-.info {
-  padding: .5em !important;
-  height: 1.5em;
-}
-</style>

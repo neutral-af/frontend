@@ -1,13 +1,23 @@
 import Vue from 'vue'
 
-import Field from '@/components/atoms/Field'
 import FeedbackLink from '@/components/atoms/FeedbackLink'
+import Field from '@/components/atoms/Field'
 import Icon from '@/components/atoms/Icon'
+import Input from '@/components/atoms/Input'
+import Title from '@/components/atoms/Title'
+import Autocomplete from '@/components/molecules/Autocomplete'
 import Button from '@/components/molecules/Button'
+import DatePicker from '@/components/molecules/DatePicker'
+import NumberInput from '@/components/molecules/NumberInput'
 
 export default () => {
-  Vue.component('Field', Field)
-  Vue.component('FeedbackLink', FeedbackLink)
+  Vue.component('Autocomplete', Autocomplete)
   Vue.component('Button', Button)
+  Vue.component('DatePicker', DatePicker)
+  Vue.component('FeedbackLink', FeedbackLink)
+  Vue.component('Field', Field)
   Vue.component('Icon', Icon)
+  Vue.component('Input', Input)
+  Vue.component('NumberInput', NumberInput)
+  Vue.component('Title', Title)
 }

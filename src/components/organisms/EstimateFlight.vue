@@ -66,24 +66,18 @@
     </BTooltip>
     <div class="level-item">
       <Button
-        tag="router-link"
+        as="RouterLink"
         :to="{
           name: 'edit-flight',
           params: { id },
           query: this.$route.query
         }"
-        type="is-dark"
-        outlined
-        inverted
         title="Edit"
         icon-right="pen"
       />
     &nbsp;
       <Button
         v-if="removable"
-        type="is-dark"
-        outlined
-        inverted
         title="Remove"
         icon-right="trash"
         @click="remove"

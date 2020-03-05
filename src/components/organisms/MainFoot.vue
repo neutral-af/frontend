@@ -1,8 +1,8 @@
 <template>
-  <footer class="text-white bg-teal-700 text-xs text-center p-4 mt-4 sm:flex sm:items-center sm:justify-center">
+  <footer class="text-white bg-teal-700 text-sm text-center py-10 px-4 mt-4 sm:flex sm:items-center sm:justify-center sm:text-base">
     <RouterLink
       :to="{ name: 'home' }"
-      class="font-brand block text-xl mr-4"
+      class="font-brand block text-2xl mr-4 sm:text-3xl"
     >
       {{ NAME }}
     </RouterLink>

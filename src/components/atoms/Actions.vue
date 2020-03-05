@@ -1,12 +1,12 @@
 <template>
-  <div class="level actions">
-    <div class="level-item actions-item sm:mr-4">
+  <div class="sm:flex sm:items-center sm:justify-center">
+    <div class="">
       <slot name="left" />
     </div>
-    <div class="level-item actions-item sm:mr-4">
+    <div class="my-2 sm:my-0 sm:mx-4">
       or
     </div>
-    <div class="level-item actions-item">
+    <div class="">
       <slot name="right" />
     </div>
   </div>

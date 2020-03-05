@@ -45,21 +45,21 @@ if (!config.honeycombPublicKey.value) {
 // Map config object onto environment variables
 Object.values(config).map((el) => (process.env[el.key] = el.value))
 
-const addStyleResource = (rule) => {
-  rule.use('style-resource')
-    .loader('style-resources-loader')
-    .options({
-      patterns: [
-        path.resolve(__dirname, './src/assets/sass/_base.scss')
-      ]
-    })
-}
+// const addStyleResource = (rule) => {
+//   rule.use('style-resource')
+//     .loader('style-resources-loader')
+//     .options({
+//       patterns: [
+//         path.resolve(__dirname, './src/assets/sass/_base.scss')
+//       ]
+//     })
+// }
 
 module.exports = {
-  chainWebpack: config => {
-    const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
-    types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)))
-  },
+  // chainWebpack: config => {
+  // const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
+  // types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)))
+  // },
   pwa: {
     name: NAME,
     themeColor: '#4DBA87',

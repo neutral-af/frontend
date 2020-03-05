@@ -14,6 +14,11 @@
     "start": "yarn serve"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-brands-svg-icons": "^5.12.1",
+    "@fortawesome/free-regular-svg-icons": "^5.12.1",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
     "animated-number-vue": "^1.0.0",
     "buefy": "^0.8.2",
     "chart.js": "^2.8.0",

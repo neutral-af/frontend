@@ -1,98 +1,86 @@
 <template>
-  <div
-    v-if="flight"
-    class="add-edit-flight"
-  >
+  <div class="max-w-md">
+    <Title as="h1">
+      Add your first flight
+    </Title>
     <Actions
-      v-if="mode === 'add' && !flight.type"
-      class="add-flight-type"
+      v-if="mode === 'add'"
+      class="mb-6"
     >
       <Button
         slot="left"
-        size="is-large"
-        type="is-dark"
+        size="lg"
         icon-left="map-marker-alt"
-        outlined
-        inverted
+        :active="flight.type === 'locations'"
         @click="update('type', 'locations')"
       >
         Departure+Arrival
       </Button>
       <Button
         slot="right"
-        size="is-large"
-        type="is-dark"
+        size="lg"
         icon-left="ticket-alt"
-        outlined
-        inverted
+        :active="flight.type === 'number'"
         @click="update('type', 'number')"
       >
         Flight Number
       </Button>
     </Actions>
-    <template v-else>
+    <template v-if="flight.type">
       <template v-if="flight.type === 'locations'">
         <AirportField
           id="departure"
-          class="add-edit-flight-departure"
-          label="Departure airport"
+          label="Departure Airport"
+          label-icon-left="plane-departure"
           placeholder="e.g. Milan, Malpensa or MXP"
           :value="flight.departure"
-          @input="update('departure', $event)"
+          @input="update('departure', $event.target.value)"
         />
         <AirportField
           id="arrival"
-          class="add-edit-flight-arrival"
-          label="Arrival airport"
+          label="Arrival Airport"
+          label-icon-left="plane-arrival"
           placeholder="e.g. Toronto, Pearson or YYZ"
           :value="flight.arrival"
-          @input="update('arrival', $event)"
+          @input="update('arrival', $event.target.value)"
         />
       </template>
       <template v-if="flight.type === 'number'">
         <Field
-          label="Flight number"
-          label-for="flight-number"
-          class="add-edit-flight-number"
-          autofocus
-          invert
-          huge
+          id="flight-number"
+          label="Flight Number"
+          label-icon-left="ticket-alt"
         >
-          <BInput
+          <Input
             id="flight-number"
             placeholder="e.g. AC895"
             required
             :value="flight.flightNumber"
-            @input="update('flightNumber', $event)"
+            @input="update('flightNumber', $event.target.value)"
           />
         </Field>
         <Field
+          id="date"
           label="Date"
-          label-for="date"
-          invert
-          huge
-          position="is-centered"
-          class="add-edit-flight-date"
+          label-icon-left="calendar-alt"
         >
-          <BDatepicker
+          <DatePicker
             id="date"
             placeholder="Date"
-            :value="flight.date"
+            :value="formattedDate"
             required
+            readonly
             :min-date="minDate"
             @input="update('date', $event)"
           />
         </Field>
       </template>
       <Field
+        id="passengers"
         label="Passengers"
-        position="is-centered"
-        label-for="passengers"
-        invert
-        huge
-        class="add-edit-flight-passengers"
+        label-icon-left="user"
       >
-        <BNumberinput
+        <NumberInput
           id="passengers"
           :value="flight.passengers"
           min="1"
@@ -101,12 +89,9 @@
           @input="update('passengers', $event)"
         />
       </Field>
-      <div class="has-text-centered">
+      <div class="mt-6">
         <Button
-          type="is-primary"
-          size="is-large"
-          inverted
-          outlined
+          size="lg"
           icon-left="check"
           :disabled="!valid"
           @click="save"
@@ -122,6 +107,7 @@
 import { mapState, mapMutations } from 'vuex'
 import { DateTime } from 'luxon'
 
+import { date as formatDate } from '@/utils/formatters'
 import { isValidFlight } from '@/utils/validators'
 import Actions from '@/components/atoms/Actions'
 import AirportField from '@/components/molecules/AirportField'
@@ -148,6 +134,9 @@ export default {
       return this.mode === 'edit'
         ? this.$store.getters['estimateForm/flightById'](this.id)
         : this.newFlight
+    },
+    formattedDate () {
+      return formatDate(this.flight.date)
     },
     minDate () {
       return DateTime.local().minus({ hours: 24 * PAST_DAYS }).toJSDate()
@@ -189,19 +178,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.add-edit-flight-passengers {
-  .b-numberinput.field.is-grouped {
-    justify-content: center;
-
-    div.control {
-      flex-grow: 0;
-    }
-  }
-
-  input[type="number"] {
-    width: 2em;
-  }
-}
-</style>

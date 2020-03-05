@@ -14,25 +14,19 @@
       />
     </template>
     <template v-else>
-      <Field
-        grouped
-        group-multiline
-        position="is-centered"
-      >
-        <NameField
-          :value="name"
-          @update="setName"
-        />
-        <EmailField
-          :value="email"
-          @update="setEmail"
-        />
-      </Field>
+      <NameField
+        :value="name"
+        @update="setName"
+      />
+      <EmailField
+        :value="email"
+        @update="setEmail"
+      />
       <CardField
         label="Card details"
         @mounted="onCardMounted"
       />
-      <Field invert>
+      <Field>
         <BCheckbox
           :value="saveCard"
           @input="setSaveCard"
@@ -51,11 +45,8 @@
     <div class="has-text-centered">
       <Field>
         <Button
-          native-type="submit"
-          type="is-primary"
-          size="is-large"
-          outlined
-          inverted
+          type="submit"
+          size="lg"
           icon-left="check"
           :disabled="submitting"
           :class="{ 'is-loading': submitting }"
@@ -70,11 +61,8 @@
       </p>
       <Field class="pt-4">
         <Button
-          tag="router-link"
+          as="RouterLink"
           :to="{ name: 'flights', query: this.$route.query }"
-          type="is-dark"
-          outlined
-          inverted
           icon-left="arrow-left"
         >
           Back to Flights

@@ -2,24 +2,18 @@
   <Actions>
     <Button
       slot="left"
-      tag="router-link"
+      as="RouterLink"
       :to="{ name: 'add-flight', query: this.$route.query }"
-      type="is-dark"
-      size="is-large"
-      outlined
-      inverted
+      size="lg"
       icon-left="plus"
     >
       Add flight
     </Button>
     <Button
       slot="right"
-      tag="router-link"
+      tag="RouterLink"
       :to="{ name: 'checkout', query: this.$route.query }"
-      type="is-primary"
-      size="is-large"
-      inverted
-      outlined
+      size="lg"
       icon-left="credit-card"
       :disabled="!hasEstimate"
     >

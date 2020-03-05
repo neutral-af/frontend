@@ -1,6 +1,5 @@
 <template>
   <Field
-    invert
     v-bind="$attrs"
     v-on="$listeners"
   >

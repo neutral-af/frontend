@@ -2,7 +2,6 @@
   <Field
     class="currency-field"
     title="Update currency"
-    invert
   >
     <BSelect
       name="currency"

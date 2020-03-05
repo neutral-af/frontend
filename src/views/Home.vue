@@ -1,5 +1,5 @@
 <template>
-  <div class="md:text-lg">
+  <div class="md:text-lg lg:text-xl">
     <div class="relative min-h-screen text-white bg-teal-700 flex flex-col justify-between items-center">
       <MainHead />
       <div class="container text-center">
@@ -44,7 +44,7 @@
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
           <div class="mb-6 md:mb-0 md:mr-6 lg:mr-12 lg:max-w-xl">
-            <h2 class="text-2xl tracking-tight leading-tight mb-4 sm:text-3xl">
+            <h2 class="text-2xl tracking-tight leading-tight mb-4 md:text-3xl lg:text-4xl">
               Flying is one of the worst carbon-polluting things you do
             </h2>
             <p class="mb-2">
@@ -109,9 +109,9 @@
           </div>
           <div class="lg:max-w-xl pb-6">
             <div class="mb-6">
-              <h2 class="text-2xl tracking-tight leading-tight mb-4 sm:text-3xl">
+              <Title as="h2">
                 Living carbon neutral is really f**king hard
-              </h2>
+              </Title>
               <p>Luckily, flying neutral is <strong>easy a. f.</strong></p>
               <p>New York&rarr;London flight costs as little as <strong>{{ price }}</strong> to offset, and you can do it in less than a minute.</p>
               <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
