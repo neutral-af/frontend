@@ -4,6 +4,7 @@ import FeedbackLink from '@/components/atoms/FeedbackLink'
 import Field from '@/components/atoms/Field'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
+import LLink from '@/components/atoms/LLink'
 import Title from '@/components/atoms/Title'
 import Autocomplete from '@/components/molecules/Autocomplete'
 import Button from '@/components/molecules/Button'
@@ -18,6 +19,7 @@ export default () => {
   Vue.component('Field', Field)
   Vue.component('Icon', Icon)
   Vue.component('Input', Input)
+  Vue.component('LLink', LLink)
   Vue.component('NumberInput', NumberInput)
   Vue.component('Title', Title)
 }

@@ -5,7 +5,7 @@
     </Title>
     <div
       v-if="flightsCount > 0"
-      class="flex items-center justify-center mb-6"
+      class="flex flex-col items-center justify-center mb-6"
     >
       <EstimateFlight
         v-for="(flight, id) in flights"

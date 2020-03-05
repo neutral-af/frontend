@@ -1,16 +1,26 @@
 <template>
-  <CookieLaw
-    theme="dark-lime"
-    button-class="button is-primary is-normal"
-  >
+  <CookieLaw class="text-base">
     <div
-      slot="message"
-      class="has-text-light is-family-primary"
+      slot-scope="{ accept }"
+      class="flex flex-grow items-center justify-between"
     >
-      OK fine, we use cookies - but only if you want to save payment details. Learn more in our
-      <router-link to="privacy">
-        privacy policy
-      </router-link>
+      <div>
+        OK fine, we use cookies – but only if you want to save payment details. Learn more in our
+        <LLink
+          as="RouterLink"
+          :to="{ name: 'privacy' }"
+        >
+          Privacy Policy
+        </LLink>
+      </div>
+      <div>
+        <Button
+          size="sm"
+          @click="accept"
+        >
+          Got it
+        </Button>
+      </div>
     </div>
   </CookieLaw>
 </template>
@@ -22,3 +32,11 @@ export default {
   components: { CookieLaw }
 }
 </script>
+
+<style lang="scss">
+.Cookie--base {
+  background: white;
+  color: inherit;
+  padding: 1rem;
+}
+</style>

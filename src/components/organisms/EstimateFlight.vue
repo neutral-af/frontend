@@ -74,6 +74,7 @@
         v-if="removable"
         title="Remove"
         icon-right="trash"
+        class="ml-2"
         @click="remove"
       />
     </div>

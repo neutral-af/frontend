@@ -26,15 +26,19 @@
         compact
         class="absolute bottom-0 right-0"
       >
-        <a
+        <LLink
           href="https://unsplash.com/@josswoodhead?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
           noreferrer
           target="_blank"
-        >Joss Woodhead</a> · <a
+        >
+          Joss Woodhead
+        </LLink> · <LLink
           href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
           noreferrer=""
           target="_blank"
-        >Unsplash</a>
+        >
+          Unsplash
+        </LLink>
       </SectionCredits>
     </div>
     <main>
@@ -43,16 +47,18 @@
         class="relative min-h-screen flex flex-col justify-between items-center"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
-          <div class="mb-6 md:mb-0 md:mr-6 lg:mr-12 lg:max-w-xl">
+          <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-xl">
             <h2 class="text-2xl tracking-tight leading-tight mb-4 md:text-3xl lg:text-4xl">
               Flying is one of the worst carbon-polluting things you do
             </h2>
             <p class="mb-2">
-              The International Council on Clean Transportation <a
+              The International Council on Clean Transportation <LLink
                 href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
                 noreferrer
                 target="_blank"
-              >says</a>:
+              >
+                says
+              </LLink>:
             </p>
             <blockquote
               class="italic mb-2"
@@ -71,14 +77,16 @@
           <div class="flex flex-col items-center justify-center">
             <img
               src="../assets/img/home-aircraft.svg"
-              class="max-w-xs"
+              class="max-w-xs mb-4"
             >
             <SectionCredits class="text-gray-600">
-              Illustration: <a
+              Illustration: <LLink
                 href="https://undraw.co"
                 noreferrer
                 target="_blank"
-              >unDraw</a>
+              >
+                unDraw
+              </LLink>
             </SectionCredits>
           </div>
         </div>
@@ -93,18 +101,20 @@
         class="relative min-h-screen flex flex-col justify-between items-center"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
-          <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-6 lg:mr-12">
+          <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
             <img
               src="../assets/img/home-wind.svg"
-              class="max-w-xs"
+              class="max-w-xs mb-6"
             >
             <SectionCredits class="text-gray-600">
               Illustration:
-              <a
+              <LLink
                 href="https://undraw.co"
                 noreferrer
                 target="_blank"
-              >unDraw</a>
+              >
+                unDraw
+              </LLink>
             </SectionCredits>
           </div>
           <div class="lg:max-w-xl pb-6">
@@ -128,7 +138,7 @@
         </div>
       </div>
     </main>
-    <MainFoot slot="foot" />
+    <MainFoot />
     <CookieNotice />
   </div>
 </template>

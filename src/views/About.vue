@@ -1,35 +1,34 @@
 <template>
-  <HeroSection class="is-primary is-bold">
-    <MainHead slot="head" />
-    <div class="columns is-centered">
-      <div class="column is-10-tablet is-9-desktop is-8-widescreen">
-        <div class="content is-medium is-inverted">
-          <h1 class="title is-1 is-family-secondary">
-            {{ title }}
-          </h1>
-          <VueMarkdown>
-            {{ text }}
-          </VueMarkdown>
-        </div>
-        <div class="has-text-centered">
-          <Button
-            tag="RouterLink"
-            :to="{ name: 'privacy' }"
-          >
-            Privacy Policy
-          </Button>
-        </div>
+  <div class="md:text-lg lg:text-xl">
+    <MainHead />
+    <div class="container pb-4 sm:pb-6 sm:max-w-xl md:max-w-2xl lg:max-w-3xl">
+      <Title
+        as="h1"
+        size="lg"
+        class="font-brand"
+      >
+        {{ title }}
+      </Title>
+      <VueMarkdown class="content mb-6">
+        {{ text }}
+      </VueMarkdown>
+      <div class="text-center py-4">
+        <Title
+          as="h3"
+          size="sm"
+        >
+          Useful links
+        </Title>
       </div>
     </div>
-    <MainFoot slot="foot" />
-  </HeroSection>
+    <MainFoot />
+  </div>
 </template>
 
 <script>
 import VueMarkdown from 'vue-markdown'
 import text from 'raw-loader!../content/about.md' //eslint-disable-line
 
-import HeroSection from '@/components/organisms/HeroSection'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
@@ -40,14 +39,13 @@ export default {
     }
   },
   components: {
-    HeroSection,
     MainHead,
     MainFoot,
     VueMarkdown
   },
   computed: {
     title () {
-      return 'About us'
+      return 'About Us'
     },
     text () {
       return text
@@ -55,3 +53,28 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+// TODO: replace with @apply from tailwind
+.content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.75em;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.25em;
+    line-height: 1.25;
+  }
+
+  p {
+    margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+</style>
