@@ -154,7 +154,6 @@ export default {
       if (this.mode === 'edit') {
         return 'Edit flight'
       }
-      console.log(this.flightsCount)
       if (this.flightsCount === 0) {
         return 'Add your first flight'
       }

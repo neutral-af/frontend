@@ -3,11 +3,12 @@
     <Autocomplete
       :id="id"
       :placeholder="placeholder"
-      :custom-formatter="format"
+      :formatter="format"
       :value="viewValue"
       :data="airports"
+      data-key="icao"
       :loading="fetching"
-      @typing="search"
+      @input="onInput"
       @select="select"
     />
     <!-- keep-first
@@ -19,7 +20,7 @@
 <script>
 import pickBy from 'lodash/pickBy'
 
-import { airports } from '@/api'
+// import { airports } from '@/api'
 import { airport as format } from '@/utils/formatters'
 import Field from '@/components/atoms/Field'
 
@@ -64,14 +65,39 @@ export default {
         return
       }
       this.fetching = true
-      try {
-        this.airports = await airports.search(query)
-        this.fetching = false
-      } catch (err) {
-        this.fetching = false
-      }
+      this.data = [{
+        id: 'test',
+        name: 'Malpensa',
+        icao: 'mpx',
+        iata: 'mpxx',
+        city: 'Milano',
+        country: 'Italy'
+      }, {
+        id: 'test',
+        name: 'Malpensa',
+        icao: 'mpx2',
+        iata: 'mpxx',
+        city: 'Milano',
+        country: 'Italy'
+      }, {
+        id: 'test',
+        name: 'Malpensa',
+        icao: 'mpx3',
+        iata: 'mpxx',
+        city: 'Milano',
+        country: 'Italy'
+      }]
+      // try {
+      //   this.airports = await airports.search(query)
+      //   this.fetching = false
+      // } catch (err) {
+      //   this.fetching = false
+      // }
     },
     format,
+    onInput ({ target: { value } }) {
+      this.search(value)
+    },
     select (value) {
       this.$emit('input', value)
     }
