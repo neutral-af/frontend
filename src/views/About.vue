@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     title () {
-      return 'About us'
+      return 'About us and FAQ'
     },
     text () {
       return text
