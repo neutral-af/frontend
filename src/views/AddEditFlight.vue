@@ -38,6 +38,7 @@
           label="Departure airport"
           placeholder="e.g. Milan, Malpensa or MXP"
           :value="flight.departure"
+          :autofocus="true"
           @input="update('departure', $event)"
         />
         <AirportField
