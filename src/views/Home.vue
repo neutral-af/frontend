@@ -176,7 +176,7 @@
 
 <script>
 import { NAME } from '@/../constants'
-import { weight, price } from '@/utils/formatters'
+import { price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'
 import HeroSection from '@/components/organisms/HeroSection'
