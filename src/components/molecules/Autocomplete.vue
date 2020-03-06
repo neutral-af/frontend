@@ -1,26 +1,35 @@
 <template>
-  <div class="flex-grow relative">
-    <Input
-      class="w-full"
-      v-bind="$attrs"
-      @focus="dataShown = true"
-      @blur="dataShown = false"
-    />
+  <div>
+    <div class="relative">
+      <Input
+        v-model="query"
+        v-bind="$attrs"
+        class="w-full"
+        @input="onInput"
+        @keydown.down="onArrowDown"
+        @keydown.up="onArrowUp"
+        @keydown.enter="onEnter"
+      />
+      <Icon
+        v-if="loading"
+        icon="circle-notch"
+        spin
+        class="absolute right-0 text-gray-500"
+        style="top: 25%"
+      />
+    </div>
     <Panel
-      v-if="data"
-      v-show="dataShown"
-      class="absolute z-10"
+      v-show="open"
+      as="ul"
     >
-      <!-- eslint-disable vue/valid-v-for -->
-      <div
-        v-for="item in data"
-        :key="dataKey"
-        class="p-4 cursor-pointer border-b last-child:border-0 hover:text-teal-500 hover:border-teal-500"
-        @click="$emit('select', item)"
+      <li
+        v-for="(item, index) in filtered"
+        :key="index"
+        :class="{ 'is-active': index === selected }"
+        @click="setResult(item)"
       >
-        {{ formatter(item) }}
-      </div>
-      <!-- eslint-enabke vue/valid-v-for -->
+        {{ item }}
+      </li>
     </Panel>
   </div>
 </template>
@@ -28,22 +37,72 @@
 <script>
 export default {
   props: {
-    data: {
+    items: {
       type: Array,
-      required: true
+      required: false,
+      default: () => []
     },
-    dataKey: {
-      type: String,
-      required: true
-    },
-    formatter: {
-      type: Function,
-      default: (value) => value
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-      dataShown: false
+      open: false,
+      filtered: [],
+      query: '',
+      selected: 0
+    }
+  },
+  watch: {
+    items: function (value, oldValue) {
+      if (value.length !== oldValue.length) {
+        this.filtered = value
+      }
+    }
+  },
+  mounted () {
+    document.addEventListener('click', this.onClickOutside)
+  },
+  destroyed () {
+    document.removeEventListener('click', this.onClickOutside)
+  },
+  methods: {
+    onInput () {
+      this.$emit('input', this.query)
+      this.filterItems()
+      this.open = true
+    },
+    filterItems () {
+      this.filtered = this.items.filter((item) => {
+        return Object.values(item).join('').toLowerCase().indexOf(this.query.toLowerCase()) > -1
+      })
+    },
+    setResult (result) {
+      this.query = result
+      this.open = false
+    },
+    onArrowDown (evt) {
+      if (this.selected < this.filtered.length) {
+        this.selected = this.selected + 1
+      }
+    },
+    onArrowUp () {
+      if (this.selected > 0) {
+        this.selected = this.selected - 1
+      }
+    },
+    onEnter () {
+      this.query = this.filtered[this.selected]
+      this.open = false
+      this.selected = -1
+    },
+    onClickOutside ({ target }) {
+      if (!this.$el.contains(target)) {
+        this.open = false
+        this.selected = -1
+      }
     }
   }
 }

@@ -1,5 +1,19 @@
 <template>
-  <div class="border w-full bg-white">
+  <component
+    :is="as"
+    class="border w-full bg-white"
+  >
     <slot />
-  </div>
+  </component>
 </template>
+
+<script>
+export default {
+  props: {
+    as: {
+      type: String,
+      default: 'div'
+    }
+  }
+}
+</script>

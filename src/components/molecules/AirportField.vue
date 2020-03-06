@@ -5,11 +5,10 @@
       :placeholder="placeholder"
       :formatter="format"
       :value="viewValue"
-      :data="airports"
-      data-key="icao"
+      :items="airports"
       :loading="fetching"
       @input="onInput"
-      @select="select"
+      @select="onSelect"
     />
     <!-- keep-first
       open-on-focus
@@ -20,7 +19,7 @@
 <script>
 import pickBy from 'lodash/pickBy'
 
-// import { airports } from '@/api'
+import { airports } from '@/api'
 import { airport as format } from '@/utils/formatters'
 import Field from '@/components/atoms/Field'
 
@@ -40,32 +39,7 @@ export default {
     return {
       query: '',
       viewValue: '',
-      airports: [],
-      fetching: false
-    }
-  },
-  computed: {
-    fieldProps () {
-      return pickBy(this.$props, (value, key) => !!Field.props[key])
-    }
-  },
-  watch: {
-    value: {
-      handler (value) {
-        this.viewValue = value ? format(value) : ''
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    async search (query) {
-      this.query = query
-      if (!this.query) {
-        this.airports = []
-        return
-      }
-      this.fetching = true
-      this.data = [{
+      airports: [{
         id: 'test',
         name: 'Malpensa',
         icao: 'mpx',
@@ -86,19 +60,44 @@ export default {
         iata: 'mpxx',
         city: 'Milano',
         country: 'Italy'
-      }]
-      // try {
-      //   this.airports = await airports.search(query)
-      //   this.fetching = false
-      // } catch (err) {
-      //   this.fetching = false
-      // }
+      }],
+      fetching: false
+    }
+  },
+  computed: {
+    fieldProps () {
+      return pickBy(this.$props, (value, key) => !!Field.props[key])
+    }
+  },
+  watch: {
+    value: {
+      handler (value) {
+        this.viewValue = value ? this.format(value) : ''
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    async search (query) {
+      this.query = query
+      if (!this.query) {
+        this.airports = []
+        return
+      }
+      this.fetching = true
+      try {
+        this.airports = await airports.search(query)
+        this.fetching = false
+      } catch (err) {
+        this.fetching = false
+      }
     },
     format,
-    onInput ({ target: { value } }) {
-      this.search(value)
+    onInput (value) {
+      console.log(value)
+      // this.search(value)
     },
-    select (value) {
+    onSelect (value) {
       this.$emit('input', value)
     }
   }

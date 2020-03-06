@@ -8,8 +8,10 @@
     }"
     :disabled="disabled"
     :readonly="readonly"
+    :value="value"
     v-bind="$attrs"
-    v-on="$listeners"
+    v-on="listeners"
+    @input="$emit('input', $event.target.value)"
   >
 </template>
 
@@ -23,6 +25,16 @@ export default {
     readonly: {
       type: Boolean,
       default: false
+    },
+    value: {
+      type: [String, Number],
+      default: ''
+    }
+  },
+  computed: {
+    listeners () {
+      const { input, ...listeners } = this.$listeners
+      return listeners
     }
   }
 }
