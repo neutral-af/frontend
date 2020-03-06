@@ -1,31 +1,13 @@
 import { createSetMutations } from '@/utils/store'
 import { create, update } from '@/api/estimate'
 
-// export const createState = () => ({
-//   carbon: 0,
-//   creating: false,
-//   id: '',
-//   km: 0,
-//   price: null,
-//   provider: '',
-//   updating: false
-// })
-
 export const createState = () => ({
-  carbon: 2,
+  carbon: 0,
   creating: false,
-  id: '123',
-  km: 54,
-  price: {
-    cents: 122,
-    currency: 'EUR',
-    breakdown: [{
-      name: 'test',
-      cents: 60,
-      currency: 'EUR'
-    }]
-  },
-  provider: 'cloverly',
+  id: '',
+  km: 0,
+  price: null,
+  provider: '',
   updating: false
 })
 

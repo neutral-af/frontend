@@ -6,6 +6,14 @@
     <p>
       The estimated carbon emissions of <strong>{{ carbon }} kilograms CO<sub>2</sub></strong> is based on a flight distance of <strong>{{ km }} kilometres</strong>, incorporating a "radiative forcing factor" of <strong>1.9x</strong> to account for the increased damage of carbon released at high altitudes.
     </p>
+    <Button
+      as="RouterLink"
+      :to="{ name: 'flights', query: this.$route.query }"
+      icon-left="arrow-left"
+      class="mt-6"
+    >
+      Back to Flights
+    </Button>
   </div>
 </template>
 

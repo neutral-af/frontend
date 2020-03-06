@@ -1,5 +1,10 @@
 <template>
-  <div class="max-w-md">
+  <form
+    novalidate
+    autocomplete="off"
+    class="max-w-md"
+    @submit.prevent="onSubmit"
+  >
     <Title as="h1">
       {{ title }}
     </Title>
@@ -92,15 +97,15 @@
       <div class="mt-6">
         <Button
           size="lg"
+          type="submit"
           icon-left="check"
           :disabled="!valid"
-          @click="save"
         >
           Confirm
         </Button>
       </div>
     </template>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -180,7 +185,7 @@ export default {
         this.updateNewFlight(data)
       }
     },
-    save () {
+    onSubmit () {
       if (!this.valid) {
         return
       }

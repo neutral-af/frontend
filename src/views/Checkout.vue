@@ -2,14 +2,14 @@
   <form
     novalidate
     autocomplete="off"
-    class="checkout-form"
+    class="max-w-md"
     @submit.prevent="onSubmit"
   >
     <template v-if="hasPreviouslySaved">
       Use previously saved card?
       <CardField
+        id="card"
         hidden
-        label="Card details"
         @mounted="onCardMounted"
       />
     </template>
@@ -23,52 +23,47 @@
         @update="setEmail"
       />
       <CardField
-        label="Card details"
+        id="card"
         @mounted="onCardMounted"
       />
-      <Field>
+      <!-- <Field>
         <BCheckbox
           :value="saveCard"
           @input="setSaveCard"
         >
           Please save my card to skip this process in the future.
         </BCheckbox>
-      </Field>
-      <BNotification
+      </Field> -->
+      <!-- <Notification
         v-if="envWarningShown"
         type="is-warning"
         :closable="false"
       >
         Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
-      </BNotification>
+      </BNotification> -->
     </template>
-    <div class="has-text-centered">
-      <Field>
-        <Button
-          type="submit"
-          size="lg"
-          icon-left="check"
-          :disabled="submitting"
-          :class="{ 'is-loading': submitting }"
-        >
-          Pay now
-        </Button>
-      </Field>
-      <p class="field">
-        <small>
-          Payment will be processed securely by Stripe
-        </small>
+    <div class="py-6">
+      <Button
+        type="submit"
+        size="lg"
+        icon-left="check"
+        :disabled="submitting"
+        :class="{ 'is-loading': submitting }"
+      >
+        Pay now
+      </Button>
+      <p class="mt-4 text-sm">
+        Payment will be processed securely by Stripe
       </p>
-      <Field class="pt-4">
-        <Button
-          as="RouterLink"
-          :to="{ name: 'flights', query: this.$route.query }"
-          icon-left="arrow-left"
-        >
-          Back to Flights
-        </Button>
-      </Field>
     </div>
+    <Button
+      as="RouterLink"
+      :to="{ name: 'flights', query: this.$route.query }"
+      icon-left="arrow-left"
+      class="mt-6"
+    >
+      Back to Flights
+    </Button>
   </form>
 </template>
 

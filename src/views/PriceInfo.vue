@@ -11,6 +11,14 @@
     <p>
       This breakdown shows the relative cost of your offset contribution and all fees.
     </p>
+    <Button
+      as="RouterLink"
+      :to="{ name: 'flights', query: this.$route.query }"
+      icon-left="arrow-left"
+      class="mt-6"
+    >
+      Back to Flights
+    </Button>
   </div>
 </template>
 

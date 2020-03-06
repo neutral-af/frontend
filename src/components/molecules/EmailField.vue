@@ -2,7 +2,7 @@
   <Field
     id="email"
     label="Email"
-    class="email-field"
+    :label-icon-left="['far', 'envelope']"
   >
     <Input
       id="email"

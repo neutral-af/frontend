@@ -33,11 +33,11 @@ export default {
       default: ''
     },
     labelIconLeft: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     labelIconRight: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     labelClass: {

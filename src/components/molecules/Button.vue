@@ -1,7 +1,7 @@
 <template>
   <component
     :is="as"
-    :type="as === 'button' ? 'button' : undefined"
+    :type="type || (as === 'button' ? 'button' : undefined)"
     class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
     :class="{
       'cursor-pointer hover:bg-white hover:text-teal-500 hover:border-teal-500 focus:bg-white focus:text-teal-500 focus:border-teal-500': !disabled,
@@ -78,7 +78,7 @@ export default {
     },
     type: {
       type: String,
-      default: ''
+      default: null
     }
   }
 }

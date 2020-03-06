@@ -2,7 +2,7 @@
   <Field
     id="name"
     label="Cardholder Name"
-    class="name-field"
+    label-icon-left="user"
   >
     <Input
       id="name"
