@@ -12,14 +12,6 @@
       <VueMarkdown class="content mb-6">
         {{ text }}
       </VueMarkdown>
-      <div class="text-center py-4">
-        <Title
-          as="h3"
-          size="sm"
-        >
-          Useful links
-        </Title>
-      </div>
     </div>
     <MainFoot />
   </div>
