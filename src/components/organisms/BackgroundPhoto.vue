@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute w-full h-full background-photo">
+  <div class="absolute w-full h-full top-0 left-0 background-photo">
     <SectionCredits
       compact
       class="absolute bottom-0 right-0"
@@ -31,16 +31,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.background-photo {
-  &::after {
+<style lang="postcss">
+.background-photo::after {
     content: '';
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     mix-blend-mode: soft-light;
     filter: grayscale(50);
-    background: url(../../assets/img/background.jpg) no-repeat center / cover,
-  }
+    background: url(../../assets/img/background.jpg) no-repeat center / cover;
 }
 </style>

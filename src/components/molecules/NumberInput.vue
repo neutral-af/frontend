@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .native-input {
   -moz-appearance: textfield;
 

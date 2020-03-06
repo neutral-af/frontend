@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .estimate-background {
   position: absolute;
   z-index: 0;

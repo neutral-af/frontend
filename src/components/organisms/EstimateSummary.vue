@@ -69,7 +69,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .estimate-summary {
   &-currency {
     margin-left: .5rem;

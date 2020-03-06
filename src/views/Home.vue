@@ -1,8 +1,8 @@
 <template>
   <div class="md:text-lg lg:text-xl">
-    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center">
+    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center hero">
       <BackgroundPhoto />
-      <MainHead />
+      <MainHead class="z-10" />
       <div
         class="container text-center z-10"
         style="margin-top: -30vh"
@@ -167,3 +167,9 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss">
+.hero {
+  background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
+}
+</style>

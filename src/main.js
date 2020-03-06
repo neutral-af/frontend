@@ -7,7 +7,7 @@ import initPlugins from './plugins'
 import initIcons from './icons'
 import initComponents from './components'
 import App from './App'
-import './assets/sass/main.scss'
+import './assets/css/fonts.css'
 
 Vue.config.productionTip = process.env.NODE_ENV !== 'production'
 initPlugins()

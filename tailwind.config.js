@@ -8,9 +8,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: {
-          ...colors.green
-        }
+        primary: { ...colors.teal }
       },
       fontFamily: {
         brand: ['Willful', ...fontFamily.sans]

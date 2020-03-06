@@ -46,8 +46,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-// TODO: replace with @apply from tailwind
+<style>
 .content {
   h1,
   h2,
