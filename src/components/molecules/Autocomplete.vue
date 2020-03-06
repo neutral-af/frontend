@@ -100,6 +100,11 @@ export default {
     onFocus () {
       this.open = true
     },
+    // onBlur (event) {
+    //   if (!this.$el.contains(event.target)) {
+    //     this.open = false
+    //   }
+    // },
     onArrowDown (evt) {
       if (this.selected < this.filtered.length) {
         this.selected = this.selected + 1
@@ -111,8 +116,11 @@ export default {
       }
     },
     onEnter () {
-      this.selected = -1
+      if (this.selected === -1) {
+        return
+      }
       this.setItem(this.filtered[this.selected])
+      this.selected = -1
     },
     onClickOutside ({ target }) {
       if (!this.$el.contains(target)) {
