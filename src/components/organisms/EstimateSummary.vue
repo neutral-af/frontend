@@ -1,10 +1,10 @@
 <template>
   <div
-    class="absolute py-3 transition sm:mr-16 sm:left-auto sm:translate-x-0 md:mt-2 flex items-center justify-center"
+    class="absolute py-3 transition sm:mr-16 sm:left-auto sm:translate-x-0 flex items-center justify-center"
     :class="{ 'opacity-50 pointer-events-none': creating }"
     style="left: 50%; transform: translateX(-50%)"
   >
-    <div class="sm:mr-4">
+    <div class="mr-2 sm:mr-4">
       <span class="sr-only">Carbon</span>
       <Icon
         icon="cloud"
@@ -37,7 +37,7 @@
       </div>
       <div>
         <CurrencyField
-          class="ml-2"
+          class="ml-1"
           style="padding: 0 !important;"
         />
       </div>
