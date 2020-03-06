@@ -28,8 +28,8 @@
         v-for="(item, index) in filtered"
         :key="index"
         tabindex="0"
-        class="cursor-pointer p-4 border-b hover:text-teal-500 hover:border-teal-500 focus:text-teal-500 focus:border-teal-500"
-        :class="{ 'text-teal-500 border-teal-500': index === selected }"
+        class="cursor-pointer p-4 border-b hover:text-primary-500 hover:border-primary-500 focus:text-primary-500 focus:border-primary-500"
+        :class="{ 'text-primary-500 border-primary-500': index === selected }"
         @keydown.enter="setItem(item)"
         @click="setItem(item)"
       >

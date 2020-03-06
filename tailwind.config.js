@@ -1,4 +1,4 @@
-const defaults = require('tailwindcss/defaultTheme')
+const { colors, fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
   theme: {
@@ -7,8 +7,13 @@ module.exports = {
       padding: '1rem'
     },
     extend: {
+      colors: {
+        primary: {
+          ...colors.green
+        }
+      },
       fontFamily: {
-        brand: ['Willful', ...defaults.fontFamily.sans]
+        brand: ['Willful', ...fontFamily.sans]
       },
       fontSize: {
         '7xl': '5rem',
@@ -16,7 +21,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      sans: ['Hind', ...defaults.fontFamily.sans]
+      sans: ['Hind', ...fontFamily.sans]
     }
   },
   variants: {},

@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <select
-      class="appearance-none border-b leading-loose hover:border-teal-500 focus:border-teal-500"
+      class="appearance-none border-b leading-loose hover:border-primary-500 focus:border-primary-500"
       :class="{
         'cursor-pointer': !disabled,
         'text-base md:text-xl py-2 pr-5': size === 'base',

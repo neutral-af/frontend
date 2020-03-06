@@ -2,12 +2,16 @@
   <component
     :is="as"
     :type="type || (as === 'button' ? 'button' : undefined)"
-    class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
+    class="inline-flex border justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
     :class="{
-      'cursor-pointer hover:bg-white hover:text-teal-500 hover:border-teal-500 focus:bg-white focus:text-teal-500 focus:border-teal-500': !disabled,
-      'bg-white text-teal-600 border-teal-500': active,
-      border,
+      //hover:bg-white hover:text-primary-500 hover:border-primary-500 focus:bg-white focus:text-primary-600 focus:border-primary-600
+      'cursor-pointer': !disabled,
       'text-gray-500 cursor-not-allowed': disabled,
+      'text-primary-500 bg-white border-white': variant === 'solid',
+      'hover:text-primary-600 hover:bg-gray-200 hover:border-white focus:text-primary-600 focus:bg-gray-200 focus:border-white': variant === 'solid' && !disabled,
+      '': variant === 'outline',
+      'hover:bg-white hover:text-primary-500 hover:border-primary-500 focus:bg-white focus:text-primary-600 focus:border-primary-600': variant === 'outline' && !disabled,
+      'text-primary-600 bg-white border-primary-600': variant === 'outline' && active,
       'rounded-full': rounded,
       'text-base md:text-xl py-2 px-5': size === 'base',
       'text-sm md:text-base py-1 px-3': size === 'sm',
@@ -51,9 +55,13 @@ export default {
       type: Boolean,
       default: true
     },
-    color: {
+    variant: {
       type: String,
-      default: 'base'
+      default: 'outline'
+    },
+    important: {
+      type: Boolean,
+      default: false
     },
     disabled: {
       type: Boolean,

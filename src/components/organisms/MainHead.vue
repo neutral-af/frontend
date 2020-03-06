@@ -9,11 +9,11 @@
     <div>
       <RouterLink
         :to="{ name: 'about' }"
-        class="text-lg py-4 px-2 transition-colors duration-100 hover:text-teal-500 focus:text-teal-500"
+        class="text-lg py-4 px-2 transition-colors duration-100 hover:text-primary-500 focus:text-primary-500"
       >
         About Us
       </RouterLink>
-      <FeedbackLink class="text-lg py-4 px-2 pr-4 transition-colors duration-100 hover:text-teal-500 focus:text-teal-500" />
+      <FeedbackLink class="text-lg py-4 px-2 pr-4 transition-colors duration-100 hover:text-primary-500 focus:text-primary-500" />
     </div>
   </header>
 </template>

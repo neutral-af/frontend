@@ -1,16 +1,20 @@
 <template>
   <div class="md:text-lg lg:text-xl">
-    <div class="relative min-h-screen text-white bg-teal-700 flex flex-col justify-between items-center">
+    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center">
+      <BackgroundPhoto />
       <MainHead />
-      <div class="container text-center">
-        <p class="font-brand text-4xl leading-tight mb-8 md:text-5xl lg:text-6xl">
-          <span class="block text-6xl md:text-7xl lg:text-8xl">Fly Neutral</span>
+      <div
+        class="container text-center z-10"
+        style="margin-top: -30vh"
+      >
+        <p class="font-brand text-4xl leading-tight mb-4 md:text-5xl lg:text-6xl">
+          <span class="block sm:inline text-6xl md:text-7xl lg:text-8xl">Fly Neutral</span>
           (as f**k)
         </p>
         <Button
           as="RouterLink"
           size="lg"
-          color="primary"
+          variant="solid"
           icon-right="arrow-right"
           :to="{ name: 'flights' }"
         >
@@ -18,28 +22,10 @@
         </Button>
       </div>
       <ScrollButton
-        class="mb-4"
+        class="z-10 mb-4"
         title="Know more"
         @click="scrollTo('badnews')"
       />
-      <SectionCredits
-        compact
-        class="absolute bottom-0 right-0"
-      >
-        <LLink
-          href="https://unsplash.com/@josswoodhead?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
-          noreferrer
-          target="_blank"
-        >
-          Joss Woodhead
-        </LLink> · <LLink
-          href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
-          noreferrer=""
-          target="_blank"
-        >
-          Unsplash
-        </LLink>
-      </SectionCredits>
     </div>
     <main>
       <div
@@ -149,6 +135,7 @@ import { weight, price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'
 import CookieNotice from '@/components/molecules/CookieNotice'
+import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
@@ -158,11 +145,12 @@ export default {
     titleTemplate: null
   },
   components: {
-    ScrollButton,
-    SectionCredits,
-    MainHead,
+    BackgroundPhoto,
+    CookieNotice,
     MainFoot,
-    CookieNotice
+    MainHead,
+    ScrollButton,
+    SectionCredits
   },
   computed: {
     co2 () {
@@ -179,19 +167,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.home {
-  &-headline {
-    margin-bottom: 1.5rem;
-  }
-
-  &-title {
-    font-size: 6em;
-  }
-
-  &-subtitle {
-    font-size: 3em;
-  }
-}
-</style>
