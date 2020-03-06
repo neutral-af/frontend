@@ -34,7 +34,7 @@
           label-icon-left="plane-departure"
           placeholder="e.g. Milan, Malpensa or MXP"
           :value="flight.departure"
-          @input="update('departure', $event.target.value)"
+          @input="update('departure', $event)"
         />
         <AirportField
           id="arrival"
@@ -42,7 +42,7 @@
           label-icon-left="plane-arrival"
           placeholder="e.g. Toronto, Pearson or YYZ"
           :value="flight.arrival"
-          @input="update('arrival', $event.target.value)"
+          @input="update('arrival', $event)"
         />
       </template>
       <template v-if="flight.type === 'number'">
@@ -56,7 +56,7 @@
             placeholder="e.g. AC895"
             required
             :value="flight.flightNumber"
-            @input="update('flightNumber', $event.target.value)"
+            @input="update('flightNumber', $event)"
           />
         </Field>
         <Field

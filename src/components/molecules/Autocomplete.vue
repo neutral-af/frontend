@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <div class="relative">
       <Input
         v-model="query"
@@ -21,12 +21,14 @@
     <Panel
       v-show="open"
       as="ul"
+      class="absolute z-10"
     >
       <li
         v-for="(item, index) in filtered"
         :key="index"
+        class="p-4"
         :class="{ 'is-active': index === selected }"
-        @click="setResult(item)"
+        @click="setItem(item)"
       >
         {{ item }}
       </li>
@@ -79,9 +81,10 @@ export default {
         return Object.values(item).join('').toLowerCase().indexOf(this.query.toLowerCase()) > -1
       })
     },
-    setResult (result) {
-      this.query = result
+    setItem (item) {
+      this.query = item
       this.open = false
+      this.$emit('set', item)
     },
     onArrowDown (evt) {
       if (this.selected < this.filtered.length) {

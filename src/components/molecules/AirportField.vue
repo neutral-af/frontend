@@ -8,7 +8,7 @@
       :items="airports"
       :loading="fetching"
       @input="onInput"
-      @select="onSelect"
+      @set="onSet"
     />
     <!-- keep-first
       open-on-focus
@@ -94,10 +94,9 @@ export default {
     },
     format,
     onInput (value) {
-      console.log(value)
       // this.search(value)
     },
-    onSelect (value) {
+    onSet (value) {
       this.$emit('input', value)
     }
   }
