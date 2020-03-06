@@ -1,26 +1,22 @@
 <template>
-  <section class="modal-card">
-    <div
-      ref="chartWrapper"
-      class="modal-content modal-card-body"
-    >
-      <h3 class="title has-text-grey-dark">
-        Price Breakdown
-      </h3>
-      <BreakdownChart
-        :chart-data="breakdown"
-        :options="chartOptions"
-      />
-      <div class="section">
-        <p class="has-text-grey-darker">
-          This breakdown shows the relative cost of your offset contribution and all fees.
-        </p>
-      </div>
-    </div>
-  </section>
+  <div ref="chartWrapper">
+    <Title as="h1">
+      Price Estimate Info
+    </Title>
+    <BreakdownChart
+      :chart-data="breakdown"
+      :options="chartOptions"
+      class="mb-6"
+    />
+    <p>
+      This breakdown shows the relative cost of your offset contribution and all fees.
+    </p>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import { price as format } from '@/utils/formatters'
 import BreakdownChart from '@/components/atoms/BreakdownChart'
 
@@ -28,13 +24,11 @@ export default {
   components: {
     BreakdownChart
   },
-  props: {
-    value: {
-      type: Array,
-      required: true
-    }
-  },
   computed: {
+    ...mapState('estimate', ['price']),
+    value () {
+      return this.price.breakdown
+    },
     breakdown () {
       return {
         labels: this.value.map(item => item.name),

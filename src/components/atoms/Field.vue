@@ -3,7 +3,7 @@
     <label
       v-if="label"
       :for="id"
-      class="mb-2"
+      :class="`mb-2 ${labelClass}`"
     >
       <Icon
         v-if="labelIconLeft"
@@ -37,6 +37,10 @@ export default {
       default: ''
     },
     labelIconRight: {
+      type: String,
+      default: ''
+    },
+    labelClass: {
       type: String,
       default: ''
     }

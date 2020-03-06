@@ -11,7 +11,7 @@
     </Button>
     <Button
       slot="right"
-      tag="RouterLink"
+      as="RouterLink"
       :to="{ name: 'checkout', query: this.$route.query }"
       size="lg"
       icon-left="credit-card"

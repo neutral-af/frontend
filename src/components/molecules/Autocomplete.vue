@@ -15,7 +15,7 @@
         v-if="loading"
         icon="circle-notch"
         spin
-        class="absolute right-0 text-gray-500"
+        class="absolute right-0 text-gray-500 pointer-events-none"
         style="top: 25%"
       />
     </div>
@@ -30,6 +30,7 @@
         tabindex="0"
         class="cursor-pointer p-4 border-b hover:text-teal-500 hover:border-teal-500 focus:text-teal-500 focus:border-teal-500"
         :class="{ 'text-teal-500 border-teal-500': index === selected }"
+        @keydown.enter="setItem(item)"
         @click="setItem(item)"
       >
         {{ formatter(item) }}
@@ -114,6 +115,9 @@ export default {
       if (this.selected > 0) {
         this.selected = this.selected - 1
       }
+    },
+    onItemEnter () {
+
     },
     onEnter () {
       if (this.selected === -1) {

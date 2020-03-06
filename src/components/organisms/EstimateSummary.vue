@@ -1,37 +1,46 @@
 <template>
   <div
-    class="level is-mobile estimate-summary sm:mr-16 sm:left-auto sm:translate-x-0 md:mt-2"
-    :class="{ 'is-loading': creating }"
+    class="absolute py-3 transition sm:mr-16 sm:left-auto sm:translate-x-0 md:mt-2 flex items-center justify-center"
+    :class="{ 'opacity-50 pointer-events-none': creating }"
+    style="left: 50%; transform: translateX(-50%)"
   >
-    <div class="level-item estimate-summary-carbon sm:mr-4">
-      <span class="estimate-summary-label sr-only">Carbon</span>
-      <BIcon
+    <div class="sm:mr-4">
+      <span class="sr-only">Carbon</span>
+      <Icon
         icon="cloud"
-        size="is-small"
-        class="is-hidden-mobile estimate-summary-carbon-icon mr-2"
+        size="sm"
+        class="hidden mr-2 sm:inline"
       />
-      &nbsp;
       <AnimatedCarbon :amount="carbon" />
       <InfoButton
         v-if="carbon"
-        class="estimate-summary-info"
-        title="Open carbon breakdown"
-        @click="openCarbonBreakdown"
+        as="RouterLink"
+        class="ml-2"
+        title="See Carbon Info"
+        :to="{ name: 'carbon-info' }"
       />
     </div>
-    <div class="level-item">
-      <span class="estimate-summary-label">Price</span>
-      <AnimatedPrice
-        :cents="price ? price.cents : 0"
-        :currency="price ? price.currency : $store.state.userCurrency"
-      />
-      <InfoButton
-        v-if="price"
-        class="estimate-summary-info"
-        title="Open price breakdown"
-        @click="openPriceBreakdown"
-      />
-      <CurrencyField class="estimate-summary-currency" />
+    <div class="flex items-center justify-center">
+      <div>
+        <span class="sr-only">Price</span>
+        <AnimatedPrice
+          :cents="price ? price.cents : 0"
+          :currency="currency"
+        />
+        <InfoButton
+          v-if="price"
+          as="RouterLink"
+          class="ml-2"
+          title="See Price Info"
+          :to="{ name: 'price-info' }"
+        />
+      </div>
+      <div>
+        <CurrencyField
+          class="ml-2"
+          style="padding: 0 !important;"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -42,8 +51,6 @@ import { mapState } from 'vuex'
 import AnimatedCarbon from '@/components/atoms/AnimatedCarbon'
 import AnimatedPrice from '@/components/atoms/AnimatedPrice'
 import InfoButton from '@/components/molecules/InfoButton'
-import CarbonBreakdown from '@/components/molecules/CarbonBreakdown'
-import PriceBreakdown from '@/components/molecules/PriceBreakdown'
 import CurrencyField from '@/components/molecules/CurrencyField'
 
 export default {
@@ -54,29 +61,9 @@ export default {
     CurrencyField
   },
   computed: {
-    ...mapState('estimate', ['creating', 'price', 'carbon', 'km'])
-  },
-  methods: {
-    openCarbonBreakdown () {
-      // this.$buefy.modal.open({
-      //   parent: this,
-      //   component: CarbonBreakdown,
-      //   hasModalCard: true,
-      //   props: {
-      //     carbon: this.carbon,
-      //     km: this.km
-      //   }
-      // })
-    },
-    openPriceBreakdown () {
-      // this.$buefy.modal.open({
-      //   parent: this,
-      //   component: PriceBreakdown,
-      //   hasModalCard: true,
-      //   props: {
-      //     value: this.price.breakdown
-      //   }
-      // })
+    ...mapState('estimate', ['carbon', 'creating', 'price']),
+    currency () {
+      return this.price ? this.price.currency : this.$store.state.userCurrency
     }
   }
 }
@@ -84,22 +71,6 @@ export default {
 
 <style lang="scss" scoped>
 .estimate-summary {
-  position: absolute;
-  top: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 31;
-  transition: opacity 100 ease-in-out;
-
-  &.is-loading {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  &-info {
-    margin-left: .5rem;
-  }
-
   &-currency {
     margin-left: .5rem;
   }

@@ -6,6 +6,7 @@ import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import LLink from '@/components/atoms/LLink'
 import Panel from '@/components/atoms/Panel'
+import Select from '@/components/atoms/Select'
 import Title from '@/components/atoms/Title'
 import Autocomplete from '@/components/molecules/Autocomplete'
 import Button from '@/components/molecules/Button'
@@ -23,5 +24,6 @@ export default () => {
   Vue.component('LLink', LLink)
   Vue.component('NumberInput', NumberInput)
   Vue.component('Panel', Panel)
+  Vue.component('Select', Select)
   Vue.component('Title', Title)
 }

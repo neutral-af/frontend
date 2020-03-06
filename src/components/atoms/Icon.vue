@@ -1,6 +1,7 @@
 <template>
   <FontAwesomeIcon
-    v-bind="$props"
+    v-bind="$attrs"
+    :size="size !== 'base' ? size : null"
     role="img"
   />
 </template>
@@ -13,7 +14,10 @@ export default {
     FontAwesomeIcon
   },
   props: {
-    ...FontAwesomeIcon.props
+    size: {
+      type: String,
+      default: 'base'
+    }
   }
 }
 </script>

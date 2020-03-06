@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen md:text-lg lg:text-xl">
     <div class="flex flex-col flex-grow">
       <MainHead />
-      <!-- <EstimateSummary v-if="summaryShown" /> -->
+      <EstimateSummary v-if="summaryShown" />
       <!-- <EstimateBackground /> -->
       <RouterView class="container py-8 text-center" />
     </div>
@@ -15,10 +15,9 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { areValidFlights } from '@/utils/validators'
 // import EstimateBackground from '@/components/atoms/EstimateBackground'
+import EstimateSummary from '@/components/organisms/EstimateSummary'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
-// import HeroSection from '@/components/organisms/HeroSection'
-// import EstimateSummary from '@/components/organisms/EstimateSummary'
 
 export default {
   head () {
@@ -27,10 +26,9 @@ export default {
     }
   },
   components: {
+    EstimateSummary,
     MainHead,
     MainFoot
-    // HeroSection,
-    // EstimateSummary,
     // EstimateBackground
   },
   props: {

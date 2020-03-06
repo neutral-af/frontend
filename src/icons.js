@@ -12,12 +12,16 @@ import {
   faPlaneDeparture,
   faPlaneArrival,
   faUser,
-  faCircleNotch
+  faCircleNotch,
+  faCloud,
+  faAngleDown
 } from '@fortawesome/free-solid-svg-icons'
 
 export default () => {
+  library.add(faAngleDown)
   library.add(faArrowDown)
   library.add(faArrowRight)
+  library.add(faCloud)
   library.add(faCheck)
   library.add(faCircleNotch)
   library.add(faCreditCard)

@@ -1,10 +1,10 @@
 <template>
   <component
     :is="as"
-    type="button"
-    class="inline-flex cursor-pointer justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
+    :type="as === 'button' ? 'button' : undefined"
+    class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
     :class="{
-      'hover:bg-white hover:text-teal-500 hover:border-teal-500 focus:bg-white focus:text-teal-500 focus:border-teal-500': !disabled,
+      'cursor-pointer hover:bg-white hover:text-teal-500 hover:border-teal-500 focus:bg-white focus:text-teal-500 focus:border-teal-500': !disabled,
       'bg-white text-teal-600 border-teal-500': active,
       border,
       'text-gray-500 cursor-not-allowed': disabled,
@@ -19,7 +19,7 @@
     <Icon
       v-if="iconLeft"
       :icon="iconLeft"
-      :size="size !== 'base' ? size : null"
+      :size="size"
       :class="{ 'mr-2 md:mr-3': !!$slots.default }"
     />
     <span v-if="!!$slots.default">
@@ -28,7 +28,7 @@
     <Icon
       v-if="iconRight"
       :icon="iconRight"
-      :size="size !== 'base' ? size : null"
+      :size="size"
       :class="{ 'ml-2 md:ml-3': !!$slots.default }"
     />
   </component>
@@ -75,6 +75,10 @@ export default {
       type: String,
       default: 'base',
       validator: value => sizes.includes(value)
+    },
+    type: {
+      type: String,
+      default: ''
     }
   }
 }
