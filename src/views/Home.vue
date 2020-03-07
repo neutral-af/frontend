@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center hero">
+    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center section hero">
       <BackgroundPhoto class="w-screen h-screen" />
       <MainHead class="z-10" />
       <div
@@ -33,7 +33,7 @@
     <main>
       <div
         ref="badnews"
-        class="relative min-h-screen flex flex-col justify-between items-center badnews"
+        class="relative min-h-screen flex flex-col justify-between items-center section badnews"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
           <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-xl">
@@ -88,7 +88,7 @@
       </div>
       <div
         ref="goodnews"
-        class="relative min-h-screen flex flex-col justify-between items-center goodnews"
+        class="relative min-h-screen flex flex-col justify-between items-center section goodnews"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
           <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
@@ -191,6 +191,10 @@ export default {
 <style>
 .hero {
   background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
+}
+
+.section {
+  min-height: -webkit-fill-available;
 }
 
 .badnews {
