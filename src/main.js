@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { sync as syncStoreWithRouter } from 'vuex-router-sync'
 
+import './polyfills'
 import router from './router'
 import store from './store'
 import initPlugins from './plugins'
