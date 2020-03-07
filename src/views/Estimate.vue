@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col min-h-screen">
-    <div class="flex flex-col flex-grow">
+  <div>
+    <div class="flex flex-col min-h-screen">
       <MainHead />
       <EstimateSummary />
       <RouterView class="container text-center" />

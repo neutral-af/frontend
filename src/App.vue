@@ -6,16 +6,36 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import { NAME, SEPARATOR } from '@/../constants'
 import CookieNotice from '@/components/molecules/CookieNotice'
 // import { trackEvent } from './honeycomb'
 
 export default {
-  head: {
-    titleTemplate: `%s ${SEPARATOR} ${NAME}`
+  head () {
+    return {
+      titleTemplate: `%s ${SEPARATOR} ${NAME}`,
+      bodyAttrs: {
+        class: [
+          'antialiased',
+          'font-sans',
+          'md:text-lg',
+          'lg:text-xl',
+          'text-default',
+          'bg-default',
+          'transition-colors',
+          'duration-100',
+          `theme-${this.theme}`
+        ]
+      }
+    }
   },
   components: {
     CookieNotice
+  },
+  computed: {
+    ...mapState(['theme'])
   }
 // data () {
 //   return {

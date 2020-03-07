@@ -203,10 +203,10 @@ export default {
 }
 
 .badnews {
-  background: linear-gradient(141deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
+  background: linear-gradient(141deg, var(--color-bg-gradient-start), var(--color-bg-gradient-mid) 70%, var(--color-bg-gradient-end))
 }
 
 .goodnews {
-  background: linear-gradient(256deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
+  background: linear-gradient(256deg, var(--color-bg-gradient-start), var(--color-bg-gradient-mid) 70%, var(--color-bg-gradient-end))
 }
 </style>

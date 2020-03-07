@@ -1,3 +1,19 @@
 ::placeholder {
   opacity: 1;
 }
+
+.theme-light {
+  --color-bg-default: theme('colors.white');
+  --color-bg-gradient-start: theme('colors.gray.300');
+  --color-bg-gradient-mid: theme('colors.gray.100');
+  --color-bg-gradient-end: theme('colors.white');
+  --color-text-default: theme('colors.gray.700');
+}
+
+.theme-dark {
+  --color-bg-default: theme('colors.gray.900');
+  --color-bg-gradient-start: theme('colors.gray.900');
+  --color-bg-gradient-mid: theme('colors.gray.800');
+  --color-bg-gradient-end: theme('colors.gray.800');
+  --color-text-default: theme('colors.gray.300');
+}

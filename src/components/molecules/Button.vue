@@ -83,11 +83,11 @@ export default {
       default: false
     },
     iconLeft: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     iconRight: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     rounded: {

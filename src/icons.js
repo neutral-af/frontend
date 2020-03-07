@@ -23,7 +23,9 @@ import {
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  faCircle
+  faCircle,
+  faSun,
+  faMoon
 } from '@fortawesome/free-regular-svg-icons'
 
 export default () => {
@@ -42,10 +44,12 @@ export default () => {
   library.add(faHandsHelping)
   library.add(faInfoCircle)
   library.add(faMapMarkerAlt)
+  library.add(faMoon)
   library.add(faPen)
   library.add(faPlaneDeparture)
   library.add(faPlaneArrival)
   library.add(faPlus)
+  library.add(faSun)
   library.add(faTicketAlt)
   library.add(faTrash)
   library.add(faUser)

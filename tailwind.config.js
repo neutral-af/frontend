@@ -16,6 +16,12 @@ module.exports = {
       fontSize: {
         '7xl': '5rem',
         '8xl': '6rem'
+      },
+      textColor: {
+        default: 'var(--color-text-default)'
+      },
+      backgroundColor: {
+        default: 'var(--color-bg-default)'
       }
     },
     fontFamily: {

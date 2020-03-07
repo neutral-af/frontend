@@ -1,10 +1,10 @@
 <template>
   <input
     type="text"
-    class="border-b leading-loose hover:border-primary-500 focus:border-primary-500"
+    class="bg-transparent border-b leading-loose transition-colors duration-100 hover:border-primary-500 focus:border-primary-500"
     :class="{
       'cursor-not-allowed': disabled,
-      'bg-white text-gray-500': disabled || readonly,
+      'text-gray-500': disabled || readonly,
     }"
     :disabled="disabled"
     :readonly="readonly"
