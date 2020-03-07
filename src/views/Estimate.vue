@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-col min-h-screen md:text-lg lg:text-xl">
+  <div class="flex flex-col min-h-screen">
     <div class="flex flex-col flex-grow">
       <MainHead />
       <EstimateSummary v-if="summaryShown" />
       <!-- <EstimateBackground /> -->
       <RouterView class="container py-8 text-center" />
     </div>
-    <MainFoot />
+    <MainFoot compact />
   </div>
 </template>
 
@@ -55,10 +55,10 @@ export default {
   },
   async created () {
     // await this.loadInitialFlights()
-    // this.unwatchers = [
-    //   this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
-    //   this.$watch('userCurrency', this.onUpdate.bind(this))
-    // ]
+    this.unwatchers = [
+      this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
+      this.$watch('userCurrency', this.onUpdate.bind(this))
+    ]
     this.setInitialPage()
   },
   beforeDestroy () {
@@ -98,13 +98,13 @@ export default {
       this.updateUrl()
     },
     showError (message = '') {
-      // this.$buefy.snackbar.open({
-      //   message,
-      //   type: 'is-danger',
-      //   position: 'is-bottom',
-      //   actionText: 'Retry',
-      //   onAction: this.create.bind(this)
-      // })
+      this.$toasted.show(message
+        // message,
+        // type: 'is-danger',
+        // position: 'is-bottom',
+        // actionText: 'Retry',
+        // onAction: this.create.bind(this)
+      )
     },
     async create () {
       if (this.creating) {

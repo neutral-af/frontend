@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style lang="postcss">
+<style>
 .background-photo::after {
     content: '';
     position: absolute;

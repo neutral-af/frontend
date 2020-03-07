@@ -3,7 +3,7 @@
     <label
       v-if="label"
       :for="id"
-      :class="`mb-2 ${labelClass}`"
+      :class="`text-sm md:text-base lg:text-lg mb-2 ${labelClass}`"
     >
       <Icon
         v-if="labelIconLeft"

@@ -20,16 +20,20 @@
       />
     </div>
     <Panel
-      v-show="open"
+      v-show="open && filtered.length > 0"
       as="ul"
-      class="absolute z-10"
+      class="absolute z-10 overflow-auto border-t-0 rounded-b shadow-sm"
+      style="max-height: 15rem;"
     >
       <li
         v-for="(item, index) in filtered"
         :key="index"
         tabindex="0"
-        class="cursor-pointer p-4 border-b hover:text-primary-500 hover:border-primary-500 focus:text-primary-500 focus:border-primary-500"
-        :class="{ 'text-primary-500 border-primary-500': index === selected }"
+        class="cursor-pointer p-4 border-b hover:text-primary-500 hover:border-primary-500 focus:text-primary-500 focus:border-primary-500 transition-colors duration-100"
+        :class="{
+          'border-white': index === filtered.length - 1,
+          'border-b text-primary-500 border-primary-500': index === selected,
+        }"
         @keydown.enter="setItem(item)"
         @click="setItem(item)"
       >
@@ -50,6 +54,10 @@ export default {
       type: Array,
       required: false,
       default: () => []
+    },
+    limit: {
+      type: Number,
+      default: 5
     },
     loading: {
       type: Boolean,
@@ -80,9 +88,11 @@ export default {
   methods: {
     filterItems () {
       this.filtered = this.query.length > 0
-        ? this.items.filter((item) => (
-          Object.values(item).join('').toLowerCase().includes(this.query.toLowerCase())
-        ))
+        ? this.items
+          .filter((item) => (
+            Object.values(item).join('').toLowerCase().includes(this.query.toLowerCase())
+          ))
+          .slice(0, this.limit)
         : []
     },
     setQuery (value) {

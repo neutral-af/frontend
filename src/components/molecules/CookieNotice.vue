@@ -2,7 +2,7 @@
   <CookieLaw class="text-base">
     <div
       slot-scope="{ accept }"
-      class="flex flex-grow items-center justify-between"
+      class="flex flex-col items-center justify-between sm:flex-grow sm:flex-row"
     >
       <div>
         OK fine, we use cookies – but only if you want to save payment details. Learn more in our
@@ -13,7 +13,7 @@
           Privacy Policy
         </LLink>
       </div>
-      <div>
+      <div class="mt-4 sm:mt-0 sm:ml-4">
         <Button
           size="sm"
           @click="accept"
@@ -35,8 +35,8 @@ export default {
 
 <style>
 .Cookie--base {
-  background: white;
-  color: inherit;
+  background: white !important;
+  color: inherit !important;
   padding: 1rem;
 }
 </style>

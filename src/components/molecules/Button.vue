@@ -2,9 +2,9 @@
   <component
     :is="as"
     :type="type || (as === 'button' ? 'button' : undefined)"
-    class="inline-flex border justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
+    class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
     :class="{
-      //hover:bg-white hover:text-primary-500 hover:border-primary-500 focus:bg-white focus:text-primary-600 focus:border-primary-600
+      border,
       'cursor-pointer': !disabled,
       'text-gray-500 cursor-not-allowed': disabled,
       'text-primary-500 bg-white border-white': variant === 'solid',

@@ -7,7 +7,7 @@
   >
     <Card
       ref="card"
-      class=""
+      class="border-b py-2"
       :class="{ 'complete': complete }"
       :stripe="key"
       :options="options"
@@ -33,6 +33,7 @@ export default {
       return process.env.VUE_APP_STRIPE_PUBLIC_KEY
     },
     options () {
+      // TODO: use tailwind JS theme options instead
       return {
         hidePostalCode: true,
         elements: {
@@ -52,12 +53,13 @@ export default {
         },
         style: {
           base: {
-            color: '#d9d9d9',
+            color: '#4a5568',
             fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
-            fontSize: '22px',
+            fontSize: '20px',
+            icon_color: 'white',
             '::placeholder': {
-              color: '#7a7a7a'
+              color: '#a0aec0'
             }
           },
           invalid: {

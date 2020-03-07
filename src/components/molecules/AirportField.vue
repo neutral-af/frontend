@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
 import pickBy from 'lodash/pickBy'
 
 import { airports } from '@/api'
@@ -39,28 +40,7 @@ export default {
     return {
       query: '',
       viewValue: '',
-      airports: [{
-        id: 'test',
-        name: 'Malpensa',
-        icao: 'mpx',
-        iata: 'mpxx',
-        city: 'Milano',
-        country: 'Italy'
-      }, {
-        id: 'test',
-        name: 'Malpensa',
-        icao: 'mpx2',
-        iata: 'mpxx',
-        city: 'Milano',
-        country: 'Italy'
-      }, {
-        id: 'test',
-        name: 'Malpensa',
-        icao: 'mpx3',
-        iata: 'mpxx',
-        city: 'Milano',
-        country: 'Italy'
-      }],
+      airports: [],
       fetching: false
     }
   },
@@ -93,9 +73,9 @@ export default {
       }
     },
     format,
-    onInput (value) {
-      // this.search(value)
-    },
+    onInput: debounce(function (value) {
+      this.search(value)
+    }, 250),
     onSet (value) {
       this.$emit('input', value)
     }

@@ -129,12 +129,13 @@ export default {
       'setEmail',
       'setSaveCard'
     ]),
+
     showError (message = '') {
-      // this.$buefy.snackbar.open({
-      //   message,
-      //   type: 'is-danger',
-      //   position: 'is-bottom'
-      // })
+      this.$toasted.show({
+        message,
+        type: 'is-danger',
+        position: 'is-bottom'
+      })
     },
 
     onCardMounted (element) {

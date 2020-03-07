@@ -1,14 +1,21 @@
 <template>
-  <RouterView />
+  <div>
+    <RouterView />
+    <CookieNotice />
+  </div>
 </template>
 
 <script>
 import { NAME, SEPARATOR } from '@/../constants'
+import CookieNotice from '@/components/molecules/CookieNotice'
 // import { trackEvent } from './honeycomb'
 
 export default {
   head: {
     titleTemplate: `%s ${SEPARATOR} ${NAME}`
+  },
+  components: {
+    CookieNotice
   }
 // data () {
 //   return {

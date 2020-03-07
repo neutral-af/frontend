@@ -8,6 +8,7 @@
       -
     </Button>
     <Input
+      :id="id"
       :value="value"
       type="number"
       class="w-12 text-center native-input"
@@ -26,6 +27,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     value: {
       type: Number,
       required: true

@@ -1,7 +1,7 @@
 <template>
   <header class="self-stretch flex justify-between items-center">
     <RouterLink
-      class="font-brand text-3xl leading-none p-4 sm:text-4xl"
+      class="font-brand text-3xl leading-none p-4 transition-colors duration-100 hover:text-primary-500 focus:text-primary-500 sm:text-4xl"
       :to="{ name: 'home' }"
     >
       {{ NAME }}

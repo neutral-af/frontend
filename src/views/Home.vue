@@ -1,5 +1,5 @@
 <template>
-  <div class="md:text-lg lg:text-xl">
+  <div>
     <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center hero">
       <BackgroundPhoto />
       <MainHead class="z-10" />
@@ -63,7 +63,7 @@
           <div class="flex flex-col items-center justify-center">
             <img
               src="../assets/img/home-aircraft.svg"
-              class="max-w-xs mb-4"
+              class="mb-4 sm:max-w-xs"
             >
             <SectionCredits class="text-gray-600">
               Illustration: <LLink
@@ -90,7 +90,7 @@
           <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
             <img
               src="../assets/img/home-wind.svg"
-              class="max-w-xs mb-6"
+              class="mb-6 sm:max-w-xs"
             >
             <SectionCredits class="text-gray-600">
               Illustration:
@@ -125,7 +125,6 @@
       </div>
     </main>
     <MainFoot />
-    <CookieNotice />
   </div>
 </template>
 
@@ -168,7 +167,7 @@ export default {
 }
 </script>
 
-<style lang="postcss">
+<style>
 .hero {
   background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
 }
