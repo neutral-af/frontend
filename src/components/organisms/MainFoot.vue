@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="relative text-white bg-primary-700 text-sm text-center flex items-center justify-center px-4 mt-4 sm:text-base main-foot"
+    class="relative text-white bg-primary-700 text-sm text-center flex items-center justify-center px-4 sm:text-base main-foot"
     :class="{
       'py-10': !compact,
       'py-4': compact
