@@ -1,6 +1,12 @@
 <template>
-  <div class="flights">
-    <template v-if="flightsCount > 0">
+  <div>
+    <Title as="h1">
+      Your flights
+    </Title>
+    <div
+      v-if="flightsCount > 0"
+      class="flex flex-col items-center justify-center mb-6"
+    >
       <EstimateFlight
         v-for="(flight, id) in flights"
         :id="id"
@@ -8,8 +14,7 @@
         v-bind="flight"
         :removable="removable"
       />
-      <hr>
-    </template>
+    </div>
     <EstimateActions />
   </div>
 </template>

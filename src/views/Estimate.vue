@@ -1,40 +1,35 @@
 <template>
-  <HeroSection class="is-dark estimate">
-    <MainNav slot="head" />
-    <EstimateSummary v-if="summaryShown" />
-    <EstimateBackground />
-    <div class="container estimate-view">
-      <h1 class="title estimate-title">
-        {{ title }}
-      </h1>
-      <RouterView />
+  <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col flex-grow">
+      <MainHead />
+      <EstimateSummary v-if="summaryShown" />
+      <!-- <EstimateBackground /> -->
+      <RouterView class="container py-8 text-center" />
     </div>
-    <MainFoot slot="foot" />
-  </HeroSection>
+    <MainFoot compact />
+  </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { areValidFlights } from '@/utils/validators'
-import EstimateBackground from '@/components/atoms/EstimateBackground'
-import MainNav from '@/components/organisms/MainNav'
-import MainFoot from '@/components/organisms/MainFoot'
-import HeroSection from '@/components/organisms/HeroSection'
+// import EstimateBackground from '@/components/atoms/EstimateBackground'
 import EstimateSummary from '@/components/organisms/EstimateSummary'
+import MainHead from '@/components/organisms/MainHead'
+import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }
   },
   components: {
-    MainNav,
-    MainFoot,
-    HeroSection,
     EstimateSummary,
-    EstimateBackground
+    MainHead,
+    MainFoot
+    // EstimateBackground
   },
   props: {
     initialFlights: {
@@ -59,7 +54,7 @@ export default {
     }
   },
   async created () {
-    await this.loadInitialFlights()
+    // await this.loadInitialFlights()
     this.unwatchers = [
       this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
       this.$watch('userCurrency', this.onUpdate.bind(this))
@@ -103,13 +98,13 @@ export default {
       this.updateUrl()
     },
     showError (message = '') {
-      this.$buefy.snackbar.open({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom',
-        actionText: 'Retry',
-        onAction: this.create.bind(this)
-      })
+      this.$toasted.show(message
+        // message,
+        // type: 'is-danger',
+        // position: 'is-bottom',
+        // actionText: 'Retry',
+        // onAction: this.create.bind(this)
+      )
     },
     async create () {
       if (this.creating) {
@@ -134,17 +129,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.estimate {
-  &-view {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &-title {
-    @extend %sr-only;
-  }
-}
-</style>

@@ -2,85 +2,66 @@
   <form
     novalidate
     autocomplete="off"
-    class="checkout-form"
+    class="max-w-md"
     @submit.prevent="onSubmit"
   >
     <template v-if="hasPreviouslySaved">
       Use previously saved card?
       <CardField
+        id="card"
         hidden
-        label="Card details"
         @mounted="onCardMounted"
       />
     </template>
     <template v-else>
-      <Field
-        grouped
-        group-multiline
-        position="is-centered"
-      >
-        <NameField
-          :value="name"
-          @update="setName"
-        />
-        <EmailField
-          :value="email"
-          @update="setEmail"
-        />
-      </Field>
+      <NameField
+        :value="name"
+        @update="setName"
+      />
+      <EmailField
+        :value="email"
+        @update="setEmail"
+      />
       <CardField
-        label="Card details"
+        id="card"
         @mounted="onCardMounted"
       />
-      <Field invert>
-        <BCheckbox
-          :value="saveCard"
-          @input="setSaveCard"
-        >
-          Please save my card to skip this process in the future.
-        </BCheckbox>
-      </Field>
-      <BNotification
-        v-if="envWarningShown"
-        type="is-warning"
-        :closable="false"
-      >
+      <Message v-if="envWarningShown">
         Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
-      </BNotification>
+      </Message>
+      <Field id="save-card">
+        <Checkbox
+          id="save-card"
+          size="sm"
+          :checked="saveCard"
+          @change="setSaveCard"
+        >
+          Save my card for future use
+        </Checkbox>
+      </Field>
     </template>
-    <div class="has-text-centered">
-      <Field>
-        <RoundedButton
-          native-type="submit"
-          type="is-primary"
-          size="is-large"
-          outlined
-          inverted
-          icon-left="check"
-          :disabled="submitting"
-          :class="{ 'is-loading': submitting }"
-        >
-          Pay now
-        </RoundedButton>
-      </Field>
-      <p class="field">
-        <small>
-          Payment will be processed securely by Stripe
-        </small>
+    <div class="py-6">
+      <Button
+        type="submit"
+        size="lg"
+        icon-left="check"
+        :disabled="submitting"
+        :loading="submitting"
+      >
+        Pay now
+      </Button>
+      <p class="mt-4 text-sm md:text-base">
+        Payment will be processed securely by Stripe
       </p>
-      <Field class="checkout-form-back">
-        <RoundedButton
-          tag="router-link"
-          :to="{ name: 'flights', query: this.$route.query }"
-          type="is-dark"
-          outlined
-          inverted
-          icon-left="arrow-left"
-        >
-          Back to Flights
-        </RoundedButton>
-      </Field>
     </div>
+    <Button
+      as="RouterLink"
+      :to="{ name: 'flights', query: this.$route.query }"
+      icon-left="arrow-left"
+      class="mt-6"
+    >
+      Back to Flights
+    </Button>
   </form>
 </template>
 
@@ -146,8 +127,9 @@ export default {
       'setEmail',
       'setSaveCard'
     ]),
+
     showError (message = '') {
-      this.$buefy.snackbar.open({
+      this.$toasted.show({
         message,
         type: 'is-danger',
         position: 'is-bottom'
@@ -287,11 +269,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.checkout-form {
-  &-back {
-    padding-top: $size-6;
-  }
-}
-</style>

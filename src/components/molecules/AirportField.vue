@@ -1,42 +1,33 @@
 <template>
-  <Field
-    :label="label"
-    :label-for="id"
-    :autofocus="autofocus"
-    invert
-    huge
-    class="airport-field"
-  >
-    <BAutocomplete
+  <Field v-bind="fieldProps">
+    <Autocomplete
       :id="id"
-      :placeholder="placeholder"
-      keep-first
-      open-on-focus
-      required
-      :custom-formatter="format"
-      :value="viewValue"
-      :data="airports"
+      :autofocus="autofocus"
+      :formatter="format"
+      :items="airports"
       :loading="fetching"
-      @typing="search"
-      @select="select"
+      :placeholder="placeholder"
+      :value="viewValue"
+      @input="onInput"
+      @set="onSet"
     />
+    <!-- keep-first
+      open-on-focus
+      required -->
   </Field>
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+import pickBy from 'lodash/pickBy'
+
 import { airports } from '@/api'
 import { airport as format } from '@/utils/formatters'
+import Field from '@/components/atoms/Field'
 
 export default {
   props: {
-    label: {
-      type: String,
-      required: true
-    },
-    id: {
-      type: String,
-      required: true
-    },
+    ...Field.props,
     value: {
       type: Object,
       default: null
@@ -58,10 +49,15 @@ export default {
       fetching: false
     }
   },
+  computed: {
+    fieldProps () {
+      return pickBy(this.$props, (value, key) => !!Field.props[key])
+    }
+  },
   watch: {
     value: {
       handler (value) {
-        this.viewValue = value ? format(value) : ''
+        this.viewValue = value ? this.format(value) : ''
       },
       immediate: true
     }
@@ -82,7 +78,10 @@ export default {
       }
     },
     format,
-    select (value) {
+    onInput: debounce(function (value) {
+      this.search(value)
+    }, 250),
+    onSet (value) {
       this.$emit('input', value)
     }
   }

@@ -1,16 +1,17 @@
 <template>
   <Field
-    class="currency-field"
-    title="Update currency"
-    invert
+    id="currency"
+    label="Update currency"
+    label-class="sr-only"
   >
-    <BSelect
+    <Select
+      id="currency"
       name="currency"
       placeholder="Select a currency"
+      size="sm"
       :value="currency"
       :loading="updating"
       :disabled="updating"
-      size="is-small"
       @input="update"
     >
       <option
@@ -20,7 +21,7 @@
       >
         {{ currency }}
       </option>
-    </BSelect>
+    </Select>
   </Field>
 </template>
 
@@ -49,17 +50,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.currency-field {
-  .select {
-    select:not([multiple]) {
-      padding-right: 1em;
-    }
-
-    &:not(.is-multiple):not(.is-loading)::after {
-      right: .5em;
-    }
-  }
-}
-</style>

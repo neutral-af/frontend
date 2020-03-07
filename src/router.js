@@ -5,6 +5,8 @@ import Home from './views/Home'
 import Estimate from './views/Estimate'
 import Flights from './views/Flights'
 import AddEditFlight from './views/AddEditFlight'
+import CarbonInfo from './views/CarbonInfo'
+import PriceInfo from './views/PriceInfo'
 import Checkout from './views/Checkout'
 import Success from './views/Success'
 import About from './views/About'
@@ -35,6 +37,16 @@ const routes = [
       name: 'edit-flight',
       path: 'edit-flight/:id',
       component: AddEditFlight,
+      props: true
+    }, {
+      name: 'carbon-info',
+      path: 'carbon-info',
+      component: CarbonInfo,
+      props: true
+    }, {
+      name: 'price-info',
+      path: 'price-info',
+      component: PriceInfo,
       props: true
     }, {
       name: 'checkout',

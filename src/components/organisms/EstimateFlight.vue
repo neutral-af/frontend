@@ -1,91 +1,80 @@
 <template>
-  <div class="level is-mobile estimate-flight">
+  <div class="py-2 flex max-w-md">
     <template v-if="type === 'locations'">
-      <BTooltip
-        class="level-item"
-        label="Departure"
-        type="is-light"
+      <span
+        title="Departure"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="plane-departure"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ formattedDeparture }}
-      </BTooltip>
-      <BTooltip
-        class="level-item"
-        label="Arrival"
-        type="is-light"
+      </span>
+      <span
+        title="Arrival"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="plane-arrival"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ formattedArrival }}
-      </BTooltip>
+      </span>
     </template>
-    <template v-else>
-      <BTooltip
-        class="level-item"
-        label="Flight number"
-        type="is-light"
+    <template v-if="type === 'number'">
+      <span
+        title="Flight Number"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="ticket-alt"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ flightNumber }}
-      </BTooltip>
-      <BTooltip
-        class="level-item"
-        label="Date"
-        type="is-light"
+      </span>
+      <span
+        title="Date"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="calendar-alt"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ formattedDate }}
-      </BTooltip>
+      </span>
     </template>
-    <BTooltip
-      class="level-item"
-      label="Passengers"
-      type="is-light"
+    <span
+      title="Passengers"
+      class="p-2"
     >
-      <BIcon
+      <Icon
         icon="user"
-        size="is-small"
+        size="xs"
+        class="mr-1"
       />
-      &nbsp;
       {{ passengers }}
-    </BTooltip>
-    <div class="level-item">
-      <RoundedButton
-        tag="router-link"
+    </span>
+    <div class="ml-2 flex items-center">
+      <Button
+        as="RouterLink"
         :to="{
           name: 'edit-flight',
           params: { id },
           query: this.$route.query
         }"
-        type="is-dark"
-        outlined
-        inverted
         title="Edit"
         icon-right="pen"
       />
-    &nbsp;
-      <RoundedButton
+      <Button
         v-if="removable"
-        type="is-dark"
-        outlined
-        inverted
         title="Remove"
         icon-right="trash"
+        class="ml-2"
         @click="remove"
       />
     </div>

@@ -1,24 +1,10 @@
 <template>
-  <RoundedButton
-    size="is-small"
-    type="is-dark"
-    outlined
-    inverted
-    class="info"
+  <Button
+    size="sm"
     title="What is this?"
+    v-bind="$attrs"
     v-on="$listeners"
   >
     <span aria-hidden="true">?</span>
-  </RoundedButton>
+  </Button>
 </template>
-
-<style lang="scss" scoped>
-.info {
-  padding: .5em !important;
-  height: 1.5em;
-
-  &-text {
-    @extend %sr-only;
-  }
-}
-</style>

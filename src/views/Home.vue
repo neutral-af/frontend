@@ -1,176 +1,142 @@
 <template>
-  <div class="home">
-    <HeroSection
-      background
-      class="is-primary is-bold"
-    >
-      <MainNav slot="head" />
-      <div class="container has-text-centered">
-        <h1 class="home-headline is-family-secondary">
-          <div class="title home-title">
-            Fly Neutral
-          </div>
-          <div class="subtitle home-subtitle">
-            (as f**k)
-          </div>
-        </h1>
-        <RoundedButton
-          tag="router-link"
-          size="is-large"
-          type="is-primary"
-          inverted
+  <div>
+    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center section hero">
+      <BackgroundPhoto class="w-screen h-screen" />
+      <MainHead class="z-10" />
+      <div
+        class="container text-center z-10"
+        style="margin-top: -30vh"
+      >
+        <p class="font-brand text-4xl leading-tight mb-4 md:text-5xl lg:text-6xl">
+          <span class="block sm:inline text-6xl md:text-7xl lg:text-8xl">
+            <span>{{ verb }}</span> Neutral
+          </span>
+          (as f**k)
+        </p>
+        <Button
+          as="RouterLink"
+          size="lg"
+          variant="solid"
           icon-right="arrow-right"
           :to="{ name: 'flights' }"
         >
           Offset a flight now
-        </RoundedButton>
+        </Button>
       </div>
-      <ScrollButton
-        slot="foot"
-        size="is-medium"
-        type="is-primary"
-        inverted
-        outlined
-        tooltip-type="is-light"
-        class="home-scroll"
-        @click="scrollTo('badnews')"
-      />
-    </HeroSection>
+      <div class="mb-4 z-10">
+        <ScrollButton
+          title="Know more"
+          @click="scrollTo('badnews')"
+        />
+      </div>
+    </div>
     <main>
-      <div ref="badnews">
-        <HeroSection class="is-light is-bold">
-          <div class="container">
-            <div class="columns">
-              <div
-                class="
-                  column
-                  is-8-tablet
-                  is-6-desktop
-                  is-offset-1-desktop
-                "
+      <div
+        ref="badnews"
+        class="relative min-h-screen flex flex-col justify-between items-center section badnews"
+      >
+        <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
+          <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-2xl">
+            <h2 class="text-2xl tracking-tight leading-tight mb-4 md:text-3xl lg:text-4xl">
+              Flying is one of the worst carbon-polluting things you do
+            </h2>
+            <p>
+              The International Council on Clean Transportation <LLink
+                href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
+                noreferrer
+                target="_blank"
               >
-                <div class="content is-medium is-inverted">
-                  <h2>
-                    Flying is one of the worst carbon-polluting things you can do
-                  </h2>
-                  <p>
-                    The International Council on Clean Transportation <a
-                      href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
-                      noreferrer
-                      target="_blank"
-                    >says</a>:
-                  </p>
-                  <blockquote cite="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html">
-                    “The climate challenge for aviation is worse than anyone expected”.
-                  </blockquote>
-                  <p>
-                    A <strong>single seat</strong> on a New York to London flight puts more than
-                    <strong>a thousand kilograms</strong> (one tonne) of CO<sub>2</sub>
-                    into the air. Emitting CO<sub>2</sub> at high elevation causes still more damage.
-                  </p>
-                  <p>You know you should probably take a train. Or a boat. You know that.</p>
-                  <p>But sometimes, you have to fly.</p>
-                </div>
-              </div>
-              <div
-                class="
-                  column
-                  is-6-mobile
-                  is-offset-3-mobile
-                  is-4-tablet
-                  is-offset-1-desktop
-                  is-centered
-                "
-              >
-                <img
-                  src="../assets/img/home-aircraft.svg"
-                  class="home-image"
-                >
-              </div>
-            </div>
+                says
+              </LLink>:
+            </p>
+            <blockquote
+              class="inline-block text-gray-600 pl-6 mb-2 sm:mb-3"
+              cite="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
+            >
+              “The climate challenge for aviation is worse than anyone expected”.
+            </blockquote>
+            <p class="mb-2 sm:mb-3">
+              A <strong>single seat</strong> on a New York to London flight puts more than
+              <strong>a thousand kilograms</strong> (one tonne) of CO<sub>2</sub>
+              into the air. Emitting CO<sub>2</sub> at high elevation causes still more damage.
+            </p>
+            <p class="mb-2 sm:mb-3">
+              You know you should probably take a train. Or a boat. You know that.
+            </p>
+            <p>But sometimes, you have to fly.</p>
           </div>
+          <div class="flex flex-col items-center justify-center">
+            <img
+              src="../assets/img/home-aircraft.svg"
+              class="mb-4 sm:max-w-xs"
+            >
+            <SectionCredits class="text-gray-600">
+              Illustration: <LLink
+                href="https://undraw.co"
+                noreferrer
+                target="_blank"
+              >
+                unDraw
+              </LLink>
+            </SectionCredits>
+          </div>
+        </div>
+        <div class="mb-4">
           <ScrollButton
-            slot="foot"
-            size="is-medium"
-            type="is-text"
-            outlined
-            tooltip-type="is-light"
-            class="home-scroll"
+            title="Keep reading"
             @click="scrollTo('goodnews')"
           />
-          <SectionCredits side="right">
-            Illustration: <a
-              href="https://undraw.co"
-              noreferrer
-              target="_blank"
-            >unDraw</a>
-          </SectionCredits>
-        </HeroSection>
+        </div>
       </div>
-      <div ref="goodnews">
-        <HeroSection class="is-bold">
-          <div class="container">
-            <div class="columns is-vcentered">
-              <div
-                class="
-                  column
-                  is-6-mobile
-                  is-4-tablet
-                  is-4-desktop
-                  is-offset-3-mobile
-                  is-offset-1-desktop
-                "
+      <div
+        ref="goodnews"
+        class="relative min-h-screen flex flex-col justify-between items-center section goodnews"
+      >
+        <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
+          <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
+            <img
+              src="../assets/img/home-wind.svg"
+              class="mb-6 sm:max-w-xs md:-mt-20"
+            >
+            <SectionCredits class="text-gray-600">
+              Illustration:
+              <LLink
+                href="https://undraw.co"
+                noreferrer
+                target="_blank"
               >
-                <img
-                  src="../assets/img/home-wind.svg"
-                  class="home-image"
-                >
-              </div>
-              <div
-                class="
-                  column
-                  is-12-mobile
-                  is-8-tablet
-                  is-6-desktop
-                  is-offset-1-desktop
-                "
-              >
-                <div class="content is-medium is-inverted">
-                  <h2>Living carbon neutral is really f**king hard</h2>
-                  <p>Luckily, flying neutral is <strong>easy af.</strong></p>
-                  <p>
-                    A flight from New York to London flight can be offset for as little as <strong>{{ price }}</strong>.
-                    You’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.
-                  </p>
-                  <p>
-                    And you can do it in less than a minute.
-                  </p>
-                </div>
-                <RoundedButton
-                  tag="router-link"
-                  size="is-large"
-                  type="is-dark"
-                  outlined
-                  icon-right="arrow-right"
-                  :to="{ name: 'flights' }"
-                >
-                  Offset a flight now
-                </RoundedButton>
-              </div>
-            </div>
+                unDraw
+              </LLink>
+            </SectionCredits>
           </div>
-          <SectionCredits>
-            Illustration:
-            <a
-              href="https://undraw.co"
-              noreferrer
-              target="_blank"
-            >unDraw</a>
-          </SectionCredits>
-        </HeroSection>
+          <div class="lg:max-w-2xl pb-6">
+            <div class="mb-6 md:mb-12">
+              <Title as="h2">
+                Living carbon neutral is really f**king hard
+              </Title>
+              <p class="mb-2 sm:mb-3">
+                Luckily, flying neutral is <strong>easy af.</strong>
+              </p>
+              <p class="mb-2 sm:mb-3">
+                A flight from New York to London can be offset for as little as <strong>{{ price }}</strong>. You’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.
+              </p>
+              <p>
+                And you can do it in less than a minute.
+              </p>
+            </div>
+            <Button
+              as="RouterLink"
+              size="lg"
+              icon-right="arrow-right"
+              :to="{ name: 'flights' }"
+            >
+              Offset a flight now
+            </Button>
+          </div>
+        </div>
       </div>
     </main>
-    <MainFoot slot="foot" />
+    <MainFoot />
   </div>
 </template>
 
@@ -179,26 +145,45 @@ import { NAME } from '@/../constants'
 import { price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'
-import HeroSection from '@/components/organisms/HeroSection'
-import MainNav from '@/components/organisms/MainNav'
+import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
+import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
+const VERBS = ['Go', 'Fly', 'Drive']
+
 export default {
-  metaInfo: {
+  head: {
     title: NAME,
     titleTemplate: null
   },
   components: {
+    BackgroundPhoto,
+    MainFoot,
+    MainHead,
     ScrollButton,
-    SectionCredits,
-    HeroSection,
-    MainNav,
-    MainFoot
+    SectionCredits
+  },
+  data () {
+    return {
+      verb: VERBS[0]
+    }
   },
   computed: {
     price () {
       return price(250, 'USD')
     }
+  },
+  created () {
+    this.verbInterval = setInterval(() => {
+      let index = VERBS.findIndex(item => item === this.verb) + 1
+      if (index >= VERBS.length) {
+        index = 0
+      }
+      this.verb = VERBS[index]
+    }, 2000)
+  },
+  beforeDestroy () {
+    clearInterval(this.verbInterval)
   },
   methods: {
     scrollTo (ref) {
@@ -208,22 +193,20 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.home {
-  &-headline {
-    margin-bottom: 1.5rem;
-  }
+<style>
+.hero {
+  background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
+}
 
-  &-title {
-    font-size: 6em;
-  }
+.section {
+  min-height: -webkit-fill-available;
+}
 
-  &-subtitle {
-    font-size: 3em;
-  }
+.badnews {
+  background: linear-gradient(141deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
+}
 
-  &-scroll {
-    margin-bottom: 1.5rem;
-  }
+.goodnews {
+  background: linear-gradient(256deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
 }
 </style>

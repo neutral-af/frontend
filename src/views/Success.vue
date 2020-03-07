@@ -1,22 +1,19 @@
 <template>
-  <div class="has-text-centered">
-    <div class="title is-size-1">
+  <div class="container pb-4 sm:pb-6 sm:max-w-xl md:max-w-2xl lg:max-w-3xl">
+    <Title as="h1">
       {{ title }}
-    </div>
-    <p class="subtitle is-size-6-mobile is-size-5-tablet is-size-4-desktop">
+    </Title>
+    <p>
       Congratulations! You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
     </p>
-    <RoundedButton
-      tag="router-link"
-      size="is-large"
-      type="is-primary"
-      inverted
-      outlined
+    <Button
+      as="RouterLink"
       icon-right="arrow-right"
-      :to="{ name: 'estimate-home' }"
+      :to="{ name: 'flights' }"
+      class="mt-6"
     >
       Offset more flights
-    </RoundedButton>
+    </Button>
   </div>
 </template>
 
@@ -24,7 +21,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }

@@ -1,19 +1,18 @@
 <template>
   <Field
-    invert
     v-bind="$attrs"
+    label="Card details"
+    label-icon-left="credit-card"
     v-on="$listeners"
   >
-    <div class="input is-medium card-wrapper">
-      <Card
-        ref="card"
-        class="card-element"
-        :class="{ 'complete': complete }"
-        :stripe="key"
-        :options="options"
-        @change="onChange"
-      />
-    </div>
+    <Card
+      ref="card"
+      class="border-b py-2"
+      :class="{ 'complete': complete }"
+      :stripe="key"
+      :options="options"
+      @change="onChange"
+    />
   </Field>
 </template>
 
@@ -34,6 +33,7 @@ export default {
       return process.env.VUE_APP_STRIPE_PUBLIC_KEY
     },
     options () {
+      // TODO: use tailwind JS theme options instead
       return {
         hidePostalCode: true,
         elements: {
@@ -53,12 +53,13 @@ export default {
         },
         style: {
           base: {
-            color: '#d9d9d9',
+            color: '#4a5568',
             fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
-            fontSize: '22px',
+            fontSize: '20px',
+            icon_color: 'white',
             '::placeholder': {
-              color: '#7a7a7a'
+              color: '#a0aec0'
             }
           },
           invalid: {
@@ -79,18 +80,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.card-wrapper {
-  display: block;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.card-element {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-</style>

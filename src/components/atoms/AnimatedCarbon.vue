@@ -1,6 +1,6 @@
 <template>
-  <span class="animated-carbon">
-    <strong class="is-size-5 is-size-4-tablet is-size-3-desktop animated-carbon-value">
+  <span>
+    <strong class="text-xl md:text-2xl lg:text-3xl">
       <AnimatedNumber
         :value="amount"
         :duration="1500"
@@ -9,7 +9,7 @@
         easing="easeInOutQuint"
       />
     </strong>
-    <span class="is-size-4-desktop">
+    <span class="text-sm sm:text-base">
       CO<sub>2</sub>
     </span>
   </span>
@@ -35,11 +35,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.animated-carbon {
-  &-value {
-    color: inherit;
-  }
-}
-</style>

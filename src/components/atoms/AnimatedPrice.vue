@@ -1,5 +1,5 @@
 <template>
-  <strong class="is-size-5 is-size-4-tablet is-size-3-desktop price">
+  <strong class="text-xl md:text-2xl lg:text-3xl">
     <AnimatedNumber
       :value="cents"
       :duration="1500"
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .price {
   color: inherit;
 }
