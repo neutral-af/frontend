@@ -5,17 +5,18 @@
     class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top transition-colors duration-100"
     :class="{
       border,
-      'cursor-pointer': !disabled,
-      'text-gray-500 cursor-not-allowed': disabled,
-      'text-primary-500 bg-white border-white': variant === 'solid',
-      'hover:text-primary-600 hover:bg-gray-200 hover:border-white focus:text-primary-600 focus:bg-gray-200 focus:border-white': variant === 'solid' && !disabled,
-      '': variant === 'outline',
-      'hover:bg-white hover:text-primary-500 hover:border-primary-500 focus:bg-white focus:text-primary-600 focus:border-primary-600': variant === 'outline' && !disabled,
-      'text-primary-600 bg-white border-primary-600': variant === 'outline' && active,
+      'cursor-pointer': !disabled && !loading,
+      'text-gray-500 cursor-not-allowed pointer-events-none': disabled,
+      'cursor-default pointer-events-none': loading,
       'rounded-full': rounded,
       'text-base md:text-xl py-2 px-5': size === 'base',
       'text-sm md:text-base py-1 px-3': size === 'sm',
       'text-xl md:text-2xl py-3 px-6': size === 'lg',
+      'text-primary-500 bg-white border-white': variant === 'solid',
+      'hover:text-primary-600 hover:bg-gray-200 hover:border-white focus:text-primary-600 focus:bg-gray-200 focus:border-white': variant === 'solid' && !disabled && !loading,
+      '': variant === 'outline',
+      'hover:bg-white hover:text-primary-500 hover:border-primary-500 focus:bg-white focus:text-primary-600 focus:border-primary-600': variant === 'outline' && !disabled && !loading,
+      'text-primary-600 bg-white border-primary-600': variant === 'outline' && active,
     }"
     v-bind="$attrs"
     v-on="$listeners"
@@ -24,16 +25,31 @@
       v-if="iconLeft"
       :icon="iconLeft"
       :size="size"
-      :class="{ 'mr-2 md:mr-3': !!$slots.default }"
+      :class="{
+        'mr-2 md:mr-3': !!$slots.default,
+        invisible: loading,
+      }"
     />
-    <span v-if="!!$slots.default">
+    <span
+      v-if="!!$slots.default"
+      :class="{ invisible: loading }"
+    >
       <slot />
     </span>
+    <Icon
+      v-if="loading"
+      icon="circle-notch"
+      spin
+      class="absolute"
+    />
     <Icon
       v-if="iconRight"
       :icon="iconRight"
       :size="size"
-      :class="{ 'ml-2 md:ml-3': !!$slots.default }"
+      :class="{
+        'ml-2 md:ml-3': !!$slots.default,
+        invisible: loading,
+      }"
     />
   </component>
 </template>
@@ -55,9 +71,9 @@ export default {
       type: Boolean,
       default: true
     },
-    variant: {
-      type: String,
-      default: 'outline'
+    loading: {
+      type: Boolean,
+      default: false
     },
     important: {
       type: Boolean,
@@ -87,6 +103,10 @@ export default {
     type: {
       type: String,
       default: null
+    },
+    variant: {
+      type: String,
+      default: 'outline'
     }
   }
 }

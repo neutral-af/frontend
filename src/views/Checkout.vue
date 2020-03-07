@@ -48,7 +48,7 @@
         size="lg"
         icon-left="check"
         :disabled="submitting"
-        :class="{ 'is-loading': submitting }"
+        :loading="submitting"
       >
         Pay now
       </Button>
