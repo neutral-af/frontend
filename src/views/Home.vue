@@ -23,9 +23,8 @@
           Offset a flight now
         </Button>
       </div>
-      <div class="mb-4">
+      <div class="mb-4 z-10">
         <ScrollButton
-          class="z-10"
           title="Know more"
           @click="scrollTo('badnews')"
         />
@@ -34,7 +33,7 @@
     <main>
       <div
         ref="badnews"
-        class="relative min-h-screen flex flex-col justify-between items-center"
+        class="relative min-h-screen flex flex-col justify-between items-center badnews"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
           <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-xl">
@@ -80,15 +79,16 @@
             </SectionCredits>
           </div>
         </div>
-        <ScrollButton
-          class="mb-6"
-          title="Keep reading"
-          @click="scrollTo('goodnews')"
-        />
+        <div class="mb-4">
+          <ScrollButton
+            title="Keep reading"
+            @click="scrollTo('goodnews')"
+          />
+        </div>
       </div>
       <div
         ref="goodnews"
-        class="relative min-h-screen flex flex-col justify-between items-center"
+        class="relative min-h-screen flex flex-col justify-between items-center goodnews"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
           <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
@@ -191,5 +191,13 @@ export default {
 <style>
 .hero {
   background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
+}
+
+.badnews {
+  background: linear-gradient(141deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
+}
+
+.goodnews {
+  background: linear-gradient(256deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
 }
 </style>
