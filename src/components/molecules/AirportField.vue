@@ -2,7 +2,7 @@
   <Field
     :label="label"
     :label-for="id"
-    autofocus
+    :autofocus="autofocus"
     invert
     huge
     class="airport-field"
@@ -44,6 +44,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
