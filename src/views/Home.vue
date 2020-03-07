@@ -96,7 +96,7 @@
           <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
             <img
               src="../assets/img/home-wind.svg"
-              class="-mt-20 mb-6 sm:max-w-xs"
+              class="mb-6 sm:max-w-xs md:-mt-20"
             >
             <SectionCredits class="text-gray-600">
               Illustration:
@@ -110,7 +110,7 @@
             </SectionCredits>
           </div>
           <div class="lg:max-w-2xl pb-6">
-            <div class="mb-12">
+            <div class="mb-6 md:mb-12">
               <Title as="h2">
                 Living carbon neutral is really f**king hard
               </Title>
