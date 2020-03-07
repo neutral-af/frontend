@@ -26,17 +26,19 @@
         id="card"
         @mounted="onCardMounted"
       />
-      <!-- <Field>
-        <BCheckbox
-          :value="saveCard"
-          @input="setSaveCard"
-        >
-          Please save my card to skip this process in the future.
-        </BCheckbox>
-      </Field> -->
       <Message v-if="envWarningShown">
         Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
       </Message>
+      <Field id="save-card">
+        <Checkbox
+          id="save-card"
+          size="sm"
+          :checked="saveCard"
+          @change="setSaveCard"
+        >
+          Save my card for future use
+        </Checkbox>
+      </Field>
     </template>
     <div class="py-6">
       <Button
@@ -48,7 +50,7 @@
       >
         Pay now
       </Button>
-      <p class="mt-4 text-sm">
+      <p class="mt-4 text-sm md:text-base">
         Payment will be processed securely by Stripe
       </p>
     </div>

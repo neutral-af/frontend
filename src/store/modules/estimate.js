@@ -1,15 +1,17 @@
 import { createSetMutations } from '@/utils/store'
 import { create, update } from '@/api/estimate'
 
-export const createState = () => ({
-  carbon: 0,
-  creating: false,
-  id: '',
-  km: 0,
-  price: null,
-  provider: '',
-  updating: false
-})
+import createState from '@/mocks/estimate'
+
+// export const createState = () => ({
+//   carbon: 0,
+//   creating: false,
+//   id: '',
+//   km: 0,
+//   price: null,
+//   provider: '',
+//   updating: false
+// })
 
 export default {
   namespaced: true,

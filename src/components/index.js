@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import Content from '@/components/atoms/Content'
+import Checkbox from '@/components/atoms/Checkbox'
 import FeedbackLink from '@/components/atoms/FeedbackLink'
 import Field from '@/components/atoms/Field'
 import Icon from '@/components/atoms/Icon'
@@ -18,6 +19,7 @@ import NumberInput from '@/components/molecules/NumberInput'
 export default () => {
   Vue.component('Autocomplete', Autocomplete)
   Vue.component('Button', Button)
+  Vue.component('Checkbox', Checkbox)
   Vue.component('Content', Content)
   Vue.component('DatePicker', DatePicker)
   Vue.component('FeedbackLink', FeedbackLink)

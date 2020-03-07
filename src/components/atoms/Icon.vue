@@ -1,7 +1,6 @@
 <template>
   <FontAwesomeIcon
-    v-bind="$attrs"
-    :size="size !== 'base' ? size : null"
+    v-bind="attrs"
     role="img"
   />
 </template>
@@ -17,6 +16,15 @@ export default {
     size: {
       type: String,
       default: 'base'
+    }
+  },
+  computed: {
+    attrs () {
+      const attrs = { ...this.$attrs }
+      if (this.size !== 'base') {
+        attrs.size = this.size
+      }
+      return attrs
     }
   }
 }
