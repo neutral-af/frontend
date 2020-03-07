@@ -34,13 +34,9 @@
           Please save my card to skip this process in the future.
         </BCheckbox>
       </Field> -->
-      <!-- <Notification
-        v-if="envWarningShown"
-        type="is-warning"
-        :closable="false"
-      >
+      <Message v-if="envWarningShown">
         Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
-      </BNotification> -->
+      </Message>
     </template>
     <div class="py-6">
       <Button

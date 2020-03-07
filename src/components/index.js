@@ -6,6 +6,7 @@ import Field from '@/components/atoms/Field'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
 import LLink from '@/components/atoms/LLink'
+import Message from '@/components/atoms/Message'
 import Panel from '@/components/atoms/Panel'
 import Select from '@/components/atoms/Select'
 import Title from '@/components/atoms/Title'
@@ -24,6 +25,7 @@ export default () => {
   Vue.component('Icon', Icon)
   Vue.component('Input', Input)
   Vue.component('LLink', LLink)
+  Vue.component('Message', Message)
   Vue.component('NumberInput', NumberInput)
   Vue.component('Panel', Panel)
   Vue.component('Select', Select)
