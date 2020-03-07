@@ -1,15 +1,19 @@
 import { DateTime } from 'luxon'
 
-export const price = (value, currency) => (
-  (value / 100).toLocaleString(window.navigator.language, {
+export const price = (value, currency, options = {}) => {
+  let ret = (value / 100).toLocaleString(window.navigator.language, {
     style: 'currency',
     currency: currency,
-    currencyDisplay: 'symbol'
+    currencyDisplay: options.symbol === false ? 'code' : 'symbol'
   })
-)
+  if (options.symbol === false) {
+    ret = ret.replace(/[a-z]{3}/i, '').trim()
+  }
+  return ret
+}
 
 export const weight = (value, unit = 'kg') => (
-    `${value.toLocaleString(window.navigator.language)} ${unit}`
+  `${value.toLocaleString(window.navigator.language)} ${unit}`
 )
 
 export const airport = ({ name, faa, city, country }, style = 'long') => {

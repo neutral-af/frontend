@@ -1,5 +1,8 @@
 <template>
-  <div ref="chartWrapper">
+  <div
+    ref="chartWrapper"
+    class="container pb-4 sm:pb-6 sm:max-w-xl md:max-w-2xl lg:max-w-3xl"
+  >
     <Title as="h1">
       Price Estimate Info
     </Title>

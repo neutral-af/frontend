@@ -11,11 +11,9 @@
         @keydown.up="onArrowUp"
         @keydown.enter="onEnter"
       />
-      <Icon
+      <LoadingIcon
         v-if="loading"
-        icon="circle-notch"
-        spin
-        class="absolute right-0 text-gray-500 pointer-events-none"
+        class="absolute right-0 text-gray-500"
         style="top: 25%"
       />
     </div>

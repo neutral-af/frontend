@@ -1,6 +1,6 @@
 <template>
   <Button
-    size="sm"
+    size="xs"
     title="What is this?"
     v-bind="$attrs"
     v-on="$listeners"

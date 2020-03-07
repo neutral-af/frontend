@@ -2,9 +2,8 @@
   <div class="flex flex-col min-h-screen">
     <div class="flex flex-col flex-grow">
       <MainHead />
-      <EstimateSummary v-if="summaryShown" />
-      <!-- <EstimateBackground /> -->
-      <RouterView class="container py-8 text-center" />
+      <EstimateSummary />
+      <RouterView class="container text-center" />
     </div>
     <MainFoot compact />
   </div>
@@ -14,10 +13,9 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { areValidFlights } from '@/utils/validators'
-// import EstimateBackground from '@/components/atoms/EstimateBackground'
-import EstimateSummary from '@/components/organisms/EstimateSummary'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
+import EstimateSummary from '@/components/organisms/EstimateSummary'
 
 export default {
   head () {
@@ -26,10 +24,9 @@ export default {
     }
   },
   components: {
-    EstimateSummary,
     MainHead,
-    MainFoot
-    // EstimateBackground
+    MainFoot,
+    EstimateSummary
   },
   props: {
     initialFlights: {
@@ -48,9 +45,6 @@ export default {
     ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
-    },
-    summaryShown () {
-      return this.$route.name !== 'success'
     }
   },
   async created () {

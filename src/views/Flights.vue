@@ -1,7 +1,7 @@
 <template>
   <div>
     <Title as="h1">
-      Your flights
+      {{ title }}
     </Title>
     <div
       v-if="flightsCount > 0"
@@ -25,6 +25,11 @@ import EstimateFlight from '@/components/organisms/EstimateFlight'
 import EstimateActions from '@/components/organisms/EstimateActions'
 
 export default {
+  head () {
+    return {
+      title: this.title
+    }
+  },
   components: {
     EstimateFlight,
     EstimateActions
@@ -32,6 +37,9 @@ export default {
   computed: {
     ...mapState('estimateForm', ['flights']),
     ...mapGetters('estimateForm', ['flightsCount']),
+    title () {
+      return 'Your flights'
+    },
     removable () {
       return this.flightsCount > 1
     }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 
+import AnimatedValue from '@/components/atoms/AnimatedValue'
 import Content from '@/components/atoms/Content'
 import Checkbox from '@/components/atoms/Checkbox'
 import FeedbackLink from '@/components/atoms/FeedbackLink'
@@ -14,9 +15,11 @@ import Title from '@/components/atoms/Title'
 import Autocomplete from '@/components/molecules/Autocomplete'
 import Button from '@/components/molecules/Button'
 import DatePicker from '@/components/molecules/DatePicker'
+import LoadingIcon from '@/components/molecules/LoadingIcon'
 import NumberInput from '@/components/molecules/NumberInput'
 
 export default () => {
+  Vue.component('AnimatedValue', AnimatedValue)
   Vue.component('Autocomplete', Autocomplete)
   Vue.component('Button', Button)
   Vue.component('Checkbox', Checkbox)
@@ -27,6 +30,7 @@ export default () => {
   Vue.component('Icon', Icon)
   Vue.component('Input', Input)
   Vue.component('LLink', LLink)
+  Vue.component('LoadingIcon', LoadingIcon)
   Vue.component('Message', Message)
   Vue.component('NumberInput', NumberInput)
   Vue.component('Panel', Panel)
