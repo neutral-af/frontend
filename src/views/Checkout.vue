@@ -171,7 +171,6 @@ export default {
       return payments.checkout({
         estimate: this.estimateForPayment,
         paymentMethod: paymentMethod.id,
-        amount: this.price.cents,
         currency: this.price.currency,
         options: {
           saveCard: this.saveCard,

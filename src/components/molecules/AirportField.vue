@@ -2,11 +2,12 @@
   <Field v-bind="fieldProps">
     <Autocomplete
       :id="id"
-      :placeholder="placeholder"
+      :autofocus="autofocus"
       :formatter="format"
-      :value="viewValue"
       :items="airports"
       :loading="fetching"
+      :placeholder="placeholder"
+      :value="viewValue"
       @input="onInput"
       @set="onSet"
     />
@@ -34,6 +35,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

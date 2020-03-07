@@ -56,12 +56,12 @@
               “The climate challenge for aviation is worse than anyone expected”.
             </blockquote>
             <p class="mb-2">
-              A <strong>single seat</strong> on a New York&rarr;London flight puts more than
-              <strong>{{ co2 }}</strong> (one whole tonne) of CO<sub>2</sub>
-              into the air. And it hurts the Earth even more when the CO<sub>2</sub>
-              is emitted at that elevation.
+              A <strong>single seat</strong> on a New York to London flight puts more than
+              <strong>a thousand kilograms</strong> (one tonne) of CO<sub>2</sub>
+              into the air. Emitting CO<sub>2</sub> at high elevation causes still more damage.
             </p>
-            <p>You know you should probably take a train. Or a boat. But sometimes, you have to fly.</p>
+            <p>You know you should probably take a train. Or a boat. You know that.</p>
+            <p>But sometimes, you have to fly.</p>
           </div>
           <div class="flex flex-col items-center justify-center">
             <img
@@ -112,9 +112,13 @@
               <Title as="h2">
                 Living carbon neutral is really f**king hard
               </Title>
-              <p>Luckily, flying neutral is <strong>easy a. f.</strong></p>
-              <p>New York&rarr;London flight costs as little as <strong>{{ price }}</strong> to offset, and you can do it in less than a minute.</p>
-              <p>Plus, you’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.</p>
+              <p>Luckily, flying neutral is <strong>easy af.</strong></p>
+              <p>
+                A flight from New York to London can be offset for as little as <strong>{{ price }}</strong>. You’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.
+              </p>
+              <p>
+                And you can do it in less than a minute.
+              </p>
             </div>
             <Button
               as="RouterLink"
@@ -134,7 +138,7 @@
 
 <script>
 import { NAME } from '@/../constants'
-import { weight, price } from '@/utils/formatters'
+import { price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'
 import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
@@ -161,9 +165,6 @@ export default {
     }
   },
   computed: {
-    co2 () {
-      return weight(1000)
-    },
     price () {
       return price(250, 'USD')
     }
