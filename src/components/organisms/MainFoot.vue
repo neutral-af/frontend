@@ -8,12 +8,7 @@
   >
     <BackgroundPhoto class="opacity-25" />
     <div class="z-10 sm:flex sm:items-center sm:justify-center ">
-      <RouterLink
-        :to="{ name: 'home' }"
-        class="font-brand block text-2xl mr-4 sm:text-3xl"
-      >
-        {{ NAME }}
-      </RouterLink>
+      <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
       <nav class="main-foot-nav">
         <RouterLink
           :to="{ name: 'privacy' }"
@@ -43,11 +38,12 @@
 </template>
 
 <script>
-import { mapConstants } from '@/utils'
+import BrandLink from '@/components/atoms/BrandLink'
 import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
 
 export default {
   components: {
+    BrandLink,
     BackgroundPhoto
   },
   props: {
@@ -55,9 +51,6 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  computed: {
-    ...mapConstants(['NAME'])
   }
 }
 </script>

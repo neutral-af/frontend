@@ -8,7 +8,9 @@
         style="margin-top: -30vh"
       >
         <p class="font-brand text-4xl leading-tight mb-4 md:text-5xl lg:text-6xl">
-          <span class="block sm:inline text-6xl md:text-7xl lg:text-8xl">Fly Neutral</span>
+          <span class="block sm:inline text-6xl md:text-7xl lg:text-8xl">
+            <span>{{ verb }}</span> Neutral
+          </span>
           (as f**k)
         </p>
         <Button
@@ -133,10 +135,11 @@ import { NAME } from '@/../constants'
 import { weight, price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'
-import CookieNotice from '@/components/molecules/CookieNotice'
 import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
+
+const VERBS = ['Go', 'Fly', 'Drive']
 
 export default {
   head: {
@@ -145,11 +148,15 @@ export default {
   },
   components: {
     BackgroundPhoto,
-    CookieNotice,
     MainFoot,
     MainHead,
     ScrollButton,
     SectionCredits
+  },
+  data () {
+    return {
+      verb: VERBS[0]
+    }
   },
   computed: {
     co2 () {
@@ -158,6 +165,18 @@ export default {
     price () {
       return price(250, 'USD')
     }
+  },
+  created () {
+    this.verbInterval = setInterval(() => {
+      let index = VERBS.findIndex(item => item === this.verb) + 1
+      if (index >= VERBS.length) {
+        index = 0
+      }
+      this.verb = VERBS[index]
+    }, 2000)
+  },
+  beforeDestroy () {
+    clearInterval(this.verbInterval)
   },
   methods: {
     scrollTo (ref) {
