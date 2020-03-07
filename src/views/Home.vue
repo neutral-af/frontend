@@ -36,11 +36,11 @@
         class="relative min-h-screen flex flex-col justify-between items-center section badnews"
       >
         <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
-          <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-xl">
+          <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-2xl">
             <h2 class="text-2xl tracking-tight leading-tight mb-4 md:text-3xl lg:text-4xl">
               Flying is one of the worst carbon-polluting things you do
             </h2>
-            <p class="mb-2">
+            <p>
               The International Council on Clean Transportation <LLink
                 href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
                 noreferrer
@@ -50,17 +50,19 @@
               </LLink>:
             </p>
             <blockquote
-              class="italic mb-2"
+              class="inline-block text-gray-600 pl-6 mb-2 sm:mb-3"
               cite="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
             >
               “The climate challenge for aviation is worse than anyone expected”.
             </blockquote>
-            <p class="mb-2">
+            <p class="mb-2 sm:mb-3">
               A <strong>single seat</strong> on a New York to London flight puts more than
               <strong>a thousand kilograms</strong> (one tonne) of CO<sub>2</sub>
               into the air. Emitting CO<sub>2</sub> at high elevation causes still more damage.
             </p>
-            <p>You know you should probably take a train. Or a boat. You know that.</p>
+            <p class="mb-2 sm:mb-3">
+              You know you should probably take a train. Or a boat. You know that.
+            </p>
             <p>But sometimes, you have to fly.</p>
           </div>
           <div class="flex flex-col items-center justify-center">
@@ -94,7 +96,7 @@
           <div class="flex flex-col items-center justify-center mb-6 md:mb-0 md:mr-10 lg:mr-16">
             <img
               src="../assets/img/home-wind.svg"
-              class="mb-6 sm:max-w-xs"
+              class="-mt-20 mb-6 sm:max-w-xs"
             >
             <SectionCredits class="text-gray-600">
               Illustration:
@@ -107,13 +109,15 @@
               </LLink>
             </SectionCredits>
           </div>
-          <div class="lg:max-w-xl pb-6">
-            <div class="mb-6">
+          <div class="lg:max-w-2xl pb-6">
+            <div class="mb-12">
               <Title as="h2">
                 Living carbon neutral is really f**king hard
               </Title>
-              <p>Luckily, flying neutral is <strong>easy af.</strong></p>
-              <p>
+              <p class="mb-2 sm:mb-3">
+                Luckily, flying neutral is <strong>easy af.</strong>
+              </p>
+              <p class="mb-2 sm:mb-3">
                 A flight from New York to London can be offset for as little as <strong>{{ price }}</strong>. You’ll be supporting renewable energy, reforestation, and other climate-protecting initiatives.
               </p>
               <p>
