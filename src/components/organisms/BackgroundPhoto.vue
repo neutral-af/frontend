@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute w-full h-full top-0 left-0 background-photo">
+  <div class="absolute top-0 left-0 background-photo">
     <SectionCredits
       compact
       class="absolute bottom-0 right-0"

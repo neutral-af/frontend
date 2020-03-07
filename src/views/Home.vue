@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center hero">
-      <BackgroundPhoto />
+      <BackgroundPhoto class="w-screen h-screen" />
       <MainHead class="z-10" />
       <div
         class="container text-center z-10"
@@ -23,11 +23,13 @@
           Offset a flight now
         </Button>
       </div>
-      <ScrollButton
-        class="z-10 mb-4"
-        title="Know more"
-        @click="scrollTo('badnews')"
-      />
+      <div class="mb-4">
+        <ScrollButton
+          class="z-10"
+          title="Know more"
+          @click="scrollTo('badnews')"
+        />
+      </div>
     </div>
     <main>
       <div

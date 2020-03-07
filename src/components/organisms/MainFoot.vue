@@ -6,7 +6,7 @@
       'py-4': compact
     }"
   >
-    <BackgroundPhoto class="opacity-25" />
+    <BackgroundPhoto class="w-full h-full opacity-25" />
     <div class="z-10 sm:flex sm:items-center sm:justify-center ">
       <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
       <nav class="main-foot-nav">
