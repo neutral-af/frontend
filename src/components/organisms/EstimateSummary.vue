@@ -1,46 +1,51 @@
 <template>
   <div
-    class="absolute py-3 transition sm:mr-16 sm:left-auto sm:translate-x-0 flex items-center justify-center"
-    :class="{ 'opacity-50 pointer-events-none': creating }"
-    style="left: 50%; transform: translateX(-50%)"
+    class="relative mb-4 transition-colors duration-300 inline-flex items-center justify-center"
+    :class="{ 'text-gray-400 pointer-events-none': creating }"
   >
-    <div class="mr-2 sm:mr-4">
-      <span class="sr-only">Carbon</span>
-      <Icon
-        icon="cloud"
-        size="sm"
-        class="hidden mr-2 sm:inline"
-      />
-      <AnimatedCarbon :amount="carbon" />
-      <InfoButton
-        v-if="carbon"
-        as="RouterLink"
-        class="ml-2"
-        title="See Carbon Info"
-        :to="{ name: 'carbon-info' }"
-      />
+    <LoadingIcon
+      v-if="creating"
+      class="absolute text-gray-700 z-10 bg-white rounded-full p-4 box-content"
+    />
+    <div class="mr-4 md:mr-6 lg:mr-8 flex items-center justify-center">
+      <div>
+        <span class="sr-only">Carbon</span>
+        <AnimatedCarbon :amount="carbon" />
+        <span>
+          CO<sub>2</sub>
+        </span>
+      </div>
+      <div>
+        <InfoButton
+          v-if="carbon"
+          as="RouterLink"
+          class="ml-1"
+          title="See Carbon Info"
+          :to="{ name: 'carbon-info' }"
+        />
+      </div>
     </div>
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center relative">
       <div>
         <span class="sr-only">Price</span>
         <AnimatedPrice
           :cents="price ? price.cents : 0"
           :currency="currency"
         />
+      </div>
+      <div>
         <InfoButton
           v-if="price"
           as="RouterLink"
-          class="ml-2"
+          class="ml-1"
           title="See Price Info"
           :to="{ name: 'price-info' }"
         />
       </div>
-      <div>
-        <CurrencyField
-          class="ml-1"
-          style="padding: 0 !important;"
-        />
-      </div>
+      <CurrencyField
+        class="absolute right-0 pl-1"
+        style="transform: translateX(100%)"
+      />
     </div>
   </div>
 </template>
@@ -48,8 +53,8 @@
 <script>
 import { mapState } from 'vuex'
 
-import AnimatedCarbon from '@/components/atoms/AnimatedCarbon'
-import AnimatedPrice from '@/components/atoms/AnimatedPrice'
+import AnimatedCarbon from '@/components/molecules/AnimatedCarbon'
+import AnimatedPrice from '@/components/molecules/AnimatedPrice'
 import InfoButton from '@/components/molecules/InfoButton'
 import CurrencyField from '@/components/molecules/CurrencyField'
 

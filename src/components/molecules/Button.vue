@@ -9,8 +9,9 @@
       'text-gray-500 cursor-not-allowed pointer-events-none': disabled,
       'cursor-default pointer-events-none': loading,
       'rounded-full': rounded,
+      'text-sm md:text-base px-2': size === 'xs',
+      'text-xs md:text-sm py-1 px-3': size === 'sm',
       'text-base md:text-xl py-2 px-5': size === 'base',
-      'text-sm md:text-base py-1 px-3': size === 'sm',
       'text-xl md:text-2xl py-3 px-6': size === 'lg',
       'text-primary-500 bg-white border-white': variant === 'solid',
       'hover:text-primary-600 hover:bg-gray-200 hover:border-white focus:text-primary-600 focus:bg-gray-200 focus:border-white': variant === 'solid' && !disabled && !loading,
@@ -36,10 +37,8 @@
     >
       <slot />
     </span>
-    <Icon
+    <LoadingIcon
       v-if="loading"
-      icon="circle-notch"
-      spin
       class="absolute"
     />
     <Icon
@@ -55,7 +54,7 @@
 </template>
 
 <script>
-const sizes = ['sm', 'base', 'lg']
+const sizes = ['xs', 'sm', 'base', 'lg']
 
 export default {
   props: {

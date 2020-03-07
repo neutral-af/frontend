@@ -4,8 +4,8 @@
       class="appearance-none border-b leading-loose hover:border-primary-500 focus:border-primary-500"
       :class="{
         'cursor-pointer': !disabled,
-        'text-base md:text-xl py-2 pr-5': size === 'base',
-        'text-sm md:text-base py-1 pr-3': size === 'sm',
+        'text-base md:text-xl py-2 pr-6': size === 'base',
+        'text-sm md:text-base py-1 pr-4': size === 'sm',
         'cursor-not-allowed': disabled,
         'text-gray-500': disabled || readonly,
       }"
@@ -14,14 +14,14 @@
       :value="value"
       v-bind="$attrs"
       v-on="listeners"
-      @input="$emit('change', $event.target.value)"
+      @change="$emit('change', $event.target.value)"
     >
       <slot />
     </select>
     <Icon
       icon="angle-down"
       :size="size"
-      class="absolute right-0 pointer-events-none"
+      class="absolute right-0 mr-1 pointer-events-none"
       style="top: 50%; transform: translateY(-50%)"
     />
   </div>
@@ -29,8 +29,16 @@
 
 <script>
 export default {
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
   props: {
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
       type: Boolean,
       default: false
     },
@@ -49,7 +57,7 @@ export default {
   },
   computed: {
     listeners () {
-      const { input, ...listeners } = this.$listeners
+      const { change, ...listeners } = this.$listeners
       return listeners
     }
   }
