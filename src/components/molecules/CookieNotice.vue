@@ -35,8 +35,12 @@ export default {
 
 <style>
 .Cookie--base {
-  background: white !important;
-  color: inherit !important;
-  padding: 1rem;
+  background: rgba(49, 151, 149, .8) !important;
+  color: white !important;
+  padding: 1rem !important;
+
+  > * {
+    margin: 0 !important;
+  }
 }
 </style>
