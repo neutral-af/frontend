@@ -1,14 +1,20 @@
 const { colors, fontFamily } = require('tailwindcss/defaultTheme')
 
+const colorsPrimary = { ...colors.teal }
+const boxShadowOutlineColor = `${colorsPrimary['500']}77`
+
 module.exports = {
   theme: {
+    boxShadow: {
+      outline: `0 0 0 3px ${boxShadowOutlineColor}`
+    },
     container: {
       center: true,
       padding: '1rem'
     },
     extend: {
       colors: {
-        primary: { ...colors.teal }
+        primary: colorsPrimary
       },
       fontFamily: {
         brand: ['Willful', ...fontFamily.sans]

@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center justify-center">
     <Button
-      :border="false"
       :rounded="false"
+      variant="link"
       @click="subtract"
     >
       -
@@ -15,7 +15,7 @@
       @input="set(parseInt($event.target.value))"
     />
     <Button
-      :border="false"
+      variant="link"
       :rounded="false"
       @click="add"
     >

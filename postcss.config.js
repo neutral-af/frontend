@@ -3,7 +3,7 @@ module.exports = {
     'postcss-import': {},
     'postcss-nested': {},
     // 'vue-cli-plugin-tailwind/purgecss': {},
-    autoprefixer: {},
-    tailwindcss: {}
+    tailwindcss: {},
+    autoprefixer: {}
   }
 }

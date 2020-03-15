@@ -13,10 +13,10 @@ import Panel from '@/components/atoms/Panel'
 import Select from '@/components/atoms/Select'
 import Title from '@/components/atoms/Title'
 import Autocomplete from '@/components/molecules/Autocomplete'
-import Button from '@/components/molecules/Button'
 import DatePicker from '@/components/molecules/DatePicker'
 import LoadingIcon from '@/components/molecules/LoadingIcon'
 import NumberInput from '@/components/molecules/NumberInput'
+import Button from '@/components/organisms/Button'
 
 export default () => {
   Vue.component('AnimatedValue', AnimatedValue)
