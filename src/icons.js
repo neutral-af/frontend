@@ -20,7 +20,8 @@ import {
   faCalendarAlt,
   faPen,
   faTrash,
-  faCheckCircle
+  faCheckCircle,
+  faExchangeAlt
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faCircle,
@@ -53,4 +54,5 @@ export default () => {
   library.add(faTicketAlt)
   library.add(faTrash)
   library.add(faUser)
+  library.add(faExchangeAlt)
 }

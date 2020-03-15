@@ -1,5 +1,6 @@
 import { createSetMutations } from '@/utils/store'
 import { detailsByICAOs } from '@/api/airports'
+import cloneDeep from 'lodash/cloneDeep'
 
 const createFlight = () => ({
   arrival: null,
@@ -9,6 +10,11 @@ const createFlight = () => ({
   passengers: 1,
   type: ''
 })
+
+const createId = (flights) => {
+  const ids = Object.keys(flights)
+  return ids.length > 0 ? Math.max(...ids) + 1 : 1
+}
 
 export default {
   namespaced: true,
@@ -35,8 +41,7 @@ export default {
   mutations: {
     ...createSetMutations(['flights']),
     addFlight (state, flight) {
-      const ids = Object.keys(state.flights)
-      const id = ids.length > 0 ? Math.max(...ids) + 1 : 1
+      const id = createId(state.flights)
       state.flights = { ...state.flights, [id]: flight }
     },
     removeFlight (state, id) {
@@ -52,6 +57,16 @@ export default {
     },
     resetNewFlight (state) {
       state.newFlight = createFlight()
+    },
+    addReturnFlight (state, id) {
+      const flight = cloneDeep(state.flights[id])
+      const returnId = createId(state.flights)
+
+      const { departure, arrival } = flight
+      flight.arrival = departure
+      flight.departure = arrival
+
+      state.flights = { ...state.flights, [returnId]: flight }
     }
   },
   actions: {

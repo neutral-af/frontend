@@ -71,6 +71,12 @@
         icon-right="pen"
       />
       <Button
+        title="Add Return Flight"
+        icon-right="exchange-alt"
+        class="ml-2"
+        @click="addReturnFlight(id)"
+      />
+      <Button
         v-if="removable"
         title="Remove"
         icon-right="trash"
@@ -133,7 +139,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimateForm', ['removeFlight']),
+    ...mapMutations('estimateForm', ['addReturnFlight', 'removeFlight']),
     remove () {
       this.removeFlight(this.id)
     }
