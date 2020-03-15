@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "build:css": "tailwind build ./src/assets/css/main.css -c ./tailwind.config.js -o ./public/css/main.css",
-    "build": "npm run build:css && vue-cli-service build",
+    "build": "yarn build:css && vue-cli-service build",
     "dev": "yarn serve",
     "lint": "vue-cli-service lint --no-fix",
     "now-build": "yarn build",
-    "serve": "npm run build:css && vue-cli-service serve",
+    "serve": "yarn build:css && vue-cli-service serve",
     "test:unit": "vue-cli-service test:unit",
     "test": "yarn test:unit",
     "start": "yarn serve"
