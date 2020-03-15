@@ -1,6 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faEnvelope,
   faArrowDown,
   faArrowLeft,
   faArrowRight,
@@ -24,7 +23,8 @@ import {
   faExchangeAlt
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  faCircle
+  faCircle,
+  faEnvelope
 } from '@fortawesome/free-regular-svg-icons'
 
 export default () => {
