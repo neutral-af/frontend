@@ -15,8 +15,8 @@
         </p>
         <Button
           as="RouterLink"
-          size="lg"
-          variant="solid"
+          size="xl"
+          color="invert"
           icon-right="arrow-right"
           :to="{ name: 'flights' }"
         >
@@ -26,6 +26,7 @@
       <div class="mb-4 z-10">
         <ScrollButton
           title="Know more"
+          color="invert"
           @click="scrollTo('badnews')"
         />
       </div>

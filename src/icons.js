@@ -1,6 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faEnvelope,
   faArrowDown,
   faArrowLeft,
   faArrowRight,
@@ -26,7 +25,8 @@ import {
 import {
   faCircle,
   faSun,
-  faMoon
+  faMoon,
+  faEnvelope
 } from '@fortawesome/free-regular-svg-icons'
 
 export default () => {

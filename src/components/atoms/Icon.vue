@@ -22,7 +22,7 @@ export default {
     attrs () {
       const attrs = { ...this.$attrs }
       if (this.size !== 'base') {
-        attrs.size = this.size
+        attrs.size = this.size === 'xl' ? 'lg' : this.size
       }
       return attrs
     }
