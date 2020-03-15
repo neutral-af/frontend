@@ -9,8 +9,7 @@ import initDirectives from './directives'
 import initIcons from './icons'
 import initComponents from './components'
 import App from './App'
-import './assets/css/custom.css'
-import './assets/css/fonts.css'
+import './assets/css/main.css'
 
 Vue.config.productionTip = process.env.NODE_ENV !== 'production'
 initPlugins()
