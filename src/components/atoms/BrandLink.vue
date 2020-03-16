@@ -1,11 +1,13 @@
 <template>
-  <RouterLink
+  <NavbarButton
     v-click-blur
+    as="RouterLink"
     :to="{ name: 'home' }"
-    class="font-brand leading-none transition-colors duration-100 hover:text-primary-500 focus:text-primary-500"
+    v-bind="$attrs"
+    class="font-brand leading-none"
   >
     {{ NAME }}
-  </RouterLink>
+  </NavbarButton>
 </template>
 
 <script>

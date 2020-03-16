@@ -1,8 +1,13 @@
 <template>
   <div>
-    <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center section hero">
+    <div
+      class="relative overflow-hidden min-h-screen text-white flex flex-col justify-between items-center section hero-light transition duration-100 hero"
+    >
       <BackgroundPhoto class="w-screen h-screen" />
-      <MainHead class="z-10" />
+      <MainHead
+        class="z-10"
+        color="invert"
+      />
       <div
         class="container text-center z-10"
         style="margin-top: -30vh"
@@ -142,6 +147,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import { NAME } from '@/../constants'
 import { price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
@@ -170,6 +177,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['theme']),
     price () {
       return price(250, 'USD')
     }
@@ -196,7 +204,8 @@ export default {
 
 <style>
 .hero {
-  background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
+  background-color: var(--hero-bg-color);
+  background: var(--hero-bg-gradient);
 }
 
 .section {
@@ -204,10 +213,10 @@ export default {
 }
 
 .badnews {
-  background: linear-gradient(141deg, var(--color-bg-gradient-start), var(--color-bg-gradient-mid) 70%, var(--color-bg-gradient-end))
+  background: linear-gradient(155deg, var(--color-bg-gradient-start), var(--color-bg-gradient-mid) 70%, var(--color-bg-gradient-end))
 }
 
 .goodnews {
-  background: linear-gradient(256deg, var(--color-bg-gradient-start), var(--color-bg-gradient-mid) 70%, var(--color-bg-gradient-end))
+  background: linear-gradient(210deg, var(--color-bg-gradient-start), var(--color-bg-gradient-mid) 70%, var(--color-bg-gradient-end))
 }
 </style>

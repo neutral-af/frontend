@@ -40,7 +40,7 @@
 <script>
 export const colors = ['base', 'primary', 'invert']
 export const sizes = ['xs', 'sm', 'base', 'lg', 'xl']
-export const tags = ['button', 'div', 'RouterLink']
+export const tags = ['button', 'a', 'div', 'RouterLink']
 export const variants = ['outline', 'solid', 'link']
 
 export default {
@@ -68,11 +68,11 @@ export default {
       default: false
     },
     iconLeft: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     iconRight: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     rounded: {
@@ -140,7 +140,7 @@ export default {
   },
   methods: {
     getColorBaseClasses () {
-      const classes = this.getActiveClasses('text-gray-800')
+      const classes = this.getActiveClasses('text-gray-800', ...this.getActiveClasses('text-gray-600'))
       switch (this.variant) {
         case 'outline':
           classes.push('border', 'border-gray-400', ...this.getActiveClasses('border-gray-600'))

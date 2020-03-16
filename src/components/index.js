@@ -17,6 +17,7 @@ import DatePicker from '@/components/molecules/DatePicker'
 import LoadingIcon from '@/components/molecules/LoadingIcon'
 import NumberInput from '@/components/molecules/NumberInput'
 import Button from '@/components/organisms/Button'
+import NavbarButton from '@/components/organisms/NavbarButton'
 
 export default () => {
   Vue.component('AnimatedValue', AnimatedValue)
@@ -32,6 +33,7 @@ export default () => {
   Vue.component('LLink', LLink)
   Vue.component('LoadingIcon', LoadingIcon)
   Vue.component('Message', Message)
+  Vue.component('NavbarButton', NavbarButton)
   Vue.component('NumberInput', NumberInput)
   Vue.component('Panel', Panel)
   Vue.component('Select', Select)

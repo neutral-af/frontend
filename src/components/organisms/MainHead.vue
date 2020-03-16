@@ -1,27 +1,61 @@
 <template>
   <header class="self-stretch flex justify-between items-center">
-    <BrandLink class="text-3xl p-4 sm:text-4xl" />
+    <BrandLink
+      :color="color"
+      class="text-3xl sm:text-4xl md:text-4xl py-4 px-4"
+    />
     <div class="flex items-center">
-      <ThemeSwitcher />
-      <RouterLink
+      <NavbarButton
+        size="sm"
+        :color="color"
+        :icon-left="['far', theme === 'dark' ? 'sun' : 'moon']"
+        :title="`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`"
+        @click="toggleTheme"
+      />
+      <NavbarButton
+        as="RouterLink"
         :to="{ name: 'about' }"
-        class="text-lg py-4 px-2 transition-colors duration-100 hover:text-primary-500 focus:text-primary-500"
+        :color="color"
       >
+        <!-- class="text-lg py-4 px-2 transition-colors duration-100" -->
         About Us
-      </RouterLink>
-      <FeedbackLink class="text-lg py-4 px-2 pr-4 transition-colors duration-100 hover:text-primary-500 focus:text-primary-500" />
+      </NavbarButton>
+      <NavbarButton
+        as="a"
+        :href="`mailto:${FEEDBACK_EMAIL}`"
+        :color="color"
+      >
+        Feedback
+      </NavbarButton>
     </div>
   </header>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
+import { mapConstants } from '@/utils'
 import BrandLink from '@/components/atoms/BrandLink'
-import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 
 export default {
   components: {
-    BrandLink,
-    ThemeSwitcher
+    BrandLink
+  },
+  props: {
+    color: {
+      type: String,
+      default: 'base'
+    }
+  },
+  computed: {
+    ...mapConstants(['FEEDBACK_EMAIL']),
+    ...mapState(['theme'])
+  },
+  methods: {
+    ...mapMutations(['setTheme']),
+    toggleTheme () {
+      this.setTheme(this.theme === 'light' ? 'dark' : 'light')
+    }
   }
 }
 </script>

@@ -8,8 +8,11 @@
   >
     <BackgroundPhoto class="w-full h-full opacity-25" />
     <div class="z-10 sm:flex sm:items-center sm:justify-center ">
-      <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
-      <nav class="main-foot-nav">
+      <BrandLink
+        color="invert"
+        class="block text-2xl sm:text-3xl md:text-3xl"
+      />
+      <nav>
         <RouterLink
           :to="{ name: 'privacy' }"
           class="hover:underline focus:underline"

@@ -40,7 +40,7 @@ export default {
     width: 100%;
     height: 100%;
     mix-blend-mode: soft-light;
-    filter: grayscale(50);
+    filter: grayscale(.5);
     background: url(../../assets/img/background.jpg) no-repeat center / cover;
 }
 </style>
