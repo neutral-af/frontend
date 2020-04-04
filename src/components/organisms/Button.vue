@@ -2,7 +2,6 @@
   <component
     :is="as"
     :type="type || (as === 'button' ? 'button' : undefined)"
-    class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top focus:outline-none focus:shadow-outline transition-colors duration-100"
     :class="classes"
     :disabled="disabled"
     v-bind="$attrs"
@@ -46,7 +45,7 @@
 
 <script>
 export const colors = ['base', 'primary', 'invert']
-export const rounded = ['full', 'base', 'none']
+export const rounded = ['base', 'full', 'full-left', 'full-right', 'none']
 export const sizes = ['xs', 'sm', 'base', 'lg', 'xl']
 export const tags = ['button', 'div', 'RouterLink']
 export const variants = ['outline', 'solid', 'link']
@@ -85,7 +84,7 @@ export default {
     },
     rounded: {
       type: String,
-      default: 'base',
+      default: 'full',
       validator: value => rounded.includes(value)
     },
     size: {
@@ -108,7 +107,7 @@ export default {
       return !this.disabled && !this.loading
     },
     classes () {
-      const classes = []
+      const classes = ['inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top focus:outline-none focus:shadow-outline transition-colors duration-100']
       let colorClasses = []
       switch (this.color) {
         case 'base':
@@ -132,6 +131,12 @@ export default {
           break
         case 'full':
           classes.push('rounded-full')
+          break
+        case 'full-left':
+          classes.push('rounded-l-full')
+          break
+        case 'full-right':
+          classes.push('rounded-r-full')
           break
       }
       switch (this.size) {
