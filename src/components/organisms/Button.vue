@@ -46,6 +46,7 @@
 
 <script>
 export const colors = ['base', 'primary', 'invert']
+export const rounded = ['full', 'base', 'none']
 export const sizes = ['xs', 'sm', 'base', 'lg', 'xl']
 export const tags = ['button', 'div', 'RouterLink']
 export const variants = ['outline', 'solid', 'link']
@@ -83,8 +84,9 @@ export default {
       default: ''
     },
     rounded: {
-      type: Boolean,
-      default: true
+      type: String,
+      default: 'base',
+      validator: value => rounded.includes(value)
     },
     size: {
       type: String,
@@ -124,7 +126,14 @@ export default {
         classes.push('opacity-50')
       }
       classes.push(this.interactive ? 'cursor-pointer' : 'pointer-events-none')
-      classes.push(this.rounded ? 'rounded-full' : 'rounded')
+      switch (this.rounded) {
+        case 'base':
+          classes.push('rounded')
+          break
+        case 'full':
+          classes.push('rounded-full')
+          break
+      }
       switch (this.size) {
         case 'xs':
           classes.push('text-xs', 'md:text-sm', 'py-1', 'px-3')
