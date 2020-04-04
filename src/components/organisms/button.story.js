@@ -2,7 +2,7 @@
 // import startCase from 'lodash/startCase'
 import { boolean, select, text } from '@storybook/addon-knobs'
 import '../../assets/css/main.css'
-import DefaultButton, { colors, sizes, tags, variants } from './Button.vue'
+import DefaultButton, { colors, rounded, sizes, tags, variants } from './Button.vue'
 
 const { props } = DefaultButton
 
@@ -60,7 +60,7 @@ export const all = () => ({
       default: text('Icon Right', props.iconRight.default)
     },
     rounded: {
-      default: boolean('Rounded', props.rounded.default)
+      default: select('Rounded', rounded, props.rounded.default)
     },
     size: {
       default: select('Size', sizes, props.size.default)

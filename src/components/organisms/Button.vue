@@ -2,7 +2,6 @@
   <component
     :is="as"
     :type="type || (as === 'button' ? 'button' : undefined)"
-    class="inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top focus:outline-none focus:shadow-outline transition-colors duration-100"
     :class="classes"
     :disabled="disabled"
     v-bind="$attrs"
@@ -39,6 +38,7 @@
 
 <script>
 export const colors = ['base', 'primary', 'invert']
+export const rounded = ['base', 'full', 'full-left', 'full-right', 'none']
 export const sizes = ['xs', 'sm', 'base', 'lg', 'xl']
 export const tags = ['button', 'a', 'div', 'RouterLink']
 export const variants = ['outline', 'solid', 'link']
@@ -76,8 +76,9 @@ export default {
       default: ''
     },
     rounded: {
-      type: Boolean,
-      default: true
+      type: String,
+      default: 'full',
+      validator: value => rounded.includes(value)
     },
     size: {
       type: String,
@@ -99,7 +100,7 @@ export default {
       return !this.disabled && !this.loading
     },
     classes () {
-      const classes = []
+      const classes = ['inline-flex justify-center items-center text-center whitespace-no-wrap align-center position-relative align-top focus:outline-none focus:shadow-outline transition-colors duration-100']
       let colorClasses = []
       switch (this.color) {
         case 'base':
@@ -117,7 +118,20 @@ export default {
         classes.push('opacity-50')
       }
       classes.push(this.interactive ? 'cursor-pointer' : 'pointer-events-none')
-      classes.push(this.rounded ? 'rounded-full' : 'rounded')
+      switch (this.rounded) {
+        case 'base':
+          classes.push('rounded')
+          break
+        case 'full':
+          classes.push('rounded-full')
+          break
+        case 'full-left':
+          classes.push('rounded-l-full')
+          break
+        case 'full-right':
+          classes.push('rounded-r-full')
+          break
+      }
       switch (this.size) {
         case 'xs':
           classes.push('text-xs', 'md:text-sm', 'py-1', 'px-3')

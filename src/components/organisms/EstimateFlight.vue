@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 flex max-w-md">
+  <div class="flex md:text-lg lg:text-xl justify-center items-center">
     <template v-if="type === 'locations'">
       <span
         title="Departure"
@@ -59,7 +59,7 @@
       />
       {{ passengers }}
     </span>
-    <div class="ml-2 flex items-center">
+    <ButtonGroup class="ml-2">
       <Button
         as="RouterLink"
         :to="{
@@ -67,32 +67,44 @@
           params: { id },
           query: this.$route.query
         }"
+        size="sm"
         title="Edit"
-        icon-right="pen"
-      />
+        icon-left="pen"
+      >
+        Edit
+      </Button>
       <Button
         title="Add Return Flight"
-        icon-right="exchange-alt"
-        class="ml-2"
+        icon-left="exchange-alt"
+        size="sm"
+        :style="{ borderRadius: 'none' }"
         @click="addReturnFlight(id)"
-      />
+      >
+        Add return
+      </Button>
       <Button
         v-if="removable"
+        size="sm"
         title="Remove"
-        icon-right="trash"
-        class="ml-2"
+        icon-left="trash"
         @click="remove"
-      />
-    </div>
+      >
+        Remove
+      </Button>
+    </ButtonGroup>
   </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
 
+import ButtonGroup from '@/components/organisms/ButtonGroup'
 import { airport as formatAirport, date as formatDate } from '@/utils/formatters'
 
 export default {
+  components: {
+    ButtonGroup
+  },
   props: {
     id: {
       type: String,
