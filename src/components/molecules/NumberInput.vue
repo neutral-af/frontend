@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center">
     <Button
-      :rounded="false"
+      rounded="none"
       variant="link"
       @click="subtract"
     >
@@ -16,7 +16,7 @@
     />
     <Button
       variant="link"
-      :rounded="false"
+      rounded="none"
       @click="add"
     >
       +
