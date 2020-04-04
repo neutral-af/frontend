@@ -1,7 +1,7 @@
 <template>
   <Button
     variant="link"
-    :rounded="false"
+    rounded="base"
     v-bind="$attrs"
     v-on="$listeners"
   >
