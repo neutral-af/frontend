@@ -32,13 +32,13 @@
     "smoothscroll-polyfill": "^0.4.4",
     "stripe": "^7.8.0",
     "tailwindcss": "^1.1.4",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-chartjs": "^3.4.2",
     "vue-cookie-law": "^1.11.0",
     "vue-cookies": "^1.5.13",
     "vue-meta": "^2.3.1",
     "vue-router": "^3.1.2",
-    "vue-server-renderer": "^2.6.10",
+    "vue-server-renderer": "^2.6.11",
     "vue-stripe-elements-plus": "^0.2.10",
     "vue-toasted": "^1.1.27",
     "vue2-animate": "^2.1.2",
@@ -75,7 +75,7 @@
     "vue-cli-plugin-storybook": "~1.2.1",
     "vue-cli-plugin-tailwind": "~1.2.0",
     "vue-markdown": "^2.2.4",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.11"
   },
   "engines": {
     "node": ">=10.15.3",
