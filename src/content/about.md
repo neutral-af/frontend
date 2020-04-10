@@ -1,3 +1,4 @@
+
 ## Carbon offsets aren’t enough, people should fly less!
 
 Not a question. But yes, people should fly less. Airplane travel is one of the biggest sources of CO2 emissions. Travel by train or other transport have drastically lower carbon footprints. We agree with you.
