@@ -22,12 +22,7 @@
 </template>
 
 <script>
-import SectionCredits from '@/components/molecules/SectionCredits'
-
 export default {
-  components: {
-    SectionCredits
-  },
   props: {
     as: {
       type: String,

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-xs py-2 px-4 flex items-center sm:py-2"
+    class="text-xs flex items-center"
   >
     <Icon
       icon="info-circle"

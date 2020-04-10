@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center section hero">
-      <BackgroundPhoto class="w-screen h-screen" />
+      <BackgroundPicture class="w-screen h-screen" />
       <MainHead class="z-10" />
       <div
         class="container text-center z-10"
@@ -146,7 +146,7 @@ import { NAME } from '@/../constants'
 import { price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
 import SectionCredits from '@/components/molecules/SectionCredits'
-import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
+import BackgroundPicture from '@/components/organisms/BackgroundPicture'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
@@ -158,7 +158,7 @@ export default {
     titleTemplate: null
   },
   components: {
-    BackgroundPhoto,
+    BackgroundPicture,
     MainFoot,
     MainHead,
     ScrollButton,

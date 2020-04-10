@@ -6,7 +6,7 @@
       'py-4': compact
     }"
   >
-    <BackgroundPhoto class="w-full h-full opacity-25" />
+    <BackgroundPicture class="w-full h-full opacity-25" />
     <div class="z-10 sm:flex sm:items-center sm:justify-center ">
       <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
       <nav class="main-foot-nav">
@@ -39,12 +39,12 @@
 
 <script>
 import BrandLink from '@/components/atoms/BrandLink'
-import BackgroundPhoto from '@/components/organisms/BackgroundPhoto'
+import BackgroundPicture from '@/components/organisms/BackgroundPicture'
 
 export default {
   components: {
     BrandLink,
-    BackgroundPhoto
+    BackgroundPicture
   },
   props: {
     compact: {
