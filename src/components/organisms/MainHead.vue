@@ -1,5 +1,8 @@
 <template>
-  <header class="self-stretch flex justify-between items-center">
+  <header
+    class="self-stretch flex justify-between items-center w-full"
+    :class="{ 'fixed': sticky }"
+  >
     <BrandLink class="text-3xl p-4 sm:text-4xl" />
     <div>
       <RouterLink
@@ -19,6 +22,12 @@ import BrandLink from '@/components/atoms/BrandLink'
 export default {
   components: {
     BrandLink
+  },
+  props: {
+    sticky: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>

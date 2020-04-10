@@ -1,7 +1,11 @@
 <template>
   <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center section hero">
     <BackgroundPicture class="w-screen h-screen" />
-    <MainHead class="z-10" />
+    <MainHead
+      class="z-10"
+      :sticky="mainHeadSticky"
+      :class="{ 'text-gray-700 bg-white': mainHeadSticky }"
+    />
     <div
       class="container text-center z-10"
       style="margin-top: -30vh"
@@ -51,6 +55,20 @@ export default {
     MainHead,
     ScrollButton,
     VueTyper
+  },
+  data () {
+    return {
+      mainHeadSticky: false
+    }
+  },
+  mounted () {
+    this.observer = new IntersectionObserver(([{ isIntersecting }]) => {
+      this.mainHeadSticky = !isIntersecting
+    })
+    this.observer.observe(this.$el)
+  },
+  beforeDestroy () {
+    this.observer.disconnect()
   }
 }
 </script>
