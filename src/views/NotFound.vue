@@ -1,23 +1,38 @@
 <template>
-  <HeroSection as="main">
-    <h1 class="title is-1">
-      Ouch!
-    </h1>
-    <p class="subtitle is-4">
-      The page was not found.
-    </p>
-  </HeroSection>
+  <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col flex-grow">
+      <MainHead />
+      <div class="container text-center">
+        <Title as="h1">
+          {{ title }} {{ subtitle }}
+        </Title>
+      </div>
+    </div>
+    <MainFoot compact />
+  </div>
 </template>
 
 <script>
-import HeroSection from '@/components/organisms/HeroSection'
+import MainHead from '@/components/organisms/MainHead'
+import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  head: {
-    title: 'Not found'
+  head () {
+    return {
+      title: `${this.title} ${this.subtitle}`
+    }
   },
   components: {
-    HeroSection
+    MainHead,
+    MainFoot
+  },
+  computed: {
+    title () {
+      return 'Ouch!'
+    },
+    subtitle () {
+      return 'The page was not found'
+    }
   }
 }
 </script>
