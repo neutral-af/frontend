@@ -53,7 +53,7 @@
     "@storybook/addon-notes": ">=5.3.0",
     "@storybook/vue": ">=5.3.0",
     "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-plugin-eslint": "^4.3.1",
     "@vue/cli-plugin-pwa": "^4.1.2",
     "@vue/cli-plugin-unit-jest": "^4.1.2",
     "@vue/cli-service": "^3.11.0",
