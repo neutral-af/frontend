@@ -15,6 +15,7 @@
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-4">
         <Button
+          color="invert"
           size="sm"
           @click="accept"
         >
