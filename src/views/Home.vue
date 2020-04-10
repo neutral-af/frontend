@@ -9,7 +9,13 @@
       >
         <p class="font-brand text-4xl leading-tight mb-4 md:text-5xl lg:text-6xl">
           <span class="block sm:inline text-6xl md:text-7xl lg:text-8xl">
-            <span>{{ verb }}</span> Neutral
+            <vue-typer
+              :text="['Go', 'Fly','Drive']"
+              erase-style="backspace"
+              :pre-erase-delay="2500"
+              :type-delay="150"
+            />
+            Neutral
           </span>
           (as f**k)
         </p>
@@ -142,6 +148,8 @@
 </template>
 
 <script>
+import { VueTyper } from 'vue-typer'
+
 import { NAME } from '@/../constants'
 import { price } from '@/utils/formatters'
 import ScrollButton from '@/components/molecules/ScrollButton'
@@ -149,8 +157,6 @@ import SectionCredits from '@/components/molecules/SectionCredits'
 import BackgroundPicture from '@/components/organisms/BackgroundPicture'
 import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
-
-const VERBS = ['Go', 'Fly', 'Drive']
 
 export default {
   head: {
@@ -162,29 +168,13 @@ export default {
     MainFoot,
     MainHead,
     ScrollButton,
-    SectionCredits
-  },
-  data () {
-    return {
-      verb: VERBS[0]
-    }
+    SectionCredits,
+    VueTyper
   },
   computed: {
     price () {
       return price(250, 'USD')
     }
-  },
-  created () {
-    this.verbInterval = setInterval(() => {
-      let index = VERBS.findIndex(item => item === this.verb) + 1
-      if (index >= VERBS.length) {
-        index = 0
-      }
-      this.verb = VERBS[index]
-    }, 2000)
-  },
-  beforeDestroy () {
-    clearInterval(this.verbInterval)
   },
   methods: {
     scrollTo (ref) {
@@ -209,5 +199,17 @@ export default {
 
 .goodnews {
   background: linear-gradient(256deg, theme('colors.gray.300'), theme('colors.gray.100') 70%, theme('colors.white'))
+}
+
+.vue-typer {
+  color: inherit;
+}
+
+.vue-typer .custom.char.typed {
+  color: inherit;
+}
+
+.vue-typer .custom.caret {
+  display: none;
 }
 </style>
