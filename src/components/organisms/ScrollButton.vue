@@ -23,6 +23,8 @@ export default {
   },
   methods: {
     onClick () {
+      console.log(this.to)
+      console.log(document.querySelector(this.to))
       const $to = document.querySelector(this.to)
       if ($to) {
         $to.scrollIntoView({ behavior: 'smooth' })

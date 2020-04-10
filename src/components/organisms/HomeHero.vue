@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center section hero">
+  <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center hero">
     <BackgroundPicture class="w-screen h-screen" />
     <MainHead
       class="z-10"
@@ -47,13 +47,11 @@ import { VueTyper } from 'vue-typer'
 
 import BackgroundPicture from '@/components/organisms/BackgroundPicture'
 import MainHead from '@/components/organisms/MainHead'
-import ScrollButton from '@/components/organisms/ScrollButton'
 
 export default {
   components: {
     BackgroundPicture,
     MainHead,
-    ScrollButton,
     VueTyper
   },
   data () {
@@ -72,3 +70,23 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.hero {
+  background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
+}
+</style>
+
+<style>
+.vue-typer {
+  color: inherit;
+}
+
+.vue-typer .custom.char.typed {
+  color: inherit;
+}
+
+.vue-typer .custom.caret {
+  display: none;
+}
+</style>
