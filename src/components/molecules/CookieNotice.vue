@@ -1,5 +1,8 @@
 <template>
-  <CookieLaw class="text-base">
+  <CookieLaw
+    class="text-base"
+    transition-name="fade"
+  >
     <div
       slot-scope="{ accept }"
       class="flex flex-col items-center justify-between sm:flex-grow sm:flex-row"
