@@ -23,6 +23,7 @@ export default {
   h5,
   h6 {
     font-size: 1.75em;
+    font-weight: 300;
     letter-spacing: -0.025em;
     margin-bottom: 0.25em;
     line-height: 1.25;
