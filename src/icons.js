@@ -14,7 +14,9 @@ import {
   faExchangeAlt,
   faHandsHelping,
   faInfoCircle,
+  faCode,
   faMapMarkerAlt,
+  faFistRaised,
   faPen,
   faPlaneArrival,
   faPlaneDeparture,
@@ -25,7 +27,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faCircle,
-  faEnvelope
+  faEnvelope,
+  faChartBar,
+  faCommentAlt
 } from '@fortawesome/free-regular-svg-icons'
 
 export default () => {
@@ -53,4 +57,8 @@ export default () => {
   library.add(faTrash)
   library.add(faUser)
   library.add(faExchangeAlt)
+  library.add(faFistRaised)
+  library.add(faCode)
+  library.add(faChartBar)
+  library.add(faCommentAlt)
 }

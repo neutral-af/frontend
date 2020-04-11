@@ -14,35 +14,32 @@
       <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
       <nav class="flex">
         <FootLink
+          icon="fist-raised"
           as="RouterLink"
           :to="{ name: 'privacy' }"
-          class="mx-1"
         >
           Privacy policy
         </FootLink>
-        ·
         <FootLink
+          icon="code"
           href="https://www.github.com/neutral-af"
           target="_blank"
           rel="noopener"
-          class="mx-1"
         >
           Source code
         </FootLink>
-        ·
         <FootLink
+          :icon="['far', 'chart-bar']"
           href="https://simpleanalytics.com/neutral.af"
           target="_blank"
           rel="noopener"
-          class="mx-1"
         >
           Analytics
         </FootLink>
-        ·
         <FootLink
+          :icon="['far', 'comment-alt']"
           :href="`mailto:${FEEDBACK_EMAIL}`"
           rel="noopener"
-          class="mx-1"
         >
           Feedback
         </FootLink>
@@ -55,7 +52,7 @@
 import { mapConstants } from '@/utils'
 import BrandLink from '@/components/atoms/BrandLink'
 import BackgroundPicture from '@/components/organisms/BackgroundPicture'
-import FootLink from '@/components/atoms/FootLink'
+import FootLink from '@/components/molecules/FootLink'
 
 export default {
   components: {
