@@ -8,7 +8,7 @@
     <Icon
       v-if="icon"
       :icon="icon"
-      class="mr-1 md:mr-2"
+      class="mr-1"
     />
     <span>
       <slot />
