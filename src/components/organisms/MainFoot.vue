@@ -12,35 +12,40 @@
     />
     <div class="z-10 sm:flex sm:items-center sm:justify-center ">
       <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
-      <nav class="main-foot-nav">
-        <RouterLink
+      <nav class="flex">
+        <FootLink
+          as="RouterLink"
           :to="{ name: 'privacy' }"
-          class="hover:underline focus:underline"
+          class="mx-1"
         >
           Privacy policy
-        </RouterLink>
+        </FootLink>
         ·
-        <a
+        <FootLink
           href="https://www.github.com/neutral-af"
           target="_blank"
           rel="noopener"
-          class="hover:underline focus:underline"
-        >Source code</a>
+          class="mx-1"
+        >
+          Source code
+        </FootLink>
         ·
-        <a
+        <FootLink
           href="https://simpleanalytics.com/neutral.af"
           target="_blank"
           rel="noopener"
-          class="hover:underline focus:underline"
-        >Analytics</a>
+          class="mx-1"
+        >
+          Analytics
+        </FootLink>
         ·
-        <a
+        <FootLink
           :href="`mailto:${FEEDBACK_EMAIL}`"
           rel="noopener"
-          class="hover:underline focus:underline"
+          class="mx-1"
         >
           Feedback
-        </a>
+        </FootLink>
       </nav>
     </div>
   </footer>
@@ -50,11 +55,13 @@
 import { mapConstants } from '@/utils'
 import BrandLink from '@/components/atoms/BrandLink'
 import BackgroundPicture from '@/components/organisms/BackgroundPicture'
+import FootLink from '@/components/atoms/FootLink'
 
 export default {
   components: {
     BrandLink,
-    BackgroundPicture
+    BackgroundPicture,
+    FootLink
   },
   props: {
     compact: {
