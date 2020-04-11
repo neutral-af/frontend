@@ -5,9 +5,9 @@
   >
     <div class="flex-grow container py-6 px-4 md:flex md:justify-center md:items-center">
       <div class="mb-6 md:mb-0 md:mr-10 lg:mr-16 lg:max-w-2xl">
-        <h2 class="text-2xl tracking-tight leading-tight mb-4 md:text-3xl lg:text-4xl">
+        <Title as="h2">
           Flying is one of the worst carbon-polluting things you do
-        </h2>
+        </Title>
         <p>
           The International Council on Clean Transportation <LLink
             href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"

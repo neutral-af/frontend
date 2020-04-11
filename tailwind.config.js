@@ -25,7 +25,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      sans: ['Hind', ...fontFamily.sans]
+      sans: ['Nunito', ...fontFamily.sans]
     }
   },
   variants: {},
