@@ -4,16 +4,20 @@
       {{ title }}
     </Title>
     <div
-      v-if="flightsCount > 0"
       class="flex flex-col items-center justify-center mb-6"
     >
-      <EstimateFlight
-        v-for="(flight, id) in flights"
-        :id="id"
-        :key="id"
-        v-bind="flight"
-        :removable="removable"
-      />
+      <template v-if="flightsCount > 0">
+        <EstimateFlight
+          v-for="(flight, id) in flights"
+          :id="id"
+          :key="id"
+          v-bind="flight"
+          :removable="removable"
+        />
+      </template>
+      <template v-else>
+        There are no flights right now.
+      </template>
     </div>
     <EstimateActions />
   </div>

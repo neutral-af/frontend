@@ -10,7 +10,6 @@
 </template>
 
 <script>
-
 import { NAME } from '@/../constants'
 import HomeHero from '@/components/organisms/HomeHero'
 import HomeBadNews from '@/components/organisms/HomeBadNews'

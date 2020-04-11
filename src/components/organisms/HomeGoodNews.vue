@@ -39,7 +39,7 @@
           as="RouterLink"
           size="lg"
           icon-right="arrow-right"
-          :to="{ name: 'flights' }"
+          :to="{ name: 'add-flight' }"
         >
           Offset a flight now
         </Button>

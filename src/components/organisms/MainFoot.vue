@@ -34,13 +34,20 @@
           class="hover:underline focus:underline"
         >Analytics</a>
         ·
-        <FeedbackLink class="hover:underline focus:underline" />
+        <a
+          :href="`mailto:${FEEDBACK_EMAIL}`"
+          rel="noopener"
+          class="hover:underline focus:underline"
+        >
+          Feedback
+        </a>
       </nav>
     </div>
   </footer>
 </template>
 
 <script>
+import { mapConstants } from '@/utils'
 import BrandLink from '@/components/atoms/BrandLink'
 import BackgroundPicture from '@/components/organisms/BackgroundPicture'
 
@@ -54,6 +61,9 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  computed: {
+    ...mapConstants(['FEEDBACK_EMAIL'])
   }
 }
 </script>

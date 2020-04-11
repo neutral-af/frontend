@@ -53,7 +53,6 @@ export default {
       this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
       this.$watch('userCurrency', this.onUpdate.bind(this))
     ]
-    this.setInitialPage()
   },
   beforeDestroy () {
     if (this.unwatchers) {
@@ -73,11 +72,6 @@ export default {
       } catch (err) {
         console.log(err)
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
-      }
-    },
-    setInitialPage () {
-      if (this.flightsCount === 0 && this.$route.matched.every(({ name }) => name !== 'add-flight')) {
-        this.$router.replace({ name: 'add-flight' })
       }
     },
     updateUrl () {

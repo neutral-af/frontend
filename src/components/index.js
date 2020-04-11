@@ -3,7 +3,6 @@ import Vue from 'vue'
 import AnimatedValue from '@/components/atoms/AnimatedValue'
 import Content from '@/components/atoms/Content'
 import Checkbox from '@/components/atoms/Checkbox'
-import FeedbackLink from '@/components/atoms/FeedbackLink'
 import Field from '@/components/atoms/Field'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
@@ -26,7 +25,6 @@ export default () => {
   Vue.component('Checkbox', Checkbox)
   Vue.component('Content', Content)
   Vue.component('DatePicker', DatePicker)
-  Vue.component('FeedbackLink', FeedbackLink)
   Vue.component('Field', Field)
   Vue.component('Icon', Icon)
   Vue.component('Input', Input)
