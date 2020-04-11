@@ -1,26 +1,27 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
+  faAngleDown,
   faArrowDown,
   faArrowLeft,
   faArrowRight,
-  faInfoCircle,
-  faMapMarkerAlt,
-  faTicketAlt,
-  faPlus,
+  faCalendarAlt,
   faCheck,
-  faCreditCard,
-  faHandsHelping,
-  faPlaneDeparture,
-  faPlaneArrival,
-  faUser,
+  faCheckCircle,
+  faChevronDown,
   faCircleNotch,
   faCloud,
-  faAngleDown,
-  faCalendarAlt,
+  faCreditCard,
+  faExchangeAlt,
+  faHandsHelping,
+  faInfoCircle,
+  faMapMarkerAlt,
   faPen,
+  faPlaneArrival,
+  faPlaneDeparture,
+  faPlus,
+  faTicketAlt,
   faTrash,
-  faCheckCircle,
-  faExchangeAlt
+  faUser
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faCircle,
@@ -37,6 +38,7 @@ export default () => {
   library.add(faCloud)
   library.add(faCheck)
   library.add(faCheckCircle)
+  library.add(faChevronDown)
   library.add(faCircle)
   library.add(faCircleNotch)
   library.add(faCreditCard)

@@ -1,6 +1,9 @@
 <template>
   <Button
-    icon-left="arrow-down"
+    icon-left="chevron-down"
+    variant="link"
+    size="2xl"
+    class="transform transition-transform duration-100 hover:scale-125 focus:scale-125"
     v-bind="$attrs"
     v-on="listeners"
     @click="onClick"

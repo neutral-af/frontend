@@ -46,7 +46,7 @@
 <script>
 export const colors = ['base', 'primary', 'invert']
 export const rounded = ['base', 'full', 'full-left', 'full-right', 'none']
-export const sizes = ['xs', 'sm', 'base', 'lg', 'xl']
+export const sizes = ['xs', 'sm', 'base', 'lg', 'xl', '2xl']
 export const tags = ['button', 'div', 'RouterLink']
 export const variants = ['outline', 'solid', 'link']
 
@@ -154,6 +154,9 @@ export default {
           break
         case 'xl':
           classes.push('text-xl', 'md:text-2xl', 'py-3', 'px-6')
+          break
+        case '2xl':
+          classes.push('text-2xl', 'md:text-3xl', 'py-4', 'px-8')
           break
       }
       return classes
