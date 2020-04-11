@@ -9,13 +9,13 @@
           Flying is one of the worst carbon-polluting things you do
         </Title>
         <p>
-          The International Council on Clean Transportation <LLink
+          The International Council on Clean Transportation <InlineLink
             href="https://www.nytimes.com/2019/09/19/climate/air-travel-emissions.html"
             noreferrer
             target="_blank"
           >
             says
-          </LLink>:
+          </InlineLink>:
         </p>
         <blockquote
           class="inline-block text-gray-600 pl-6 mb-2 sm:mb-3"
@@ -39,13 +39,13 @@
           class="mb-4 sm:max-w-xs"
         >
         <SectionCredits class="text-gray-600">
-          Illustration: <LLink
+          Illustration: <InlineLink
             href="https://undraw.co"
             noreferrer
             target="_blank"
           >
             unDraw
-          </LLink>
+          </InlineLink>
         </SectionCredits>
       </div>
     </div>

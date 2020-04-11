@@ -6,7 +6,7 @@ import Checkbox from '@/components/atoms/Checkbox'
 import Field from '@/components/atoms/Field'
 import Icon from '@/components/atoms/Icon'
 import Input from '@/components/atoms/Input'
-import LLink from '@/components/atoms/LLink'
+import InlineLink from '@/components/atoms/InlineLink'
 import Message from '@/components/atoms/Message'
 import Panel from '@/components/atoms/Panel'
 import Select from '@/components/atoms/Select'
@@ -28,7 +28,7 @@ export default () => {
   Vue.component('Field', Field)
   Vue.component('Icon', Icon)
   Vue.component('Input', Input)
-  Vue.component('LLink', LLink)
+  Vue.component('InlineLink', InlineLink)
   Vue.component('LoadingIcon', LoadingIcon)
   Vue.component('Message', Message)
   Vue.component('NumberInput', NumberInput)

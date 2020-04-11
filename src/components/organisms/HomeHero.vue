@@ -5,19 +5,19 @@
       compact
       class="absolute bottom-0 right-0 p-4"
     >
-      <LLink
+      <InlineLink
         href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
         noreferrer
         target="_blank"
       >
         Joss Woodhead
-      </LLink> · <LLink
+      </InlineLink> · <InlineLink
         href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
         noreferrer
         target="_blank"
       >
         Unsplash
-      </LLink>
+      </InlineLink>
     </SectionCredits>
     <MainHead
       class="z-10"

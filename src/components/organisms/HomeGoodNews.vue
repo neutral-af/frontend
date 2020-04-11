@@ -11,13 +11,13 @@
         >
         <SectionCredits class="text-gray-600">
           Illustration:
-          <LLink
+          <InlineLink
             href="https://undraw.co"
             noreferrer
             target="_blank"
           >
             unDraw
-          </LLink>
+          </InlineLink>
         </SectionCredits>
       </div>
       <div class="lg:max-w-2xl pb-6">

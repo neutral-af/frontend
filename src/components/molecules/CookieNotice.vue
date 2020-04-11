@@ -9,12 +9,12 @@
     >
       <div>
         OK fine, we use cookies – but only if you want to save payment details. Learn more in our
-        <LLink
+        <InlineLink
           as="RouterLink"
           :to="{ name: 'privacy' }"
         >
           Privacy Policy
-        </LLink>
+        </InlineLink>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-4">
         <Button
