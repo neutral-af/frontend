@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
 import { localeToCurrency } from '@/utils/converters'
 import { createSetMutations } from '@/utils/store'
@@ -11,9 +11,6 @@ import checkoutForm from '@/store/modules/checkout-form'
 Vue.use(Vuex)
 
 const strict = process.env.NODE_ENV !== 'production'
-// const persistedState = createPersistedState({
-//   reducer: ({ estimate }) => estimate
-// })
 
 export default new Store({
   state: () => ({
@@ -25,6 +22,10 @@ export default new Store({
     estimateForm,
     estimate
   },
-  // plugins: [persistedState],
+  plugins: [
+    createPersistedState({
+      paths: ['userCurrency']
+    })
+  ],
   strict: strict
 })
