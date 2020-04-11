@@ -1,6 +1,24 @@
 <template>
   <div class="relative overflow-hidden min-h-screen text-white bg-primary-600 flex flex-col justify-between items-center hero">
     <BackgroundPicture class="w-screen h-screen" />
+    <SectionCredits
+      compact
+      class="absolute bottom-0 right-0 p-4"
+    >
+      <LLink
+        href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        noreferrer
+        target="_blank"
+      >
+        Joss Woodhead
+      </LLink> · <LLink
+        href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        noreferrer
+        target="_blank"
+      >
+        Unsplash
+      </LLink>
+    </SectionCredits>
     <MainHead
       class="z-10"
       :sticky="mainHeadSticky"
@@ -45,6 +63,7 @@
 <script>
 import { VueTyper } from 'vue-typer'
 
+import SectionCredits from '@/components/molecules/SectionCredits'
 import BackgroundPicture from '@/components/organisms/BackgroundPicture'
 import MainHead from '@/components/organisms/MainHead'
 
@@ -52,6 +71,7 @@ export default {
   components: {
     BackgroundPicture,
     MainHead,
+    SectionCredits,
     VueTyper
   },
   data () {

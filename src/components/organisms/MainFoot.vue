@@ -1,12 +1,15 @@
 <template>
   <footer
-    class="relative text-white bg-primary-700 text-sm text-center flex items-center justify-center px-4 sm:text-base main-foot"
+    class="relative overflow-hidden text-white bg-primary-700 text-sm text-center flex items-center justify-center px-4 sm:text-base main-foot"
     :class="{
       'py-10': !compact,
       'py-4': compact
     }"
   >
-    <BackgroundPicture class="w-full h-full opacity-25" />
+    <BackgroundPicture
+      class="bottom-0 top-auto h-screen opacity-75"
+      :animated="false"
+    />
     <div class="z-10 sm:flex sm:items-center sm:justify-center ">
       <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
       <nav class="main-foot-nav">

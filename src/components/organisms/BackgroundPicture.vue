@@ -1,40 +1,21 @@
 <template>
-  <div class="absolute top-0 left-0 overflow-hidden">
-    <Transition name="fade-zoom">
-      <img
-        v-show="loaded"
-        src="../../assets/img/background.jpg"
-        class="background-picture-image"
-        @load="onLoad"
-      >
-    </Transition>
-    <SectionCredits
-      compact
-      class="absolute bottom-0 right-0 p-4"
+  <Transition :name="animated ? 'fade-zoom' : ''">
+    <img
+      v-show="loaded"
+      src="../../assets/img/background.jpg"
+      class="absolute top-0 left-0 w-full h-full overflow-hidden background-picture-image"
+      @load="onLoad"
     >
-      <LLink
-        href="https://unsplash.com/@josswoodhead?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        noreferrer
-        target="_blank"
-      >
-        Joss Woodhead
-      </LLink> · <LLink
-        href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        noreferrer
-        target="_blank"
-      >
-        Unsplash
-      </LLink>
-    </SectionCredits>
-  </div>
+  </Transition>
 </template>
 
 <script>
-import SectionCredits from '@/components/molecules/SectionCredits'
-
 export default {
-  components: {
-    SectionCredits
+  props: {
+    animated: {
+      type: Boolean,
+      default: true
+    }
   },
   data () {
     return {
@@ -51,11 +32,6 @@ export default {
 
 <style>
 .background-picture-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   mix-blend-mode: soft-light;
   object-fit: cover;
   filter: grayscale(.75);
