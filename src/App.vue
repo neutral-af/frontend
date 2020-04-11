@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 import { NAME, SEPARATOR } from '@/../constants'
 import CookieNotice from '@/components/molecules/CookieNotice'
 // import { trackEvent } from './honeycomb'
@@ -16,6 +18,19 @@ export default {
   },
   components: {
     CookieNotice
+  },
+  mounted () {
+    this.onResize = debounce(this.setIsMobile, 25)
+    window.addEventListener('resize', this.onResize)
+    this.setIsMobile()
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResize)
+  },
+  methods: {
+    setIsMobile () {
+      this.$store.commit('setIsMobile', window.innerWidth < 640)
+    }
   }
 // data () {
 //   return {

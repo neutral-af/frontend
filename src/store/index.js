@@ -14,9 +14,13 @@ const strict = process.env.NODE_ENV !== 'production'
 
 export default new Store({
   state: () => ({
+    isMobile: false,
     userCurrency: localeToCurrency(window.navigator.language)
   }),
-  mutations: createSetMutations(['userCurrency']),
+  mutations: createSetMutations([
+    'isMobile',
+    'userCurrency'
+  ]),
   modules: {
     checkoutForm,
     estimateForm,

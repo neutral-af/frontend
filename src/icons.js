@@ -4,6 +4,7 @@ import {
   faArrowDown,
   faArrowLeft,
   faArrowRight,
+  faBars,
   faCalendarAlt,
   faCheck,
   faCheckCircle,
@@ -34,6 +35,7 @@ import {
 
 export default () => {
   library.add(faEnvelope)
+  library.add(faBars)
   library.add(faAngleDown)
   library.add(faArrowDown)
   library.add(faArrowLeft)

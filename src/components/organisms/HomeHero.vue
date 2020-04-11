@@ -21,8 +21,8 @@
     </SectionCredits>
     <MainHead
       class="z-10"
-      :sticky="mainHeadSticky"
-      :class="{ 'text-gray-700 bg-white': mainHeadSticky }"
+      :sticky="headSticky"
+      :invert="!headSticky"
     />
     <div
       class="container text-center z-10"
@@ -76,12 +76,12 @@ export default {
   },
   data () {
     return {
-      mainHeadSticky: false
+      headSticky: false
     }
   },
   mounted () {
     this.observer = new IntersectionObserver(([{ isIntersecting }]) => {
-      this.mainHeadSticky = !isIntersecting
+      this.headSticky = !isIntersecting
     })
     this.observer.observe(this.$el)
   },
