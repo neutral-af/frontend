@@ -4,12 +4,12 @@
       {{ title }}
     </Title>
     <p>
-      Congratulations! You just offset <strong>{{ carbon }}</strong> kilograms of carbon!
+      Congratulations! You just offset <strong>{{ formattedCarbon }}</strong> of carbon!
     </p>
     <Button
       as="RouterLink"
       icon-right="arrow-right"
-      :to="{ name: 'flights' }"
+      :to="{ name: 'add-flight' }"
       class="mt-6"
     >
       Offset more flights
@@ -19,6 +19,8 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import { weight } from '@/utils/formatters'
 
 export default {
   head () {
@@ -30,6 +32,9 @@ export default {
     ...mapState('estimate', ['carbon']),
     title () {
       return 'Success!'
+    },
+    formattedCarbon () {
+      return weight(this.carbon)
     }
   },
   beforeDestroy () {

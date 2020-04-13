@@ -264,6 +264,7 @@ export default {
       if (data.customerID) {
         this.$cookies.set('custID', data.customerID)
       }
+      this.$store.commit('estimateForm/reset')
       this.$router.push({ name: 'success' })
     }
   }

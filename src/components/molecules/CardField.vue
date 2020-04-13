@@ -39,13 +39,13 @@ export default {
         elements: {
           fonts: [{
             family: 'Hind',
-            src: `url('${process.env.BASE_URL}fonts/hind-regular.woff') format('woff')`,
+            src: `url('${process.env.BASE_URL}fonts/nunito-regular.woff') format('woff')`,
             weight: '400',
             style: 'normal',
             display: 'fallback'
           }, {
             family: 'Hind',
-            src: `url('${process.env.BASE_URL}fonts/hind-bold.woff') format('woff')`,
+            src: `url('${process.env.BASE_URL}fonts/nunito-bold.woff') format('woff')`,
             weight: '700',
             style: 'normal',
             display: 'fallback'
@@ -54,7 +54,7 @@ export default {
         style: {
           base: {
             color: '#4a5568',
-            fontFamily: 'Hind, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
+            fontFamily: 'Nunito, BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
             fontSmoothing: 'antialiased',
             fontSize: '20px',
             icon_color: 'white',

@@ -16,12 +16,14 @@ const createId = (flights) => {
   return ids.length > 0 ? Math.max(...ids) + 1 : 1
 }
 
+const createState = () => ({
+  flights: {},
+  newFlight: createFlight()
+})
+
 export default {
   namespaced: true,
-  state: () => ({
-    flights: {},
-    newFlight: createFlight()
-  }),
+  state: createState,
   getters: {
     flightsCount: ({ flights }) => Object.keys(flights).length,
     flightById: ({ flights }) => id => flights[id],
@@ -67,6 +69,10 @@ export default {
       flight.departure = arrival
 
       state.flights = { ...state.flights, [returnId]: flight }
+    },
+    reset (state) {
+      const newState = createState()
+      Object.assign(state, newState)
     }
   },
   actions: {

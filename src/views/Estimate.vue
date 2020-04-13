@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <div class="flex flex-col flex-grow">
       <MainHead />
-      <EstimateSummary />
+      <EstimateSummary v-if="summaryShown" />
       <RouterView class="container text-center" />
     </div>
     <MainFoot compact />
@@ -45,6 +45,9 @@ export default {
     ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
+    },
+    summaryShown () {
+      return this.$route.name !== 'success'
     }
   },
   async created () {
