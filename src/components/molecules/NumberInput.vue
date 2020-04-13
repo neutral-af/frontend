@@ -12,7 +12,7 @@
       :value="value"
       type="number"
       class="w-12 text-center native-input"
-      @input="set(parseInt($event.target.value))"
+      @input="onInput"
     />
     <Button
       variant="link"
@@ -45,6 +45,9 @@ export default {
     },
     set (value) {
       this.$emit('input', value)
+    },
+    onInput (value) {
+      this.set(parseInt(value))
     }
   }
 }
