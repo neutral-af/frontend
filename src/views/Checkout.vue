@@ -5,41 +5,41 @@
     class="max-w-md"
     @submit.prevent="onSubmit"
   >
-    <template v-if="hasPreviouslySaved">
+    <!-- <template v-if="hasPreviouslySaved">
       Use previously saved card?
       <CardField
         id="card"
         hidden
         @mounted="onCardMounted"
       />
-    </template>
-    <template v-else>
-      <NameField
-        :value="name"
-        @update="setName"
-      />
-      <EmailField
-        :value="email"
-        @update="setEmail"
-      />
-      <CardField
-        id="card"
-        @mounted="onCardMounted"
-      />
-      <Message v-if="envWarningShown">
-        Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
-      </Message>
-      <Field id="save-card">
-        <Checkbox
-          id="save-card"
-          size="sm"
-          :checked="saveCard"
-          @change="setSaveCard"
-        >
-          Save my card for future use
-        </Checkbox>
-      </Field>
-    </template>
+    </template> -->
+    <!-- <template v-else> -->
+    <NameField
+      :value="name"
+      @update="setName"
+    />
+    <EmailField
+      :value="email"
+      @update="setEmail"
+    />
+    <CardField
+      id="card"
+      @mounted="onCardMounted"
+    />
+    <Message v-if="envWarningShown">
+      Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
+    </Message>
+    <Field id="save-card">
+      <Checkbox
+        id="save-card"
+        size="sm"
+        :checked="saveCard"
+        @change="setSaveCard"
+      >
+        Save my card for future use
+      </Checkbox>
+    </Field>
+    <!-- </template> -->
     <div class="py-6">
       <Button
         type="submit"
@@ -106,9 +106,9 @@ export default {
         }
       }
     },
-    hasPreviouslySaved () {
-      return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
-    },
+    // hasPreviouslySaved () {
+    //   return this.previouslySavedDetails.paymentMethod && this.previouslySavedDetails.customer
+    // },
     previouslySavedDetails () {
       return {
         paymentMethod: this.$cookies.get('pmID'),
@@ -233,16 +233,16 @@ export default {
       trackEvent('paymentStarted', { 'app.estimateID': this.estimateID })
 
       try {
-        let checkout
-        if (this.hasPreviouslySaved) {
-          checkout = await this.fetchCheckout({
-            paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
-            customerID: this.previouslySavedDetails.customer
-          })
-        } else {
-          const paymentMethod = await this.createPaymentMethod()
-          checkout = await this.fetchCheckout({ paymentMethod })
-        }
+        // let checkout
+        // if (this.hasPreviouslySaved) {
+        //   checkout = await this.fetchCheckout({
+        //     paymentMethod: { id: this.previouslySavedDetails.paymentMethod },
+        //     customerID: this.previouslySavedDetails.customer
+        //   })
+        // } else {
+        const paymentMethod = await this.createPaymentMethod()
+        const checkout = await this.fetchCheckout({ paymentMethod })
+        // }
         this.onCheckoutResponse(checkout)
         this.submitting = false
       } catch (err) {
