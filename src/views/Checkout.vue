@@ -40,7 +40,7 @@
       </Checkbox>
     </Field> -->
     <!-- </template> -->
-    <div class="py-6">
+    <div class="pt-6">
       <Button
         type="submit"
         size="lg"
@@ -54,14 +54,6 @@
         Payment will be processed securely by Stripe
       </p>
     </div>
-    <Button
-      as="RouterLink"
-      :to="{ name: 'flights', query: this.$route.query }"
-      icon-left="arrow-left"
-      class="mt-6"
-    >
-      Back to Flights
-    </Button>
   </form>
 </template>
 

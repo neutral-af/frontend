@@ -10,7 +10,6 @@
     </Title>
     <Actions
       v-if="mode === 'add'"
-      class="mb-6"
     >
       <Button
         slot="left"
@@ -31,7 +30,10 @@
         Flight Number
       </Button>
     </Actions>
-    <template v-if="flight.type">
+    <div
+      v-if="flight.type"
+      class="pt-6"
+    >
       <template v-if="flight.type === 'locations'">
         <AirportField
           id="departure"
@@ -105,7 +107,7 @@
           Confirm
         </Button>
       </div>
-    </template>
+    </div>
   </form>
 </template>
 

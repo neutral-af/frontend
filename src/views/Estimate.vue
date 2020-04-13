@@ -4,6 +4,16 @@
       <MainHead />
       <EstimateSummary v-if="summaryShown" />
       <RouterView class="container text-center" />
+      <div class="container text-center pt-6 pb-10">
+        <Button
+          v-if="$route.name !== 'flights'"
+          as="RouterLink"
+          :to="{ name: 'flights', query: this.$route.query }"
+          icon-left="arrow-left"
+        >
+          Back to Flights
+        </Button>
+      </div>
     </div>
     <MainFoot compact />
   </div>
