@@ -29,7 +29,7 @@
     <Message v-if="envWarningShown">
       Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
     </Message>
-    <Field id="save-card">
+    <!-- <Field id="save-card">
       <Checkbox
         id="save-card"
         size="sm"
@@ -38,7 +38,7 @@
       >
         Save my card for future use
       </Checkbox>
-    </Field>
+    </Field> -->
     <!-- </template> -->
     <div class="py-6">
       <Button
