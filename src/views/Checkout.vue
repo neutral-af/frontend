@@ -114,8 +114,8 @@ export default {
       'setEmail',
       'setSaveCard'
     ]),
+    ...mapMutations('estimate', ['resetFlights']),
     ...mapActions('checkout', ['pay']),
-    ...mapActions('notifications', ['showNotification']),
     onCardMounted (element) {
       this.cardElement = element
     },
@@ -124,6 +124,7 @@ export default {
         return
       }
       await this.pay(this.cardElement.$refs.element._element)
+      this.resetFlights()
       this.$router.push({ name: 'success' })
     }
   }

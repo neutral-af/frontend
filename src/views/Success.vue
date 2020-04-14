@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import { weight } from '@/utils/formatters'
 
@@ -38,7 +38,8 @@ export default {
     }
   },
   beforeDestroy () {
-    this.$store.commit('estimate/resetEstimate')
-  }
+    this.resetEstimate()
+  },
+  methods: mapMutations('estimate', ['resetEstimate'])
 }
 </script>
