@@ -145,7 +145,7 @@ export default {
       flight: 'formFlight',
       flights: 'flights'
     }),
-    ...mapGetters('estimate', ['flightsCount']),
+    ...mapGetters('estimate', ['flightById', 'flightsCount']),
     mode () {
       return this.id ? 'edit' : 'add'
     },
@@ -171,7 +171,7 @@ export default {
   created () {
     let flight
     if (this.mode === 'edit') {
-      flight = this.$store.getters['estimate/flightById'](this.id)
+      flight = this.flightById(this.id)
     }
     this.createFormFlight(flight)
     if (!this.flight) {
@@ -184,6 +184,7 @@ export default {
       'updateFormFlight',
       'resetFormFlight'
     ]),
+    ...mapActions('estimate', ['addFlight', 'editFlight']),
     ...mapActions('notifications', ['showNotification']),
     update (key, value) {
       const data = { [key]: value }
@@ -200,9 +201,9 @@ export default {
       try {
         if (this.mode === 'edit') {
           const { id, flight } = this
-          await this.$store.dispatch('estimate/editFlight', { id, flight })
+          await this.editFlight({ id, flight })
         } else {
-          await this.$store.dispatch('estimate/addFlight', this.flight)
+          await this.addFlight(this.flight)
         }
         this.$router.push({ name: 'flights', query: this.$route.query })
       } catch (err) {

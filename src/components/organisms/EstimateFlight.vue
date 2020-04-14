@@ -87,7 +87,7 @@
         size="sm"
         title="Remove"
         icon-left="trash"
-        @click="remove"
+        @click="onRemove"
       >
         Remove
       </Button>
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 import ButtonGroup from '@/components/organisms/ButtonGroup'
 import { airport as formatAirport, date as formatDate } from '@/utils/formatters'
@@ -151,9 +151,33 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimate', ['addReturnFlight', 'removeFlight']),
-    remove () {
-      this.removeFlight(this.id)
+    ...mapActions('estimate', ['addReturnFlight', 'removeFlight']),
+    ...mapActions('notifications', ['showNotification']),
+    async onAddReturnFlight () {
+      try {
+        await this.addReturnFlight(this.id)
+      } catch (err) {
+        if (err.response && err.response.errors && err.response.errors.length > 0) {
+          const [{ message }] = err.response.errors
+          this.showNotification({ message })
+        }
+        if (process.env.NODE_ENV === 'development') {
+          throw err
+        }
+      }
+    },
+    async onRemove () {
+      try {
+        await this.removeFlight(this.id)
+      } catch (err) {
+        if (err.response && err.response.errors && err.response.errors.length > 0) {
+          const [{ message }] = err.response.errors
+          this.showNotification({ message })
+        }
+        if (process.env.NODE_ENV === 'development') {
+          throw err
+        }
+      }
     }
   }
 }

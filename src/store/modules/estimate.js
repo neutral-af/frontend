@@ -41,18 +41,12 @@ export default {
     })
   },
   mutations: {
-    ...utils.createSetMutations(['creating', 'flights', 'updating']),
-    setEstimate (state, estimate) {
-      state.estimate = estimate
-    },
-    removeFlight (state, id) {
-      delete state.flights[id]
-      state.flights = { ...state.flights }
-    },
-    updateFlight (state, { id, data }) {
-      const flight = state.flights[id]
-      state.flights = { ...state.flights, [id]: { ...flight, ...data } }
-    },
+    ...utils.createSetMutations([
+      'creating',
+      'estimate',
+      'flights',
+      'updating'
+    ]),
     createFormFlight (state, data) {
       state.formFlight = { ...createFormFlight(), ...data }
     },
@@ -61,14 +55,6 @@ export default {
     },
     resetFormFlight (state) {
       state.formFlight = null
-    },
-    addReturnFlight (state, id) {
-      const flight = cloneDeep(state.flights[id])
-      const returnId = utils.createId(state.flights)
-      const { departure, arrival } = flight
-      flight.arrival = departure
-      flight.departure = arrival
-      state.flights = { ...state.flights, [returnId]: flight }
     },
     resetEstimate (state) {
       state.estimate = null
@@ -127,8 +113,24 @@ export default {
       const id = utils.createId(flights)
       return dispatch('create', { ...flights, [id]: flight })
     },
+    async addReturnFlight ({ dispatch, state: { flights } }, id) {
+      const flight = flights[id]
+      if (!flight) {
+        return
+      }
+      const returnFlight = cloneDeep(flights[id])
+      const returnId = utils.createId(flights)
+      const { departure, arrival } = returnFlight
+      Object.assign(returnFlight, { arrival: departure, departure: arrival })
+      return dispatch('create', { ...flights, [returnId]: returnFlight })
+    },
     async editFlight ({ dispatch, state: { flights } }, { id, flight }) {
       return dispatch('create', { ...flights, [id]: flight })
+    },
+    async removeFlight ({ dispatch, state: { flights } }, id) {
+      const filtered = { ...flights }
+      delete filtered[id]
+      return dispatch('create', filtered)
     }
   }
 }
