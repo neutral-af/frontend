@@ -26,9 +26,7 @@ export default {
     Card
   },
   computed: {
-    ...mapState('checkoutForm', {
-      complete: 'cardComplete'
-    }),
+    ...mapState('checkout', { complete: 'cardComplete' }),
     key () {
       return process.env.VUE_APP_STRIPE_PUBLIC_KEY
     },
@@ -75,7 +73,7 @@ export default {
   },
   methods: {
     onChange ({ complete }) {
-      this.$store.commit('checkoutForm/setCardComplete', complete)
+      this.$store.commit('checkout/setCardComplete', complete)
     }
   }
 }

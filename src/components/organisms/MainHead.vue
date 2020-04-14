@@ -80,7 +80,7 @@ export default {
   computed: {
     ...mapConstants(['FEEDBACK_EMAIL']),
     ...mapState(['isMobile']),
-    ...mapGetters('estimateForm', ['flightsCount'])
+    ...mapGetters('estimate', ['flightsCount'])
   },
   watch: {
     isMobile (value) {

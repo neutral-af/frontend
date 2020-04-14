@@ -24,7 +24,8 @@ import {
   faPlus,
   faTicketAlt,
   faTrash,
-  faUser
+  faUser,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faCircle,
@@ -63,4 +64,5 @@ export default () => {
   library.add(faCode)
   library.add(faChartBar)
   library.add(faCommentAlt)
+  library.add(faTimes)
 }

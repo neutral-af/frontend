@@ -15,7 +15,7 @@
       :to="{ name: 'checkout', query: this.$route.query }"
       size="lg"
       icon-left="credit-card"
-      :disabled="!hasEstimate"
+      :disabled="!estimate"
     >
       Go to Checkout
     </Button>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import Actions from '@/components/atoms/Actions'
 
@@ -31,6 +31,6 @@ export default {
   components: {
     Actions
   },
-  computed: mapGetters('estimate', ['hasEstimate'])
+  computed: mapState('estimate', ['estimate'])
 }
 </script>

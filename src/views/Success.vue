@@ -29,16 +29,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('estimate', ['carbon']),
+    ...mapState('estimate', ['estimate']),
     title () {
       return 'Success!'
     },
     formattedCarbon () {
-      return weight(this.carbon)
+      return weight(this.estimate.carbon)
     }
   },
   beforeDestroy () {
-    this.$store.commit('estimate/reset')
+    this.$store.commit('estimate/resetEstimate')
   }
 }
 </script>

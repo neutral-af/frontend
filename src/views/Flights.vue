@@ -39,8 +39,8 @@ export default {
     EstimateActions
   },
   computed: {
-    ...mapState('estimateForm', ['flights']),
-    ...mapGetters('estimateForm', ['flightsCount']),
+    ...mapState('estimate', ['flights']),
+    ...mapGetters('estimate', ['flightsCount']),
     title () {
       return 'Your flights'
     },

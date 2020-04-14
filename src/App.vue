@@ -2,6 +2,7 @@
   <div>
     <RouterView />
     <CookieNotice />
+    <Notifications />
   </div>
 </template>
 
@@ -10,6 +11,7 @@ import debounce from 'lodash/debounce'
 
 import { NAME, SEPARATOR } from '@/../constants'
 import CookieNotice from '@/components/molecules/CookieNotice'
+import Notifications from '@/components/organisms/Notifications'
 // import { trackEvent } from './honeycomb'
 
 export default {
@@ -17,7 +19,8 @@ export default {
     titleTemplate: `%s ${SEPARATOR} ${NAME}`
   },
   components: {
-    CookieNotice
+    CookieNotice,
+    Notifications
   },
   mounted () {
     this.onResize = debounce(this.setIsMobile, 25)

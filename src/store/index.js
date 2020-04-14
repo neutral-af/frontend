@@ -5,8 +5,8 @@ import createPersistedState from 'vuex-persistedstate'
 import { localeToCurrency } from '@/utils/converters'
 import { createSetMutations } from '@/utils/store'
 import estimate from '@/store/modules/estimate'
-import estimateForm from '@/store/modules/estimate-form'
-import checkoutForm from '@/store/modules/checkout-form'
+import checkout from '@/store/modules/checkout'
+import notifications from '@/store/modules/notifications'
 
 Vue.use(Vuex)
 
@@ -22,9 +22,9 @@ export default new Store({
     'userCurrency'
   ]),
   modules: {
-    checkoutForm,
-    estimateForm,
-    estimate
+    checkout,
+    estimate,
+    notifications
   },
   plugins: [
     createPersistedState({

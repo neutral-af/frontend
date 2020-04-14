@@ -66,7 +66,13 @@ export default {
     CurrencyField
   },
   computed: {
-    ...mapState('estimate', ['carbon', 'creating', 'price']),
+    ...mapState('estimate', ['creating', 'estimate']),
+    carbon () {
+      return this.estimate ? this.estimate.carbon : 0
+    },
+    price () {
+      return this.estimate ? this.estimate.price : 0
+    },
     currency () {
       return this.price ? this.price.currency : this.$store.state.userCurrency
     }

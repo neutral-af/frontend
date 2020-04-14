@@ -151,7 +151,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimateForm', ['addReturnFlight', 'removeFlight']),
+    ...mapMutations('estimate', ['addReturnFlight', 'removeFlight']),
     remove () {
       this.removeFlight(this.id)
     }

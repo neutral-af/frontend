@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { instance } from 'vue-stripe-elements-plus'
 
 import { trackEvent } from '@/honeycomb'
@@ -80,9 +80,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('checkoutForm', ['cardComplete', 'email', 'name', 'paying', 'saveCard']),
-    ...mapState('estimate', ['id', 'carbon', 'price', 'provider']),
-    ...mapGetters('estimate', ['hasEstimate']),
+    ...mapState('checkout', ['cardComplete', 'email', 'name', 'paying', 'saveCard']),
+    ...mapState('estimate', ['estimate']),
     envWarningShown () {
       return this.env !== 'prod'
     },
@@ -91,10 +90,10 @@ export default {
     },
     estimateForPayment () {
       return {
-        id: this.id,
-        carbon: this.carbon,
+        id: this.estimate.id,
+        carbon: this.estimate.carbon,
         options: {
-          provider: this.provider
+          provider: this.estimate.provider
         }
       }
     },
@@ -109,29 +108,20 @@ export default {
     }
   },
   created () {
-    if (!this.hasEstimate) {
+    if (!this.estimate) {
       this.$router.replace({ name: 'flights', query: this.$route.query })
     }
   },
   methods: {
-    ...mapMutations('checkoutForm', [
+    ...mapMutations('checkout', [
       'setName',
       'setEmail',
       'setSaveCard'
     ]),
-
-    showError (message = '') {
-      this.$toasted.show({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom'
-      })
-    },
-
+    ...mapActions('notifications', ['showNotification']),
     onCardMounted (element) {
       this.cardElement = element
     },
-
     async createPaymentMethod () {
       const { paymentMethod, error } = await instance.createPaymentMethod(
         'card',
@@ -163,7 +153,7 @@ export default {
       return payments.checkout({
         estimate: this.estimateForPayment,
         paymentMethod: paymentMethod.id,
-        currency: this.price.currency,
+        currency: this.estimate.price.currency,
         options: {
           saveCard: this.saveCard,
           ...customerID && { customerID }
@@ -243,7 +233,7 @@ export default {
           'app.estimateID': this.estimateID,
           errorMessage: message
         })
-        this.showError(message)
+        this.showNotification({ message })
         this.submitting = false
         if (process.env.NODE_ENV === 'development') {
           throw err
@@ -256,7 +246,8 @@ export default {
       if (data.customerID) {
         this.$cookies.set('custID', data.customerID)
       }
-      this.$store.commit('estimateForm/reset')
+      this.$store.commit('estimate/resetFlights')
+      this.$store.commit('checkout/reset')
       this.$router.push({ name: 'success' })
     }
   }

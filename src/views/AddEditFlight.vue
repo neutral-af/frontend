@@ -102,7 +102,8 @@
           size="lg"
           type="submit"
           icon-left="check"
-          :disabled="!valid"
+          :disabled="!valid || creating"
+          :loading="creating"
         >
           Confirm
         </Button>
@@ -112,7 +113,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState, mapMutations } from 'vuex'
+import { mapGetters, mapState, mapMutations, mapActions } from 'vuex'
 import { DateTime } from 'luxon'
 
 import { date as formatDate } from '@/utils/formatters'
@@ -139,15 +140,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('estimateForm', ['newFlight']),
-    ...mapGetters('estimateForm', ['flightsCount']),
+    ...mapState('estimate', {
+      creating: 'creating',
+      flight: 'formFlight',
+      flights: 'flights'
+    }),
+    ...mapGetters('estimate', ['flightsCount']),
     mode () {
       return this.id ? 'edit' : 'add'
-    },
-    flight () {
-      return this.mode === 'edit'
-        ? this.$store.getters['estimateForm/flightById'](this.id)
-        : this.newFlight
     },
     formattedDate () {
       return formatDate(this.flight.date)
@@ -169,34 +169,51 @@ export default {
     }
   },
   created () {
+    let flight
+    if (this.mode === 'edit') {
+      flight = this.$store.getters['estimate/flightById'](this.id)
+    }
+    this.createFormFlight(flight)
     if (!this.flight) {
       this.$router.replace({ name: 'flights', query: this.$route.query })
     }
   },
   methods: {
-    ...mapMutations('estimateForm', {
-      addFlight: 'addFlight',
-      resetNewFlight: 'resetNewFlight',
-      updateFlight: 'updateFlight',
-      updateNewFlight: 'updateNewFlight'
-    }),
+    ...mapMutations('estimate', [
+      'createFormFlight',
+      'updateFormFlight',
+      'resetFormFlight'
+    ]),
+    ...mapActions('notifications', ['showNotification']),
     update (key, value) {
       const data = { [key]: value }
-      if (this.mode === 'edit') {
-        this.updateFlight({ id: this.id, data })
-      } else {
-        this.updateNewFlight(data)
-      }
+      this.updateFormFlight(data)
     },
-    onSubmit () {
+    createId () {
+      const ids = Object.keys(this.flights)
+      return ids.length > 0 ? Math.max(...ids) + 1 : 1
+    },
+    async onSubmit () {
       if (!this.valid) {
         return
       }
-      if (this.mode === 'add') {
-        this.addFlight(this.flight)
-        this.resetNewFlight()
+      try {
+        if (this.mode === 'edit') {
+          const { id, flight } = this
+          await this.$store.dispatch('estimate/editFlight', { id, flight })
+        } else {
+          await this.$store.dispatch('estimate/addFlight', this.flight)
+        }
+        this.$router.push({ name: 'flights', query: this.$route.query })
+      } catch (err) {
+        if (err.response && err.response.errors && err.response.errors.length > 0) {
+          const [{ message }] = err.response.errors
+          this.showNotification({ message })
+        }
+        if (process.env.NODE_ENV === 'development') {
+          throw err
+        }
       }
-      this.$router.push({ name: 'flights', query: this.$route.query })
     }
   }
 }

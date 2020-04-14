@@ -50,9 +50,8 @@ export default {
   },
   computed: {
     ...mapState(['userCurrency']),
-    ...mapState('estimate', ['creating', 'step']),
-    ...mapState('estimateForm', ['flights']),
-    ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
+    ...mapState('estimate', ['flights', 'creating', 'flights']),
+    ...mapGetters('estimate', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
     },
@@ -63,8 +62,7 @@ export default {
   async created () {
     // await this.loadInitialFlights()
     this.unwatchers = [
-      this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
-      this.$watch('userCurrency', this.onUpdate.bind(this))
+      this.$watch('userCurrency', this.create.bind(this))
     ]
   },
   beforeDestroy () {
@@ -73,7 +71,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('estimateForm', ['loadFlights']),
+    ...mapActions('estimate', ['loadFlights']),
     async loadInitialFlights () {
       if (!this.initialFlights) {
         return
@@ -86,26 +84,6 @@ export default {
         console.log(err)
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
-    },
-    updateUrl () {
-      const query = {}
-      if (this.flightsByICAO.length > 0) {
-        query.flights = btoa(JSON.stringify(this.flightsByICAO))
-      }
-      this.$router.replace({ name: this.$route.name, query })
-    },
-    onUpdate () {
-      this.create()
-      this.updateUrl()
-    },
-    showError (message = '') {
-      this.$toasted.show(message
-        // message,
-        // type: 'is-danger',
-        // position: 'is-bottom',
-        // actionText: 'Retry',
-        // onAction: this.create.bind(this)
-      )
     },
     async create () {
       if (this.creating) {
@@ -121,7 +99,15 @@ export default {
       try {
         await this.$store.dispatch('estimate/create')
       } catch (err) {
-        this.showError('Ouch, there was an error while trying to get an estimate')
+        if (err.response && err.response.errors && err.response.errors.length > 0) {
+          const [{ message }] = err.response.errors
+          this.$toasted.show(message)
+          // message,
+          // type: 'is-danger',
+          // position: 'is-bottom',
+          // actionText: 'Retry',
+          // onAction: this.create.bind(this)
+        }
         if (process.env.NODE_ENV === 'development') {
           throw err
         }
