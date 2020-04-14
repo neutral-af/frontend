@@ -2,90 +2,63 @@
   <form
     novalidate
     autocomplete="off"
-    class="checkout-form"
+    class="max-w-md"
     @submit.prevent="onSubmit"
   >
-    <template v-if="saved">
+    <!-- <template v-if="saved">
       Use previously saved card?
       <CardField
+        id="card"
         hidden
-        label="Card details"
         @mounted="onCardMounted"
       />
-    </template>
-    <template v-else>
-      <Field
-        grouped
-        group-multiline
-        position="is-centered"
+    </template> -->
+    <!-- <template v-else> -->
+    <NameField
+      :value="name"
+      @update="setName"
+    />
+    <EmailField
+      :value="email"
+      @update="setEmail"
+    />
+    <CardField
+      id="card"
+      @mounted="onCardMounted"
+    />
+    <Message v-if="envWarningShown">
+      Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
+    </Message>
+    <!-- <Field id="save-card">
+      <Checkbox
+        id="save-card"
+        size="sm"
+        :checked="saveCard"
+        @change="setSaveCard"
       >
-        <NameField
-          :value="name"
-          @update="setName"
-        />
-        <EmailField
-          :value="email"
-          @update="setEmail"
-        />
-      </Field>
-      <CardField
-        label="Card details"
-        @mounted="onCardMounted"
-      />
-      <Field invert>
-        <BCheckbox
-          :value="saveCard"
-          @input="setSaveCard"
-        >
-          Please save my card to skip this process in the future.
-        </BCheckbox>
-      </Field>
-      <BNotification
-        v-if="envWarningShown"
-        type="is-warning"
-        :closable="false"
+        Save my card for future use
+      </Checkbox>
+    </Field> -->
+    <!-- </template> -->
+    <div class="pt-6">
+      <Button
+        type="submit"
+        size="lg"
+        icon-left="check"
+        :disabled="!payable"
+        :loading="paying"
       >
-        Environment is <strong>{{ env }}</strong>, do not use a real credit card number!
-      </BNotification>
-    </template>
-    <div class="has-text-centered">
-      <Field>
-        <RoundedButton
-          native-type="submit"
-          type="is-primary"
-          size="is-large"
-          outlined
-          inverted
-          icon-left="check"
-          :disabled="!payable"
-          :class="{ 'is-loading': paying }"
-        >
-          Pay now
-        </RoundedButton>
-      </Field>
-      <p class="field">
-        <small>
-          Payment will be processed securely by Stripe
-        </small>
+        Pay now
+      </Button>
+      <p class="mt-4 text-sm md:text-base">
+        Payment will be processed securely by Stripe
       </p>
-      <Field class="checkout-form-back">
-        <RoundedButton
-          tag="router-link"
-          :to="{ name: 'flights', query: this.$route.query }"
-          type="is-dark"
-          outlined
-          inverted
-          icon-left="arrow-left"
-        >
-          Back to Flights
-        </RoundedButton>
-      </Field>
     </div>
   </form>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 import CardField from '@/components/molecules/CardField'
 import EmailField from '@/components/molecules/EmailField'
@@ -99,27 +72,26 @@ export default {
   },
   data () {
     return {
-      cardElement: null,
-      submitting: false
+      cardElement: null
     }
   },
   computed: {
-    ...mapState('checkoutForm', [
-      'cardComplete',
-      'customerId',
-      'email',
-      'name',
-      'paying',
-      'paymentMethodId',
-      'saveCard'
-    ]),
-    ...mapState('estimate', ['id', 'carbon', 'price', 'provider']),
-    ...mapGetters('estimate', ['hasEstimate']),
+    ...mapState('checkout', ['cardComplete', 'customerId', 'email', 'name', 'paying', 'paymentMethodId', 'saveCard']),
+    ...mapState('estimate', ['estimate']),
     env () {
       return process.env.VUE_APP_ENV
     },
     envWarningShown () {
       return this.env !== 'prod'
+    },
+    estimateForPayment () {
+      return {
+        id: this.estimate.id,
+        carbon: this.estimate.carbon,
+        options: {
+          provider: this.estimate.provider
+        }
+      }
     },
     saved () {
       return this.paymentMethodId && this.customerId
@@ -132,50 +104,28 @@ export default {
     }
   },
   created () {
-    if (!this.hasEstimate) {
+    if (!this.estimate) {
       this.$router.replace({ name: 'flights', query: this.$route.query })
     }
   },
   methods: {
-    ...mapMutations('checkoutForm', [
+    ...mapMutations('checkout', [
       'setName',
       'setEmail',
       'setSaveCard'
     ]),
-    showError (message = '') {
-      this.$buefy.snackbar.open({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom'
-      })
-    },
-
+    ...mapActions('checkout', ['pay']),
+    ...mapActions('notifications', ['showNotification']),
     onCardMounted (element) {
       this.cardElement = element
     },
-
     async onSubmit () {
       if (!this.payable) {
         return
       }
-      try {
-        await this.$store.dispatch('checkoutForm/pay', this.cardElement.$refs.element._element)
-        this.$router.push({ name: 'success' })
-      } catch (err) {
-        this.showError(err)
-        if (process.env.NODE_ENV === 'development') {
-          throw err
-        }
-      }
+      await this.pay(this.cardElement.$refs.element._element)
+      this.$router.push({ name: 'success' })
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.checkout-form {
-  &-back {
-    padding-top: $size-6;
-  }
-}
-</style>

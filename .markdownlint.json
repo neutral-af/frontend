@@ -1,0 +1,9 @@
+{
+  "default": true,
+  "first-line-heading": false,
+  "line-length": false,
+  "no-trailing-punctuation": false,
+  "code-block-style": {
+    "style": "fenced"
+  }
+}

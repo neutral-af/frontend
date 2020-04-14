@@ -1,40 +1,42 @@
 <template>
-  <HeroSection class="is-dark estimate">
-    <MainNav slot="head" />
-    <EstimateSummary v-if="summaryShown" />
-    <EstimateBackground />
-    <div class="container estimate-view">
-      <h1 class="title estimate-title">
-        {{ title }}
-      </h1>
-      <RouterView />
+  <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col flex-grow">
+      <MainHead />
+      <EstimateSummary v-if="summaryShown" />
+      <RouterView class="container text-center" />
+      <div class="container text-center pt-6 pb-10">
+        <Button
+          v-if="$route.name !== 'flights'"
+          as="RouterLink"
+          :to="{ name: 'flights', query: this.$route.query }"
+          icon-left="arrow-left"
+        >
+          Back to Flights
+        </Button>
+      </div>
     </div>
-    <MainFoot slot="foot" />
-  </HeroSection>
+    <MainFoot compact />
+  </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 import { areValidFlights } from '@/utils/validators'
-import EstimateBackground from '@/components/atoms/EstimateBackground'
-import MainNav from '@/components/organisms/MainNav'
+import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
-import HeroSection from '@/components/organisms/HeroSection'
 import EstimateSummary from '@/components/organisms/EstimateSummary'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }
   },
   components: {
-    MainNav,
+    MainHead,
     MainFoot,
-    HeroSection,
-    EstimateSummary,
-    EstimateBackground
+    EstimateSummary
   },
   props: {
     initialFlights: {
@@ -48,9 +50,8 @@ export default {
   },
   computed: {
     ...mapState(['userCurrency']),
-    ...mapState('estimate', ['creating', 'step']),
-    ...mapState('estimateForm', ['flights']),
-    ...mapGetters('estimateForm', ['flightsCount', 'flightsByICAO']),
+    ...mapState('estimate', ['flights', 'creating', 'flights']),
+    ...mapGetters('estimate', ['flightsCount', 'flightsByICAO']),
     title () {
       return 'Estimate'
     },
@@ -59,12 +60,10 @@ export default {
     }
   },
   async created () {
-    await this.loadInitialFlights()
+    // await this.loadInitialFlights()
     this.unwatchers = [
-      this.$watch('flights', this.onUpdate.bind(this), { immediate: true }),
-      this.$watch('userCurrency', this.onUpdate.bind(this))
+      this.$watch('userCurrency', this.create.bind(this))
     ]
-    this.setInitialPage()
   },
   beforeDestroy () {
     if (this.unwatchers) {
@@ -72,7 +71,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('estimateForm', ['loadFlights']),
+    ...mapActions('estimate', ['loadFlights']),
     async loadInitialFlights () {
       if (!this.initialFlights) {
         return
@@ -85,31 +84,6 @@ export default {
         console.log(err)
         console.error(`Error when decoding or loading flight data from URL: ${err}`)
       }
-    },
-    setInitialPage () {
-      if (this.flightsCount === 0 && this.$route.matched.every(({ name }) => name !== 'add-flight')) {
-        this.$router.replace({ name: 'add-flight' })
-      }
-    },
-    updateUrl () {
-      const query = {}
-      if (this.flightsByICAO.length > 0) {
-        query.flights = btoa(JSON.stringify(this.flightsByICAO))
-      }
-      this.$router.replace({ name: this.$route.name, query })
-    },
-    onUpdate () {
-      this.create()
-      this.updateUrl()
-    },
-    showError (message = '') {
-      this.$buefy.snackbar.open({
-        message,
-        type: 'is-danger',
-        position: 'is-bottom',
-        actionText: 'Retry',
-        onAction: this.create.bind(this)
-      })
     },
     async create () {
       if (this.creating) {
@@ -125,7 +99,15 @@ export default {
       try {
         await this.$store.dispatch('estimate/create')
       } catch (err) {
-        this.showError('Ouch, there was an error while trying to get an estimate')
+        if (err.response && err.response.errors && err.response.errors.length > 0) {
+          const [{ message }] = err.response.errors
+          this.$toasted.show(message)
+          // message,
+          // type: 'is-danger',
+          // position: 'is-bottom',
+          // actionText: 'Retry',
+          // onAction: this.create.bind(this)
+        }
         if (process.env.NODE_ENV === 'development') {
           throw err
         }
@@ -134,17 +116,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.estimate {
-  &-view {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &-title {
-    @extend %sr-only;
-  }
-}
-</style>

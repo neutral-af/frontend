@@ -1,103 +1,110 @@
 <template>
-  <div class="level is-mobile estimate-flight">
+  <div class="flex md:text-lg lg:text-xl justify-center items-center">
     <template v-if="type === 'locations'">
-      <BTooltip
-        class="level-item"
-        label="Departure"
-        type="is-light"
+      <span
+        title="Departure"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="plane-departure"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ formattedDeparture }}
-      </BTooltip>
-      <BTooltip
-        class="level-item"
-        label="Arrival"
-        type="is-light"
+      </span>
+      <span
+        title="Arrival"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="plane-arrival"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ formattedArrival }}
-      </BTooltip>
+      </span>
     </template>
-    <template v-else>
-      <BTooltip
-        class="level-item"
-        label="Flight number"
-        type="is-light"
+    <template v-if="type === 'number'">
+      <span
+        title="Flight Number"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="ticket-alt"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ flightNumber }}
-      </BTooltip>
-      <BTooltip
-        class="level-item"
-        label="Date"
-        type="is-light"
+      </span>
+      <span
+        title="Date"
+        class="p-2"
       >
-        <BIcon
+        <Icon
           icon="calendar-alt"
-          size="is-small"
+          size="xs"
+          class="mr-1"
         />
-        &nbsp;
         {{ formattedDate }}
-      </BTooltip>
+      </span>
     </template>
-    <BTooltip
-      class="level-item"
-      label="Passengers"
-      type="is-light"
+    <span
+      title="Passengers"
+      class="p-2"
     >
-      <BIcon
+      <Icon
         icon="user"
-        size="is-small"
+        size="xs"
+        class="mr-1"
       />
-      &nbsp;
       {{ passengers }}
-    </BTooltip>
-    <div class="level-item">
-      <RoundedButton
-        tag="router-link"
+    </span>
+    <ButtonGroup class="ml-2">
+      <Button
+        as="RouterLink"
         :to="{
           name: 'edit-flight',
           params: { id },
           query: this.$route.query
         }"
-        type="is-dark"
-        outlined
-        inverted
+        size="sm"
         title="Edit"
-        icon-right="pen"
-      />
-    &nbsp;
-      <RoundedButton
+        icon-left="pen"
+      >
+        Edit
+      </Button>
+      <Button
+        title="Add Return Flight"
+        icon-left="exchange-alt"
+        size="sm"
+        :style="{ borderRadius: 'none' }"
+        @click="addReturnFlight(id)"
+      >
+        Add return
+      </Button>
+      <Button
         v-if="removable"
-        type="is-dark"
-        outlined
-        inverted
+        size="sm"
         title="Remove"
-        icon-right="trash"
-        @click="remove"
-      />
-    </div>
+        icon-left="trash"
+        @click="onRemove"
+      >
+        Remove
+      </Button>
+    </ButtonGroup>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
+import ButtonGroup from '@/components/organisms/ButtonGroup'
 import { airport as formatAirport, date as formatDate } from '@/utils/formatters'
 
 export default {
+  components: {
+    ButtonGroup
+  },
   props: {
     id: {
       type: String,
@@ -144,8 +151,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('estimateForm', ['removeFlight']),
-    remove () {
+    ...mapActions('estimate', ['addReturnFlight', 'removeFlight']),
+    onAddReturnFlight () {
+      this.addReturnFlight(this.id)
+    },
+    onRemove () {
       this.removeFlight(this.id)
     }
   }

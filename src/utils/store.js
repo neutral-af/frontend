@@ -9,3 +9,8 @@ export const createSetMutations = properties => properties.reduce((mutations, pr
   mutations[name] = createSetMutation(property)
   return mutations
 }, {})
+
+export const createId = (list) => {
+  const ids = Object.keys(list)
+  return ids.length > 0 ? Math.max(...ids) + 1 : 1
+}

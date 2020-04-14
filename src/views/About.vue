@@ -1,57 +1,41 @@
 <template>
-  <HeroSection class="is-primary is-bold">
-    <MainNav slot="head" />
-    <div class="columns is-centered">
-      <div class="column is-10-tablet is-9-desktop is-8-widescreen">
-        <div class="content is-medium is-inverted">
-          <h1 class="title is-1 is-family-secondary">
-            {{ title }}
-          </h1>
-          <VueMarkdown>
-            {{ text }}
-          </VueMarkdown>
-        </div>
-        <div class="has-text-centered">
-          <RoundedButton
-            type="is-primary"
-            size="is-medium"
-            tag="router-link"
-            outlined
-            inverted
-            :to="{ name: 'privacy' }"
-          >
-            Privacy Policy
-          </RoundedButton>
-        </div>
-      </div>
+  <div>
+    <MainHead />
+    <div class="container pb-4 sm:pb-6 sm:max-w-xl md:max-w-2xl lg:max-w-3xl">
+      <Title
+        as="h1"
+        size="lg"
+        class="font-brand"
+      >
+        {{ title }}
+      </Title>
+      <Content>
+        {{ text }}
+      </Content>
     </div>
-    <MainFoot slot="foot" />
-  </HeroSection>
+    <MainFoot />
+  </div>
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown'
 import text from 'raw-loader!../content/about.md' //eslint-disable-line
 
-import HeroSection from '@/components/organisms/HeroSection'
-import MainNav from '@/components/organisms/MainNav'
+import MainHead from '@/components/organisms/MainHead'
 import MainFoot from '@/components/organisms/MainFoot'
 
 export default {
-  metaInfo () {
+  head () {
     return {
       title: this.title
     }
   },
   components: {
-    HeroSection,
-    MainNav,
-    MainFoot,
-    VueMarkdown
+    MainHead,
+    MainFoot
   },
   computed: {
     title () {
-      return 'About us'
+      return 'About us and FAQ'
     },
     text () {
       return text

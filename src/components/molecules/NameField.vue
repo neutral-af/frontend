@@ -1,13 +1,12 @@
 <template>
   <Field
+    id="name"
     label="Cardholder Name"
-    label-for="name"
-    class="name-field"
-    invert
+    label-icon-left="user"
   >
-    <BInput
+    <Input
+      id="name"
       name="name"
-      size="is-medium"
       placeholder="Your Cardholder Name"
       :value="value"
       required

@@ -1,14 +1,39 @@
 <template>
-  <RouterView />
+  <div>
+    <RouterView />
+    <CookieNotice />
+    <Notifications />
+  </div>
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
+
 import { NAME, SEPARATOR } from '@/../constants'
+import CookieNotice from '@/components/molecules/CookieNotice'
+import Notifications from '@/components/organisms/Notifications'
 // import { trackEvent } from './honeycomb'
 
 export default {
-  metaInfo: {
+  head: {
     titleTemplate: `%s ${SEPARATOR} ${NAME}`
+  },
+  components: {
+    CookieNotice,
+    Notifications
+  },
+  mounted () {
+    this.onResize = debounce(this.setIsMobile, 25)
+    window.addEventListener('resize', this.onResize)
+    this.setIsMobile()
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResize)
+  },
+  methods: {
+    setIsMobile () {
+      this.$store.commit('setIsMobile', window.innerWidth < 640)
+    }
   }
 // data () {
 //   return {

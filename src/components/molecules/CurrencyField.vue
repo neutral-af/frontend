@@ -1,44 +1,47 @@
 <template>
   <Field
-    class="currency-field"
-    title="Update currency"
-    invert
+    id="currency"
+    label="Update currency"
+    label-class="sr-only"
   >
-    <BSelect
+    <Select
+      id="currency"
       name="currency"
       placeholder="Select a currency"
+      size="sm"
       :value="currency"
       :loading="updating"
       :disabled="updating"
-      size="is-small"
-      @input="update"
+      @change="onChange"
     >
       <option
-        v-for="currency in currencies"
+        v-for="currency in CURRENCIES"
         :key="currency"
         :value="currency"
       >
         {{ currency }}
       </option>
-    </BSelect>
+    </Select>
   </Field>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
+import { mapConstants } from '@/utils'
+
 export default {
   data () {
     return {
-      currencies: ['EUR', 'CAD', 'GBP', 'USD'],
       updating: false
     }
   },
-  computed: mapState({
-    currency: 'userCurrency'
-  }),
+  computed: {
+    ...mapState({ currency: 'userCurrency' }),
+    ...mapConstants(['CURRENCIES'])
+  },
   methods: {
-    async update (value) {
+    async onChange (value) {
       if (this.updating) {
         return
       }
@@ -49,17 +52,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.currency-field {
-  .select {
-    select:not([multiple]) {
-      padding-right: 1em;
-    }
-
-    &:not(.is-multiple):not(.is-loading)::after {
-      right: .5em;
-    }
-  }
-}
-</style>

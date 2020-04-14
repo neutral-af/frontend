@@ -9,19 +9,21 @@ const duplicateByPassengers = (flights, flight) => {
   return flights
 }
 
-const restrictByType = ({ arrival, date, departure, flightNumber, type }) => {
-  if (type === 'locations') {
-    return { departure: departure.ICAO, arrival: arrival.ICAO }
-  }
-  return { flightNumber, date }
+const restrictByType = ({ arrival, date, departure, flightNumber, type }) => (
+  type === 'locations'
+    ? { departure: departure.ICAO, arrival: arrival.ICAO }
+    : { flightNumber, date }
+)
+
+const prepareFlights = flights => {
+  const flgts = Object.values(flights)
+  return flgts
+    .filter(isValidFlight)
+    .reduce(duplicateByPassengers, flgts)
+    .map(restrictByType)
 }
 
-const prepareFlights = flights => flights
-  .filter(isValidFlight)
-  .reduce(duplicateByPassengers, flights)
-  .map(restrictByType)
-
-export const create = async ({ flights, currency }) => {
+export const create = async ({ currency, flights }) => {
   const query = `
     query newEstimate($flights: [Flight!]!, $currency: Currency) {
       estimate {
@@ -39,7 +41,7 @@ export const create = async ({ flights, currency }) => {
       }
     }
   `
-  return request(query, { currency, flights: prepareFlights(Object.values(flights)) })
+  return request(query, { currency, flights: prepareFlights(flights) })
 }
 
 export const update = async ({ id, provider, currency }) => {

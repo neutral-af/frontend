@@ -1,10 +1,10 @@
 import request from './request'
 
-export const checkout = async ({ estimate, paymentMethod, amount, currency, options }) => {
+export const checkout = async ({ estimate, paymentMethod, currency, options }) => {
   const query = `
-    mutation newCheckout($estimate: EstimateIn!, $paymentMethod: String!, $amount: Int!, $currency: Currency!, $options: PaymentOptions) {
+    mutation newCheckout($estimate: EstimateIn!, $paymentMethod: String!, $currency: Currency!, $options: PaymentOptions) {
       payment {
-        checkout(estimate:$estimate, paymentMethod:$paymentMethod, amount:$amount, currency:$currency, options:$options) {
+        checkout(estimate:$estimate, paymentMethod:$paymentMethod, currency:$currency, options:$options) {
           success
           requiresAction
           paymentIntentClientSecret
@@ -13,7 +13,7 @@ export const checkout = async ({ estimate, paymentMethod, amount, currency, opti
       }
     }
   `
-  const response = await request(query, { estimate, paymentMethod, amount, currency, options })
+  const response = await request(query, { estimate, paymentMethod, currency, options })
   return response.payment.checkout
 }
 

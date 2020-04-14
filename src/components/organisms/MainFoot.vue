@@ -1,75 +1,79 @@
 <template>
-  <footer class="footer main-foot">
-    <CookieNotice />
-    <RouterLink
-      :to="{ name: 'home' }"
-      class="is-family-secondary is-size-5"
-    >
-      {{ NAME }}
-    </RouterLink>
-    <nav class="main-foot-nav">
-      <RouterLink :to="{ name: 'privacy' }">
-        Privacy policy
-      </RouterLink>
-      <a
-        href="https://www.github.com/neutral-af"
-        target="_blank"
-        rel="noopener"
-      >
-        Source code
-      </a>
-      <a
-        href="https://simpleanalytics.com/neutral.af"
-        target="_blank"
-        rel="noopener"
-      >
-        Analytics
-      </a>
-
-      <FeedbackLink />
-    </nav>
+  <footer
+    class="relative overflow-hidden text-white bg-primary-700 text-sm text-center flex items-center justify-center px-4 sm:text-base main-foot"
+    :class="{
+      'py-10': !compact,
+      'py-4': compact
+    }"
+  >
+    <BackgroundPicture
+      class="bottom-0 top-auto h-screen opacity-75"
+      :animated="false"
+    />
+    <div class="z-10 sm:flex sm:items-center sm:justify-center ">
+      <BrandLink class="block mr-4 text-2xl sm:text-3xl" />
+      <nav class="flex">
+        <FootLink
+          icon="fist-raised"
+          as="RouterLink"
+          :to="{ name: 'privacy' }"
+        >
+          Privacy policy
+        </FootLink>
+        <FootLink
+          icon="code"
+          href="https://www.github.com/neutral-af"
+          target="_blank"
+          rel="noopener"
+        >
+          Source code
+        </FootLink>
+        <FootLink
+          :icon="['far', 'chart-bar']"
+          href="https://simpleanalytics.com/neutral.af"
+          target="_blank"
+          rel="noopener"
+        >
+          Analytics
+        </FootLink>
+        <FootLink
+          :icon="['far', 'comment-alt']"
+          :href="`mailto:${FEEDBACK_EMAIL}`"
+          rel="noopener"
+        >
+          Feedback
+        </FootLink>
+      </nav>
+    </div>
   </footer>
 </template>
 
 <script>
 import { mapConstants } from '@/utils'
-import CookieNotice from '@/components/molecules/CookieNotice'
+import BrandLink from '@/components/atoms/BrandLink'
+import BackgroundPicture from '@/components/organisms/BackgroundPicture'
+import FootLink from '@/components/molecules/FootLink'
 
 export default {
   components: {
-    CookieNotice
+    BrandLink,
+    BackgroundPicture,
+    FootLink
+  },
+  props: {
+    compact: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
-    ...mapConstants(['NAME'])
+    ...mapConstants(['FEEDBACK_EMAIL'])
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .main-foot {
-  font-size: $small-font-size;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  > :first-child {
-    margin-right: $size-6;
-  }
-
-  a {
-    color: inherit;
-  }
-
-  &-nav {
-    a {
-      &::after {
-        content: '·'
-      }
-
-      &:last-child::after {
-        content: ''
-      }
-    }
-  }
+  background: linear-gradient(141deg, theme('colors.green.900'), theme('colors.teal.500') 70%, theme('colors.teal.300'));
 }
 </style>

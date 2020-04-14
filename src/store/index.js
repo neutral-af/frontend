@@ -1,30 +1,35 @@
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
 import { localeToCurrency } from '@/utils/converters'
 import { createSetMutations } from '@/utils/store'
 import estimate from '@/store/modules/estimate'
-import estimateForm from '@/store/modules/estimate-form'
-import checkoutForm from '@/store/modules/checkout-form'
+import checkout from '@/store/modules/checkout'
+import notifications from '@/store/modules/notifications'
 
 Vue.use(Vuex)
 
 const strict = process.env.NODE_ENV !== 'production'
-// const persistedState = createPersistedState({
-//   reducer: ({ estimate }) => estimate
-// })
 
 export default new Store({
   state: () => ({
+    isMobile: false,
     userCurrency: localeToCurrency(window.navigator.language)
   }),
-  mutations: createSetMutations(['userCurrency']),
+  mutations: createSetMutations([
+    'isMobile',
+    'userCurrency'
+  ]),
   modules: {
-    checkoutForm,
-    estimateForm,
-    estimate
+    checkout,
+    estimate,
+    notifications
   },
-  // plugins: [persistedState],
+  plugins: [
+    createPersistedState({
+      paths: ['userCurrency']
+    })
+  ],
   strict: strict
 })
