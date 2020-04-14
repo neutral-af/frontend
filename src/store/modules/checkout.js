@@ -50,7 +50,6 @@ export default {
       }
       return paymentMethod
     },
-
     async getOptions ({ dispatch, state: { customerId, paymentMethodId } }, cardElement) {
       if (paymentMethodId && customerId) {
         return { paymentMethod: { id: paymentMethodId }, customerId }
@@ -60,19 +59,14 @@ export default {
     },
 
     async handleCardAction (context, paymentIntentClientSecret) {
-      const { paymentIntent, error } = await instance
-        .handleCardAction(paymentIntentClientSecret)
+      const { paymentIntent, error } = await instance.handleCardAction(paymentIntentClientSecret)
       if (error) {
         throw error
       }
       return paymentIntent
     },
 
-    async onCheckoutResponse ({
-      dispatch,
-      state: { saveCard },
-      rootState: { estimate }
-    }, data) {
+    async onCheckoutResponse ({ dispatch, state: { saveCard }, rootState: { estimate: { estimate } } }, data) {
       if (data.success) {
         return { customerID: data.customerID }
       }
@@ -82,18 +76,30 @@ export default {
           estimate: {
             id: estimate.id,
             carbon: estimate.carbon,
-            options: { provider: this.provider }
+            options: { provider: estimate.provider }
           },
           paymentIntent: paymentIntent.id,
-          saveCard: this.saveCard
+          saveCard
         })
         return dispatch('onCheckoutResponse', confirm)
       }
       throw new Error('undefined state in handling server response')
     },
 
+    async handleError ({ dispatch, rootState: { estimate: { estimate } } }, err) {
+      const message = err.message || err
+      trackEvent('paymentsFrontendError', {
+        'app.estimateID': estimate.id,
+        errorMessage: message
+      })
+      dispatch('showNotification', { message }, { root: true })
+      if (process.env.NODE_ENV === 'development') {
+        throw err
+      }
+    },
+
     async pay ({ commit, dispatch, state: { saveCard }, rootState: { estimate: { estimate } } }, cardElement) {
-      trackEvent('paymentStarted', { 'app.estimateID': estimate.id }) //
+      trackEvent('paymentStarted', { 'app.estimateID': estimate.id })
       commit('setPaying', true)
       try {
         const { paymentMethod, customerId } = await dispatch('getOptions', cardElement)
@@ -102,7 +108,7 @@ export default {
           estimate: {
             id: estimate.id,
             carbon: estimate.carbon,
-            options: { provider: this.provider }
+            options: { provider: estimate.provider }
           },
           paymentMethod: paymentMethod.id,
           amount: estimate.price.cents,
@@ -120,13 +126,8 @@ export default {
         }
         commit('setPaying', false)
       } catch (err) {
-        const message = err.message || err
-        trackEvent('paymentsFrontendError', {
-          'app.estimateID': this.estimateID,
-          errorMessage: message
-        })
         commit('setPaying', false)
-        throw message
+        return dispatch('handleError', err)
       }
     }
   }
