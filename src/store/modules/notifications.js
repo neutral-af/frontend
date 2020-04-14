@@ -21,17 +21,20 @@ export default {
     }
   },
   actions: {
-    showNotification ({ commit, state }, data) {
-      const id = createId(state.notifications)
-      const notification = createNotification(data)
-      const notifications = { ...state.notifications, [id]: notification }
-      commit('setNotifications', notifications)
-      if (notification.autoclose !== false) {
-        setTimeout(() => {
-          commit('removeNotification', id)
-        }, notification.autoclose)
+    showNotification: {
+      root: true,
+      handler ({ commit, state }, data) {
+        const id = createId(state.notifications)
+        const notification = createNotification(data)
+        const notifications = { ...state.notifications, [id]: notification }
+        commit('setNotifications', notifications)
+        if (notification.autoclose !== false) {
+          setTimeout(() => {
+            commit('removeNotification', id)
+          }, notification.autoclose)
+        }
+        return id
       }
-      return id
     }
   }
 }

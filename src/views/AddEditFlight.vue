@@ -185,7 +185,6 @@ export default {
       'resetFormFlight'
     ]),
     ...mapActions('estimate', ['addFlight', 'editFlight']),
-    ...mapActions('notifications', ['showNotification']),
     update (key, value) {
       const data = { [key]: value }
       this.updateFormFlight(data)
@@ -198,23 +197,13 @@ export default {
       if (!this.valid) {
         return
       }
-      try {
-        if (this.mode === 'edit') {
-          const { id, flight } = this
-          await this.editFlight({ id, flight })
-        } else {
-          await this.addFlight(this.flight)
-        }
-        this.$router.push({ name: 'flights', query: this.$route.query })
-      } catch (err) {
-        if (err.response && err.response.errors && err.response.errors.length > 0) {
-          const [{ message }] = err.response.errors
-          this.showNotification({ message })
-        }
-        if (process.env.NODE_ENV === 'development') {
-          throw err
-        }
+      if (this.mode === 'edit') {
+        const { id, flight } = this
+        await this.editFlight({ id, flight })
+      } else {
+        await this.addFlight(this.flight)
       }
+      this.$router.push({ name: 'flights', query: this.$route.query })
     }
   }
 }

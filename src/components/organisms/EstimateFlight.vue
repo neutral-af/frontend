@@ -152,32 +152,11 @@ export default {
   },
   methods: {
     ...mapActions('estimate', ['addReturnFlight', 'removeFlight']),
-    ...mapActions('notifications', ['showNotification']),
-    async onAddReturnFlight () {
-      try {
-        await this.addReturnFlight(this.id)
-      } catch (err) {
-        if (err.response && err.response.errors && err.response.errors.length > 0) {
-          const [{ message }] = err.response.errors
-          this.showNotification({ message })
-        }
-        if (process.env.NODE_ENV === 'development') {
-          throw err
-        }
-      }
+    onAddReturnFlight () {
+      this.addReturnFlight(this.id)
     },
-    async onRemove () {
-      try {
-        await this.removeFlight(this.id)
-      } catch (err) {
-        if (err.response && err.response.errors && err.response.errors.length > 0) {
-          const [{ message }] = err.response.errors
-          this.showNotification({ message })
-        }
-        if (process.env.NODE_ENV === 'development') {
-          throw err
-        }
-      }
+    onRemove () {
+      this.removeFlight(this.id)
     }
   }
 }

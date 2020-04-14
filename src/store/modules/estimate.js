@@ -83,30 +83,43 @@ export default {
 
       commit('setFlights', flights)
     },
-    async create ({ commit, rootState: { userCurrency: currency } }, flights) {
-      // TODO: add cancellation of request here
-      commit('setCreating', true)
-      try {
-        const data = await create({ currency, flights })
-        commit('setEstimate', data.estimate.fromFlights)
-        commit('setFlights', flights)
-        commit('setCreating', false)
-      } catch (err) {
-        commit('setCreating', false)
+    async handleError ({ dispatch }, err) {
+      if (err.response && err.response.errors && err.response.errors.length > 0) {
+        const [{ message }] = err.response.errors
+        dispatch('showNotification', { message }, { root: true })
+      }
+      if (process.env.NODE_ENV === 'development') {
         throw err
       }
     },
-    async update ({ commit, state: { estimate }, rootState: { userCurrency: currency } }, flights) {
+    async create ({ commit, dispatch, rootState: { userCurrency: currency } }, flights) {
+      // TODO: add cancellation of request here
+      commit('setCreating', true)
+      try {
+        const { estimate: { fromFlights } } = await create({ currency, flights })
+        commit('setEstimate', fromFlights)
+        commit('setFlights', flights)
+        commit('setCreating', false)
+      } catch (err) {
+        commit('setCreating', false)
+        return dispatch('handleError', err)
+      }
+    },
+    async update ({ commit, dispatch, state: { estimate }, rootState: { userCurrency: currency } }, flights) {
       // TODO: add cancellation of request here
       commit('setUpdating', true)
       try {
-        const data = await update({ id: estimate.id, provider: estimate.provider, currency })
-        commit('setEstimate', data.estimate.fromID)
+        const { estimate: { fromID } } = await update({
+          currency,
+          id: estimate.id,
+          provider: estimate.provider
+        })
+        commit('setEstimate', fromID)
         commit('setFlights', flights)
         commit('setUpdating', false)
       } catch (err) {
         commit('setUpdating', false)
-        throw err
+        return dispatch('handleError', err)
       }
     },
     async addFlight ({ dispatch, state: { flights } }, flight) {
