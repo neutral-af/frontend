@@ -22,7 +22,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "animated-number-vue": "^1.0.0",
     "buefy": "^0.8.2",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "core-js": "^2.6.5",
     "graphql-request": "^1.8.2",
     "lodash": "^4.17.19",
